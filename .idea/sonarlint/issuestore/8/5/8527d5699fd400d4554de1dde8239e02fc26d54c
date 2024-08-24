@@ -1,0 +1,29 @@
+
+C
+java:S16041"(Make this anonymous inner class a lambda(…æ©âÿÿÿÿÿ
+>
+java:S16048"(Make this anonymous inner class a lambda(ÿóÎ×
+D
+java:S1604‘"(Make this anonymous inner class a lambda(¨í¡§úÿÿÿÿ
+t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ä¸…Ğúÿÿÿÿ
+n	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ûœr
+n
+java:S1450¡"WRemove the "jButton1" field and declare it as a local variable in the relevant methods.(å……¶
+n
+java:S1450¢"WRemove the "jButton2" field and declare it as a local variable in the relevant methods.(¤½ÃÜ
+r
+java:S1450£"VRemove the "jLabel1" field and declare it as a local variable in the relevant methods.(°ãÉ¸ÿÿÿÿÿ
+r
+java:S1450¤"VRemove the "jPanel1" field and declare it as a local variable in the relevant methods.(´œ½ÿÿÿÿÿ
+E
+java:S1172d"*Remove this unused method parameter "evt".(¹¾ûüÿÿÿÿ
+@
+java:S1172j"*Remove this unused method parameter "evt".(‚À‡ä
+E
+java:S1197x"*Move the array designators [] to the type.(¡şÏÖøÿÿÿÿ
+\
+java:S2147‡"ECombine this catch with the one at line 133, which has the same body.(¨¦Š½
+\
+java:S2147‰"ECombine this catch with the one at line 135, which has the same body.(ã€ 
+[
+java:S2147‹"ECombine this catch with the one at line 137, which has the same body.(ñÎ¯%

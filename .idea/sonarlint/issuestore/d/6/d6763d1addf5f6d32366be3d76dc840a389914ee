@@ -1,0 +1,70 @@
+
+k
+java:S3740\"/Provide the parametrized type for this generic.(ÏÉ“ÉJ$6b068f04-9739-46dc-88e1-f813b50233ce
+r
+java:S3740~"/Provide the parametrized type for this generic.(ÏÉ“É8˜´¤˜2J$bc2c2e37-7a34-492d-8e84-0b319c541e93
+s
+java:S3740œ"/Provide the parametrized type for this generic.(ÏÉ“É8˜´¤˜2J$41c9a25a-3221-4234-87e1-70107ee251b8
+s
+java:S3740º"/Provide the parametrized type for this generic.(ÏÉ“É8˜´¤˜2J$bf93f4a5-302b-4d64-beff-5082a10ff5ac
+s
+java:S3740×"/Provide the parametrized type for this generic.(ÏÉ“É8˜´¤˜2J$5c968643-d40b-477a-9511-184432d329be
+s
+java:S3740õ"/Provide the parametrized type for this generic.(ÏÉ“É8˜´¤˜2J$9ae30256-e66e-4f4f-b25b-97ab756f1035
+s
+java:S3740’"/Provide the parametrized type for this generic.(ÏÉ“É8˜´¤˜2J$29b87129-5143-4b4b-a058-3fe28757dc29
+s
+java:S3740¯"/Provide the parametrized type for this generic.(ÏÉ“É8˜´¤˜2J$26264c19-9d08-4ab4-8901-e6c25b4704a3
+s
+java:S3740Î"/Provide the parametrized type for this generic.(ÏÉ“É8˜´¤˜2J$fcc75132-87b3-48b3-8897-e41c0d8370df
+•	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È‡§ˆûÿÿÿÿ8ñÎ¤˜2J$fc7c57eb-86d7-4844-86d4-f512d7de1216
+•	java:S100&"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤š‚Óüÿÿÿÿ8ôÎ¤˜2J$d53780db-2969-4d33-9d8c-3499b6c2a880
+m	java:S1060"+Replace this use of System.out by a logger.(Ìí·Ü8®´¤˜2J$adc65300-aa6f-4da5-aa06-22a917fb3e8c
+m	java:S1064"+Replace this use of System.out by a logger.(»ñ¬å8®´¤˜2J$52513de0-2b24-47fa-87ac-074c3e9d5cf2
+	java:S100>"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µÇÇÄ8öÎ¤˜2J$4149d283-361b-470d-b400-77951fb1c004
+m	java:S106K"+Replace this use of System.out by a logger.(Ìí·Ü8¯´¤˜2J$c1873925-699c-4902-8f1f-8071078e710c
+m	java:S106P"+Replace this use of System.out by a logger.(»ñ¬å8¯´¤˜2J$77d4d545-07db-4d84-a886-960934f40fa9
+i
+java:S1874\"-Remove this use of "Query"; it is deprecated.(ÏÉ“ÉJ$013231e3-83c2-459a-ac60-248cfd8cbd18
+r	java:S106j"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8±´¤˜2J$bf3a2f6f-4a77-4c74-aaf7-19418302a845
+	java:S100z"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€À¯‚8úÎ¤˜2J$a7b4aa6f-691f-4eb2-9fd8-426f0369d6f9
+p
+java:S1874~"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8²´¤˜2J$c7a13ee6-c5b0-4599-a172-bfa87e054c1e
+s	java:S106"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8³´¤˜2J$07f61ffa-50d4-4af2-8451-705e76540bcf
+‘	java:S100™"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éèúĞ8ıÎ¤˜2J$014658e7-a265-4e6f-9a38-3b9982f883ad
+q
+java:S1874œ"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8³´¤˜2J$f326595f-c4ba-4218-9343-7a3f74facd7a
+z
+java:S1874£"1Remove this use of "setString"; it is deprecated.(µ¨²·ÿÿÿÿÿ8´´¤˜2J$26e8ad97-8f70-4f8e-b0f6-4f19e53e0832
+	java:S125¤"<This block of commented-out lines of code should be removed.(“®Ô‘8´´¤˜2J$82c4b018-5cf6-41a4-87d8-50c0864a5951
+s	java:S106«"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8µ´¤˜2J$50234ade-4000-4f68-a19e-1ca1d0cd863f
+	java:S100¶"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£áç=8ÿÎ¤˜2J$b098ac63-dc19-4b82-bdda-bd7509bfbd0d
+q
+java:S1874º"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8µ´¤˜2J$fbc84ae2-97bd-4510-a3bf-55566965e2f3
+z
+java:S1874Á"1Remove this use of "setString"; it is deprecated.(ŸÙùúıÿÿÿÿ8µ´¤˜2J$cda93d21-3dc6-44b8-bcd8-d28b75a4952e
+	java:S125Â"<This block of commented-out lines of code should be removed.(“®Ô‘8µ´¤˜2J$bf1eed61-5c24-4de5-a558-4ee34cd57de7
+s	java:S106É"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8·´¤˜2J$23ab421a-2223-40d8-b3bf-6029a3069efe
+‘	java:S100Ó"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÊĞıõ8ƒÏ¤˜2J$d937be47-4114-4ad9-b147-b8adf4cd1b17
+q
+java:S1874×"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8·´¤˜2J$c146672e-1ab6-44c1-870c-77dedeb14203
+s	java:S106å"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8¸´¤˜2J$7cd3a319-b724-4c84-97f3-a773a3f27350
+–	java:S100ñ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ì¬äøÿÿÿÿ8†Ï¤˜2J$6d9dd083-379a-4674-a03e-7942d2338d93
+q
+java:S1874õ"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8¹´¤˜2J$0ad50096-642a-40de-9549-34204c3de1c9
+s	java:S106ƒ"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8¹´¤˜2J$118dc687-f223-4ea5-b952-17b98bb95acc
+‘	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾ç8ˆÏ¤˜2J$786395e9-8e52-48d9-95eb-d4e48b7da1bf
+q
+java:S1874’"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8º´¤˜2J$1d585147-6fd6-4faa-a4c4-732bded38d98
+s	java:S106 "+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8»´¤˜2J$d38b1e9a-359e-437c-a0ec-0bf1b2cefd0b
+–	java:S100«"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š‚ı©şÿÿÿÿ8‰Ï¤˜2J$e2641bd2-5f1b-404b-aebf-b6eb3b175347
+q
+java:S1874¯"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8»´¤˜2J$8072a49b-9dc4-44eb-8e1c-85c5a998659a
+s	java:S106¾"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8¼´¤˜2J$248c5277-4706-4c41-b6e6-c295af431a9b
+	java:S100Ê"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïá½
+8‹Ï¤˜2J$446265d5-560f-4a62-bab2-1823e6f3c608
+h
+java:S1481Ì"+Remove this unused "pessoa" local variable.(ä×³­J$e79f5520-ecdc-4c72-8fbe-b255f5fae20d
+q
+java:S1874Î"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8½´¤˜2J$55cb42c9-c9eb-4145-8bf5-17f7226bc99d
+s	java:S106Ü"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8¾´¤˜2J$6827b587-415b-4e72-aa00-b795128baa04

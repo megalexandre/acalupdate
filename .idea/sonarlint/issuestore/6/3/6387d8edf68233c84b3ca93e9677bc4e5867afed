@@ -1,0 +1,19 @@
+
+r
+java:S3740"/Provide the parametrized type for this generic.(ÏÉ“É8‹ªŒ¤˜2J$71f1a0be-49f3-48de-ab5f-78c032a0aa0e
+r
+java:S37403"/Provide the parametrized type for this generic.(ÏÉ“É8ŒªŒ¤˜2J$a1499f87-ab15-473f-b199-c12cfe09e54e
+r
+java:S3740P"/Provide the parametrized type for this generic.(ÏÉ“É8”ªŒ¤˜2J$4ab4cdcd-4850-4993-bb3d-f48fa41ff976
+•	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é‚òÔıÿÿÿÿ8ªŒ¤˜2J$e8d2c249-aff2-4b2f-aa73-73870eec5fc7
+p
+java:S1874"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8ªŒ¤˜2J$dfc6305d-eb52-4a75-8c51-a8f2d904d931
+r	java:S106%"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8®ªŒ¤˜2J$d65288e9-6f62-4d47-b658-9ad4c9418f27
+•	java:S1000"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÊ½ñşÿÿÿÿ8¯ªŒ¤˜2J$042604de-9839-44ca-9c10-c0352c713c92
+p
+java:S18743"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8°ªŒ¤˜2J$ce363f00-4e02-4b09-a507-dd88ae1fb6db
+r	java:S106A"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8½ªŒ¤˜2J$3f74a176-810d-4f65-8dfa-79f62c47a7e7
+•	java:S100L"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š‘®¢ıÿÿÿÿ8¾ªŒ¤˜2J$1fe4f0c4-e4e1-411b-944d-7671467d89ba
+p
+java:S1874P"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8ÀªŒ¤˜2J$c4546261-9afc-45d9-a3b6-503e2f025f80
+r	java:S106]"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8ÁªŒ¤˜2J$a5cf5bb0-9813-4920-8a6a-f42f8f088b8b

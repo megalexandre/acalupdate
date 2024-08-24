@@ -1,0 +1,49 @@
+
+k
+java:S3740?"/Provide the parametrized type for this generic.(ÏÉ“ÉJ$fc2f4e48-1f0a-4d80-859b-cf6c9c2d2c6f
+k
+java:S3740t"/Provide the parametrized type for this generic.(ÏÉ“ÉJ$5a296856-563e-41e5-88bb-6352d6176d95
+l
+java:S3740"/Provide the parametrized type for this generic.(ÏÉ“ÉJ$0916769d-6729-406c-9da6-e8f491b26889
+l
+java:S3740®"/Provide the parametrized type for this generic.(ÏÉ“ÉJ$e51f4dea-4259-433b-b6a8-cd2ec49a1855
+l
+java:S3740Ê"/Provide the parametrized type for this generic.(ÏÉ“ÉJ$e2aa072a-1bda-4c70-8ebf-94f655f9304f
+l
+java:S3740å"/Provide the parametrized type for this generic.(ÏÉ“ÉJ$3f05dae3-305b-425f-b30c-241d16326a00
+	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆœ’Â8Íç‡¤˜2J$5cf3d90a-a4d7-4917-9848-8829bb74f68b
+•	java:S100$"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûˆÖşÿÿÿÿÿ8ó¯†¤˜2J$236cf007-3529-49ce-8203-4d94f4ad6ab3
+f	java:S106."+Replace this use of System.out by a logger.(Ìí·ÜJ$a3028ef0-9a91-4339-8120-1ac57c8c3c6a
+f	java:S1062"+Replace this use of System.out by a logger.(»ñ¬åJ$2f9f5cf2-64f7-424b-8db2-956a9ba7b381
+•	java:S100;"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ø¢Èœÿÿÿÿÿ8£¢‡¤˜2J$694beaca-0580-474b-a4a9-c381eb682763
+i
+java:S1874?"-Remove this use of "Query"; it is deprecated.(ÏÉ“ÉJ$d5111403-ba95-4edb-85d9-e8d1bdc05de5
+r
+java:S1874F"1Remove this use of "setString"; it is deprecated.(ŸÙùúıÿÿÿÿJ$d6dd7c45-0ae0-4357-bf98-e621b83ac5a1
+w	java:S125G"<This block of commented-out lines of code should be removed.(“®Ô‘J$ddee1221-2f48-41f8-bdea-1c20e3a17728
+k	java:S106O"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿJ$f36df609-f48a-4831-9547-a8ecf26affb1
+	java:S100Y"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹ëÊ8¦¢‡¤˜2J$442d7c14-bd63-43e4-b783-e9ac3dcfb72e
+f	java:S106c"+Replace this use of System.out by a logger.(Ìí·ÜJ$f70b5831-44ed-46a3-98f5-e19f24e2da49
+f	java:S106g"+Replace this use of System.out by a logger.(»ñ¬åJ$a46f7736-c0ac-41ed-8b4c-d6fba28f53e7
+•	java:S100p"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æ„¶şÿÿÿÿ8¨¢‡¤˜2J$f770a0ad-bfec-44c4-a14a-a6f294709d78
+i
+java:S1874t"-Remove this use of "Query"; it is deprecated.(ÏÉ“ÉJ$6f5d1617-5fdc-4974-8e98-9c3ee06680a0
+l	java:S106‚"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿJ$d3f2ea81-db3a-4f80-bafa-67b9796a959a
+–	java:S100Œ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÇôÃÿüÿÿÿÿ8©¢‡¤˜2J$000dedd6-e707-4f98-89e7-200b3074f55a
+j
+java:S1874"-Remove this use of "Query"; it is deprecated.(ÏÉ“ÉJ$e66f44f1-9076-4d50-9a28-38568777a305
+l	java:S106Ÿ"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿJ$590b2a8e-51b0-4372-93d2-2bd6505e9b98
+–	java:S100ª"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Â€¼¿úÿÿÿÿ8«¢‡¤˜2J$06d2a076-96c3-463e-84fb-168d2210783e
+j
+java:S1874®"-Remove this use of "Query"; it is deprecated.(ÏÉ“ÉJ$d023e157-79a6-46ea-8750-0fb3c654c6a5
+l	java:S106¼"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿJ$47050fd0-8ead-48c6-a6d5-26ddeb867b13
+–	java:S100Æ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£Åé¯üÿÿÿÿ8­¢‡¤˜2J$35ec630a-8925-4684-88cc-eb5e972951ea
+j
+java:S1874Ê"-Remove this use of "Query"; it is deprecated.(ÏÉ“ÉJ$747bc770-4685-41ac-9e4d-2aef7fb9a3da
+l	java:S106×"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿJ$171a2705-0b11-40a5-acf6-931b6cbd29fc
+‘	java:S100á"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïšÄú8®¢‡¤˜2J$080666e3-28ea-47e4-a5a8-c9b83282f65f
+j
+java:S1874å"-Remove this use of "Query"; it is deprecated.(ÏÉ“ÉJ$66746186-93cd-4e4c-ac3b-90f47711d42f
+l	java:S106ô"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿJ$bbc15ce9-f7b8-46fa-be37-59f85e62da38
+–	java:S100ş"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ç°Úúÿÿÿÿ8±¢‡¤˜2J$43c691c3-e4d3-4225-895d-bda08f190f2c
+‘	java:S100‚"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜™îŸ8³¢‡¤˜2J$4e740550-37d1-4969-afdd-e51588b362a7

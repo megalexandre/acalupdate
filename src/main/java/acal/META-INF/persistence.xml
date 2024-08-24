@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="acal2002PU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>entidades.Usuario</class>
+    <class>entidades.EntradasLog</class>
+    <class>entidades.Pessoa</class>
+    <class>entidades.Socio</class>
+    <class>entidades.Contrato</class>
+    <class>entidades.Funcionario</class>
+    <class>entidades.SaidasLog</class>
+    <class>entidades.Endereco</class>
+    <class>entidades.Cheque</class>
+    <class>entidades.Saida</class>
+    <class>entidades.Entrada</class>
+    <class>entidades.Conta</class>
+    <class>entidades.Categoriasocio</class>
+    <class>entidades.Chequeslog</class>
+    <class>entidades.Contaslog</class>
+    <class>entidades.view.SomaContasAbertasPorPessoa</class>
+    <class>entidades.view.Saidaslog</class>
+    <class>entidades.view.SomaContasPagasPorPessoa</class>
+    <class>entidades.view.RelatorioContas</class>
+    <class>entidades.view.SaidaFuncionario</class>
+    <class>entidades.view.RelatorioSocioAtivos</class>
+    <class>entidades.view.ContasSocioTaxa</class>
+    <class>entidades.view.RelatorioContasAbertas</class>
+    <class>entidades.view.RelatorioEntradas</class>
+    <class>entidades.Saidaslog</class>
+    <class>entidades.Motivoentrada</class>
+    <class>entidades.Motivodespesa</class>
+    <class>entidades.Taxa</class>
+    <class>entidades.User</class>
+    <class>entidades.Entradaslog</class>
+    <class>entidades.Hidrometro</class>
+    <class>entidades.Taxasconta</class>
+    <class>dao.Enderecopessoa</class>
+    <class>entidades.TablesPriv</class>
+    <class>entidades.Geracaocontas</class>
+    <class>entidades.Sociotabela</class>
+    <class>entidades.view.RcCaixaCompleto</class>
+    <class>entidades.Enderecopessoa</class>
+    <class>entidades.view.RcContasAtradas60</class>
+    <class>entidades.ContasView</class>
+    <class>entidades.CaixaView</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/acal?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="123"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+    </properties>
+  </persistence-unit>
+</persistence>

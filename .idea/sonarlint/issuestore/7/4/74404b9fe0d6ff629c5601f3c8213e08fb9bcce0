@@ -1,0 +1,153 @@
+
+e
+java:S1192p"HDefine a constant instead of duplicating this literal "Salvar" 11 times.(Ÿì¦¡8Ñşó¤˜2
+
+java:S1192‡	"GDefine a constant instead of duplicating this literal "DELETE" 6 times.(£ßƒœùÿÿÿÿ8÷´ó¤˜2J$cb4cc56a-0958-4f0d-a83c-fb13b092bb83
+‹
+java:S1192ş"GDefine a constant instead of duplicating this literal "UPDATE" 6 times.(ÏÊÓ¨8ø´ó¤˜2J$a1a7ea55-4eab-43c9-9adf-9448102151a9
+h
+java:S1192v"FDefine a constant instead of duplicating this literal "Todos" 6 times.(‰†ï¦ıÿÿÿÿ8Òşó¤˜2
+e
+java:S1192t"HDefine a constant instead of duplicating this literal "Apagar" 10 times.(íå‚â8Òşó¤˜2
+h
+java:S1192n"KDefine a constant instead of duplicating this literal "Consultar" 10 times.(ÎÅ›Ë8Óşó¤˜2
+‹
+java:S1192	"GDefine a constant instead of duplicating this literal "GRANT " 6 times.(àµÁû8ø´ó¤˜2J$7015ed74-28aa-46d1-a6dc-99cd90015d8d
+
+java:S1192ê"GDefine a constant instead of duplicating this literal "SELECT" 6 times.(şı—àûÿÿÿÿ8ø´ó¤˜2J$9003843f-615c-431b-8c19-291bd04d77ff
+k
+java:S1192r"IDefine a constant instead of duplicating this literal "Alterar" 10 times.(Äï«úÿÿÿÿ8Ôşó¤˜2
+‹
+java:S1192õ"GDefine a constant instead of duplicating this literal "INSERT" 6 times.(ÒÔšÉ8ù´ó¤˜2J$24d731f6-10fe-43b0-b264-ad55684298ba
+E
+java:S1604w"(Make this anonymous inner class a lambda(«ûãÁ8Şşó¤˜2
+K
+java:S1604ª"(Make this anonymous inner class a lambda(…æ©âÿÿÿÿÿ8Şşó¤˜2
+K
+java:S1604Ù"(Make this anonymous inner class a lambda(æÓ™Õşÿÿÿÿ8ßşó¤˜2
+F
+java:S1604à"(Make this anonymous inner class a lambda(ÕÄÿ›8ßşó¤˜2
+F
+java:S1604†"(Make this anonymous inner class a lambda(Ç¥–„8àşó¤˜2
+K
+java:S1604½"(Make this anonymous inner class a lambda(¬Î’ıÿÿÿÿ8àşó¤˜2
+F
+java:S1604ô"(Make this anonymous inner class a lambda(Úœóï8áşó¤˜2
+F
+java:S1604­"(Make this anonymous inner class a lambda(ü¾ü•8áşó¤˜2
+K
+java:S1604â"(Make this anonymous inner class a lambda(Ú…ñ·şÿÿÿÿ8âşó¤˜2
+E
+java:S1604“"(Make this anonymous inner class a lambda(¥Šîj8ãşó¤˜2
+q
+java:S1604Ò"(Make this anonymous inner class a lambda(¨í¡§úÿÿÿÿ8„µó¤˜2J$4a3df726-68ab-41d8-907e-dd02f1a2b85d
+e
+java:S1643‚"Use a StringBuilder instead.(‡«Œ¤ıÿÿÿÿ8ˆµó¤˜2J$5ecac591-cdfa-4371-8728-28740b3c2e4f
+œ	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ïÜ—µ8šµó¤˜2J$a4be30da-3a4e-4d31-aa6c-5159a82d6c15
+›
+java:S1450à"WRemove the "jButton1" field and declare it as a local variable in the relevant methods.(å……¶8¹Àó¤˜2J$3dbb9dbf-b394-42c3-9a8f-61ca099e5cb1
+ 
+java:S1450á"WRemove the "jButton3" field and declare it as a local variable in the relevant methods.(ĞäğËıÿÿÿÿ8ºÀó¤˜2J$6e0846f3-6394-462c-bee1-7e23059b4b5e
+­
+java:S1450â"dRemove the "jButtonDesmarcarTodos" field and declare it as a local variable in the relevant methods.(¤•Ÿşÿÿÿÿ8»Àó¤˜2J$66d385c9-43aa-4c2f-a3e0-f7e8e78bbb9f
+¥
+java:S1450ã"aRemove the "jButtonMarcarTodas" field and declare it as a local variable in the relevant methods.(ü‡èÙ8»Àó¤˜2J$7493f5c0-8b47-4047-a4e7-f5eea50410d0
+Ÿ
+java:S1450’"VRemove the "jLabel1" field and declare it as a local variable in the relevant methods.(°ãÉ¸ÿÿÿÿÿ8¼Àó¤˜2J$96dbb13a-c664-4b9d-8d4a-fc45e105f941
+ 
+java:S1450“"WRemove the "jLabel10" field and declare it as a local variable in the relevant methods.(¼õò†şÿÿÿÿ8¼Àó¤˜2J$2fd7d0c4-f6e8-4265-b846-869157345939
+ 
+java:S1450”"WRemove the "jLabel11" field and declare it as a local variable in the relevant methods.(‰Ó‚©øÿÿÿÿ8½Àó¤˜2J$09362701-d69d-496c-b7e9-89b3ef19692b
+›
+java:S1450•"WRemove the "jLabel12" field and declare it as a local variable in the relevant methods.(¶“¡8¾Àó¤˜2J$0653ada8-4fd4-463c-bcae-001a4cce01d9
+Ÿ
+java:S1450–"VRemove the "jLabel2" field and declare it as a local variable in the relevant methods.(™úòˆüÿÿÿÿ8¾Àó¤˜2J$86235299-0813-42de-b679-7bb8ea0f3e5a
+Ÿ
+java:S1450—"VRemove the "jLabel3" field and declare it as a local variable in the relevant methods.(Îä€øÿÿÿÿ8¿Àó¤˜2J$c159924c-6292-43d1-bffb-d09ee1bb551b
+š
+java:S1450˜"VRemove the "jLabel4" field and declare it as a local variable in the relevant methods.(«¢•ã8ÀÀó¤˜2J$cc607a12-2675-49ca-9c71-2f88f494b108
+š
+java:S1450™"VRemove the "jLabel5" field and declare it as a local variable in the relevant methods.(ó Ù®8ÁÀó¤˜2J$3940120e-16d8-48a8-90ee-9b1a0c375e52
+Ÿ
+java:S1450š"VRemove the "jLabel6" field and declare it as a local variable in the relevant methods.(¸ôÂøÿÿÿÿ8ÂÀó¤˜2J$0b8f7d7e-47ff-4c68-9312-166aeec9cfc5
+š
+java:S1450›"VRemove the "jLabel7" field and declare it as a local variable in the relevant methods.(×ê˜Ÿ8ÃÀó¤˜2J$3b3bb8a0-2195-476d-bba8-394343e1cf36
+š
+java:S1450œ"VRemove the "jLabel8" field and declare it as a local variable in the relevant methods.(å»«¢8ÃÀó¤˜2J$6505d77e-164c-4d7f-9f02-179c8cde5ad2
+Ÿ
+java:S1450"VRemove the "jLabel9" field and declare it as a local variable in the relevant methods.(Ì’óĞşÿÿÿÿ8ÅÀó¤˜2J$7099c500-e4d2-4cce-b02b-784e0c4baa50
+Ÿ
+java:S1450"VRemove the "jPanel1" field and declare it as a local variable in the relevant methods.(´œ½ÿÿÿÿÿ8ÆÀó¤˜2J$2b4e15ae-4aba-4f8c-a17c-25462d60f689
+›
+java:S1450Ÿ"WRemove the "jPanel10" field and declare it as a local variable in the relevant methods.( ˆ¥£8ÇÀó¤˜2J$e93525e8-9694-4936-84ac-31a7603d66ef
+ 
+java:S1450 "WRemove the "jPanel11" field and declare it as a local variable in the relevant methods.(æÌÍÒüÿÿÿÿ8ÈÀó¤˜2J$1f1ba961-9127-4137-8f01-81e3640e75ca
+ 
+java:S1450¡"WRemove the "jPanel12" field and declare it as a local variable in the relevant methods.(¿‘Ô†úÿÿÿÿ8ÉÀó¤˜2J$42ed1a06-315c-413f-bc12-2c659186f768
+ 
+java:S1450¢"WRemove the "jPanel13" field and declare it as a local variable in the relevant methods.(â´âÿùÿÿÿÿ8ÊÀó¤˜2J$78790c26-caf6-4ccf-bd30-ea811bd9f619
+›
+java:S1450£"WRemove the "jPanel14" field and declare it as a local variable in the relevant methods.(ú‚²Ø8ËÀó¤˜2J$629c17a6-d3d8-4eca-9178-a785038ec997
+Ÿ
+java:S1450¤"VRemove the "jPanel2" field and declare it as a local variable in the relevant methods.(õ òçüÿÿÿÿ8ÌÀó¤˜2J$9b8b64c0-92c5-403b-a6f2-409500c4fed5
+š
+java:S1450¥"VRemove the "jPanel3" field and declare it as a local variable in the relevant methods.(Œ³èÈ8ÍÀó¤˜2J$ffabc2e4-c30f-41ca-a22e-a8ab79a3fa86
+Ÿ
+java:S1450¦"VRemove the "jPanel4" field and declare it as a local variable in the relevant methods.(§É†¬şÿÿÿÿ8ÎÀó¤˜2J$1a19073c-3209-49a5-8982-b27617d0f81f
+š
+java:S1450§"VRemove the "jPanel5" field and declare it as a local variable in the relevant methods.(³¡©ú8ÏÀó¤˜2J$7c4f4658-707f-4f34-9ce4-51e7c95ff117
+™
+java:S1450¨"VRemove the "jPanel6" field and declare it as a local variable in the relevant methods.(í›åv8ĞÀó¤˜2J$b24f070d-a849-4122-b537-d1cf86a796de
+š
+java:S1450©"VRemove the "jPanel7" field and declare it as a local variable in the relevant methods.(…‘ï°8ÑÀó¤˜2J$3f0a7170-ae69-4a83-ad1a-9be9a3af85e2
+š
+java:S1450ª"VRemove the "jPanel8" field and declare it as a local variable in the relevant methods.(î¥³¶8ÒÀó¤˜2J$021cf6e2-54b4-42f0-b59a-04d76b185a9e
+š
+java:S1450«"VRemove the "jPanel9" field and declare it as a local variable in the relevant methods.(öÒˆÑ8ÓÀó¤˜2J$ab1da050-f8f7-4c6f-a4a2-1c2d53ed7c61
+n
+java:S1172¥"*Remove this unused method parameter "evt".(«ëê¸8–Áó¤˜2J$70427f72-feee-420a-b149-baa8ccc925b6
+s
+java:S1172·"*Remove this unused method parameter "evt".(Á€×øÿÿÿÿ8—Áó¤˜2J$dc9c27bf-7f63-47e6-923e-cc40ccbf5a44
+n
+java:S1172Ë"*Remove this unused method parameter "evt".(‰óè8˜Áó¤˜2J$7b3900ea-3482-4423-b8c5-29e5ae62930e
+n
+java:S1172Ü"*Remove this unused method parameter "evt".(ÿ£Œ8™Áó¤˜2J$543528b3-4600-470d-b557-2387668ee86a
+s
+java:S1172í"*Remove this unused method parameter "evt".(ƒ£®šşÿÿÿÿ8šÁó¤˜2J$3146a14b-dd8e-4c72-87dd-c146db75b1f5
+s
+java:S1172™"*Remove this unused method parameter "evt".(üÆØÌıÿÿÿÿ8Áó¤˜2J$90151c40-4617-4c02-9720-e5b964bc781f
+s
+java:S1172ª"*Remove this unused method parameter "evt".(†–í’şÿÿÿÿ8Áó¤˜2J$d7415a3c-6da3-4348-885e-d768cda425ab
+s
+java:S1172»"*Remove this unused method parameter "evt".(€äê‹ûÿÿÿÿ8 Áó¤˜2J$69cf2fcd-6a0d-4cb7-a8ea-f41ef746d542
+•
+java:S3776ç"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(Š–ÿG8¤Áó¤˜2J$3e9dfcf7-c681-4331-b54b-9af1d4589b1b
+
+java:S1854¥"8Remove this useless assignment to local variable "cont".(Ü·†Èûÿÿÿÿ8¤Áó¤˜2J$148a14a4-4ab4-4555-9856-1962a5f1b43f
+r
+java:S1481ò")Remove this unused "cont" local variable.(£‘…šüÿÿÿÿ8¥Áó¤˜2J$1dcc45d4-1588-42e5-b163-a86a65c4e0a3
+n
+java:S1172¿"*Remove this unused method parameter "evt".(‚À‡ä8¬Áó¤˜2J$16fcc728-8917-455e-86e3-b223c84b603d
+›
+java:S3776Ù"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(°¿ÂÛøÿÿÿÿ8­Áó¤˜2J$f71b93a1-abe0-4c27-a90f-96bc9a0f560b
+–
+java:S3776“	"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(Ó® £8¯Áó¤˜2J$cef546e1-b30a-4eda-aaea-65ba8f2fd8e8
+›
+java:S3776Í	"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(ÁıîÀüÿÿÿÿ8°Áó¤˜2J$789cf78c-93b6-4d3f-9881-3561ac1c1b92
+›
+java:S3776‡
+"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(ñà†Ÿùÿÿÿÿ8²Áó¤˜2J$bd1b9451-591b-4749-aea2-9bd8f98ba9a9
+–
+java:S3776Á
+"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(Îåî‰8´Áó¤˜2J$55562484-ba57-44aa-9454-246b9195cd2b
+–
+java:S3776û
+"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(Ïèî…8¶Áó¤˜2J$8ae4d0c5-0e46-4ef2-aed7-a71b9617f497
+s
+java:S1197¹"*Move the array designators [] to the type.(¡şÏÖøÿÿÿÿ8¸Áó¤˜2J$13ac49a3-177a-4a7b-ab95-2c5fc2b374c1
+Š
+java:S2147È"FCombine this catch with the one at line 1478, which has the same body.(¨¦Š½8¹Áó¤˜2J$09d1e67a-e066-4c6a-ba42-6b0c1ca2e474
+Š
+java:S2147Ê"FCombine this catch with the one at line 1480, which has the same body.(ã€ 8¹Áó¤˜2J$6eb33cf3-d556-43ec-a5c7-b2999d4ea0f0
+‰
+java:S2147Ì"FCombine this catch with the one at line 1482, which has the same body.(ñÎ¯%8¹Áó¤˜2J$dfea06b6-29a2-4e44-9c75-432e2a54480e

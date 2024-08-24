@@ -1,0 +1,1657 @@
+package acal.telas;
+
+import java.awt.AWTException;
+import java.awt.Desktop;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.beans.PropertyVetoException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+
+import acal.dao.DaoChequeslog;
+import acal.dao.DaoContasMensais;
+import acal.dao.DaoContaslog;
+import acal.entidades.Chequeslog;
+import acal.entidades.Conta;
+import acal.entidades.Contaslog;
+import acal.infra.HibernateUtil;
+import acal.telas.GeradorUsuario.CriadorUsuario;
+import acal.telas.relatorios.TelaRelatoriosCheques;
+import acal.telas.relatorios.TelaRelatoriosContas;
+import acal.telas.relatorios.TelaRelatoriosEntradas;
+import acal.telas.relatorios.TelaRelatoriosSaidas;
+import acal.telas.relatorios.TelaRelatoriosSocios;
+import acal.telas.relatorios.tabelas.TelaTabelaCaixa;
+import acal.telas.relatorios.tabelas.TelaTabelaConta;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
+
+public class TelaPrincipal extends JFrame {
+    private Calendar c;
+    SimpleDateFormat sdf = new SimpleDateFormat();
+    private  TrayIcon trayIcon = null;
+    private SystemTray systemTray;
+    public TelaPrincipal() {
+        // setLocationRelativeTo(null);
+       
+        initComponents();
+        c = Calendar.getInstance(new Locale("pt", "BR"));
+        DateFormat df = SimpleDateFormat.getDateInstance(SimpleDateFormat.DATE_FIELD, new Locale("pt", "BR"));
+        jDesktopPaneContas.setVisible(false);
+        jInternalFrameContas1.setVisible(false);
+        jDesktopPaneRelatorios.setVisible(false);
+        jInternalFrameRelatorios.setVisible(false);
+        //jPanelImagemTelaPrincipal1.setVisible(false);
+        //jPanelImagemTelaPrincipal2.setVisible(false);
+        Properties prop = new Properties();
+        try{
+            prop.load(new FileInputStream(new File("properties/hibernate.properties")));
+            if(!prop.getProperty("hibernate.connection.username").equals("root")){
+                
+                jMenuAuditoria.setVisible(false);
+                 jMenuItemCriarUsuarios.setVisible(false);       
+            }
+            
+        }catch(Exception e){
+           JOptionPane.showMessageDialog(this,"Erro:"+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE); 
+        }
+        // A data do sistema.
+
+        jLabel1.setText(df.format(c.getTime()));
+
+       ControlaEsc();
+        //  Start do TimerBean para atualizar a hora no sistema
+
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+      // if(tray == false){ 
+        systemTray = SystemTray.getSystemTray();
+        
+        trayIcon = new TrayIcon(new ImageIcon(getClass().getResource("/img/ico.png")).getImage(), "Acal2000", popupMenu1);
+        trayIcon.setImageAutoSize(true);
+        System.out.println("");
+       
+       try{
+           systemTray.add(trayIcon);
+       }catch(AWTException e){
+        
+           System.out.println("EROOOOOOOOOOOOOOOOOOOOOO");
+        e.printStackTrace();
+       }
+   // }
+
+    }
+
+    @Override
+ public boolean isFocusable(){
+     
+     return true;
+ }
+
+    
+  private void ControlaEsc() {  
+        KeyStroke ks = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true);  
+  
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(ks, "esc");  
+        getRootPane().getActionMap().put("esc", new AbstractAction() {  
+  
+            @Override  
+            public void actionPerformed(ActionEvent ae) {  
+  
+               
+                    if(jInternalFrameContas1.isVisible()){
+                        
+                        jButton4ActionPerformed(ae);
+                        
+                    }else if(jInternalFrameRelatorios.isVisible()){
+                        
+                         jButtonInternalFrameRelatoriosVoltar1ActionPerformed(ae);
+                    }
+                  
+            }
+        });  
+    }  
+ 
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        popupMenu1 = new java.awt.PopupMenu();
+        menuItemPopupSair = new java.awt.MenuItem();
+        menuItemPopupCadastros = new java.awt.MenuItem();
+        desativaMensagens = new java.awt.MenuItem();
+        ativaMensagens = new java.awt.MenuItem();
+        menu1 = new java.awt.Menu();
+        menuItem1 = new java.awt.MenuItem();
+        menuItem2 = new java.awt.MenuItem();
+        menuItem3 = new java.awt.MenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jSeparator1 = new javax.swing.JSeparator();
+        jPanelBotoesTelaPrincipal = new javax.swing.JPanel();
+        jButtonTelaPrincipalLogoff = new javax.swing.JButton();
+        jButtonTelaPrincipalRelatorios = new javax.swing.JButton();
+        jButtonTelaPrincipalCaixa = new javax.swing.JButton();
+        jButtonTelaPrincipalCadastros = new javax.swing.JButton();
+        jDesktopPaneContas = new javax.swing.JDesktopPane();
+        jInternalFrameContas1 = new javax.swing.JInternalFrame();
+        jPanelImagemTelaPrincipal1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanelInternalFrameContas = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jDesktopPaneRelatorios = new javax.swing.JDesktopPane();
+        jInternalFrameRelatorios = new javax.swing.JInternalFrame();
+        jPanelInternalFrameRelatorios = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jButtonFuncionarioRelatorio = new javax.swing.JButton();
+        jButtonInternalFrameRelatoriosVoltar1 = new javax.swing.JButton();
+        jButtonTaxasRelatorio = new javax.swing.JButton();
+        jButtonCategoriaSocioRelatorio = new javax.swing.JButton();
+        jButtonChequeRelatorio = new javax.swing.JButton();
+        jButtonEntradaRelatorio = new javax.swing.JButton();
+        jButtonSaidaRelatorio = new javax.swing.JButton();
+        jButtonSocioRelatorio = new javax.swing.JButton();
+        jPanelImagemTelaPrincipal2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanelImagemTelaPrincipal = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanelDataHoraTelaPrincipal = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu = new javax.swing.JMenu();
+        jMenuCadastros = new javax.swing.JMenu();
+        jMenuItemLogradouros = new javax.swing.JMenuItem();
+        jMenuItemFuncionarios = new javax.swing.JMenuItem();
+        jMenuItemReceitas = new javax.swing.JMenuItem();
+        jMenuItemCategoria_Socio = new javax.swing.JMenuItem();
+        jMenuItemSocio = new javax.swing.JMenuItem();
+        jMenuItemTipoDespesa = new javax.swing.JMenuItem();
+        jMenuItemDespesa = new javax.swing.JMenuItem();
+        jMenuItemTipoReceita = new javax.swing.JMenuItem();
+        jMenuItemReceita = new javax.swing.JMenuItem();
+        jMenuItemContrato = new javax.swing.JMenuItem();
+        jMenuItemTaxas = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItemCriarUsuarios = new javax.swing.JMenuItem();
+        jMenuItemTelaPrincipalBackup = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemSair = new javax.swing.JMenuItem();
+        jMenuAuditoria = new javax.swing.JMenu();
+        jMenuItemAuditoriaCheques = new javax.swing.JMenuItem();
+        jMenuItemAuditoriaContas = new javax.swing.JMenuItem();
+        jMenuItemAuditoriaEntradas = new javax.swing.JMenuItem();
+        jMenuItemAuditoriaSaidas = new javax.swing.JMenuItem();
+        jMenuSair = new javax.swing.JMenu();
+
+
+        popupMenu1.setLabel("popupMenu1");
+
+        menuItemPopupSair.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        menuItemPopupSair.setLabel("Sair");
+        menuItemPopupSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                menuItemPopupSairActionPerformed(evt);
+            }
+        });
+        popupMenu1.add(menuItemPopupSair);
+        popupMenu1.addSeparator();
+        menuItemPopupCadastros.setLabel("Cadastros");
+        menuItemPopupCadastros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                menuItemPopupCadastrosActionPerformed(evt);
+            }
+        });
+        popupMenu1.add(menuItemPopupCadastros);
+
+        desativaMensagens.setLabel("Desativar Mensagens");
+        desativaMensagens.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                desativaMensagensActionPerformed(evt);
+            }
+        });
+        popupMenu1.add(desativaMensagens);
+
+        ativaMensagens.setLabel("Ativar Mensagens");
+        ativaMensagens.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                ativaMensagensActionPerformed(evt);
+            }
+        });
+        popupMenu1.add(ativaMensagens);
+
+        menu1.setLabel("Tempo Mensagens");
+
+        menuItem1.setLabel("5 minutos");
+        menuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                menuItem1ActionPerformed(evt);
+            }
+        });
+        menu1.add(menuItem1);
+
+        menuItem2.setLabel("10 minutos");
+        menuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                menuItem2ActionPerformed(evt);
+            }
+        });
+        menu1.add(menuItem2);
+
+        menuItem3.setLabel("30 minutos");
+        menuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                menuItem3ActionPerformed(evt);
+            }
+        });
+        menu1.add(menuItem3);
+
+        popupMenu1.add(menu1);
+
+        jMenuItem2.setText("jMenuItem2");
+
+        jMenuItem3.setText("jMenuItem3");
+
+        jMenuItem4.setText("jMenuItem4");
+
+        jMenu1.setText("jMenu1");
+
+        jMenu3.setText("jMenu3");
+
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("ACAL2000");
+        setBackground(new java.awt.Color(204, 255, 255));
+        setBounds(new java.awt.Rectangle(0, 0, 0, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setIconImage(new ImageIcon(getClass().getResource("/img/ico.png")).getImage());
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        jPanelBotoesTelaPrincipal.setOpaque(false);
+        jPanelBotoesTelaPrincipal.setLayout(new java.awt.GridBagLayout());
+
+        jButtonTelaPrincipalLogoff.setIcon(new ImageIcon(getClass().getResource("/img/logoff.png")));
+        jButtonTelaPrincipalLogoff.setText(" Logoff");
+        jButtonTelaPrincipalLogoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButtonTelaPrincipalLogoffActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 120;
+        gridBagConstraints.ipady = 66;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 18, 0, 0);
+        jPanelBotoesTelaPrincipal.add(jButtonTelaPrincipalLogoff, gridBagConstraints);
+
+        jButtonTelaPrincipalRelatorios.setIcon(new ImageIcon(getClass().getResource("/img/relatorios.png")));
+        jButtonTelaPrincipalRelatorios.setText("Relatórios");
+        jButtonTelaPrincipalRelatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButtonTelaPrincipalRelatoriosActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 120;
+        gridBagConstraints.ipady = 66;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 18, 0, 0);
+        jPanelBotoesTelaPrincipal.add(jButtonTelaPrincipalRelatorios, gridBagConstraints);
+
+        jButtonTelaPrincipalCaixa.setIcon(new ImageIcon(getClass().getResource("/img/caixa.png")));
+        jButtonTelaPrincipalCaixa.setText("Caixa");
+        jButtonTelaPrincipalCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButtonTelaPrincipalCaixaActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 120;
+        gridBagConstraints.ipady = 66;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 18, 0, 0);
+        jPanelBotoesTelaPrincipal.add(jButtonTelaPrincipalCaixa, gridBagConstraints);
+
+        jButtonTelaPrincipalCadastros.setIcon(new ImageIcon(getClass().getResource("/img/Cadastros.png")));
+        jButtonTelaPrincipalCadastros.setText("Cadastros");
+        jButtonTelaPrincipalCadastros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButtonTelaPrincipalCadastrosActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 120;
+        gridBagConstraints.ipady = 66;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 3, 0, 0);
+        jPanelBotoesTelaPrincipal.add(jButtonTelaPrincipalCadastros, gridBagConstraints);
+
+        jInternalFrameContas1.setBackground(new java.awt.Color(51, 153, 255));
+        jInternalFrameContas1.setBorder(null);
+        jInternalFrameContas1.setFrameIcon(null);
+        jInternalFrameContas1.setVisible(true);
+
+        jPanelImagemTelaPrincipal1.setOpaque(false);
+
+        jLabel6.setIcon(new ImageIcon(getClass().getResource("/img/agua.jpg"))); // NOI18N
+        jLabel6.setToolTipText("");
+        jLabel6.setMaximumSize(jPanelImagemTelaPrincipal.getMaximumSize());
+        jLabel6.setMinimumSize(jPanelImagemTelaPrincipal.getMinimumSize());
+
+        javax.swing.GroupLayout jPanelImagemTelaPrincipal1Layout = new javax.swing.GroupLayout(jPanelImagemTelaPrincipal1);
+        jPanelImagemTelaPrincipal1.setLayout(jPanelImagemTelaPrincipal1Layout);
+        jPanelImagemTelaPrincipal1Layout.setHorizontalGroup(
+            jPanelImagemTelaPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 944, Short.MAX_VALUE)
+            .addGroup(jPanelImagemTelaPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE))
+        );
+        jPanelImagemTelaPrincipal1Layout.setVerticalGroup(
+            jPanelImagemTelaPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 768, Short.MAX_VALUE)
+            .addGroup(jPanelImagemTelaPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE))
+        );
+
+        jPanelInternalFrameContas.setOpaque(false);
+        jPanelInternalFrameContas.setLayout(new java.awt.GridBagLayout());
+
+        jPanel3.setOpaque(false);
+
+        jButton1.setText("Contas a Receber");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Contas a Pagar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Voltar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Gerar Contas");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 280, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(68, 68, 68)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(69, Short.MAX_VALUE)))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 524, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(21, 21, 21)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(21, Short.MAX_VALUE)))
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 59;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 308, 0, 316);
+        jPanelInternalFrameContas.add(jPanel3, gridBagConstraints);
+
+        javax.swing.GroupLayout jInternalFrameContas1Layout = new javax.swing.GroupLayout(jInternalFrameContas1.getContentPane());
+        jInternalFrameContas1.getContentPane().setLayout(jInternalFrameContas1Layout);
+        jInternalFrameContas1Layout.setHorizontalGroup(
+            jInternalFrameContas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelInternalFrameContas, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE)
+            .addGroup(jInternalFrameContas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanelImagemTelaPrincipal1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jInternalFrameContas1Layout.setVerticalGroup(
+            jInternalFrameContas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelInternalFrameContas, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+            .addGroup(jInternalFrameContas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanelImagemTelaPrincipal1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jDesktopPaneContas.add(jInternalFrameContas1);
+        jInternalFrameContas1.setBounds(0, 0, 920, 550);
+        jDesktopPaneContas.setLayer(jInternalFrameContas1, javax.swing.JLayeredPane.PALETTE_LAYER);
+
+        jInternalFrameRelatorios.setBackground(new java.awt.Color(51, 153, 255));
+        jInternalFrameRelatorios.setBorder(null);
+        jInternalFrameRelatorios.setFrameIcon(null);
+        jInternalFrameRelatorios.setOpaque(true);
+        jInternalFrameRelatorios.setVisible(true);
+
+        jPanelInternalFrameRelatorios.setOpaque(false);
+        jPanelInternalFrameRelatorios.setLayout(new java.awt.GridBagLayout());
+
+        jPanel4.setOpaque(false);
+
+        jButtonFuncionarioRelatorio.setText("Funcionários");
+
+        jButtonInternalFrameRelatoriosVoltar1.setText("Voltar");
+        jButtonInternalFrameRelatoriosVoltar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButtonInternalFrameRelatoriosVoltar1ActionPerformed(evt);
+            }
+        });
+
+        jButtonTaxasRelatorio.setText("Taxas");
+        jButtonTaxasRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButtonTaxasRelatorioActionPerformed(evt);
+            }
+        });
+
+        jButtonCategoriaSocioRelatorio.setText("Categorias dos Socios");
+        jButtonCategoriaSocioRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButtonCategoriaSocioRelatorioActionPerformed(evt);
+            }
+        });
+
+        jButtonChequeRelatorio.setText("Cheques");
+        jButtonChequeRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButtonChequeRelatorioActionPerformed(evt);
+            }
+        });
+
+        jButtonEntradaRelatorio.setText("Entradas");
+        jButtonEntradaRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButtonEntradaRelatorioActionPerformed(evt);
+            }
+        });
+
+        jButtonSaidaRelatorio.setText("Saidas");
+        jButtonSaidaRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButtonSaidaRelatorioActionPerformed(evt);
+            }
+        });
+
+        jButtonSocioRelatorio.setText("Socios");
+        jButtonSocioRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButtonSocioRelatorioActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(307, 307, 307)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonEntradaRelatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButtonChequeRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonCategoriaSocioRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonTaxasRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonSocioRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonSaidaRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(jButtonFuncionarioRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(jButtonInternalFrameRelatoriosVoltar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(414, Short.MAX_VALUE))
+        );
+
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButtonCategoriaSocioRelatorio, jButtonChequeRelatorio, jButtonEntradaRelatorio, jButtonFuncionarioRelatorio, jButtonInternalFrameRelatoriosVoltar1, jButtonSaidaRelatorio, jButtonSocioRelatorio, jButtonTaxasRelatorio});
+
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonTaxasRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonFuncionarioRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCategoriaSocioRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSocioRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonEntradaRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSaidaRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonChequeRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                    .addComponent(jButtonInternalFrameRelatoriosVoltar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(597, Short.MAX_VALUE))
+        );
+
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonCategoriaSocioRelatorio, jButtonChequeRelatorio, jButtonEntradaRelatorio, jButtonFuncionarioRelatorio, jButtonInternalFrameRelatoriosVoltar1, jButtonSaidaRelatorio, jButtonSocioRelatorio, jButtonTaxasRelatorio});
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 404;
+        gridBagConstraints.ipady = 586;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanelInternalFrameRelatorios.add(jPanel4, gridBagConstraints);
+
+        jPanelImagemTelaPrincipal2.setOpaque(false);
+
+        jLabel5.setIcon(new ImageIcon(getClass().getResource("/img/agua.jpg"))); // NOI18N
+        jLabel5.setMaximumSize(jPanelImagemTelaPrincipal.getMaximumSize());
+        jLabel5.setMinimumSize(jPanelImagemTelaPrincipal.getMinimumSize());
+        jLabel5.setOpaque(true);
+
+        javax.swing.GroupLayout jPanelImagemTelaPrincipal2Layout = new javax.swing.GroupLayout(jPanelImagemTelaPrincipal2);
+        jPanelImagemTelaPrincipal2.setLayout(jPanelImagemTelaPrincipal2Layout);
+        jPanelImagemTelaPrincipal2Layout.setHorizontalGroup(
+            jPanelImagemTelaPrincipal2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
+        );
+        jPanelImagemTelaPrincipal2Layout.setVerticalGroup(
+            jPanelImagemTelaPrincipal2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jInternalFrameRelatoriosLayout = new javax.swing.GroupLayout(jInternalFrameRelatorios.getContentPane());
+        jInternalFrameRelatorios.getContentPane().setLayout(jInternalFrameRelatoriosLayout);
+        jInternalFrameRelatoriosLayout.setHorizontalGroup(
+            jInternalFrameRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelInternalFrameRelatorios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
+            .addGroup(jInternalFrameRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanelImagemTelaPrincipal2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jInternalFrameRelatoriosLayout.setVerticalGroup(
+            jInternalFrameRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrameRelatoriosLayout.createSequentialGroup()
+                .addComponent(jPanelInternalFrameRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jInternalFrameRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanelImagemTelaPrincipal2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jDesktopPaneRelatorios.add(jInternalFrameRelatorios);
+        jInternalFrameRelatorios.setBounds(0, 0, 930, 740);
+
+        jPanelImagemTelaPrincipal.setOpaque(false);
+
+        jLabel4.setIcon(new ImageIcon(getClass().getResource("/img/agua.jpg"))); // NOI18N
+        jLabel4.setMaximumSize(jPanelImagemTelaPrincipal.getMaximumSize());
+        jLabel4.setMinimumSize(jPanelImagemTelaPrincipal.getMinimumSize());
+        jLabel4.setOpaque(true);
+
+        javax.swing.GroupLayout jPanelImagemTelaPrincipalLayout = new javax.swing.GroupLayout(jPanelImagemTelaPrincipal);
+        jPanelImagemTelaPrincipal.setLayout(jPanelImagemTelaPrincipalLayout);
+        jPanelImagemTelaPrincipalLayout.setHorizontalGroup(
+            jPanelImagemTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanelImagemTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE))
+        );
+        jPanelImagemTelaPrincipalLayout.setVerticalGroup(
+            jPanelImagemTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanelImagemTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE))
+        );
+
+        jPanelDataHoraTelaPrincipal.setOpaque(false);
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanelDataHoraTelaPrincipalLayout = new javax.swing.GroupLayout(jPanelDataHoraTelaPrincipal);
+        jPanelDataHoraTelaPrincipal.setLayout(jPanelDataHoraTelaPrincipalLayout);
+        jPanelDataHoraTelaPrincipalLayout.setHorizontalGroup(
+            jPanelDataHoraTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDataHoraTelaPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 5, Short.MAX_VALUE)
+                .addGap(96, 96, 96)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanelDataHoraTelaPrincipalLayout.setVerticalGroup(
+            jPanelDataHoraTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDataHoraTelaPrincipalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelDataHoraTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(145, 145, 145))
+        );
+
+        jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 255), new java.awt.Color(51, 51, 255), new java.awt.Color(51, 0, 255), new java.awt.Color(51, 0, 255)));
+
+        jMenu.setText("Menu");
+        jMenu.setToolTipText("");
+
+        jMenuCadastros.setText("Cadastros");
+
+        jMenuItemLogradouros.setText("Logradouro");
+        jMenuItemLogradouros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemLogradourosActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemLogradouros);
+
+        jMenuItemFuncionarios.setText("Funcionarios");
+        jMenuItemFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemFuncionariosActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemFuncionarios);
+
+        jMenuItemReceitas.setText("Receitas");
+        jMenuItemReceitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemReceitasActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemReceitas);
+
+        jMenuItemCategoria_Socio.setText("Categoria Socio");
+        jMenuItemCategoria_Socio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemCategoria_SocioActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemCategoria_Socio);
+
+        jMenuItemSocio.setText("Socio");
+        jMenuItemSocio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemSocioActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemSocio);
+
+        jMenuItemTipoDespesa.setText("Tipo de Despesa");
+        jMenuItemTipoDespesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemTipoDespesaActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemTipoDespesa);
+
+        jMenuItemDespesa.setText("Despesa");
+        jMenuItemDespesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemDespesaActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemDespesa);
+
+        jMenuItemTipoReceita.setText("Tipo de Receita");
+        jMenuItemTipoReceita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemTipoReceitaActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemTipoReceita);
+
+        jMenuItemReceita.setText("Receita");
+        jMenuItemReceita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemReceitaActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemReceita);
+
+        jMenuItemContrato.setText("Contrato");
+        jMenuItemContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemContratoActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemContrato);
+
+        jMenuItemTaxas.setText("Taxas");
+        jMenuItemTaxas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemTaxasActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemTaxas);
+
+        jMenu.add(jMenuCadastros);
+
+        jMenu4.setText("Contas");
+
+        jMenuItem1.setText("Contas(Simplificado)");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem1);
+
+        jMenuItem6.setText("Contas(Avançado)");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem6);
+        jMenu4.add(jSeparator3);
+
+        jMenuItem7.setText("Editor de contas");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem7);
+
+        jMenu.add(jMenu4);
+
+        jMenuItem5.setText("Visualizar Caixa");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu.add(jMenuItem5);
+
+        jMenuItemCriarUsuarios.setText("Criar Usuarios");
+        jMenuItemCriarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemCriarUsuariosActionPerformed(evt);
+            }
+        });
+        jMenu.add(jMenuItemCriarUsuarios);
+
+        jMenuItemTelaPrincipalBackup.setText("Backup");
+        jMenuItemTelaPrincipalBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemTelaPrincipalBackupActionPerformed(evt);
+            }
+        });
+        jMenu.add(jMenuItemTelaPrincipalBackup);
+        jMenu.add(jSeparator2);
+
+        jMenuItemSair.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemSair.setText("Sair");
+        jMenuItemSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemSairActionPerformed(evt);
+            }
+        });
+        jMenu.add(jMenuItemSair);
+
+        jMenuBar1.add(jMenu);
+
+        jMenuAuditoria.setText("Auditoria");
+
+        jMenuItemAuditoriaCheques.setText("Log de Cheques");
+        jMenuItemAuditoriaCheques.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemAuditoriaChequesActionPerformed(evt);
+            }
+        });
+        jMenuAuditoria.add(jMenuItemAuditoriaCheques);
+
+        jMenuItemAuditoriaContas.setText("Log de Contas");
+        jMenuItemAuditoriaContas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemAuditoriaContasActionPerformed(evt);
+            }
+        });
+        jMenuAuditoria.add(jMenuItemAuditoriaContas);
+
+        jMenuItemAuditoriaEntradas.setText("Log de Entradas");
+        jMenuItemAuditoriaEntradas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemAuditoriaEntradasActionPerformed(evt);
+            }
+        });
+        jMenuAuditoria.add(jMenuItemAuditoriaEntradas);
+
+        jMenuItemAuditoriaSaidas.setText("Log de Saidas");
+        jMenuItemAuditoriaSaidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jMenuItemAuditoriaSaidasActionPerformed(evt);
+            }
+        });
+        jMenuAuditoria.add(jMenuItemAuditoriaSaidas);
+
+        jMenuBar1.add(jMenuAuditoria);
+
+        jMenuSair.setText("Sair");
+        jMenuSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuSairMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenuSair);
+
+        setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelBotoesTelaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanelDataHoraTelaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jDesktopPaneContas, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanelImagemTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 127, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jDesktopPaneRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanelBotoesTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jPanelDataHoraTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jDesktopPaneContas, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanelImagemTelaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jDesktopPaneRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    
+    private void jButtonTelaPrincipalCadastrosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonTelaPrincipalCadastrosActionPerformed
+
+      
+        new TelaCadastros(this).setVisible(true);
+
+    }//GEN-LAST:event_jButtonTelaPrincipalCadastrosActionPerformed
+
+   
+    private void jMenuSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSairMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jMenuSairMouseClicked
+
+   
+    private void jMenuItemSairActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItemSairActionPerformed
+
+    private void jButtonTelaPrincipalRelatoriosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonTelaPrincipalRelatoriosActionPerformed
+
+
+        //Thread para gerar relatório. Utilizei jdbc como conexão para passar no método fillReport da classe JasperFillManager
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Connection conn = HibernateUtil.getConnection();
+//                    Map<String, Object> paramets = new HashMap<>();
+//                    JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/relatorios.jrxml"));
+//
+//                    JasperPrint jasper = JasperFillManager.fillReport(report, paramets, conn);
+//                    JasperViewer.viewReport(jasper, false);
+//
+//
+//                } catch (Exception ex) {
+//                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        }.start();
+        
+        
+        //jPanelImagemTelaPrincipal2.setVisible(true);
+        jDesktopPaneRelatorios.setVisible(true);
+        jInternalFrameRelatorios.setVisible(true);
+        try {
+            jInternalFrameRelatorios.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jPanelBotoesTelaPrincipal.setVisible(false);
+        jPanelDataHoraTelaPrincipal.setVisible(false);
+        jPanelImagemTelaPrincipal.setVisible(false);
+
+    }//GEN-LAST:event_jButtonTelaPrincipalRelatoriosActionPerformed
+
+    
+    private void timer1OnTime(ActionEvent evt) {//GEN-FIRST:event_timer1OnTime
+
+        c = Calendar.getInstance();
+        DateFormat df = SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM, new Locale("pt", "BR"));
+        jLabel2.setText(df.format(c.getTime()));
+
+
+
+    }//GEN-LAST:event_timer1OnTime
+
+  
+    private void jMenuItemFuncionariosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemFuncionariosActionPerformed
+
+        new TelaCadastros(this, evt).setVisible(true);
+
+    }//GEN-LAST:event_jMenuItemFuncionariosActionPerformed
+
+    
+    private void jMenuItemLogradourosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemLogradourosActionPerformed
+        new TelaCadastros(this, evt).setVisible(true);
+    }//GEN-LAST:event_jMenuItemLogradourosActionPerformed
+
+    
+    private void jMenuItemReceitasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemReceitasActionPerformed
+        new TelaCadastros(this, evt).setVisible(true);
+    }//GEN-LAST:event_jMenuItemReceitasActionPerformed
+
+    private void jMenuItemCategoria_SocioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemCategoria_SocioActionPerformed
+        new TelaCadastros(this, evt).setVisible(true);
+    }//GEN-LAST:event_jMenuItemCategoria_SocioActionPerformed
+
+    private void jMenuItemSocioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemSocioActionPerformed
+        new TelaCadastros(this, evt).setVisible(true);
+    }//GEN-LAST:event_jMenuItemSocioActionPerformed
+
+    private void jMenuItemTipoDespesaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemTipoDespesaActionPerformed
+        new TelaCadastros(this, evt).setVisible(true);
+    }//GEN-LAST:event_jMenuItemTipoDespesaActionPerformed
+
+    private void jMenuItemDespesaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemDespesaActionPerformed
+        new TelaCadastros(this, evt).setVisible(true);
+    }//GEN-LAST:event_jMenuItemDespesaActionPerformed
+
+    
+    private void jMenuItemTipoReceitaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemTipoReceitaActionPerformed
+        new TelaCadastros(this, evt).setVisible(true);
+    }//GEN-LAST:event_jMenuItemTipoReceitaActionPerformed
+
+    
+    private void jMenuItemReceitaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemReceitaActionPerformed
+        new TelaCadastros(this, evt).setVisible(true);
+    }//GEN-LAST:event_jMenuItemReceitaActionPerformed
+
+    
+    private void jMenuItemContratoActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemContratoActionPerformed
+        new TelaCadastros(this, evt).setVisible(true);
+    }//GEN-LAST:event_jMenuItemContratoActionPerformed
+
+   
+    private void jMenuItemTaxasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemTaxasActionPerformed
+        new TelaCadastros(this, evt).setVisible(true);
+    }//GEN-LAST:event_jMenuItemTaxasActionPerformed
+
+    
+    private void jMenuItemTelaPrincipalBackupActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemTelaPrincipalBackupActionPerformed
+
+        //PrintWriter para escrever os dados do arquivo sql, criado automaticamente pelo programa , para o arquivo onde o usuário desejar salvar o .sql
+        PrintWriter pw = null;
+        //Esse Scanner vai ler os dados do arquivo sql gerado automaticamente e passar para o PrintWriter.
+        Scanner sc = null;
+        try {
+
+            // String comando = "cmd /c mysqldump -uroot -p123 acal >" + getClass().getResource("/Sql/").getPath().substring(1) + "acal.sql";
+            //Criei um File passando um caminho de um diretório, que em primeira instancia não existe.
+            File caminho = new File("sql/");
+            //Verifico se o diretório existe, caso contrário ele será criado com o método mkdir() da classe File.
+            if (!caminho.exists()) {
+                caminho.mkdir();
+                //Files.createDirectory(caminho.toPath());
+            }
+            //Utilizei a classe Calendar e SimpleDateFormat para gravar no nome do arquivo a data atual.
+            Calendar c = Calendar.getInstance();
+            //Precisei separar a data do tipo DD/MM/yyy para DDMMyyy , para não dar erro no comando do Runtime.
+            String[] s = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT).format(c.getTime()).split("/");
+            String data = "";
+
+            //Aqui eu junto as Strings da data que separei com o método split.
+            for (String temp : s) {
+
+                data = data.concat(temp);
+            }
+
+            //Variável que armazena o modelo de nome do arquivo .sql.
+            String acal = "acal" + data + ".sql";
+            //Variável que armazena o comando do mysqldump que ira ser passado na classe Runtime.
+            String[] comando = {"cmd.exe", "/c", "mysqldump -u root -p123 acal > sql/" + acal};
+
+            //Aqui utilizo os métodos da classe Runtime para executar o comando. o método exec retorna um Process.
+            Process p;
+            //bloco Try/Catch para testar a execução do comando no processo de exportação do banco de dados.
+            try {
+                p = Runtime.getRuntime().exec(comando);
+                if (p.waitFor() == 0) {
+                    System.out.println("mysqldump executado");
+                } else {
+                    System.out.println("erro no mysqldump");
+                }
+            } catch (InterruptedException ex) {
+
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+            // File file = new File(getClass().getResource("/Sql/acal.sql").getPath());
+            //Criei um File passando o arquivo gerado pelo mysqldump. Desse arquivo irei ler com o Scanner e escrever em um novo arquivo .sql, escolhido pelo usuário, utilizando o PrintWriter.
+            File file = new File("sql/" + acal);
+            //FileChooser para o usuário escolher onde vai salvar o arquivo .sql.
+            JFileChooser jf = new JFileChooser();
+
+
+
+
+            //o método showSaveDilog retorna um int, que serve para saber em qual botão o usuário clicou na tela do FileChooser. Além disso ele faz com que o FileChooser exiba uma tela para salvar arquivos.
+            int result = jf.showSaveDialog(this);
+
+            //Aqui eu testo o retorno do showSaveDialog, se o usuário clicar em salvar o if é executado e o backup é gerado.
+            if (result == JFileChooser.APPROVE_OPTION) {
+
+
+                //Novo File que pega o caminho escolhido pelo usuário e, o nome do arquivo. no final acrescentei a extensão .sql.
+                File f = new File(jf.getSelectedFile().getAbsolutePath() + ".sql");
+                //Cria fisicamente o arquivo no lugar onde o usuário escolheu salvar.
+                f.createNewFile();
+                //Instanciei o PrintWriter, passando em seu construtor o File onde vou gravar os dados.
+                pw = new PrintWriter(f);
+                //Instancia do Scanner. No construtor o File do arquivo gerado automaticamente pelo programa.
+                sc = new Scanner(file);
+                //Nesse While o Scanner vai lendo linha por linha do arquivo .sql gerado automaticamente e, o PrintWriter vai escrevendo linha por linha no arquivo onde o usário escolheu salvar.
+                while (sc.hasNextLine()) {
+                    String s1 = sc.nextLine();
+
+                    pw.println(s1);
+                }
+             
+                
+                JOptionPane.showMessageDialog(null, "Backup gerado com sucesso!", "Backup", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao gerar o Backup, contate o suporte");
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        finally {
+            if (pw != null) {
+
+                pw.close();
+            }
+            if (sc != null) {
+
+                sc.close();
+            }
+
+
+        }
+
+    }//GEN-LAST:event_jMenuItemTelaPrincipalBackupActionPerformed
+
+    private void jButtonTelaPrincipalLogoffActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonTelaPrincipalLogoffActionPerformed
+        //tray = true; 
+        systemTray.remove(trayIcon);
+        dispose();
+        new TelaLogin().setVisible(true);
+        
+    }//GEN-LAST:event_jButtonTelaPrincipalLogoffActionPerformed
+
+    private void menuItemPopupSairActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItemPopupSairActionPerformed
+        formWindowClosing(null);        
+        System.exit(0);
+    }//GEN-LAST:event_menuItemPopupSairActionPerformed
+
+    private void menuItemPopupCadastrosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItemPopupCadastrosActionPerformed
+        
+        
+          new TelaCadastros(this).setVisible(true);
+        
+    }//GEN-LAST:event_menuItemPopupCadastrosActionPerformed
+
+    private void jButtonTelaPrincipalCaixaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonTelaPrincipalCaixaActionPerformed
+        jDesktopPaneContas.setVisible(true);
+        jInternalFrameContas1.setVisible(true);
+       
+        try {
+        jInternalFrameContas1.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jPanelImagemTelaPrincipal.setVisible(false);
+        jPanelDataHoraTelaPrincipal.setVisible(false);
+        jPanelBotoesTelaPrincipal.setVisible(false);
+    }//GEN-LAST:event_jButtonTelaPrincipalCaixaActionPerformed
+
+    private void jButton4ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+        jDesktopPaneContas.setVisible(false);
+        jInternalFrameContas1.setVisible(false);
+        //jPanelImagemTelaPrincipal1.setVisible(false);
+        jPanelBotoesTelaPrincipal.setVisible(true);
+        jPanelImagemTelaPrincipal.setVisible(true);
+        jPanelDataHoraTelaPrincipal.setVisible(true);
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jButtonInternalFrameRelatoriosVoltar1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonInternalFrameRelatoriosVoltar1ActionPerformed
+       
+        jDesktopPaneContas.setVisible(false);
+        jInternalFrameRelatorios.setVisible(false);
+       // jPanelImagemTelaPrincipal2.setVisible(false);
+        jPanelBotoesTelaPrincipal.setVisible(true);
+        jPanelDataHoraTelaPrincipal.setVisible(true);
+        jPanelImagemTelaPrincipal.setVisible(true);
+        repaint();
+       
+    }//GEN-LAST:event_jButtonInternalFrameRelatoriosVoltar1ActionPerformed
+
+    private void jButtonTaxasRelatorioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonTaxasRelatorioActionPerformed
+         
+   
+    int  resposta = JOptionPane.showConfirmDialog(null, "Deseja Gerar um Relatório de taxas?","Atenção",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+    if (resposta == JOptionPane.YES_OPTION) {
+     
+        jButtonTaxasRelatorio.setEnabled(false);
+        JOptionPane.showMessageDialog(null, "Espere , a janela se abrirá em breve");
+    
+        Thread t = new Thread(){
+            
+           @Override
+            public void run() {
+                try {
+                    Connection conn = HibernateUtil.getConnection();
+                   // JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/rc_taxa.jrxml"));
+
+                    JasperPrint jasper = JasperFillManager.fillReport(getClass().getResourceAsStream("/relatorios/rc_taxa.jasper"), null, conn);
+                    JasperViewer.viewReport(jasper, false);
+
+
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+        
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jButtonTaxasRelatorio.setEnabled(true);
+        }
+    }//GEN-LAST:event_jButtonTaxasRelatorioActionPerformed
+
+    private void jButtonCategoriaSocioRelatorioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonCategoriaSocioRelatorioActionPerformed
+         
+    int resposta = JOptionPane.showConfirmDialog(null, "Deseja Gerar um Relatório de Categorias de Socios?");
+    if (resposta == JOptionPane.YES_OPTION) {
+     
+        JOptionPane.showMessageDialog(null, "Espere Alguns Instantes, a janela se abrirá em breve");
+    
+        
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Connection conn = HibernateUtil.getConnection();
+                    JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/rc_categoriaSocio.jrxml"));
+
+                    JasperPrint jasper = JasperFillManager.fillReport(report, null, conn);
+                    JasperViewer.viewReport(jasper, false);
+
+
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }.start();
+        
+        }
+    }//GEN-LAST:event_jButtonCategoriaSocioRelatorioActionPerformed
+
+    private void jButtonChequeRelatorioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonChequeRelatorioActionPerformed
+        
+       TelaRelatoriosCheques c = new TelaRelatoriosCheques(this, true);
+       c.setLocationRelativeTo(null);
+       c.setVisible(true);
+    }//GEN-LAST:event_jButtonChequeRelatorioActionPerformed
+
+    private void jButtonEntradaRelatorioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonEntradaRelatorioActionPerformed
+       TelaRelatoriosEntradas c = new TelaRelatoriosEntradas(this, true);
+       c.setLocationRelativeTo(null);
+       c.setVisible(true);
+        
+       
+    }//GEN-LAST:event_jButtonEntradaRelatorioActionPerformed
+
+    
+    
+    private void jButtonSaidaRelatorioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonSaidaRelatorioActionPerformed
+       TelaRelatoriosSaidas c = new TelaRelatoriosSaidas(this, true);
+       c.setLocationRelativeTo(null);
+       c.setVisible(true);
+    }//GEN-LAST:event_jButtonSaidaRelatorioActionPerformed
+
+    private void jButtonSocioRelatorioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonSocioRelatorioActionPerformed
+       TelaRelatoriosSocios socio = new TelaRelatoriosSocios(this, true);
+       socio.setLocationRelativeTo(null);
+       socio.setVisible(true);  
+    }//GEN-LAST:event_jButtonSocioRelatorioActionPerformed
+
+    private void jButton3ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        
+        new GContas(this).setVisible(true);
+      
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        new GContasAReceber(this).setVisible(true);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItemAuditoriaChequesActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemAuditoriaChequesActionPerformed
+        
+        PrintWriter pw = null;
+        try{
+            
+            
+          
+            File caminho = new File("logs/");
+            
+            if(!caminho.exists()){
+                caminho.mkdir();
+                
+            }
+            File arquivo = new File("logs/chequeslog.txt");
+         
+          
+           if(arquivo.exists()){
+                arquivo.delete();
+               
+           }
+             arquivo.createNewFile();
+            List<Chequeslog> cheques = new DaoChequeslog().BuscarTodosChequesLog();
+            pw = new PrintWriter(arquivo);
+            for(Chequeslog c : cheques){
+                
+                pw.print("ID:"+c.getId()+"\tIDOriginal:"+c.getIdOriginal()+"\tdataPagamento:"+c.getDataPagamento()+
+                        "\tdataVencimento:"+c.getDataVencimento()+"\tdataAlteração:"+c.getDataAlteracao()+"\tNúmero:"+c.getNumero()+
+                        "\tValor:"+c.getValor()+"\tIdFuncionario:"+c.getIdFuncionarioAlteracao()+"\tTipo:"+c.getTipo());
+                pw.println();
+                pw.println();
+                
+            }
+            
+            Desktop.getDesktop().open(arquivo);
+            
+        }catch(Exception e){
+           e.printStackTrace(); 
+           JOptionPane.showMessageDialog(this,"Erro:"+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE); 
+        }finally{
+            
+            if(pw != null){
+                pw.close();
+            }
+        }
+        
+    }//GEN-LAST:event_jMenuItemAuditoriaChequesActionPerformed
+
+    private void jMenuItemAuditoriaContasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemAuditoriaContasActionPerformed
+      
+         PrintWriter pw = null;
+        try{
+            
+            
+          
+            File caminho = new File("logs/");
+            
+            if(!caminho.exists()){
+                caminho.mkdir();
+                
+            }
+            File arquivo = new File("logs/contaslog.txt");
+         
+          
+           if(arquivo.exists()){
+                arquivo.delete();
+               
+           }
+             arquivo.createNewFile();
+            List<Contaslog> contas = new DaoContaslog().ListarTodas();
+            pw = new PrintWriter(arquivo);
+            for(Contaslog c : contas){
+                
+                pw.print("ID:"+c.getId()+"\tIDOriginal:"+c.getIdOriginal()+"\tdataPagamento:"+c.getDataPag()+
+                        "\tdataVencimento:"+c.getDataVence()+"\tTaxaSócio:"+c.getTaxaSocio()+"\tNúmeroSócio:"+c.getIdNumeroSocio()+
+                        "\tHoraRegistro:"+c.getHoraRegristro()+"\tTipo:"+c.getTipo());
+                pw.println();
+                pw.println();
+                
+            }
+            
+            Desktop.getDesktop().open(arquivo);
+            
+        }catch(Exception e){
+           e.printStackTrace(); 
+           JOptionPane.showMessageDialog(this,"Erro:"+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE); 
+        }finally{
+            
+            if(pw != null){
+                pw.close();
+            }
+        }
+    }//GEN-LAST:event_jMenuItemAuditoriaContasActionPerformed
+
+    private void jMenuItemAuditoriaEntradasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemAuditoriaEntradasActionPerformed
+         PrintWriter pw = null;
+        try{
+            
+            
+          
+            File caminho = new File("logs/");
+            
+            if(!caminho.exists()){
+                caminho.mkdir();
+                
+            }
+            File arquivo = new File("logs/entradaslog.txt");
+         
+          
+           if(arquivo.exists()){
+                arquivo.delete();
+               
+           }
+         arquivo.createNewFile();
+
+
+            Desktop.getDesktop().open(arquivo);
+            
+        }catch(Exception e){
+           JOptionPane.showMessageDialog(this,"Erro:"+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
+        }finally{
+            
+            if(pw != null){
+                pw.close();
+            }
+        }
+    }//GEN-LAST:event_jMenuItemAuditoriaEntradasActionPerformed
+
+    private void jMenuItemAuditoriaSaidasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemAuditoriaSaidasActionPerformed
+        
+       
+        
+        
+    }//GEN-LAST:event_jMenuItemAuditoriaSaidasActionPerformed
+
+    private void jMenuItemCriarUsuariosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemCriarUsuariosActionPerformed
+        
+       CriadorUsuario cu = new CriadorUsuario(this, true);
+       cu.setLocationRelativeTo(null);
+       cu.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItemCriarUsuariosActionPerformed
+
+    private void jButton2ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         new TelaCadastros(this, evt).setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       TelaRelatoriosContas tc = new TelaRelatoriosContas();
+       tc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem5ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+       TelaTabelaCaixa tbc = new TelaTabelaCaixa();
+       tbc.setVisible(true);
+       tbc.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+       TelaTabelaConta tbc = new TelaTabelaConta();
+       tbc.setVisible(true);
+       tbc.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void timer2OnTime(ActionEvent evt) {//GEN-FIRST:event_timer2OnTime
+       
+        new Thread(){
+            
+            public void run(){
+                
+              List<Conta> contas = new DaoContasMensais().ContasVencidas(new Date(System.currentTimeMillis()));
+              if(!contas.isEmpty()){
+                  
+                  trayIcon.displayMessage("Contas Vencidas", "Existem contas vencidas, consulte o relatório de contas!", TrayIcon.MessageType.INFO);
+                  
+              }
+              
+            }
+            
+        }.start();
+        
+        
+    }//GEN-LAST:event_timer2OnTime
+
+    private void desativaMensagensActionPerformed(ActionEvent evt) {//GEN-FIRST:event_desativaMensagensActionPerformed
+        
+        int op = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja desativar as mensagens?","Atenção", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        if(op == JOptionPane.YES_OPTION){
+            
+
+        }
+    }//GEN-LAST:event_desativaMensagensActionPerformed
+
+    private void ativaMensagensActionPerformed(ActionEvent evt) {//GEN-FIRST:event_ativaMensagensActionPerformed
+        
+           int op = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja ativar as mensagens?","Atenção", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        if(op == JOptionPane.YES_OPTION){
+            
+
+        }
+        
+    }//GEN-LAST:event_ativaMensagensActionPerformed
+
+    private void menuItem1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItem1ActionPerformed
+    }//GEN-LAST:event_menuItem1ActionPerformed
+
+    private void menuItem2ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItem2ActionPerformed
+    }//GEN-LAST:event_menuItem2ActionPerformed
+
+    private void menuItem3ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItem3ActionPerformed
+    }//GEN-LAST:event_menuItem3ActionPerformed
+
+    private void jMenuItem7ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+       ContasEditor ce = new ContasEditor();
+       ce.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+ 
+  
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new TelaPrincipal().setVisible(true);
+            }
+        });
+    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.MenuItem ativaMensagens;
+    private java.awt.MenuItem desativaMensagens;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonCategoriaSocioRelatorio;
+    private javax.swing.JButton jButtonChequeRelatorio;
+    private javax.swing.JButton jButtonEntradaRelatorio;
+    private javax.swing.JButton jButtonFuncionarioRelatorio;
+    private javax.swing.JButton jButtonInternalFrameRelatoriosVoltar1;
+    private javax.swing.JButton jButtonSaidaRelatorio;
+    private javax.swing.JButton jButtonSocioRelatorio;
+    private javax.swing.JButton jButtonTaxasRelatorio;
+    private javax.swing.JButton jButtonTelaPrincipalCadastros;
+    private javax.swing.JButton jButtonTelaPrincipalCaixa;
+    private javax.swing.JButton jButtonTelaPrincipalLogoff;
+    private javax.swing.JButton jButtonTelaPrincipalRelatorios;
+    private javax.swing.JDesktopPane jDesktopPaneContas;
+    private javax.swing.JDesktopPane jDesktopPaneRelatorios;
+    private javax.swing.JInternalFrame jInternalFrameContas1;
+    private javax.swing.JInternalFrame jInternalFrameRelatorios;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenuAuditoria;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCadastros;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItemAuditoriaCheques;
+    private javax.swing.JMenuItem jMenuItemAuditoriaContas;
+    private javax.swing.JMenuItem jMenuItemAuditoriaEntradas;
+    private javax.swing.JMenuItem jMenuItemAuditoriaSaidas;
+    private javax.swing.JMenuItem jMenuItemCategoria_Socio;
+    private javax.swing.JMenuItem jMenuItemContrato;
+    private javax.swing.JMenuItem jMenuItemCriarUsuarios;
+    private javax.swing.JMenuItem jMenuItemDespesa;
+    private javax.swing.JMenuItem jMenuItemFuncionarios;
+    private javax.swing.JMenuItem jMenuItemLogradouros;
+    private javax.swing.JMenuItem jMenuItemReceita;
+    private javax.swing.JMenuItem jMenuItemReceitas;
+    private javax.swing.JMenuItem jMenuItemSair;
+    private javax.swing.JMenuItem jMenuItemSocio;
+    private javax.swing.JMenuItem jMenuItemTaxas;
+    private javax.swing.JMenuItem jMenuItemTelaPrincipalBackup;
+    private javax.swing.JMenuItem jMenuItemTipoDespesa;
+    private javax.swing.JMenuItem jMenuItemTipoReceita;
+    private javax.swing.JMenu jMenuSair;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanelBotoesTelaPrincipal;
+    private javax.swing.JPanel jPanelDataHoraTelaPrincipal;
+    private javax.swing.JPanel jPanelImagemTelaPrincipal;
+    private javax.swing.JPanel jPanelImagemTelaPrincipal1;
+    private javax.swing.JPanel jPanelImagemTelaPrincipal2;
+    private javax.swing.JPanel jPanelInternalFrameContas;
+    private javax.swing.JPanel jPanelInternalFrameRelatorios;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private java.awt.Menu menu1;
+    private java.awt.MenuItem menuItem1;
+    private java.awt.MenuItem menuItem2;
+    private java.awt.MenuItem menuItem3;
+    private java.awt.MenuItem menuItemPopupCadastros;
+    private java.awt.MenuItem menuItemPopupSair;
+    private java.awt.PopupMenu popupMenu1;
+    // End of variables declaration//GEN-END:variables
+}

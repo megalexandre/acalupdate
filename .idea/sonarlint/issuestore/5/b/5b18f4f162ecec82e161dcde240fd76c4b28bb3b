@@ -1,0 +1,36 @@
+
+d
+java:S16040"(Make this anonymous inner class a lambda(Ô—ËıJ$fbdfc9f5-f2d1-4107-979d-e07d9b7de761
+d
+java:S16047"(Make this anonymous inner class a lambda(©ØÆ‰J$3ad0a745-52e6-48f0-8fc3-eb9f4e4f84ee
+i
+java:S1604>"(Make this anonymous inner class a lambda(Éª×ºıÿÿÿÿJ$f1c14742-10e6-43ff-aa95-529af5d1b615
+j
+java:S1604®"(Make this anonymous inner class a lambda(¨í¡§úÿÿÿÿJ$75462e59-f64e-4cf4-967e-095b5eaf3286
+¡
+java:S1450¶"dRemove the "jButtonTelaLoginLogar" field and declare it as a local variable in the relevant methods.(°¡‰‡J$754f511d-8ffa-4a04-8d25-c61d4a863862
+˜
+java:S1450·"VRemove the "jLabel1" field and declare it as a local variable in the relevant methods.(°ãÉ¸ÿÿÿÿÿJ$8ec8c9d9-9fd4-4f68-881f-eb34242c00f8
+˜
+java:S1450¸"VRemove the "jLabel2" field and declare it as a local variable in the relevant methods.(™úòˆüÿÿÿÿJ$072fd1f1-a326-4167-84e9-a0e78c5eab0c
+˜
+java:S1450¹"VRemove the "jPanel1" field and declare it as a local variable in the relevant methods.(´œ½ÿÿÿÿÿJ$b4143411-aea9-49c4-8419-bdab85438522
+]	java:S125&"<This block of commented-out lines of code should be removed.(úÖÎëıÿÿÿÿ8ô‹ç¥˜2
+k
+java:S1172p"*Remove this unused method parameter "evt".(Èÿ…úÿÿÿÿJ$b744d8a2-4a2a-462b-912d-729e20b01bfb
+k
+java:S1172t"*Remove this unused method parameter "evt".(Ä°·ïúÿÿÿÿJ$5df90d0f-530d-40f9-aec2-ac4655fde1a6
+e
+java:S1172x"*Remove this unused method parameter "evt".(¤ŞÅ|J$4534fb1a-03fd-4f50-8f63-9c8398c788d1
+h
+java:S1481|",Remove this unused "session" local variable.(æ¨ÍéJ$a605d264-ef37-483b-8bd5-6c06cb9e62e7
+l
+java:S1197•"*Move the array designators [] to the type.(¡şÏÖøÿÿÿÿJ$1d8aa15d-5c0d-455a-b131-8311e4015028
+‚
+java:S2147¤"ECombine this catch with the one at line 162, which has the same body.(¨¦Š½J$fa187788-d625-42c9-b96e-af540982e212
+‚
+java:S2147¦"ECombine this catch with the one at line 164, which has the same body.(ã€ J$0455ce84-3322-486c-9364-93bcf12b96b5
+
+java:S2147¨"ECombine this catch with the one at line 166, which has the same body.(ñÎ¯%J$a0cf372e-ac12-4ea5-88ea-bb542e6e5760
+T
+java:S1128"2Remove this unused import 'javax.swing.ImageIcon'.(ßöèóûÿÿÿÿ8ˆŒç¥˜2

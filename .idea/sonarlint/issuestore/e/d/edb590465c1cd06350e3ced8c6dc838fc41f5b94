@@ -1,0 +1,14 @@
+
+^
+java:S1659"#Declare "texto" on a separate line.(Ü—¼ J$75b7adbc-da43-491b-b7a9-70d7f6201b2d
+ƒ	java:S125"<This block of commented-out lines of code should be removed.(ìÍ˜ÿÿÿÿÿ8ƒã‰¥˜2J$759f87a3-8fee-48f6-9e16-e30bf732b68e
+~	java:S125"<This block of commented-out lines of code should be removed.(È‚½è8¹ÍŠ¥˜2J$a33184de-4a07-45cb-98de-7c58fb9fe77e
+}	java:S125 "<This block of commented-out lines of code should be removed.(ØÖ´e8¹ÍŠ¥˜2J$a4c6c73c-8a8f-4dee-ae55-8d6b7123074e
+ƒ	java:S125*"<This block of commented-out lines of code should be removed.(Åáìèüÿÿÿÿ8»ÍŠ¥˜2J$bcbf6e6e-ed12-4b80-8c7d-0f10e5551f79
+Ÿ
+java:S2142<"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(è®ã¶øÿÿÿÿJ$7bab12ea-bf19-46a6-ac58-479ce529aed1
+k	java:S106?"+Replace this use of System.out by a logger.(Ì‘ºÜüÿÿÿÿJ$ed099291-9a6f-437b-ae06-40622f65cf37
+w	java:S125D"<This block of commented-out lines of code should be removed.(µÅÄØJ$a7dd7bb2-9f32-4d0a-bbcd-4529cf5981ea
+o
+java:S1481X",Remove this unused "session" local variable.(æ¨Íé8†Ä†¥˜2J$489bae0a-0807-4d6e-b144-7f83ebdd58cb
+ƒ	java:S125j"<This block of commented-out lines of code should be removed.(¡»¢üùÿÿÿÿ8ŠÃ‹¥˜2J$06694937-ac3b-4393-8455-e1e84a4de8e2

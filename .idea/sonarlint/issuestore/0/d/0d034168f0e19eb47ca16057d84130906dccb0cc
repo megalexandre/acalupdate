@@ -1,0 +1,70 @@
+
+‡
+java:S1192^"KDefine a constant instead of duplicating this literal "##/##/####" 3 times.(öò®êJ$ff32be24-60a2-448a-b688-e87cfc712ac3
+‡
+java:S1192€"JDefine a constant instead of duplicating this literal "AtenÃ§Ã£o" 3 times.(İ©ïJ$fe436b83-e38e-4188-801b-116c944f39f7
+i
+java:S1604T"(Make this anonymous inner class a lambda(‚†ˆşÿÿÿÿJ$c21a95ba-38a6-4f18-aea4-44146ce24730
+i
+java:S1604u"(Make this anonymous inner class a lambda(²´ÑüÿÿÿÿJ$14b79f2c-e527-4f02-9156-2b038a9de04d
+j
+java:S1604¤"(Make this anonymous inner class a lambda(à®’çúÿÿÿÿJ$2b47c48d-f970-4a3d-8d7b-a6d444168402
+j
+java:S1604ß"(Make this anonymous inner class a lambda(¨í¡§úÿÿÿÿJ$cfb6e56b-97e0-4af5-aa5c-91899a5a330d
+˜
+java:S1450ì"VRemove the "jLabel1" field and declare it as a local variable in the relevant methods.(°ãÉ¸ÿÿÿÿÿJ$bc5d850b-8796-4829-9cef-7b18ab6c0089
+˜
+java:S1450í"VRemove the "jLabel2" field and declare it as a local variable in the relevant methods.(™úòˆüÿÿÿÿJ$b5c37681-573b-4740-83d8-25c2ce423a36
+˜
+java:S1450î"VRemove the "jLabel3" field and declare it as a local variable in the relevant methods.(Îä€øÿÿÿÿJ$14a8fe61-6a2c-4c93-b671-03caaa2b2c4d
+“
+java:S1450ï"VRemove the "jLabel4" field and declare it as a local variable in the relevant methods.(«¢•ãJ$de20d2e9-7200-4da5-a13c-0c604e8196cf
+“
+java:S1450ğ"VRemove the "jLabel5" field and declare it as a local variable in the relevant methods.(ó Ù®J$1964ceb8-68b0-4fd7-a851-97190127438d
+˜
+java:S1450ñ"VRemove the "jLabel6" field and declare it as a local variable in the relevant methods.(¸ôÂøÿÿÿÿJ$04e5dc67-efa5-4205-b16e-9f53c84974de
+“
+java:S1450ò"VRemove the "jLabel7" field and declare it as a local variable in the relevant methods.(×ê˜ŸJ$c47b2bea-e6d1-4907-a5c0-d0a97edbd4a2
+“
+java:S1450ó"VRemove the "jLabel8" field and declare it as a local variable in the relevant methods.(å»«¢J$1cd403f6-eaf7-4f6e-abef-04e6c64bc261
+˜
+java:S1450ô"VRemove the "jLabel9" field and declare it as a local variable in the relevant methods.(Ì’óĞşÿÿÿÿJ$f31d3b87-af52-4a77-98f3-9dbccf14b714
+˜
+java:S1450õ"VRemove the "jPanel1" field and declare it as a local variable in the relevant methods.(´œ½ÿÿÿÿÿJ$2aaea6d0-3e49-4b08-8ac6-e9dae5c26367
+˜
+java:S1450ö"VRemove the "jPanel2" field and declare it as a local variable in the relevant methods.(õ òçüÿÿÿÿJ$baf6120a-b840-40d5-b877-08ab28b6cc75
+“
+java:S1450÷"VRemove the "jPanel3" field and declare it as a local variable in the relevant methods.(Œ³èÈJ$e2c9fa5e-c777-46c6-b2bd-866c12375fae
+˜
+java:S1450ø"VRemove the "jPanel4" field and declare it as a local variable in the relevant methods.(§É†¬şÿÿÿÿJ$84d6d341-b887-461e-aa08-cb03d804acd8
+“
+java:S1450ù"VRemove the "jPanel5" field and declare it as a local variable in the relevant methods.(³¡©úJ$88335b15-2d50-4657-8688-1fd6259c747c
+
+java:S1450ú"[Remove the "jScrollPane1" field and declare it as a local variable in the relevant methods.(¤á×ÿÿÿÿÿJ$62dca984-46fb-4ffb-9254-d299def3d816
+v
+java:S1161O":Add the "@Override" annotation above this method signature(Ç’æÌJ$bc3b769b-edca-48d6-862b-cc52b199ce1f
+g
+java:S1172Ñ"*Remove this unused method parameter "evt".(ê‚J$cd5a2a40-7b56-4b28-8428-59a8b60f6238
+g
+java:S1172×"*Remove this unused method parameter "evt".(Êâ´ÅJ$f7b5d6d4-0f06-4e2b-8441-a1c978dacd76
+
+java:S3252ß"DUse static access with "java.text.DateFormat" for "getDateInstance".(À”Ä†J$6406b529-b6b6-47bd-a9d3-c2c8e57c8c7a
+
+java:S3252ê"DUse static access with "java.text.DateFormat" for "getDateInstance".(ÃÆÌŸJ$81529ade-a91c-41b2-91bd-84a8329a43b0
+†
+java:S3252ğ"DUse static access with "java.text.DateFormat" for "getDateInstance".(¥¯ËÖşÿÿÿÿJ$795843c8-b4cf-47ac-be54-3e57e44d5d9d
+x	java:S125ô"<This block of commented-out lines of code should be removed.(ˆê‘ìJ$7839637c-a788-4300-b31a-3b010c7da1c9
+l
+java:S1172ˆ"*Remove this unused method parameter "evt".(Ë·å¹ûÿÿÿÿJ$e50887cc-8d5d-44a8-8399-d13568616115
+†
+java:S3252“"DUse static access with "java.text.DateFormat" for "getDateInstance".(€„ûüÿÿÿÿJ$e6ff72e6-16f7-4f59-9b93-4014ce408fa8
+g
+java:S1172¤"*Remove this unused method parameter "evt".(ˆ¸èùJ$f87f5b22-6c88-426b-af2b-7c28a1b5b713
+l
+java:S1197Æ"*Move the array designators [] to the type.(¡şÏÖøÿÿÿÿJ$2d295275-5023-45bf-a391-ede10346139d
+‚
+java:S2147Õ"ECombine this catch with the one at line 467, which has the same body.(¨¦Š½J$f366276e-9c1f-4af9-a919-22219a28c1b5
+‚
+java:S2147×"ECombine this catch with the one at line 469, which has the same body.(ã€ J$9ff243da-7771-49cb-b189-92390b5bc7b7
+
+java:S2147Ù"ECombine this catch with the one at line 471, which has the same body.(ñÎ¯%J$f910caad-52cf-43b3-b1bc-776b3de81548

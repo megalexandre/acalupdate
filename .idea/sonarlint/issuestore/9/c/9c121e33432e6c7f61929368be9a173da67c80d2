@@ -1,0 +1,71 @@
+
+k
+java:S3740Y"/Provide the parametrized type for this generic.(ÏÉ“ÉJ$3f9b8155-b960-4dde-b29b-d51e695865d5
+r
+java:S3740w"/Provide the parametrized type for this generic.(ÏÉ“É8ßú¤˜2J$2a72b7b9-ac41-494d-9342-b5972a6478a0
+s
+java:S3740•"/Provide the parametrized type for this generic.(ÏÉ“É8ßú¤˜2J$9312a078-0107-455f-8677-bb9dec99e27e
+s
+java:S3740³"/Provide the parametrized type for this generic.(ÏÉ“É8áú¤˜2J$56710be1-234b-4b37-bacc-7be05c570006
+¯
+java:S1192"lDefine a constant instead of duplicating this literal "Erro ao iniciar a sessao para persistencia " 3 times.(»ñ¬å8âú¤˜2J$dcce194d-cdc5-4c58-aa8c-f3813770d6ec
+•
+java:S1192"RDefine a constant instead of duplicating this literal "Salvo com sucesso" 3 times.(Ìí·Ü8âú¤˜2J$99f84e24-acf6-4dd3-a5ec-b5c1fb0f4623
+Œ
+java:S2259""DA "NullPointerException" could be thrown; "sessao" is nullable here.(ÿ€ù‰üÿÿÿÿ8¬Ëß¥˜2J$6c163799-5610-4442-a6b7-ac6adb3fa0ff
+
+java:S2259h"GA "NullPointerException" could be thrown; "transacao" is nullable here.(£­·ÿÿÿÿÿ8ªËß¥˜2J$87af8b00-2645-4889-8e0b-3593af391cf7
+
+java:S2259‡"GA "NullPointerException" could be thrown; "transacao" is nullable here.(£­·ÿÿÿÿÿ8­Ëß¥˜2J$66595436-adf2-4f48-b8ce-0a5bb3bed5bf
+
+java:S2259©"DA "NullPointerException" could be thrown; "sessao" is nullable here.(ÿ€ù‰üÿÿÿÿ8­Ëß¥˜2J$1feb1fec-134b-47bc-8c1a-fe330c7f71c3
+Œ
+java:S2259P"DA "NullPointerException" could be thrown; "sessao" is nullable here.(ÿ€ù‰üÿÿÿÿ8¬Ëß¥˜2J$f68a8a0e-e8e8-4094-ba89-d1119293d816
+Œ
+java:S2259l"DA "NullPointerException" could be thrown; "sessao" is nullable here.(ÿ€ù‰üÿÿÿÿ8¬Ëß¥˜2J$a5804247-ded2-4779-a8cb-f87952e02f7f
+
+java:S2259‹"DA "NullPointerException" could be thrown; "sessao" is nullable here.(ÿ€ù‰üÿÿÿÿ8¬Ëß¥˜2J$2e135b3b-c5c1-489f-8eca-196bd9414df6
+‰
+java:S2259L"FA "NullPointerException" could be thrown; "transcao" is nullable here.(«ÆÂÃ8ªËß¥˜2J$ecec81f8-6559-4614-b096-f3da40f751b2
+‰
+java:S22595"FA "NullPointerException" could be thrown; "transcao" is nullable here.(«ÆÂÃ8­Ëß¥˜2J$e6871381-465a-4223-a634-cecb8f6e7b7b
+‰
+java:S2259"FA "NullPointerException" could be thrown; "transcao" is nullable here.(«ÆÂÃ8«Ëß¥˜2J$27a210b4-b92f-493f-95e0-1d3ed29d226d
+
+java:S2259¥"GA "NullPointerException" could be thrown; "transacao" is nullable here.(£­·ÿÿÿÿÿ8ªËß¥˜2J$fd7be88a-7f33-46f1-b22e-e438cd22cba9
+
+java:S2259Ä"GA "NullPointerException" could be thrown; "transacao" is nullable here.(£­·ÿÿÿÿÿ8«Ëß¥˜2J$ecb51fb6-d3b8-4da5-b406-09164950a53d
+
+java:S2259È"DA "NullPointerException" could be thrown; "sessao" is nullable here.(ÿ€ù‰üÿÿÿÿ8­Ëß¥˜2J$fbd6534e-f2d9-4bcd-a6ce-472da29b024e
+Œ
+java:S22599"DA "NullPointerException" could be thrown; "sessao" is nullable here.(ÿ€ù‰üÿÿÿÿ8«Ëß¥˜2J$c0092a8a-385a-4347-8c0f-acb7c09f9a55
+	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïÍ÷â8—Å¤¤˜2J$037f6943-2609-4750-96df-1b79626b55e0
+f	java:S106"+Replace this use of System.out by a logger.(Ìí·ÜJ$7ccb33d2-3add-4c60-a2a5-135a6197f2ab
+m	java:S106"+Replace this use of System.out by a logger.(»ñ¬å8éú¤˜2J$ec965541-5982-43b2-a1e3-6f9aa8cf9b2b
+	java:S100'"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıÑáº8šÅ¤¤˜2J$5b833318-9fb6-4c76-8980-66a637d97e33
+m	java:S1060"+Replace this use of System.out by a logger.(Ìí·Ü8êú¤˜2J$5d4670a4-bed7-490a-8253-b900b3151a7c
+m	java:S1064"+Replace this use of System.out by a logger.(»ñ¬å8êú¤˜2J$f03989bd-8ae2-444a-8082-87b4c2c49867
+	java:S100>"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½­Ü8œÅ¤¤˜2J$3c0cffa5-0902-4e40-9dd4-59393259faf3
+m	java:S106G"+Replace this use of System.out by a logger.(Ìí·Ü8ëú¤˜2J$dba1082f-636c-4634-a6b7-c8c35548798a
+m	java:S106K"+Replace this use of System.out by a logger.(»ñ¬å8ëú¤˜2J$a51d0c00-d5b8-4b0d-9d98-54d6acb8a675
+•	java:S100U"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªó§úûÿÿÿÿ8Å¤¤˜2J$bec83dd3-48fb-4556-ae74-8fccc267351d
+i
+java:S1874Y"-Remove this use of "Query"; it is deprecated.(ÏÉ“ÉJ$98b76810-512a-487f-8cd9-4233ddfc96e8
+r	java:S106g"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8îú¤˜2J$30e19933-1318-44ad-9a91-10a3b2b599ea
+•	java:S100s"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·ØœÜıÿÿÿÿ8 Å¤¤˜2J$b5c15db9-5dc4-4ec2-88f6-cef4d816b610
+p
+java:S1874w"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8ïú¤˜2J$a6844175-098f-40b2-acc5-4dde6389ddbe
+ƒ	java:S125"<This block of commented-out lines of code should be removed.(±Úµÿüÿÿÿÿ8ïú¤˜2J$d587762c-2943-4b91-bfe9-253f15845065
+s	java:S106†"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8ğú¤˜2J$4d808ccc-7de5-472e-818a-4877afa5405f
+–	java:S100‘"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Œ’–øÿÿÿÿ8¢Å¤¤˜2J$3aedb875-9e06-4b45-adfb-878f312eb31b
+q
+java:S1874•"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8ğú¤˜2J$69142445-dc8c-4aa3-9031-53e3793a1db5
+z
+java:S1874œ"1Remove this use of "setString"; it is deprecated.(ŸÙùúıÿÿÿÿ8ñú¤˜2J$7584b9ac-8023-42ab-9a02-b01d48a90fbe
+	java:S125"<This block of commented-out lines of code should be removed.(“®Ô‘8ñú¤˜2J$47d96b18-989b-4ca1-9a2f-50e41d934718
+s	java:S106¤"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8ñú¤˜2J$79ca2eb5-95e7-49a5-9711-c708c458d70b
+–	java:S100¯"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Åæ£¸şÿÿÿÿ8¤Å¤¤˜2J$9793d528-a513-4dba-b730-15ec4566cd36
+q
+java:S1874³"-Remove this use of "Query"; it is deprecated.(ÏÉ“É8òú¤˜2J$5c2057f6-0a62-40e7-8989-5171ef7a65f2
+	java:S125º"<This block of commented-out lines of code should be removed.(¨ØÙÁ8òú¤˜2J$3ace3d7c-266a-4f8e-aa25-2b04098b7f3c
+s	java:S106Ã"+Replace this use of System.out by a logger.(¨¶ÑÍşÿÿÿÿ8óú¤˜2J$e0a8b18a-8a8b-4eed-8075-d15c46aec12a

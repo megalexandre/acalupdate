@@ -107,3 +107,9 @@ W
 0src/main/java/acal/infra/DatabaseConnection.java,4\7\47533ee8b8dd5d9c56b9f0e34f7aa017433e9cb2
 [
 +src/main/java/acal/infra/HibernateUtil.java,0\e\0e1aa7027baac4071099d7950ed62701397c55ad
+Z
+*src/main/java/acal/entidades/Endereco.java,4\6\4600ee54ef84ba57884a1f3fdee436a20a7b6b75
+_
+/src/main/java/acal/entidades/Motivodespesa.java,2\2\22e8f91f5544293926504d2f0eb57185c9b5ff47
+Y
+)src/main/java/acal/entidades/RcConta.java,4\0\4030fb303564ffc67ebb8a428f9e935cf4ca4007

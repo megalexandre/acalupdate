@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/acal?createDatabaseIfNotExist=true</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">123</property>
+
+    <mapping class="acal.entidades.Categoriasocio"/>
+    <mapping class="acal.entidades.Cheque"/>
+    <mapping class="acal.entidades.Chequeslog"/>
+    <mapping class="acal.entidades.Conta"/>
+    <mapping class="acal.entidades.Contaslog"/>
+    <mapping class="acal.entidades.Contrato"/>
+    <mapping class="acal.entidades.Endereco"/>
+    <mapping class="acal.entidades.Entrada"/>
+    <mapping class="acal.entidades.Entradaslog"/>
+    <mapping class="acal.entidades.Funcionario"/>
+    <mapping class="acal.entidades.Hidrometro"/>
+    <mapping class="acal.entidades.Motivodespesa"/>
+    <mapping class="acal.entidades.Motivoentrada"/>
+    <mapping class="acal.entidades.Pessoa"/>
+    <mapping class="acal.entidades.Saida"/>
+    <mapping class="acal.entidades.Saidaslog"/>
+    <mapping class="acal.entidades.Socio"/>
+    <mapping class="acal.entidades.Taxa"/>
+    <mapping class="acal.entidades.Taxasconta"/>
+    <mapping class="acal.entidades.Enderecopessoa"/>
+    <mapping class="acal.entidades.Sociotabela"/>
+    <mapping class="acal.entidades.Geracaocontas"/>
+    <mapping class="acal.entidades.SociosView"/>
+    <mapping class="acal.entidades.CaixaView"/>
+    <mapping class="acal.entidades.RcCaixaCompleto"/>
+    <mapping class="acal.entidades.EnderecoView"/>
+  
+  </session-factory>
+</hibernate-configuration>

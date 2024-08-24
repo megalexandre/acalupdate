@@ -2,6 +2,7 @@ package acal.dao;
 
 import acal.entidades.Endereco;
 import acal.infra.HibernateUtil;
+import net.sf.jasperreports.engine.util.JRStyledText;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -144,33 +145,19 @@ public class DaoEndereco {
     }  
     
     
+
     public List<Endereco> BuscarTodosEnderecos() {
-        
-        List<Endereco> endereco = null;
-        Session sessao = null; 
-        Query query = null;
-        Transaction transacao = null;
-        
-        try{
-           sessao = HibernateUtil.getSessionFactory().openSession();
-           transacao = sessao.beginTransaction();
-           query = sessao.createQuery("from Endereco order by tipo,nome ");
-          // query.setString("nome","%"+nome+"%");
-           //query.setParameter("nome",nome);
-           endereco = query.list();
-           transacao.commit(); 
-           
+
+        try (Session sessao = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transacao = sessao.beginTransaction();
+            Query query = sessao.createQuery("from Endereco order by tipo, nome");
+            List<Endereco> addess = query.list();
+            transacao.commit();
+            return addess;
+
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
         }
-        catch(HibernateException e)
-        {
-            System.out.println(e);
-            transacao.rollback();
-        }
-        finally
-        {
-             sessao.close();
-        }  
-    return endereco;
     }
 
     

@@ -57,9 +57,8 @@ public class TelaPrincipal extends JFrame {
     SimpleDateFormat sdf = new SimpleDateFormat();
     private  TrayIcon trayIcon = null;
     private SystemTray systemTray;
+
     public TelaPrincipal() {
-        // setLocationRelativeTo(null);
-       
         initComponents();
         c = Calendar.getInstance(new Locale("pt", "BR"));
         DateFormat df = SimpleDateFormat.getDateInstance(SimpleDateFormat.DATE_FIELD, new Locale("pt", "BR"));
@@ -67,52 +66,38 @@ public class TelaPrincipal extends JFrame {
         jInternalFrameContas1.setVisible(false);
         jDesktopPaneRelatorios.setVisible(false);
         jInternalFrameRelatorios.setVisible(false);
-        //jPanelImagemTelaPrincipal1.setVisible(false);
-        //jPanelImagemTelaPrincipal2.setVisible(false);
         Properties prop = new Properties();
+
         try{
-            prop.load(new FileInputStream(new File("properties/hibernate.properties")));
-            if(!prop.getProperty("hibernate.connection.username").equals("root")){
-                
-                jMenuAuditoria.setVisible(false);
-                 jMenuItemCriarUsuarios.setVisible(false);       
-            }
-            
+
+           jMenuAuditoria.setVisible(false);
+           jMenuItemCriarUsuarios.setVisible(false);
+
         }catch(Exception e){
            JOptionPane.showMessageDialog(this,"Erro:"+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE); 
         }
-        // A data do sistema.
 
         jLabel1.setText(df.format(c.getTime()));
 
        ControlaEsc();
-        //  Start do TimerBean para atualizar a hora no sistema
-
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-      // if(tray == false){ 
         systemTray = SystemTray.getSystemTray();
         
         trayIcon = new TrayIcon(new ImageIcon(getClass().getResource("/img/ico.png")).getImage(), "Acal2000", popupMenu1);
         trayIcon.setImageAutoSize(true);
-        System.out.println("");
-       
+
        try{
            systemTray.add(trayIcon);
        }catch(AWTException e){
-        
-           System.out.println("EROOOOOOOOOOOOOOOOOOOOOO");
         e.printStackTrace();
        }
-   // }
-
     }
 
     @Override
- public boolean isFocusable(){
-     
-     return true;
- }
+    public boolean isFocusable(){
+        return true;
+    }
 
     
   private void ControlaEsc() {  

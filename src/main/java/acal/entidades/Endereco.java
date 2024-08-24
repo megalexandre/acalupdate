@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package acal.entidades;
 
 import javax.persistence.Basic;
@@ -14,18 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- *
- * @author alexandre
- */
 @Entity
 @Table(name = "endereco")
-
+@XmlRootElement
 public class Endereco implements Serializable {
     
+    @Serial
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -108,7 +103,6 @@ public class Endereco implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Endereco)) {
             return false;
         }

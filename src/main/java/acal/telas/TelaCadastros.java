@@ -4437,11 +4437,10 @@ public class TelaCadastros extends JFrame {
 
             }
 
-
         } else if (pesquisarTable.equals("socios")) {
 
 
-            List<Sociotabela> socios = new DaoSocio().TodosOsSociosView();
+            List<Sociotabela> socios = new DaoSocio().findAllCustomers();
             model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
 
@@ -4574,10 +4573,10 @@ public class TelaCadastros extends JFrame {
             }
             
         }
-    }    catch(Exception e){
+    } catch(Exception e){
         e.printStackTrace();
         JOptionPane.showMessageDialog(this,"Erro: "+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
-}
+        }
     }
 
     private void jButtonPesquisaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisaActionPerformed

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
 import acal.entidades.Categoriasocio;
@@ -234,7 +235,6 @@ public class DaoSocio{
         }
         catch(HibernateException e)
         {
-            System.out.println(e);
             transacao.rollback();
         }
         finally
@@ -243,32 +243,13 @@ public class DaoSocio{
         }  
     return socio;
     }
-    
-    public List<Sociotabela> TodosOsSociosView(){
-        
-        List<Sociotabela> socio = null;
-        Session sessao = null; 
-        Query query = null;
-        Transaction transacao = null;
-        
-        try{
-           sessao = HibernateUtil.getSessionFactory().openSession();
-           transacao = sessao.beginTransaction();
-           query = sessao.createQuery("from Sociotabela ");
-           socio = query.list();
-           transacao.commit(); 
-           
+
+
+    public List<Sociotabela> findAllCustomers(){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            TypedQuery<Sociotabela> query = session.createQuery("from Sociotabela", Sociotabela.class);
+            return query.getResultList();
         }
-        catch(HibernateException e)
-        {
-            System.out.println(e);
-            transacao.rollback();
-        }
-        finally
-        {
-             sessao.close();
-        }  
-        return socio;
     }
     
     public List<Socio> TodosOsSociosJDBC(){

@@ -6,36 +6,77 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.jdbc.connections.spi.JdbcConnectionAccess;
+import org.hibernate.internal.SessionImpl;
 import org.hibernate.service.ServiceRegistry;
 
 import java.sql.Connection;
 
 public class HibernateUtil {
     private static final SessionFactory sessionFactory = buildSessionFactory();
-
+    private HibernateUtil(){}
     private static SessionFactory buildSessionFactory() {
         try {
-            // Configuração do Hibernate
-            Configuration configuration = new Configuration();
-            configuration.configure(); // Carrega o arquivo hibernate.cfg.xml
+            Configuration configuration = getConfiguration();
 
-            // Cria o ServiceRegistry
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties())
                     .build();
 
-            // Cria o MetadataSources e Metadata
             MetadataSources metadataSources = new MetadataSources(serviceRegistry);
+            metadataSources.addAnnotatedClass(acal.entidades.CaixaView.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Categoriasocio.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Cheque.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Chequeslog.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Conta.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Contaslog.class);
+            metadataSources.addAnnotatedClass(acal.entidades.ContasView.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Contrato.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Endereco.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Enderecopessoa.class);
+            metadataSources.addAnnotatedClass(acal.entidades.EnderecoView.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Entrada.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Entradaslog.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Fucionarionomeview.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Funcionario.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Geracaocontas.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Hidrometro.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Messagem.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Motivodespesa.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Motivoentrada.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Pessoa.class);
+            metadataSources.addAnnotatedClass(acal.entidades.RcCaixaCompleto.class);
+            //metadataSources.addAnnotatedClass(acal.entidades.RcConta.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Saida.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Saidaslog.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Socio.class);
+            metadataSources.addAnnotatedClass(acal.entidades.SociosView.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Sociotabela.class);
+            metadataSources.addAnnotatedClass(acal.entidades.TablesPriv.class);
+            metadataSources.addAnnotatedClass(acal.entidades.TablesPrivPK.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Taxa.class);
+            metadataSources.addAnnotatedClass(acal.entidades.Taxasconta.class);
+            metadataSources.addAnnotatedClass(acal.entidades.User.class);
+            metadataSources.addAnnotatedClass(acal.entidades.UserPK.class);
+
+
+
             Metadata metadata = metadataSources.getMetadataBuilder().build();
 
-            // Cria o SessionFactory
             return metadata.getSessionFactoryBuilder().build();
-        } catch (Throwable ex) {
-            // Log e rethrow
-            System.err.println("Initial SessionFactory creation failed." + ex);
+        } catch (Exception ex) {
             throw new ExceptionInInitializerError(ex);
         }
+    }
+
+    private static Configuration getConfiguration() {
+        Configuration configuration = new Configuration();
+        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
+        configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/acal");
+        configuration.setProperty("hibernate.connection.username", "root");
+        configuration.setProperty("hibernate.connection.password", "123");
+        return configuration;
     }
 
     public static SessionFactory getSessionFactory() {
@@ -48,7 +89,8 @@ public class HibernateUtil {
 
         try {
             session = sessionFactory.openSession();
-            connection = ((SessionImplementor) session).getJdbcConnectionAccess().obtainConnection();
+            JdbcConnectionAccess connectionAccess = ((SessionImpl) session).getJdbcConnectionAccess();
+            connection = connectionAccess.obtainConnection();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

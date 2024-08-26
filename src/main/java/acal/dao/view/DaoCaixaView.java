@@ -197,11 +197,9 @@ public class DaoCaixaView {
         {
              sessao.close();
         }  
-    return contas;
+         return contas;
     }
-                        //logradouro status
-                        //todos
-    
+
     public List<CaixaView> BuscarSocioLogradouro(String endereco, String socio) {
        
         List<CaixaView> contas = null;

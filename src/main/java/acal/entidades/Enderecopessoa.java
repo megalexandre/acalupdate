@@ -21,7 +21,6 @@ import java.util.Date;
 import java.util.List;
 @Entity
 @Table(name = "enderecopessoa")
-
 public class Enderecopessoa implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEnderecoPessoa")
     private List<Conta> contaList;

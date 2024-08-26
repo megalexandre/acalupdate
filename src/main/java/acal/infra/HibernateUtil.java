@@ -1,5 +1,11 @@
 package acal.infra;
 
+import acal.resource.model.AddressModel;
+import acal.resource.model.CustomerModel;
+import acal.resource.model.InvoiceModel;
+import acal.resource.model.LinkModel;
+import acal.resource.model.PartnerModel;
+import lombok.Getter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -13,6 +19,8 @@ import org.hibernate.service.ServiceRegistry;
 import java.sql.Connection;
 
 public class HibernateUtil {
+
+    @Getter
     private static final SessionFactory sessionFactory = buildSessionFactory();
     private HibernateUtil(){}
     private static SessionFactory buildSessionFactory() {
@@ -59,7 +67,12 @@ public class HibernateUtil {
             metadataSources.addAnnotatedClass(acal.entidades.User.class);
             metadataSources.addAnnotatedClass(acal.entidades.UserPK.class);
 
+            metadataSources.addAnnotatedClass(InvoiceModel.class);
 
+            metadataSources.addAnnotatedClass(LinkModel.class);
+            metadataSources.addAnnotatedClass(CustomerModel.class);
+            metadataSources.addAnnotatedClass(PartnerModel.class);
+            metadataSources.addAnnotatedClass(AddressModel.class);
 
             Metadata metadata = metadataSources.getMetadataBuilder().build();
 
@@ -76,11 +89,11 @@ public class HibernateUtil {
         configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/acal");
         configuration.setProperty("hibernate.connection.username", "root");
         configuration.setProperty("hibernate.connection.password", "123");
-        return configuration;
-    }
 
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
+        configuration.setProperty("hibernate.show_sql", "true");
+        configuration.setProperty("hibernate.format_sql", "true");
+
+        return configuration;
     }
 
     public static Connection getConnection() {

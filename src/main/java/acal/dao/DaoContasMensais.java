@@ -84,8 +84,7 @@ public class DaoContasMensais  {
     }
     
     public List<Date> datasContas(String numero){
-        
-            
+
         List<Date> datas = null;
         Session sessao = null; 
         Query query = null;

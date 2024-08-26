@@ -2,6 +2,10 @@ package acal.telas;
 
 import java.awt.AWTException;
 import java.awt.Desktop;
+import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
@@ -11,10 +15,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +49,7 @@ import acal.entidades.Chequeslog;
 import acal.entidades.Conta;
 import acal.entidades.Contaslog;
 import acal.infra.HibernateUtil;
+import acal.infra.backup.DatabaseFunctions;
 import acal.telas.GeradorUsuario.CriadorUsuario;
 import acal.telas.relatorios.TelaRelatoriosCheques;
 import acal.telas.relatorios.TelaRelatoriosContas;
@@ -55,7 +67,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TelaPrincipal extends JFrame {
     private Calendar c;
     SimpleDateFormat sdf = new SimpleDateFormat();
-    private  TrayIcon trayIcon = null;
+    private TrayIcon trayIcon = null;
     private SystemTray systemTray;
 
     public TelaPrincipal() {
@@ -68,61 +80,47 @@ public class TelaPrincipal extends JFrame {
         jInternalFrameRelatorios.setVisible(false);
         Properties prop = new Properties();
 
-        try{
+        try {
 
-           jMenuAuditoria.setVisible(false);
-           jMenuItemCriarUsuarios.setVisible(false);
+            jMenuAuditoria.setVisible(false);
+            jMenuItemCriarUsuarios.setVisible(false);
 
-        }catch(Exception e){
-           JOptionPane.showMessageDialog(this,"Erro:"+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE); 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro:" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
 
         jLabel1.setText(df.format(c.getTime()));
 
-       ControlaEsc();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        ControlaEsc();
+
+        createAndCentralizerWindows();
 
         systemTray = SystemTray.getSystemTray();
-        
+
         trayIcon = new TrayIcon(new ImageIcon(getClass().getResource("/img/ico.png")).getImage(), "Acal2000", popupMenu1);
         trayIcon.setImageAutoSize(true);
 
-       try{
-           systemTray.add(trayIcon);
-       }catch(AWTException e){
-        e.printStackTrace();
-       }
+        try {
+            systemTray.add(trayIcon);
+        } catch (AWTException ignored) {
+        }
+    }
+
+    private void createAndCentralizerWindows() {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        Rectangle screenBounds = gd.getDefaultConfiguration().getBounds();
+
+        setBounds(screenBounds);
+
     }
 
     @Override
-    public boolean isFocusable(){
+    public boolean isFocusable() {
         return true;
     }
 
-    
-  private void ControlaEsc() {  
-        KeyStroke ks = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true);  
-  
-        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(ks, "esc");  
-        getRootPane().getActionMap().put("esc", new AbstractAction() {  
-  
-            @Override  
-            public void actionPerformed(ActionEvent ae) {  
-  
-               
-                    if(jInternalFrameContas1.isVisible()){
-                        
-                        jButton4ActionPerformed(ae);
-                        
-                    }else if(jInternalFrameRelatorios.isVisible()){
-                        
-                         jButtonInternalFrameRelatoriosVoltar1ActionPerformed(ae);
-                    }
-                  
-            }
-        });  
-    }  
- 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -216,7 +214,7 @@ public class TelaPrincipal extends JFrame {
 
         popupMenu1.setLabel("popupMenu1");
 
-        menuItemPopupSair.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        menuItemPopupSair.setFont(new Font("Dialog", 1, 12)); // NOI18N
         menuItemPopupSair.setLabel("Sair");
         menuItemPopupSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -389,16 +387,16 @@ public class TelaPrincipal extends JFrame {
         javax.swing.GroupLayout jPanelImagemTelaPrincipal1Layout = new javax.swing.GroupLayout(jPanelImagemTelaPrincipal1);
         jPanelImagemTelaPrincipal1.setLayout(jPanelImagemTelaPrincipal1Layout);
         jPanelImagemTelaPrincipal1Layout.setHorizontalGroup(
-            jPanelImagemTelaPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 944, Short.MAX_VALUE)
-            .addGroup(jPanelImagemTelaPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE))
+                jPanelImagemTelaPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 944, Short.MAX_VALUE)
+                        .addGroup(jPanelImagemTelaPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE))
         );
         jPanelImagemTelaPrincipal1Layout.setVerticalGroup(
-            jPanelImagemTelaPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
-            .addGroup(jPanelImagemTelaPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE))
+                jPanelImagemTelaPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 768, Short.MAX_VALUE)
+                        .addGroup(jPanelImagemTelaPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE))
         );
 
         jPanelInternalFrameContas.setOpaque(false);
@@ -437,32 +435,32 @@ public class TelaPrincipal extends JFrame {
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(68, 68, 68)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(69, Short.MAX_VALUE)))
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 280, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(68, 68, 68)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addContainerGap(69, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 524, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(21, 21, 21)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(21, Short.MAX_VALUE)))
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 524, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(21, 21, 21)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap(21, Short.MAX_VALUE)))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -477,16 +475,16 @@ public class TelaPrincipal extends JFrame {
         javax.swing.GroupLayout jInternalFrameContas1Layout = new javax.swing.GroupLayout(jInternalFrameContas1.getContentPane());
         jInternalFrameContas1.getContentPane().setLayout(jInternalFrameContas1Layout);
         jInternalFrameContas1Layout.setHorizontalGroup(
-            jInternalFrameContas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelInternalFrameContas, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE)
-            .addGroup(jInternalFrameContas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanelImagemTelaPrincipal1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                jInternalFrameContas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanelInternalFrameContas, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE)
+                        .addGroup(jInternalFrameContas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jPanelImagemTelaPrincipal1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jInternalFrameContas1Layout.setVerticalGroup(
-            jInternalFrameContas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelInternalFrameContas, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
-            .addGroup(jInternalFrameContas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanelImagemTelaPrincipal1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                jInternalFrameContas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanelInternalFrameContas, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+                        .addGroup(jInternalFrameContas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jPanelImagemTelaPrincipal1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jDesktopPaneContas.add(jInternalFrameContas1);
@@ -558,49 +556,49 @@ public class TelaPrincipal extends JFrame {
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(307, 307, 307)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonEntradaRelatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButtonChequeRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonCategoriaSocioRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonTaxasRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonSocioRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonSaidaRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                    .addComponent(jButtonFuncionarioRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                    .addComponent(jButtonInternalFrameRelatoriosVoltar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(414, Short.MAX_VALUE))
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(307, 307, 307)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jButtonEntradaRelatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jButtonChequeRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jButtonCategoriaSocioRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jButtonTaxasRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jButtonSocioRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButtonSaidaRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                        .addComponent(jButtonFuncionarioRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                        .addComponent(jButtonInternalFrameRelatoriosVoltar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(414, Short.MAX_VALUE))
         );
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButtonCategoriaSocioRelatorio, jButtonChequeRelatorio, jButtonEntradaRelatorio, jButtonFuncionarioRelatorio, jButtonInternalFrameRelatoriosVoltar1, jButtonSaidaRelatorio, jButtonSocioRelatorio, jButtonTaxasRelatorio});
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[]{jButtonCategoriaSocioRelatorio, jButtonChequeRelatorio, jButtonEntradaRelatorio, jButtonFuncionarioRelatorio, jButtonInternalFrameRelatoriosVoltar1, jButtonSaidaRelatorio, jButtonSocioRelatorio, jButtonTaxasRelatorio});
 
         jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonTaxasRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonFuncionarioRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCategoriaSocioRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSocioRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonEntradaRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSaidaRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonChequeRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
-                    .addComponent(jButtonInternalFrameRelatoriosVoltar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(597, Short.MAX_VALUE))
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButtonTaxasRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButtonFuncionarioRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButtonCategoriaSocioRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButtonSocioRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButtonEntradaRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButtonSaidaRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jButtonChequeRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                                        .addComponent(jButtonInternalFrameRelatoriosVoltar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(597, Short.MAX_VALUE))
         );
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonCategoriaSocioRelatorio, jButtonChequeRelatorio, jButtonEntradaRelatorio, jButtonFuncionarioRelatorio, jButtonInternalFrameRelatoriosVoltar1, jButtonSaidaRelatorio, jButtonSocioRelatorio, jButtonTaxasRelatorio});
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[]{jButtonCategoriaSocioRelatorio, jButtonChequeRelatorio, jButtonEntradaRelatorio, jButtonFuncionarioRelatorio, jButtonInternalFrameRelatoriosVoltar1, jButtonSaidaRelatorio, jButtonSocioRelatorio, jButtonTaxasRelatorio});
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -620,29 +618,29 @@ public class TelaPrincipal extends JFrame {
         javax.swing.GroupLayout jPanelImagemTelaPrincipal2Layout = new javax.swing.GroupLayout(jPanelImagemTelaPrincipal2);
         jPanelImagemTelaPrincipal2.setLayout(jPanelImagemTelaPrincipal2Layout);
         jPanelImagemTelaPrincipal2Layout.setHorizontalGroup(
-            jPanelImagemTelaPrincipal2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
+                jPanelImagemTelaPrincipal2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
         );
         jPanelImagemTelaPrincipal2Layout.setVerticalGroup(
-            jPanelImagemTelaPrincipal2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
+                jPanelImagemTelaPrincipal2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jInternalFrameRelatoriosLayout = new javax.swing.GroupLayout(jInternalFrameRelatorios.getContentPane());
         jInternalFrameRelatorios.getContentPane().setLayout(jInternalFrameRelatoriosLayout);
         jInternalFrameRelatoriosLayout.setHorizontalGroup(
-            jInternalFrameRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelInternalFrameRelatorios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
-            .addGroup(jInternalFrameRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanelImagemTelaPrincipal2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                jInternalFrameRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanelInternalFrameRelatorios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
+                        .addGroup(jInternalFrameRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jPanelImagemTelaPrincipal2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jInternalFrameRelatoriosLayout.setVerticalGroup(
-            jInternalFrameRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrameRelatoriosLayout.createSequentialGroup()
-                .addComponent(jPanelInternalFrameRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jInternalFrameRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanelImagemTelaPrincipal2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                jInternalFrameRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jInternalFrameRelatoriosLayout.createSequentialGroup()
+                                .addComponent(jPanelInternalFrameRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jInternalFrameRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jPanelImagemTelaPrincipal2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jDesktopPaneRelatorios.add(jInternalFrameRelatorios);
@@ -658,16 +656,16 @@ public class TelaPrincipal extends JFrame {
         javax.swing.GroupLayout jPanelImagemTelaPrincipalLayout = new javax.swing.GroupLayout(jPanelImagemTelaPrincipal);
         jPanelImagemTelaPrincipal.setLayout(jPanelImagemTelaPrincipalLayout);
         jPanelImagemTelaPrincipalLayout.setHorizontalGroup(
-            jPanelImagemTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(jPanelImagemTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE))
+                jPanelImagemTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanelImagemTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE))
         );
         jPanelImagemTelaPrincipalLayout.setVerticalGroup(
-            jPanelImagemTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(jPanelImagemTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE))
+                jPanelImagemTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanelImagemTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE))
         );
 
         jPanelDataHoraTelaPrincipal.setOpaque(false);
@@ -683,22 +681,22 @@ public class TelaPrincipal extends JFrame {
         javax.swing.GroupLayout jPanelDataHoraTelaPrincipalLayout = new javax.swing.GroupLayout(jPanelDataHoraTelaPrincipal);
         jPanelDataHoraTelaPrincipal.setLayout(jPanelDataHoraTelaPrincipalLayout);
         jPanelDataHoraTelaPrincipalLayout.setHorizontalGroup(
-            jPanelDataHoraTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDataHoraTelaPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 5, Short.MAX_VALUE)
-                .addGap(96, 96, 96)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
-                .addContainerGap())
+                jPanelDataHoraTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDataHoraTelaPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 5, Short.MAX_VALUE)
+                                .addGap(96, 96, 96)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         jPanelDataHoraTelaPrincipalLayout.setVerticalGroup(
-            jPanelDataHoraTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDataHoraTelaPrincipalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelDataHoraTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(145, 145, 145))
+                jPanelDataHoraTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDataHoraTelaPrincipalLayout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanelDataHoraTelaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel1))
+                                .addGap(145, 145, 145))
         );
 
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 255), new java.awt.Color(51, 51, 255), new java.awt.Color(51, 0, 255), new java.awt.Color(51, 0, 255)));
@@ -912,75 +910,74 @@ public class TelaPrincipal extends JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelBotoesTelaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(jPanelDataHoraTelaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jDesktopPaneContas, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanelImagemTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 127, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jDesktopPaneRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanelBotoesTelaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jPanelDataHoraTelaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jDesktopPaneContas, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jPanelImagemTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 127, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jDesktopPaneRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelBotoesTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(jPanelDataHoraTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jDesktopPaneContas, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanelImagemTelaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jDesktopPaneRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanelBotoesTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                                .addComponent(jPanelDataHoraTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jDesktopPaneContas, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jPanelImagemTelaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jDesktopPaneRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    private void jButtonTelaPrincipalCadastrosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonTelaPrincipalCadastrosActionPerformed
+    private void ControlaEsc() {
+        KeyStroke ks = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, true);
 
-      
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(ks, "esc");
+        getRootPane().getActionMap().put("esc", new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+
+
+                if (jInternalFrameContas1.isVisible()) {
+
+                    jButton4ActionPerformed(ae);
+
+                } else if (jInternalFrameRelatorios.isVisible()) {
+
+                    jButtonInternalFrameRelatoriosVoltar1ActionPerformed(ae);
+                }
+
+            }
+        });
+    }
+
+
+    private void jButtonTelaPrincipalCadastrosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonTelaPrincipalCadastrosActionPerformed
         new TelaCadastros(this).setVisible(true);
 
     }//GEN-LAST:event_jButtonTelaPrincipalCadastrosActionPerformed
 
-   
+
     private void jMenuSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSairMouseClicked
         System.exit(0);
     }//GEN-LAST:event_jMenuSairMouseClicked
 
-   
+
     private void jMenuItemSairActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jMenuItemSairActionPerformed
 
     private void jButtonTelaPrincipalRelatoriosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonTelaPrincipalRelatoriosActionPerformed
 
-
-        //Thread para gerar relatório. Utilizei jdbc como conexão para passar no método fillReport da classe JasperFillManager
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                try {
-//                    Connection conn = HibernateUtil.getConnection();
-//                    Map<String, Object> paramets = new HashMap<>();
-//                    JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/relatorios.jrxml"));
-//
-//                    JasperPrint jasper = JasperFillManager.fillReport(report, paramets, conn);
-//                    JasperViewer.viewReport(jasper, false);
-//
-//
-//                } catch (Exception ex) {
-//                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        }.start();
-        
-        
-        //jPanelImagemTelaPrincipal2.setVisible(true);
         jDesktopPaneRelatorios.setVisible(true);
         jInternalFrameRelatorios.setVisible(true);
         try {
@@ -994,7 +991,7 @@ public class TelaPrincipal extends JFrame {
 
     }//GEN-LAST:event_jButtonTelaPrincipalRelatoriosActionPerformed
 
-    
+
     private void timer1OnTime(ActionEvent evt) {//GEN-FIRST:event_timer1OnTime
 
         c = Calendar.getInstance();
@@ -1002,22 +999,21 @@ public class TelaPrincipal extends JFrame {
         jLabel2.setText(df.format(c.getTime()));
 
 
-
     }//GEN-LAST:event_timer1OnTime
 
-  
+
     private void jMenuItemFuncionariosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemFuncionariosActionPerformed
 
         new TelaCadastros(this, evt).setVisible(true);
 
     }//GEN-LAST:event_jMenuItemFuncionariosActionPerformed
 
-    
+
     private void jMenuItemLogradourosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemLogradourosActionPerformed
         new TelaCadastros(this, evt).setVisible(true);
     }//GEN-LAST:event_jMenuItemLogradourosActionPerformed
 
-    
+
     private void jMenuItemReceitasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemReceitasActionPerformed
         new TelaCadastros(this, evt).setVisible(true);
     }//GEN-LAST:event_jMenuItemReceitasActionPerformed
@@ -1038,160 +1034,116 @@ public class TelaPrincipal extends JFrame {
         new TelaCadastros(this, evt).setVisible(true);
     }//GEN-LAST:event_jMenuItemDespesaActionPerformed
 
-    
+
     private void jMenuItemTipoReceitaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemTipoReceitaActionPerformed
         new TelaCadastros(this, evt).setVisible(true);
     }//GEN-LAST:event_jMenuItemTipoReceitaActionPerformed
 
-    
+
     private void jMenuItemReceitaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemReceitaActionPerformed
         new TelaCadastros(this, evt).setVisible(true);
     }//GEN-LAST:event_jMenuItemReceitaActionPerformed
 
-    
+
     private void jMenuItemContratoActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemContratoActionPerformed
         new TelaCadastros(this, evt).setVisible(true);
     }//GEN-LAST:event_jMenuItemContratoActionPerformed
 
-   
+
     private void jMenuItemTaxasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemTaxasActionPerformed
         new TelaCadastros(this, evt).setVisible(true);
     }//GEN-LAST:event_jMenuItemTaxasActionPerformed
 
-    
-    private void jMenuItemTelaPrincipalBackupActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemTelaPrincipalBackupActionPerformed
 
-        //PrintWriter para escrever os dados do arquivo sql, criado automaticamente pelo programa , para o arquivo onde o usuário desejar salvar o .sql
-        PrintWriter pw = null;
-        //Esse Scanner vai ler os dados do arquivo sql gerado automaticamente e passar para o PrintWriter.
-        Scanner sc = null;
+    private void jMenuItemTelaPrincipalBackupActionPerformed(ActionEvent evt) {
+        createBackup();
+    }
+
+    public void createBackup() {
+        String userHome = System.getProperty("user.home");
+        Path backupDir = Paths.get(userHome, "acal");
+
+        createBackupDirectory(backupDir);
+
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("ddMMyyyy"));
+        String backupFileName = "acal" + date + ".sql";
+        Path backupFilePath = backupDir.resolve(backupFileName);
+
+        String[] command = {"cmd.exe", "/c", "mysqldump", "-u", "root", "-p123", "acal"};
+
+        boolean success = executeBackupCommand(command, backupFilePath);
+
+        showMessage(success);
+    }
+
+    private static void createBackupDirectory(Path backupDir) {
         try {
-
-            // String comando = "cmd /c mysqldump -uroot -p123 acal >" + getClass().getResource("/Sql/").getPath().substring(1) + "acal.sql";
-            //Criei um File passando um caminho de um diretório, que em primeira instancia não existe.
-            File caminho = new File("sql/");
-            //Verifico se o diretório existe, caso contrário ele será criado com o método mkdir() da classe File.
-            if (!caminho.exists()) {
-                caminho.mkdir();
-                //Files.createDirectory(caminho.toPath());
+            if (Files.notExists(backupDir)) {
+                Files.createDirectories(backupDir);
+                System.out.println("Diretório de backup criado em: " + backupDir);
             }
-            //Utilizei a classe Calendar e SimpleDateFormat para gravar no nome do arquivo a data atual.
-            Calendar c = Calendar.getInstance();
-            //Precisei separar a data do tipo DD/MM/yyy para DDMMyyy , para não dar erro no comando do Runtime.
-            String[] s = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT).format(c.getTime()).split("/");
-            String data = "";
-
-            //Aqui eu junto as Strings da data que separei com o método split.
-            for (String temp : s) {
-
-                data = data.concat(temp);
-            }
-
-            //Variável que armazena o modelo de nome do arquivo .sql.
-            String acal = "acal" + data + ".sql";
-            //Variável que armazena o comando do mysqldump que ira ser passado na classe Runtime.
-            String[] comando = {"cmd.exe", "/c", "mysqldump -u root -p123 acal > sql/" + acal};
-
-            //Aqui utilizo os métodos da classe Runtime para executar o comando. o método exec retorna um Process.
-            Process p;
-            //bloco Try/Catch para testar a execução do comando no processo de exportação do banco de dados.
-            try {
-                p = Runtime.getRuntime().exec(comando);
-                if (p.waitFor() == 0) {
-                    System.out.println("mysqldump executado");
-                } else {
-                    System.out.println("erro no mysqldump");
-                }
-            } catch (InterruptedException ex) {
-
-                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-
-            // File file = new File(getClass().getResource("/Sql/acal.sql").getPath());
-            //Criei um File passando o arquivo gerado pelo mysqldump. Desse arquivo irei ler com o Scanner e escrever em um novo arquivo .sql, escolhido pelo usuário, utilizando o PrintWriter.
-            File file = new File("sql/" + acal);
-            //FileChooser para o usuário escolher onde vai salvar o arquivo .sql.
-            JFileChooser jf = new JFileChooser();
-
-
-
-
-            //o método showSaveDilog retorna um int, que serve para saber em qual botão o usuário clicou na tela do FileChooser. Além disso ele faz com que o FileChooser exiba uma tela para salvar arquivos.
-            int result = jf.showSaveDialog(this);
-
-            //Aqui eu testo o retorno do showSaveDialog, se o usuário clicar em salvar o if é executado e o backup é gerado.
-            if (result == JFileChooser.APPROVE_OPTION) {
-
-
-                //Novo File que pega o caminho escolhido pelo usuário e, o nome do arquivo. no final acrescentei a extensão .sql.
-                File f = new File(jf.getSelectedFile().getAbsolutePath() + ".sql");
-                //Cria fisicamente o arquivo no lugar onde o usuário escolheu salvar.
-                f.createNewFile();
-                //Instanciei o PrintWriter, passando em seu construtor o File onde vou gravar os dados.
-                pw = new PrintWriter(f);
-                //Instancia do Scanner. No construtor o File do arquivo gerado automaticamente pelo programa.
-                sc = new Scanner(file);
-                //Nesse While o Scanner vai lendo linha por linha do arquivo .sql gerado automaticamente e, o PrintWriter vai escrevendo linha por linha no arquivo onde o usário escolheu salvar.
-                while (sc.hasNextLine()) {
-                    String s1 = sc.nextLine();
-
-                    pw.println(s1);
-                }
-             
-                
-                JOptionPane.showMessageDialog(null, "Backup gerado com sucesso!", "Backup", JOptionPane.INFORMATION_MESSAGE);
-
-            }
-
-
-
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao gerar o Backup, contate o suporte");
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+            showError("Erro ao criar o diretório de backup.", e);
         }
-       
-        finally {
-            if (pw != null) {
+    }
 
-                pw.close();
+    private static boolean executeBackupCommand(String[] command, Path backupFilePath) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder(command);
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
+
+            try (InputStream is = process.getInputStream();
+                 OutputStream os = Files.newOutputStream(backupFilePath)) {
+                is.transferTo(os);
             }
-            if (sc != null) {
 
-                sc.close();
-            }
-
-
+            return process.waitFor() == 0;
+        } catch (IOException | InterruptedException e) {
+            showError("Erro ao executar o backup do MySQL.", e);
+            return false;
         }
+    }
 
-    }//GEN-LAST:event_jMenuItemTelaPrincipalBackupActionPerformed
+    private static void showMessage(boolean success) {
+        if (success) {
+            JOptionPane.showMessageDialog(null, "Backup gerado com sucesso!", "Backup", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro ao executar o backup do MySQL.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private static void showError(String message, Exception e) {
+        JOptionPane.showMessageDialog(null, message, "Erro", JOptionPane.ERROR_MESSAGE);
+        throw new RuntimeException(e);
+    }
 
     private void jButtonTelaPrincipalLogoffActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonTelaPrincipalLogoffActionPerformed
         //tray = true; 
         systemTray.remove(trayIcon);
         dispose();
         new TelaLogin().setVisible(true);
-        
+
     }//GEN-LAST:event_jButtonTelaPrincipalLogoffActionPerformed
 
     private void menuItemPopupSairActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItemPopupSairActionPerformed
-        formWindowClosing(null);        
+        formWindowClosing(null);
         System.exit(0);
     }//GEN-LAST:event_menuItemPopupSairActionPerformed
 
     private void menuItemPopupCadastrosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItemPopupCadastrosActionPerformed
-        
-        
-          new TelaCadastros(this).setVisible(true);
-        
+
+
+        new TelaCadastros(this).setVisible(true);
+
     }//GEN-LAST:event_menuItemPopupCadastrosActionPerformed
 
     private void jButtonTelaPrincipalCaixaActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonTelaPrincipalCaixaActionPerformed
         jDesktopPaneContas.setVisible(true);
         jInternalFrameContas1.setVisible(true);
-       
+
         try {
-        jInternalFrameContas1.setMaximum(true);
+            jInternalFrameContas1.setMaximum(true);
         } catch (PropertyVetoException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1201,14 +1153,14 @@ public class TelaPrincipal extends JFrame {
     }//GEN-LAST:event_jButtonTelaPrincipalCaixaActionPerformed
 
     private void jButton4ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
+
         jDesktopPaneContas.setVisible(false);
         jInternalFrameContas1.setVisible(false);
         //jPanelImagemTelaPrincipal1.setVisible(false);
         jPanelBotoesTelaPrincipal.setVisible(true);
         jPanelImagemTelaPrincipal.setVisible(true);
         jPanelDataHoraTelaPrincipal.setVisible(true);
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -1216,323 +1168,317 @@ public class TelaPrincipal extends JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jButtonInternalFrameRelatoriosVoltar1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonInternalFrameRelatoriosVoltar1ActionPerformed
-       
+
         jDesktopPaneContas.setVisible(false);
         jInternalFrameRelatorios.setVisible(false);
-       // jPanelImagemTelaPrincipal2.setVisible(false);
+        // jPanelImagemTelaPrincipal2.setVisible(false);
         jPanelBotoesTelaPrincipal.setVisible(true);
         jPanelDataHoraTelaPrincipal.setVisible(true);
         jPanelImagemTelaPrincipal.setVisible(true);
         repaint();
-       
+
     }//GEN-LAST:event_jButtonInternalFrameRelatoriosVoltar1ActionPerformed
 
     private void jButtonTaxasRelatorioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonTaxasRelatorioActionPerformed
-         
-   
-    int  resposta = JOptionPane.showConfirmDialog(null, "Deseja Gerar um Relatório de taxas?","Atenção",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-    if (resposta == JOptionPane.YES_OPTION) {
-     
-        jButtonTaxasRelatorio.setEnabled(false);
-        JOptionPane.showMessageDialog(null, "Espere , a janela se abrirá em breve");
-    
-        Thread t = new Thread(){
-            
-           @Override
-            public void run() {
-                try {
-                    Connection conn = HibernateUtil.getConnection();
-                   // JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/rc_taxa.jrxml"));
-
-                    JasperPrint jasper = JasperFillManager.fillReport(getClass().getResourceAsStream("/relatorios/rc_taxa.jasper"), null, conn);
-                    JasperViewer.viewReport(jasper, false);
 
 
-                } catch (Exception ex) {
-                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja Gerar um Relatório de taxas?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (resposta == JOptionPane.YES_OPTION) {
+
+            jButtonTaxasRelatorio.setEnabled(false);
+            JOptionPane.showMessageDialog(null, "Espere , a janela se abrirá em breve");
+
+            Thread t = new Thread() {
+
+                @Override
+                public void run() {
+                    try {
+                        Connection conn = HibernateUtil.getConnection();
+                        // JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/rc_taxa.jrxml"));
+
+                        JasperPrint jasper = JasperFillManager.fillReport(getClass().getResourceAsStream("/relatorios/rc_taxa.jasper"), null, conn);
+                        JasperViewer.viewReport(jasper, false);
+
+
+                    } catch (Exception ex) {
+                        Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+            };
+
+            t.start();
+            try {
+                t.join();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
-        };
-        
-        t.start();
-        try {
-            t.join();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        jButtonTaxasRelatorio.setEnabled(true);
+            jButtonTaxasRelatorio.setEnabled(true);
         }
     }//GEN-LAST:event_jButtonTaxasRelatorioActionPerformed
 
     private void jButtonCategoriaSocioRelatorioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonCategoriaSocioRelatorioActionPerformed
-         
-    int resposta = JOptionPane.showConfirmDialog(null, "Deseja Gerar um Relatório de Categorias de Socios?");
-    if (resposta == JOptionPane.YES_OPTION) {
-     
-        JOptionPane.showMessageDialog(null, "Espere Alguns Instantes, a janela se abrirá em breve");
-    
-        
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Connection conn = HibernateUtil.getConnection();
-                    JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/rc_categoriaSocio.jrxml"));
 
-                    JasperPrint jasper = JasperFillManager.fillReport(report, null, conn);
-                    JasperViewer.viewReport(jasper, false);
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja Gerar um Relatório de Categorias de Socios?");
+        if (resposta == JOptionPane.YES_OPTION) {
+
+            JOptionPane.showMessageDialog(null, "Espere Alguns Instantes, a janela se abrirá em breve");
 
 
-                } catch (Exception ex) {
-                    Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        Connection conn = HibernateUtil.getConnection();
+                        JasperReport report = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/rc_categoriaSocio.jrxml"));
+
+                        JasperPrint jasper = JasperFillManager.fillReport(report, null, conn);
+                        JasperViewer.viewReport(jasper, false);
+
+
+                    } catch (Exception ex) {
+                        Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-        }.start();
-        
+            }.start();
+
         }
     }//GEN-LAST:event_jButtonCategoriaSocioRelatorioActionPerformed
 
     private void jButtonChequeRelatorioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonChequeRelatorioActionPerformed
-        
-       TelaRelatoriosCheques c = new TelaRelatoriosCheques(this, true);
-       c.setLocationRelativeTo(null);
-       c.setVisible(true);
+
+        TelaRelatoriosCheques c = new TelaRelatoriosCheques(this, true);
+        c.setLocationRelativeTo(null);
+        c.setVisible(true);
     }//GEN-LAST:event_jButtonChequeRelatorioActionPerformed
 
     private void jButtonEntradaRelatorioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonEntradaRelatorioActionPerformed
-       TelaRelatoriosEntradas c = new TelaRelatoriosEntradas(this, true);
-       c.setLocationRelativeTo(null);
-       c.setVisible(true);
-        
-       
+        TelaRelatoriosEntradas c = new TelaRelatoriosEntradas(this, true);
+        c.setLocationRelativeTo(null);
+        c.setVisible(true);
+
+
     }//GEN-LAST:event_jButtonEntradaRelatorioActionPerformed
 
-    
-    
+
     private void jButtonSaidaRelatorioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonSaidaRelatorioActionPerformed
-       TelaRelatoriosSaidas c = new TelaRelatoriosSaidas(this, true);
-       c.setLocationRelativeTo(null);
-       c.setVisible(true);
+        TelaRelatoriosSaidas c = new TelaRelatoriosSaidas(this, true);
+        c.setLocationRelativeTo(null);
+        c.setVisible(true);
     }//GEN-LAST:event_jButtonSaidaRelatorioActionPerformed
 
     private void jButtonSocioRelatorioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButtonSocioRelatorioActionPerformed
-       TelaRelatoriosSocios socio = new TelaRelatoriosSocios(this, true);
-       socio.setLocationRelativeTo(null);
-       socio.setVisible(true);  
+        TelaRelatoriosSocios socio = new TelaRelatoriosSocios(this, true);
+        socio.setLocationRelativeTo(null);
+        socio.setVisible(true);
     }//GEN-LAST:event_jButtonSocioRelatorioActionPerformed
 
     private void jButton3ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+
         new GContas(this).setVisible(true);
-      
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         new GContasAReceber(this).setVisible(true);
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItemAuditoriaChequesActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemAuditoriaChequesActionPerformed
-        
+
         PrintWriter pw = null;
-        try{
-            
-            
-          
+        try {
+
+
             File caminho = new File("logs/");
-            
-            if(!caminho.exists()){
+
+            if (!caminho.exists()) {
                 caminho.mkdir();
-                
+
             }
             File arquivo = new File("logs/chequeslog.txt");
-         
-          
-           if(arquivo.exists()){
+
+
+            if (arquivo.exists()) {
                 arquivo.delete();
-               
-           }
-             arquivo.createNewFile();
+
+            }
+            arquivo.createNewFile();
             List<Chequeslog> cheques = new DaoChequeslog().BuscarTodosChequesLog();
             pw = new PrintWriter(arquivo);
-            for(Chequeslog c : cheques){
-                
-                pw.print("ID:"+c.getId()+"\tIDOriginal:"+c.getIdOriginal()+"\tdataPagamento:"+c.getDataPagamento()+
-                        "\tdataVencimento:"+c.getDataVencimento()+"\tdataAlteração:"+c.getDataAlteracao()+"\tNúmero:"+c.getNumero()+
-                        "\tValor:"+c.getValor()+"\tIdFuncionario:"+c.getIdFuncionarioAlteracao()+"\tTipo:"+c.getTipo());
+            for (Chequeslog c : cheques) {
+
+                pw.print("ID:" + c.getId() + "\tIDOriginal:" + c.getIdOriginal() + "\tdataPagamento:" + c.getDataPagamento() +
+                        "\tdataVencimento:" + c.getDataVencimento() + "\tdataAlteração:" + c.getDataAlteracao() + "\tNúmero:" + c.getNumero() +
+                        "\tValor:" + c.getValor() + "\tIdFuncionario:" + c.getIdFuncionarioAlteracao() + "\tTipo:" + c.getTipo());
                 pw.println();
                 pw.println();
-                
+
             }
-            
+
             Desktop.getDesktop().open(arquivo);
-            
-        }catch(Exception e){
-           e.printStackTrace(); 
-           JOptionPane.showMessageDialog(this,"Erro:"+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE); 
-        }finally{
-            
-            if(pw != null){
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro:" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        } finally {
+
+            if (pw != null) {
                 pw.close();
             }
         }
-        
+
     }//GEN-LAST:event_jMenuItemAuditoriaChequesActionPerformed
 
     private void jMenuItemAuditoriaContasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemAuditoriaContasActionPerformed
-      
-         PrintWriter pw = null;
-        try{
-            
-            
-          
+
+        PrintWriter pw = null;
+        try {
+
+
             File caminho = new File("logs/");
-            
-            if(!caminho.exists()){
+
+            if (!caminho.exists()) {
                 caminho.mkdir();
-                
+
             }
             File arquivo = new File("logs/contaslog.txt");
-         
-          
-           if(arquivo.exists()){
+
+
+            if (arquivo.exists()) {
                 arquivo.delete();
-               
-           }
-             arquivo.createNewFile();
+
+            }
+            arquivo.createNewFile();
             List<Contaslog> contas = new DaoContaslog().ListarTodas();
             pw = new PrintWriter(arquivo);
-            for(Contaslog c : contas){
-                
-                pw.print("ID:"+c.getId()+"\tIDOriginal:"+c.getIdOriginal()+"\tdataPagamento:"+c.getDataPag()+
-                        "\tdataVencimento:"+c.getDataVence()+"\tTaxaSócio:"+c.getTaxaSocio()+"\tNúmeroSócio:"+c.getIdNumeroSocio()+
-                        "\tHoraRegistro:"+c.getHoraRegristro()+"\tTipo:"+c.getTipo());
+            for (Contaslog c : contas) {
+
+                pw.print("ID:" + c.getId() + "\tIDOriginal:" + c.getIdOriginal() + "\tdataPagamento:" + c.getDataPag() +
+                        "\tdataVencimento:" + c.getDataVence() + "\tTaxaSócio:" + c.getTaxaSocio() + "\tNúmeroSócio:" + c.getIdNumeroSocio() +
+                        "\tHoraRegistro:" + c.getHoraRegristro() + "\tTipo:" + c.getTipo());
                 pw.println();
                 pw.println();
-                
+
             }
-            
+
             Desktop.getDesktop().open(arquivo);
-            
-        }catch(Exception e){
-           e.printStackTrace(); 
-           JOptionPane.showMessageDialog(this,"Erro:"+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE); 
-        }finally{
-            
-            if(pw != null){
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro:" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        } finally {
+
+            if (pw != null) {
                 pw.close();
             }
         }
     }//GEN-LAST:event_jMenuItemAuditoriaContasActionPerformed
 
     private void jMenuItemAuditoriaEntradasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemAuditoriaEntradasActionPerformed
-         PrintWriter pw = null;
-        try{
-            
-            
-          
+        PrintWriter pw = null;
+        try {
+
+
             File caminho = new File("logs/");
-            
-            if(!caminho.exists()){
+
+            if (!caminho.exists()) {
                 caminho.mkdir();
-                
+
             }
             File arquivo = new File("logs/entradaslog.txt");
-         
-          
-           if(arquivo.exists()){
+
+
+            if (arquivo.exists()) {
                 arquivo.delete();
-               
-           }
-         arquivo.createNewFile();
+
+            }
+            arquivo.createNewFile();
 
 
             Desktop.getDesktop().open(arquivo);
-            
-        }catch(Exception e){
-           JOptionPane.showMessageDialog(this,"Erro:"+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
-        }finally{
-            
-            if(pw != null){
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro:" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        } finally {
+
+            if (pw != null) {
                 pw.close();
             }
         }
     }//GEN-LAST:event_jMenuItemAuditoriaEntradasActionPerformed
 
     private void jMenuItemAuditoriaSaidasActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemAuditoriaSaidasActionPerformed
-        
-       
-        
-        
+
+
     }//GEN-LAST:event_jMenuItemAuditoriaSaidasActionPerformed
 
     private void jMenuItemCriarUsuariosActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItemCriarUsuariosActionPerformed
-        
-       CriadorUsuario cu = new CriadorUsuario(this, true);
-       cu.setLocationRelativeTo(null);
-       cu.setVisible(true);
-        
+
+        CriadorUsuario cu = new CriadorUsuario(this, true);
+        cu.setLocationRelativeTo(null);
+        cu.setVisible(true);
+
     }//GEN-LAST:event_jMenuItemCriarUsuariosActionPerformed
 
     private void jButton2ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         new TelaCadastros(this, evt).setVisible(true);
+        new TelaCadastros(this, evt).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenuItem1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       TelaRelatoriosContas tc = new TelaRelatoriosContas();
-       tc.setVisible(true);
+        TelaRelatoriosContas tc = new TelaRelatoriosContas();
+        tc.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem5ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-       TelaTabelaCaixa tbc = new TelaTabelaCaixa();
-       tbc.setVisible(true);
-       tbc.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        TelaTabelaCaixa tbc = new TelaTabelaCaixa();
+        tbc.setVisible(true);
+        tbc.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-       TelaTabelaConta tbc = new TelaTabelaConta();
-       tbc.setVisible(true);
-       tbc.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        TelaTabelaConta tbc = new TelaTabelaConta();
+        tbc.setVisible(true);
+        tbc.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void timer2OnTime(ActionEvent evt) {//GEN-FIRST:event_timer2OnTime
-       
-        new Thread(){
-            
-            public void run(){
-                
-              List<Conta> contas = new DaoContasMensais().ContasVencidas(new Date(System.currentTimeMillis()));
-              if(!contas.isEmpty()){
-                  
-                  trayIcon.displayMessage("Contas Vencidas", "Existem contas vencidas, consulte o relatório de contas!", TrayIcon.MessageType.INFO);
-                  
-              }
-              
+
+        new Thread() {
+
+            public void run() {
+
+                List<Conta> contas = new DaoContasMensais().ContasVencidas(new Date(System.currentTimeMillis()));
+                if (!contas.isEmpty()) {
+
+                    trayIcon.displayMessage("Contas Vencidas", "Existem contas vencidas, consulte o relatório de contas!", TrayIcon.MessageType.INFO);
+
+                }
+
             }
-            
+
         }.start();
-        
-        
+
+
     }//GEN-LAST:event_timer2OnTime
 
     private void desativaMensagensActionPerformed(ActionEvent evt) {//GEN-FIRST:event_desativaMensagensActionPerformed
-        
-        int op = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja desativar as mensagens?","Atenção", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-        if(op == JOptionPane.YES_OPTION){
-            
+
+        int op = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja desativar as mensagens?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (op == JOptionPane.YES_OPTION) {
+
 
         }
     }//GEN-LAST:event_desativaMensagensActionPerformed
 
     private void ativaMensagensActionPerformed(ActionEvent evt) {//GEN-FIRST:event_ativaMensagensActionPerformed
-        
-           int op = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja ativar as mensagens?","Atenção", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-        if(op == JOptionPane.YES_OPTION){
-            
+
+        int op = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja ativar as mensagens?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (op == JOptionPane.YES_OPTION) {
+
 
         }
-        
+
     }//GEN-LAST:event_ativaMensagensActionPerformed
 
     private void menuItem1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_menuItem1ActionPerformed
@@ -1545,11 +1491,11 @@ public class TelaPrincipal extends JFrame {
     }//GEN-LAST:event_menuItem3ActionPerformed
 
     private void jMenuItem7ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-       ContasEditor ce = new ContasEditor();
-       ce.setVisible(true);
+        ContasEditor ce = new ContasEditor();
+        ce.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
- 
-  
+
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
@@ -1558,6 +1504,7 @@ public class TelaPrincipal extends JFrame {
             }
         });
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.MenuItem ativaMensagens;
     private java.awt.MenuItem desativaMensagens;

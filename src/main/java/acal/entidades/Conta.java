@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package acal.entidades;
 
 import javax.persistence.Basic;
@@ -25,10 +21,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author alexandre
- */
 @Entity
 @Table(name = "conta")
 

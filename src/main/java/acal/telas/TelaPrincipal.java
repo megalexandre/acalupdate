@@ -2,11 +2,13 @@ package acal.telas;
 
 import java.awt.AWTException;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.SystemTray;
+import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -30,6 +32,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -72,22 +75,12 @@ public class TelaPrincipal extends JFrame {
 
     public TelaPrincipal() {
         initComponents();
-        c = Calendar.getInstance(new Locale("pt", "BR"));
-        DateFormat df = SimpleDateFormat.getDateInstance(SimpleDateFormat.DATE_FIELD, new Locale("pt", "BR"));
+        c = Calendar.getInstance(Locale.of("pt", "BR"));
+        DateFormat df = SimpleDateFormat.getDateInstance(DateFormat.DATE_FIELD, Locale.of("pt", "BR"));
         jDesktopPaneContas.setVisible(false);
         jInternalFrameContas1.setVisible(false);
         jDesktopPaneRelatorios.setVisible(false);
         jInternalFrameRelatorios.setVisible(false);
-        Properties prop = new Properties();
-
-        try {
-
-            jMenuAuditoria.setVisible(false);
-            jMenuItemCriarUsuarios.setVisible(false);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro:" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
 
         jLabel1.setText(df.format(c.getTime()));
 
@@ -96,8 +89,7 @@ public class TelaPrincipal extends JFrame {
         createAndCentralizerWindows();
 
         systemTray = SystemTray.getSystemTray();
-
-        trayIcon = new TrayIcon(new ImageIcon(getClass().getResource("/img/ico.png")).getImage(), "Acal2000", popupMenu1);
+        trayIcon = new TrayIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/ico.png"))).getImage(), "Acal", popupMenu1);
         trayIcon.setImageAutoSize(true);
 
         try {
@@ -107,12 +99,9 @@ public class TelaPrincipal extends JFrame {
     }
 
     private void createAndCentralizerWindows() {
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice gd = ge.getDefaultScreenDevice();
-        Rectangle screenBounds = gd.getDefaultConfiguration().getBounds();
-
-        setBounds(screenBounds);
-
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Rectangle maxBounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+        setBounds(maxBounds);
     }
 
     @Override
@@ -216,11 +205,7 @@ public class TelaPrincipal extends JFrame {
 
         menuItemPopupSair.setFont(new Font("Dialog", 1, 12)); // NOI18N
         menuItemPopupSair.setLabel("Sair");
-        menuItemPopupSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                menuItemPopupSairActionPerformed(evt);
-            }
-        });
+        menuItemPopupSair.addActionListener(this::menuItemPopupSairActionPerformed);
         popupMenu1.add(menuItemPopupSair);
         popupMenu1.addSeparator();
         menuItemPopupCadastros.setLabel("Cadastros");
@@ -232,11 +217,7 @@ public class TelaPrincipal extends JFrame {
         popupMenu1.add(menuItemPopupCadastros);
 
         desativaMensagens.setLabel("Desativar Mensagens");
-        desativaMensagens.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                desativaMensagensActionPerformed(evt);
-            }
-        });
+        desativaMensagens.addActionListener(this::desativaMensagensActionPerformed);
         popupMenu1.add(desativaMensagens);
 
         ativaMensagens.setLabel("Ativar Mensagens");

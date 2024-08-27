@@ -11,5 +11,6 @@ public class Link {
     private String partnerNumber;
     private Customer customer;
     private Address address;
+    private Category category;
 
 }

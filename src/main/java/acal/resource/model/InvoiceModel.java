@@ -6,12 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -31,6 +33,9 @@ public class InvoiceModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idEnderecoPessoa", referencedColumnName = "id")
     private LinkModel link;
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "invoice", cascade = CascadeType.ALL)
+    private WaterMeterModel waterMeter;
 
     @Column(name = "dataPag")
     private LocalDateTime payedAt;

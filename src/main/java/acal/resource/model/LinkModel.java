@@ -33,6 +33,10 @@ public class LinkModel implements Serializable {
     @ManyToOne(optional = false)
     private AddressModel address;
 
+    @JoinColumn(name = "idCategoriaSocio", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private CategoryModel category;
+
     @Column(name = "Numero")
     private String partnerNumber;
 }

@@ -3,6 +3,9 @@ package acal.resource.adapter;
 import acal.report.model.Invoice;
 import acal.resource.model.InvoiceModel;
 
+import javax.persistence.Column;
+import java.math.BigDecimal;
+
 public class InvoiceAdapter {
     public static Invoice map(InvoiceModel item){
         return Invoice
@@ -12,7 +15,10 @@ public class InvoiceAdapter {
             .duoDate(item.getDueDate())
             .createdAt(item.getCreatedAt())
             .period(item.getPeriod())
-            .link(LinkAdapter.map(item.getLink()) )
+            .otherValues(item.getOtherValues())
+            .partnerValue(item.getPartnerValue())
+            .link(LinkAdapter.map(item.getLink()))
+            .waterMeter(WaterMeterAdapter.map(item.getWaterMeter()))
             .build();
     }
 
@@ -25,6 +31,7 @@ public class InvoiceAdapter {
                 .createdAt(item.getCreatedAt())
                 .period(item.getPeriod())
                 .link(LinkAdapter.map(item.getLink()) )
+                .waterMeter(WaterMeterAdapter.map(item.getWaterMeter()))
             .build();
 
     }

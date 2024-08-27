@@ -1,10 +1,13 @@
 package acal.infra;
 
 import acal.resource.model.AddressModel;
+import acal.resource.model.CategoryModel;
 import acal.resource.model.CustomerModel;
 import acal.resource.model.InvoiceModel;
 import acal.resource.model.LinkModel;
 import acal.resource.model.PartnerModel;
+import acal.resource.model.PriceModel;
+import acal.resource.model.WaterMeterModel;
 import lombok.Getter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -54,7 +57,7 @@ public class HibernateUtil {
             metadataSources.addAnnotatedClass(acal.entidades.Motivoentrada.class);
             metadataSources.addAnnotatedClass(acal.entidades.Pessoa.class);
             metadataSources.addAnnotatedClass(acal.entidades.RcCaixaCompleto.class);
-            //metadataSources.addAnnotatedClass(acal.entidades.RcConta.class);
+
             metadataSources.addAnnotatedClass(acal.entidades.Saida.class);
             metadataSources.addAnnotatedClass(acal.entidades.Saidaslog.class);
             metadataSources.addAnnotatedClass(acal.entidades.Socio.class);
@@ -66,14 +69,15 @@ public class HibernateUtil {
             metadataSources.addAnnotatedClass(acal.entidades.Taxasconta.class);
             metadataSources.addAnnotatedClass(acal.entidades.User.class);
             metadataSources.addAnnotatedClass(acal.entidades.UserPK.class);
-
             metadataSources.addAnnotatedClass(InvoiceModel.class);
-
             metadataSources.addAnnotatedClass(LinkModel.class);
             metadataSources.addAnnotatedClass(CustomerModel.class);
             metadataSources.addAnnotatedClass(PartnerModel.class);
             metadataSources.addAnnotatedClass(AddressModel.class);
+            metadataSources.addAnnotatedClass(PriceModel.class);
+            metadataSources.addAnnotatedClass(CategoryModel.class);
 
+            metadataSources.addAnnotatedClass(WaterMeterModel.class);
             Metadata metadata = metadataSources.getMetadataBuilder().build();
 
             return metadata.getSessionFactoryBuilder().build();

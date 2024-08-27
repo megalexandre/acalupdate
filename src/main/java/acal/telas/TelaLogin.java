@@ -2,14 +2,12 @@ package acal.telas;
 
 import acal.infra.DatabaseConnection;
 import com.formdev.flatlaf.FlatLightLaf;
-import org.hibernate.Session;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Objects;
 
 public class TelaLogin extends javax.swing.JFrame {
 
@@ -18,8 +16,6 @@ public class TelaLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -30,7 +26,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jPasswordFieldTelaPrincipalSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setIconImage(new ImageIcon(getClass().getResource("/img/ico.png")).getImage());
+        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/ico.png"))).getImage());
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Seja bem vindo"));
@@ -40,25 +36,13 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel2.setText("Senha");
 
         jTextFieldTelaLoginNome.setText("root");
-        jTextFieldTelaLoginNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldTelaLoginNomeActionPerformed(evt);
-            }
-        });
+        jTextFieldTelaLoginNome.addActionListener(this::jTextFieldTelaLoginNomeActionPerformed);
 
         jButtonTelaLoginLogar.setText("Logar");
-        jButtonTelaLoginLogar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTelaLoginLogarActionPerformed(evt);
-            }
-        });
+        jButtonTelaLoginLogar.addActionListener(this::jButtonTelaLoginLogarActionPerformed);
 
         jPasswordFieldTelaPrincipalSenha.setText("123");
-        jPasswordFieldTelaPrincipalSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordFieldTelaPrincipalSenhaActionPerformed(evt);
-            }
-        });
+        jPasswordFieldTelaPrincipalSenha.addActionListener(this::jPasswordFieldTelaPrincipalSenhaActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -102,7 +86,7 @@ public class TelaLogin extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     private void jButtonTelaLoginLogarActionPerformed(java.awt.event.ActionEvent evt) {
         comecar();
@@ -116,49 +100,37 @@ public class TelaLogin extends javax.swing.JFrame {
         comecar();
     }
     private void comecar(){
-        try (Connection connection = DatabaseConnection.getConnection();
-             Statement statement = connection.createStatement()) {
 
-            String log = jTextFieldTelaLoginNome.getText();
-            String pass = new String(jPasswordFieldTelaPrincipalSenha.getPassword());
+        String log = jTextFieldTelaLoginNome.getText();
+        String pass = new String(jPasswordFieldTelaPrincipalSenha.getPassword());
 
-            if("root".equals(log) && "123".equals(pass)){
-                new TelaPrincipal().setVisible(true);
-                dispose();
-            }
-
-        } catch (Exception e) {
+        if("root".equals(log) && "123".equals(pass)){
+            new TelaPrincipal().setVisible(true);
+            dispose();
+        } else {
             jTextFieldTelaLoginNome.setText("");
             jPasswordFieldTelaPrincipalSenha.setText("");
             jTextFieldTelaLoginNome.setFocusable(true);
             jTextFieldTelaLoginNome.requestFocus();
-            JOptionPane.showMessageDialog(this, "Verifique o nome do usuário e a senha", "Login", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Verifique o nome do usuário e a senha", "Login", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                FlatLightLaf.setup();
-                javax.swing.SwingUtilities.invokeLater(() -> {
-                    new TelaLogin().setVisible(true);
-                });
-
-                //new TelaLogin().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            FlatLightLaf.setup();
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                new TelaLogin().setVisible(true);
+            });
         });
+
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonTelaLoginLogar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordFieldTelaPrincipalSenha;
     private javax.swing.JTextField jTextFieldTelaLoginNome;
-    // End of variables declaration//GEN-END:variables
 }

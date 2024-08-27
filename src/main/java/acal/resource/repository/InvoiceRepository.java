@@ -40,7 +40,7 @@ public class InvoiceRepository {
         List<Predicate> predicates = new ArrayList<>();
 
         if (findInvoice.getStartId()!= null && findInvoice.getEndId() != null) {
-            predicates.add(cb.between(invoice.get("id"), findInvoice.getStartId(), findInvoice.getEndId()));
+            predicates.add(cb.between(invoice.get("number"), findInvoice.getStartId(), findInvoice.getEndId()));
         }
 
         if(findInvoice.getStatus() != null){

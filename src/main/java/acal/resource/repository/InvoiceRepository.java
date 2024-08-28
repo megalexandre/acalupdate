@@ -5,17 +5,12 @@ import acal.domain.StatusPaymentInvoice;
 import acal.infra.HibernateUtil;
 import acal.report.model.Invoice;
 import acal.resource.adapter.InvoiceAdapter;
-import acal.resource.model.CustomerModel;
 import acal.resource.model.InvoiceModel;
-import acal.resource.model.LinkModel;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Fetch;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
@@ -38,6 +33,11 @@ public class InvoiceRepository {
 
     private List<Predicate> createPredicates(CriteriaBuilder cb, FindInvoice findInvoice, Root<InvoiceModel> invoice ){
         List<Predicate> predicates = new ArrayList<>();
+
+
+        if(findInvoice.getCustomerId() != null){
+            predicates.add(cb.equal(invoice.get("link").get("customer").get("number"),findInvoice.getCustomerId()));
+        }
 
         if (findInvoice.getStartId()!= null && findInvoice.getEndId() != null) {
             predicates.add(cb.between(invoice.get("number"), findInvoice.getStartId(), findInvoice.getEndId()));

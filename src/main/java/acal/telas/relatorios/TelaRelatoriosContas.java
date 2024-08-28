@@ -7,7 +7,6 @@ import acal.dao.DaoEndereco;
 import acal.dao.view.DaoSocioView;
 import acal.domain.FindInvoice;
 import acal.domain.StatusPaymentInvoice;
-import acal.entidades.Categoriasocio;
 import acal.entidades.Endereco;
 import acal.entidades.SociosView;
 import acal.report.create.ReportService;
@@ -17,18 +16,23 @@ import acal.telas.TelaPrincipal;
 import lombok.val;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static acal.commons.Report.NEW_INVOICE;
+import static java.util.Arrays.stream;
 
 public final class TelaRelatoriosContas extends javax.swing.JFrame {
 
@@ -40,8 +44,6 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         travarComponentes();
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel15 = new javax.swing.JPanel();
@@ -120,28 +122,16 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
 
         jCheckBoxId.setText("Filtrar por Regristro");
         jCheckBoxId.setPreferredSize(new java.awt.Dimension(100, 23));
-        jCheckBoxId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxIdActionPerformed(evt);
-            }
-        });
-
-        jTextFieldIdMaior.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldIdMaiorActionPerformed(evt);
-            }
-        });
+        jCheckBoxId.addActionListener(this::jCheckBoxIdActionPerformed);
+        jTextFieldIdMaior.addActionListener(this::jTextFieldIdMaiorActionPerformed);
 
         jLabel7.setText("E");
 
         jLabel8.setText("Entre");
 
-        jTextFieldIdMenor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldIdMenorActionPerformed(evt);
-            }
-        });
+        jTextFieldIdMenor.addActionListener(this::jTextFieldIdMenorActionPerformed);
         jTextFieldIdMenor.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextFieldIdMenorFocusLost(evt);
             }
@@ -207,11 +197,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         jCheckBoxStatus.setMaximumSize(new java.awt.Dimension(100, 23));
         jCheckBoxStatus.setMinimumSize(new java.awt.Dimension(100, 23));
         jCheckBoxStatus.setPreferredSize(new java.awt.Dimension(100, 23));
-        jCheckBoxStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxStatusActionPerformed(evt);
-            }
-        });
+        jCheckBoxStatus.addActionListener(this::jCheckBoxStatusActionPerformed);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -275,11 +261,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         jCheckBoxData.setMaximumSize(new java.awt.Dimension(100, 23));
         jCheckBoxData.setMinimumSize(new java.awt.Dimension(100, 23));
         jCheckBoxData.setPreferredSize(new java.awt.Dimension(100, 23));
-        jCheckBoxData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxDataActionPerformed(evt);
-            }
-        });
+        jCheckBoxData.addActionListener(this::jCheckBoxDataActionPerformed);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -302,7 +284,6 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jFormattedTextFieldDataMenorFocusGained(evt);
             }
-
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jFormattedTextFieldDataMenorFocusLost(evt);
             }
@@ -370,11 +351,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         jCheckBoxCategoria.setMaximumSize(new java.awt.Dimension(100, 23));
         jCheckBoxCategoria.setMinimumSize(new java.awt.Dimension(100, 23));
         jCheckBoxCategoria.setPreferredSize(new java.awt.Dimension(100, 23));
-        jCheckBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxCategoriaActionPerformed(evt);
-            }
-        });
+        jCheckBoxCategoria.addActionListener(this::jCheckBoxCategoriaActionPerformed);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -439,11 +416,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         jCheckBoxSocio.setMaximumSize(new java.awt.Dimension(100, 23));
         jCheckBoxSocio.setMinimumSize(new java.awt.Dimension(100, 23));
         jCheckBoxSocio.setPreferredSize(new java.awt.Dimension(100, 23));
-        jCheckBoxSocio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxSocioActionPerformed(evt);
-            }
-        });
+        jCheckBoxSocio.addActionListener(this::jCheckBoxSocioActionPerformed);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -501,11 +474,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         );
 
         jButton1.setText("Gerar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jPanel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel16.setPreferredSize(new java.awt.Dimension(486, 50));
@@ -513,32 +482,16 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         jLabel6.setText("Ordernar");
 
         jCheckRegristro.setText("Regristro");
-        jCheckRegristro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckRegristroActionPerformed(evt);
-            }
-        });
+        jCheckRegristro.addActionListener(this::jCheckRegristroActionPerformed);
 
         jCheckData.setText("Data");
-        jCheckData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckDataActionPerformed(evt);
-            }
-        });
+        jCheckData.addActionListener(this::jCheckDataActionPerformed);
 
         jCheckCategoria.setText("Categoria");
-        jCheckCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckCategoriaActionPerformed(evt);
-            }
-        });
+        jCheckCategoria.addActionListener(this::jCheckCategoriaActionPerformed);
 
         jCheckSocio.setText("Socio");
-        jCheckSocio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckSocioActionPerformed(evt);
-            }
-        });
+        jCheckSocio.addActionListener(this::jCheckSocioActionPerformed);
 
         jCheckLogradouro.setText("Logradouro");
 
@@ -599,11 +552,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         jCheckBoxLogradouro.setMaximumSize(new java.awt.Dimension(100, 23));
         jCheckBoxLogradouro.setMinimumSize(new java.awt.Dimension(100, 23));
         jCheckBoxLogradouro.setPreferredSize(new java.awt.Dimension(100, 23));
-        jCheckBoxLogradouro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxLogradouroActionPerformed(evt);
-            }
-        });
+        jCheckBoxLogradouro.addActionListener(this::jCheckBoxLogradouroActionPerformed);
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
@@ -668,11 +617,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         jCheckBoxDataVecimento.setMaximumSize(new java.awt.Dimension(100, 23));
         jCheckBoxDataVecimento.setMinimumSize(new java.awt.Dimension(100, 23));
         jCheckBoxDataVecimento.setPreferredSize(new java.awt.Dimension(100, 23));
-        jCheckBoxDataVecimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxDataVecimentoActionPerformed(evt);
-            }
-        });
+        jCheckBoxDataVecimento.addActionListener(this::jCheckBoxDataVecimentoActionPerformed);
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -753,18 +698,10 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         jLabel15.setText("Tipo de Carnê");
 
         jToggleButtonCarnePadrao.setText("Carnê Padrão");
-        jToggleButtonCarnePadrao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonCarnePadraoActionPerformed(evt);
-            }
-        });
+        jToggleButtonCarnePadrao.addActionListener(this::jToggleButtonCarnePadraoActionPerformed);
 
         jToggleButtonCarneSocio.setText("Carnê Socio");
-        jToggleButtonCarneSocio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonCarneSocioActionPerformed(evt);
-            }
-        });
+        jToggleButtonCarneSocio.addActionListener(this::jToggleButtonCarneSocioActionPerformed);
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
         jPanel24.setLayout(jPanel24Layout);
@@ -895,13 +832,15 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
 
         if (jCheckBoxCategoria.isSelected()) {
             jComboBoxCategoria.setEnabled(true);
-
             if (jComboBoxCategoria.getItemCount() == 0) {
-                jComboBoxCategoria.addItem("");
-                List<Categoriasocio> f = new DaoCategoriaSocio().BuscarTodasCategorias();
-                for (Categoriasocio funcs : f) {
-                    jComboBoxCategoria.addItem(funcs.getNome());
-                }
+                new DaoCategoriaSocio().BuscarTodasCategorias().forEach(it ->
+                    jComboBoxCategoria.addItem(
+                    JComboBoxItem.builder()
+                        .number(String.valueOf(it.getId()))
+                            .name(it.getNome())
+                            .build()
+                        )
+                );
             }
 
         } else {
@@ -910,38 +849,37 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCheckBoxCategoriaActionPerformed
 
-    private void jCheckBoxSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxSocioActionPerformed
+    private void jCheckBoxSocioActionPerformed(java.awt.event.ActionEvent evt) {
         if (jCheckBoxSocio.isSelected()) {
             jComboBoxSocio.setEnabled(true);
 
             if (jComboBoxSocio.getItemCount() == 0) {
-
-                jComboBoxSocio.addItem("");
-                List<SociosView> s = new DaoSocioView().BuscarTodosSociosView();
-                for (SociosView scs : s) {
-                    jComboBoxSocio.addItem(scs.getNome());
-                }
+                new DaoSocioView().BuscarTodosSociosView()
+                        .stream()
+                        .filter(it -> it.getNome() != null)
+                        .sorted(Comparator.comparing(it -> it.getNome().toLowerCase()))
+                        .collect(Collectors.toMap(SociosView::getNome, it -> it, (existing, replacement) -> existing))
+                        .values()
+                        .forEach(it ->
+                                jComboBoxSocio.addItem(
+                                        JComboBoxItem.builder()
+                                                .name(it.getNome())
+                                                .number(String.valueOf(it.getId()))
+                                                .build()
+                                )
+                        );
             }
 
         } else {
             jComboBoxSocio.setEnabled(false);
             jComboBoxSocio.setSelectedIndex(0);
         }
-    }//GEN-LAST:event_jCheckBoxSocioActionPerformed
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        if (
-                preencidoCheckBox(jCheckBoxId, jTextFieldIdMenor.getText(), jTextFieldIdMaior.getText()) &&
-                        preencidoCheckBoxDate(jCheckBoxData, jFormattedTextFieldDataMenor.getDate(), jFormattedTextFieldDataMaior.getDate()) &&
-                        preencidoCombobox(jCheckBoxStatus, (String) jComboBoxStatus.getSelectedItem()) &&
-                        preencidoCombobox(jCheckBoxSocio, (String) jComboBoxSocio.getSelectedItem()) &&
-                        preencidoCombobox(jCheckBoxCategoria, (String) jComboBoxCategoria.getSelectedItem()) &&
-                        preencidoCheckBoxDate(jCheckBoxDataVecimento, jDateVencimentoMenor.getDate(), jDateVecimentoMaior.getDate()) &&
-                        preencidoTipoCarne(jToggleButtonCarnePadrao.isSelected(), jToggleButtonCarneSocio.isSelected())
-        ) {
+        if (isValidForm()) {
             new Thread() {
                 @Override
-                @SuppressWarnings("empty-statement")
                 public void run() {
 
                     FindInvoice find = createFilter();
@@ -1005,11 +943,14 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         }
 
         if (jCheckBoxSocio.isSelected()) {
-            find.setSocioNome(jComboBoxSocio.getSelectedItem().toString());
+
+            JComboBoxItem item = (JComboBoxItem) jComboBoxSocio.getSelectedItem();
+            find.setCustomerId(item.getNumber());
         }
         if (jCheckBoxLogradouro.isSelected()) {
             find.setLogradouro(jComboBoxLogradouro.getSelectedItem().toString());
         }
+
         if (jToggleButtonCarnePadrao.isSelected()) {
 
         }
@@ -1051,7 +992,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jCheckSocioActionPerformed
 
-    private void jCheckBoxLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxLogradouroActionPerformed
+    private void jCheckBoxLogradouroActionPerformed(java.awt.event.ActionEvent evt) {
         if (jCheckBoxLogradouro.isSelected()) {
             jComboBoxLogradouro.setEnabled(true);
 
@@ -1067,79 +1008,60 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
             jComboBoxLogradouro.setEnabled(false);
             jComboBoxLogradouro.setSelectedIndex(0);
         }
-    }//GEN-LAST:event_jCheckBoxLogradouroActionPerformed
+    }
 
-    private void jCheckBoxDataVecimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxDataVecimentoActionPerformed
+    private void jCheckBoxDataVecimentoActionPerformed(java.awt.event.ActionEvent evt) {
         if (jCheckBoxDataVecimento.isSelected()) {
             jDateVencimentoMenor.setEnabled(true);
             jDateVecimentoMaior.setEnabled(true);
         } else {
-            //   SimpleDateFormat.getDateInstance().parse(jFormattedTextFieldDataMaior.getText());
             jDateVencimentoMenor.setDate(null);
             jDateVecimentoMaior.setDate(null);
             jDateVencimentoMenor.setEnabled(false);
             jDateVecimentoMaior.setEnabled(false);
         }
-    }//GEN-LAST:event_jCheckBoxDataVecimentoActionPerformed
+    }
 
-    private void jCheckBoxStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxStatusActionPerformed
+    private void jCheckBoxStatusActionPerformed(java.awt.event.ActionEvent evt) {
         jComboBoxStatus.setEnabled(jCheckBoxStatus.isSelected());
+    }
 
-    }//GEN-LAST:event_jCheckBoxStatusActionPerformed
-
-    private void jTextFieldIdMenorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldIdMenorFocusLost
+    private void jTextFieldIdMenorFocusLost(java.awt.event.FocusEvent evt) {
         jTextFieldIdMaior.setText(jTextFieldIdMenor.getText());
-    }//GEN-LAST:event_jTextFieldIdMenorFocusLost
+    }
 
-    private void jFormattedTextFieldDataMenorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldDataMenorFocusGained
+    private void jFormattedTextFieldDataMenorFocusGained(java.awt.event.FocusEvent evt) {
         jDateVencimentoMenor.setDate(new Date());
-    }//GEN-LAST:event_jFormattedTextFieldDataMenorFocusGained
+    }
 
-    private void jFormattedTextFieldDataMenorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldDataMenorFocusLost
+    private void jFormattedTextFieldDataMenorFocusLost(java.awt.event.FocusEvent evt) {
         jDateVecimentoMaior.setDate(jDateVencimentoMenor.getDate());
-    }//GEN-LAST:event_jFormattedTextFieldDataMenorFocusLost
+    }
 
-    private void jToggleButtonCarneSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCarneSocioActionPerformed
+    private void jToggleButtonCarneSocioActionPerformed(java.awt.event.ActionEvent evt) {
         jToggleButtonCarnePadrao.setSelected(false);
-    }//GEN-LAST:event_jToggleButtonCarneSocioActionPerformed
+    }
 
-    private void jToggleButtonCarnePadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonCarnePadraoActionPerformed
+    private void jToggleButtonCarnePadraoActionPerformed(java.awt.event.ActionEvent evt) {
         jToggleButtonCarneSocio.setSelected(false);
-    }//GEN-LAST:event_jToggleButtonCarnePadraoActionPerformed
-
-    public boolean preencidoCombobox(JCheckBox check, String string) {
-        boolean test;
-        if (check.isSelected()) {
-            test = !string.equals("");
-        } else {
-            test = true;
-        }
-        return test;
+    }
+    private boolean isValidForm(){
+        return
+            isValid(jCheckSocio, jComboBoxSocio) &&
+            isValid(jCheckBoxCategoria, jComboBoxCategoria) &&
+            atLeastOneIsSelected(jCheckSocio, jCheckBoxCategoria);
     }
 
-    public boolean preencidoCheckBox(JCheckBox check, String a, String b) {
-
-        boolean test;
-
-        if (check.isSelected()) {
-            test = !a.equals("") && !b.equals("");
-        } else {
-            test = true;
-        }
-        return test;
+    private boolean atLeastOneIsSelected(JCheckBox ...checkBox){
+        return stream(checkBox).anyMatch(AbstractButton::isSelected);
     }
 
-    public boolean preencidoCheckBoxDate(JCheckBox check, Date a, Date b) {
-
-        boolean test;
-
-        if (check.isSelected()) {
-            test = a != null && b != null;
-        } else {
-            test = true;
-        }
-        return test;
+    private boolean isValid(JCheckBox check,  JComboBox<JComboBoxItem> comboBox){
+        JComboBoxItem item = (JComboBoxItem) comboBox.getSelectedItem();
+        return !check.isSelected() || (item != null && !item.getNumber().isEmpty());
     }
+
+
 
     public boolean preencidoTipoCarne(boolean a, boolean b) {
         return a || b;
@@ -1158,45 +1080,10 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         jComboBoxSocio.setEnabled(false);
     }
 
-
-    /**
-     * @param args the command line arguments
-     */
-
-
     public static void main(String[] args) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TelaRelatoriosContas.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(TelaRelatoriosContas.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(TelaRelatoriosContas.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(TelaRelatoriosContas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaRelatoriosContas().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new TelaRelatoriosContas().setVisible(true));
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private JCheckBox jCheckBoxCategoria;
     private JCheckBox jCheckBoxData;
@@ -1210,7 +1097,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
     private JCheckBox jCheckLogradouro;
     private JCheckBox jCheckRegristro;
     private JCheckBox jCheckSocio;
-    private javax.swing.JComboBox jComboBoxCategoria;
+    private JComboBox jComboBoxCategoria;
     private javax.swing.JComboBox jComboBoxLogradouro;
     private javax.swing.JComboBox jComboBoxSocio;
     private javax.swing.JComboBox jComboBoxStatus;
@@ -1261,5 +1148,4 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldIdMenor;
     private javax.swing.JToggleButton jToggleButtonCarnePadrao;
     private javax.swing.JToggleButton jToggleButtonCarneSocio;
-    // End of variables declaration//GEN-END:variables
 }

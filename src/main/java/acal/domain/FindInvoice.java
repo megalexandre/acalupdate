@@ -17,7 +17,7 @@ public class FindInvoice {
     private LocalDateTime duoDateEnd;
 
     private String categoria;
-    private String socioNome;
+    private String customerId;
     private String logradouro;
     private Boolean socioExclusivo;
 }

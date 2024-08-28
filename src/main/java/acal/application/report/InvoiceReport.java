@@ -80,7 +80,7 @@ public class InvoiceReport {
 
     private static String createConsuptionLabel(Invoice invoice){
         return "Anterior: " + orEmpty(invoice.consumptionStart()) +
-               "Atual: " + orEmpty(invoice.consumptionEnd());
+               " atual: " + orEmpty(invoice.consumptionEnd());
     }
     private static String createFreeTier(){
         return "Gratuidade: " + orEmpty(Prices.freeTierWater);

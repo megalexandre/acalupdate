@@ -1,6 +1,7 @@
 package acal.resource.adapter;
 
 import acal.report.model.Price;
+import acal.resource.model.CustomerModel;
 import acal.resource.model.PriceModel;
 
 public class PriceAdapter {

@@ -894,6 +894,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
                 FindInvoice find = createFilter();
 
                 try {
+
                     val invoices =  new InvoiceRepository().find(find);
                     val period = invoices.stream().map(it -> it.getPeriod().toLocalDate()).toList();
                     val waterQuality = new WaterQualityRepository().find(period);

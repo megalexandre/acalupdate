@@ -460,7 +460,7 @@ Email : acallages@hotmail.com.]]></text>
 				<text><![CDATA[Em Conformidade]]></text>
 			</staticText>
 		</band>
-		<band height="35">
+		<band height="40">
 			<subreport>
 				<reportElement x="0" y="0" width="555" height="35" isPrintWhenDetailOverflows="true" uuid="04005f33-a87b-4d10-9f93-7d5fcb9d85dc"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{waterQuality})]]></dataSourceExpression>
@@ -635,7 +635,7 @@ Email : acallages@hotmail.com.]]></text>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{consumptionStart}]]></textFieldExpression>

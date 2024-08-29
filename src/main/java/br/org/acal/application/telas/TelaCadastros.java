@@ -122,18 +122,10 @@ public class TelaCadastros extends JFrame {
             case "Receita":
                 jTabbedPane1.setSelectedComponent(jPanelReceitas);
                 break;
-
             case "Taxas":
                 jTabbedPane1.setSelectedComponent(jPanelTaxas);
                 break;
-
-
-
         }
-
-
-
-
     }
 
     /**
@@ -521,39 +513,19 @@ public class TelaCadastros extends JFrame {
         jPanel40.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jButtonLogradouroNovo.setText("Novo");
-        jButtonLogradouroNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                jButtonLogradouroNovoActionPerformed(evt);
-            }
-        });
+        jButtonLogradouroNovo.addActionListener(this::jButtonLogradouroNovoActionPerformed);
 
         jButtonLogradouroEditar.setText("Editar");
-        jButtonLogradouroEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                jButtonLogradouroEditarActionPerformed(evt);
-            }
-        });
+        jButtonLogradouroEditar.addActionListener(this::jButtonLogradouroEditarActionPerformed);
 
         jButtonLogradouroApagar.setText("Apagar");
-        jButtonLogradouroApagar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                jButtonLogradouroApagarActionPerformed(evt);
-            }
-        });
+        jButtonLogradouroApagar.addActionListener(this::jButtonLogradouroApagarActionPerformed);
 
         jButtonLogradouroSalvar.setText("Salvar");
-        jButtonLogradouroSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                jButtonLogradouroSalvarActionPerformed(evt);
-            }
-        });
+        jButtonLogradouroSalvar.addActionListener(this::jButtonLogradouroSalvarActionPerformed);
 
         jButtonLogradouroCancelar.setText("Cancelar");
-        jButtonLogradouroCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                jButtonLogradouroCancelarActionPerformed(evt);
-            }
-        });
+        jButtonLogradouroCancelar.addActionListener(this::jButtonLogradouroCancelarActionPerformed);
 
         javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
         jPanel40.setLayout(jPanel40Layout);
@@ -4042,12 +4014,10 @@ public class TelaCadastros extends JFrame {
                 jButtonFuncionarioEditar.setEnabled(true);
                 jButtonFuncionarioCancelar.setEnabled(true);
             }else if(pesquisarTable.equals("importar funcionário")){
-                
+
                 limparCamposSocio();
                 preencherCamposSocioImportados(new DaoPessoa().BuscarPessoaCpf((String) jTable1.getValueAt(jTable1.getSelectedRow(), 2)));
-               // jButtonSocioSalvar.setEnabled(true);
-                //jButtonSocioCancelar.setEnabled(true);
-                
+
             }
       
             else if (pesquisarTable.equals("logradouros")) {
@@ -4170,11 +4140,6 @@ public class TelaCadastros extends JFrame {
         DefaultTableModel model;
        
      try{ 
-        Properties prop = new Properties();
-        prop.load(new FileInputStream("properties/hibernate.properties"));
-        if(!prop.get("hibernate.connection.username").equals("root")){
-            throw new Exception("Você não tem privilégios de Administrador");
-        } 
         if (pesquisarTable.equals("funcionarios") || pesquisarTable.equals("importar funcionário")) {
             ArrayList<Funcionario> f1 = (ArrayList) new DaoFuncionario().BuscarFuncionarioLikeNome(jTextField2.getText());
 
@@ -4311,65 +4276,65 @@ public class TelaCadastros extends JFrame {
             }
 
         }else if(pesquisarTable.equals("tipo receita")){
-            
+
             ArrayList<Motivoentrada> motivoEntrada = (ArrayList) new DaoMotivoEntrada().BuscarMotivoEntradaLikeNome(jTextField2.getText());
             model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
-            
+
             if(!motivoEntrada.isEmpty()){
-                
+
                 for(Motivoentrada m : motivoEntrada){
-                    
+
                     model.addRow(new Object[]{m.getId(), m.getNome(), m.getDescricao(), m.getObservacao()});
                 }
-                
+
             }else{
-                
+
                 JOptionPane.showMessageDialog(this, "Motivo Entrada não encontrado", "Atenção", JOptionPane.INFORMATION_MESSAGE);
-                
+
             }
-            
+
         }else if(pesquisarTable.equals("receita")){
-            
+
             ArrayList<Entrada> entradas = (ArrayList) new DaoEntradas().BuscarEntradaCedenteLikeNome(jTextField2.getText());
             model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
-            
+
             if(!entradas.isEmpty()){
-                
+
                for(Entrada e : entradas){
-                   
+
                    if(e.getData() != null){
-                       
+
                        model.addRow(new Object[]{e.getId(),SimpleDateFormat.getDateInstance().format(e.getData()), e.getValor(), e.getIdCedente().getIdPessoa().getNome()+" "+e.getIdCedente().getIdPessoa().getSobrenome(),e.getIdFuncionario().getIdPessoa().getNome()+" "+e.getIdFuncionario().getIdPessoa().getSobrenome(),e.getIdMotivoEntrada().getNome(), e.getObservacao()});
                    }else{
-                   
+
                     model.addRow(new Object[]{e.getId(),"nulo", e.getIdCedente().getIdPessoa().getNome()+" "+e.getIdCedente().getIdPessoa().getSobrenome(),e.getIdFuncionario().getIdPessoa().getNome()+" "+e.getIdFuncionario().getIdPessoa().getSobrenome(),e.getIdMotivoEntrada().getNome(), e.getObservacao()});
                    }
                    }
-                
+
             }else{
-                
-                JOptionPane.showMessageDialog(this, " Entrada não encontrada", "Atenção", JOptionPane.INFORMATION_MESSAGE); 
-                
+
+                JOptionPane.showMessageDialog(this, " Entrada não encontrada", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+
             }
-     
+
         }else if(pesquisarTable.equals("cheque")){
-            
+
             ArrayList<Cheque> cheques = (ArrayList) new DaoCheque().BuscarChequeFuncionarioLikeNome(jTextField2.getText());
             model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
-            
+
             if(!cheques.isEmpty()){
-                
-               for(Cheque c : cheques){ 
+
+               for(Cheque c : cheques){
                model.addRow(new Object[]{c.getId(), c.getNumero(), c.getValor(), c.getIdFuncionario().getIdPessoa().getNome()+" "+c.getIdFuncionario().getIdPessoa().getSobrenome(), c.getIdMotivoDespesa().getNome(), SimpleDateFormat.getDateInstance().format(c.getDataPagamento()), SimpleDateFormat.getDateInstance().format(c.getDataVencimento())});
                }
             }else{
-                
-               JOptionPane.showMessageDialog(this, " Cheque não encontrado", "Atenção", JOptionPane.INFORMATION_MESSAGE);   
+
+               JOptionPane.showMessageDialog(this, " Cheque não encontrado", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
-            
+
         }
     }catch(Exception e){
         
@@ -5315,7 +5280,7 @@ public class TelaCadastros extends JFrame {
                         
                         p.setRgExpedidor(jTextFieldSocioOrgaoExpedidor.getText());
                         
-    if((flagEditar==true)&& (socioNumero.equals(jTextFieldSocioNumero.getText()) )) 
+    if((flagEditar==true)&& (socioNumero.equals(jTextFieldSocioNumero.getText()) ))
        {
        }
    else {

@@ -14,11 +14,11 @@ public class TelaLogin extends javax.swing.JFrame {
     }
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
+        javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
         jTextFieldTelaLoginNome = new javax.swing.JTextField();
-        jButtonTelaLoginLogar = new javax.swing.JButton();
+        javax.swing.JButton jButtonTelaLoginLogar = new javax.swing.JButton();
         jPasswordFieldTelaPrincipalSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -114,19 +114,14 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     public static void main(String[] args) {
-
         java.awt.EventQueue.invokeLater(() -> {
             FlatLightLaf.setup();
             javax.swing.SwingUtilities.invokeLater(() -> {
                 new TelaLogin().setVisible(true);
             });
         });
-
     }
-    private javax.swing.JButton jButtonTelaLoginLogar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+
     private javax.swing.JPasswordField jPasswordFieldTelaPrincipalSenha;
     private javax.swing.JTextField jTextFieldTelaLoginNome;
 }

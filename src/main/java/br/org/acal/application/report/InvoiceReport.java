@@ -63,7 +63,7 @@ public class InvoiceReport {
                 .period(createPeriod(invoice))
                 .partner(createPartner(invoice))
                 .partnerNumber(createNumber(invoice))
-                .printedAt(createPrintedAt(invoice))
+                .printedAt(createPrintedAt())
                 .address(createAddress(invoice))
 
                 .partnerValue(orEmpty(invoice.getPartnerValue()))
@@ -118,7 +118,7 @@ public class InvoiceReport {
         return orEmpty(invoice.customer().getNumber());
     }
 
-    private static String createPrintedAt(Invoice invoice){
+    private static String createPrintedAt(){
         return orEmpty(LocalDateTime.now(), LocalDateTimeUtil.date);
     }
 

@@ -1,419 +1,0 @@
-
-	java:S112Ë"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8¿İä†™2J$21d518ea-312c-417f-8336-44d87f40ea06
-“
-java:S1192Ó"JDefine a constant instead of duplicating this literal "Cadastros" 3 times.(ëÔÔåúÿÿÿÿ8Ïª™¥˜2J$753fb45e-7dd7-4e2e-9e28-11a11581d7f9
-
-java:S1192˜
-"FDefine a constant instead of duplicating this literal "Erro:" 3 times.(Í¹Å·ÿÿÿÿÿ8—Ìæ†™2J$4a5a79cf-0e27-454b-b714-f38ced96ecc7
-Š
-java:S1192ú	"FDefine a constant instead of duplicating this literal "logs/" 3 times.(¸ğµ‘8Óª™¥˜2J$7fd8a1a6-622e-4227-995d-f523d1aa53d1
-’
-java:S1192ë"NDefine a constant instead of duplicating this literal "/img/agua.jpg" 3 times.(ŒÒ‹8Óª™¥˜2J$e3efe2c2-d411-4182-bf76-ead0d746905f
-“
-java:S1192	"JDefine a constant instead of duplicating this literal "AtenÃ§Ã£o" 3 times.(õèÚ¼ûÿÿÿÿ8Óª™¥˜2J$e86b277e-2f00-472f-b4e2-0cda188e4527
-q
-java:S1604Ô"(Make this anonymous inner class a lambda(Å™ºÿıÿÿÿÿ8êª™¥˜2J$277ade4c-ff40-4130-9210-6a7c63739606
-q
-java:S1604à"(Make this anonymous inner class a lambda(ğ«ÆËúÿÿÿÿ8êª™¥˜2J$328899e8-7687-4fc7-a3b2-0b9788af081d
-q
-java:S1604ê"(Make this anonymous inner class a lambda(ğñä¬üÿÿÿÿ8êª™¥˜2J$f7ae39a0-6d6c-4a94-b653-78a2c2262410
-l
-java:S1604ò"(Make this anonymous inner class a lambda(ğèè·8ëª™¥˜2J$db0f067f-eceb-406d-87d1-e699ec95a879
-q
-java:S1604ú"(Make this anonymous inner class a lambda(úâøšùÿÿÿÿ8ëª™¥˜2J$de978254-aaf6-4439-8a48-def0c799029b
-q
-java:S1604 "(Make this anonymous inner class a lambda(½îõÓøÿÿÿÿ8ëª™¥˜2J$8938afed-961b-4cda-b1b5-d60d688d3838
-q
-java:S1604±"(Make this anonymous inner class a lambda(—ÎŠúÿÿÿÿ8ëª™¥˜2J$aab0f927-64c2-48df-81bf-c3f0bad6b4c9
-l
-java:S1604Ã"(Make this anonymous inner class a lambda(½ü¥8ëª™¥˜2J$a565a4c2-d242-48d8-ac1b-66b0b5ae9b1b
-q
-java:S1604Ô"(Make this anonymous inner class a lambda(¾üúÌûÿÿÿÿ8ëª™¥˜2J$39f4b5e1-dc85-4ffe-9679-52272ce8ff27
-q
-java:S1604…"(Make this anonymous inner class a lambda(…æ©âÿÿÿÿÿ8ìª™¥˜2J$3183e122-f6bb-4757-9012-0e8965e4d692
-l
-java:S1604Œ"(Make this anonymous inner class a lambda(ÿóÎ×8ìª™¥˜2J$bdc00e8d-dce0-4687-8614-a5fb6f2af923
-q
-java:S1604“"(Make this anonymous inner class a lambda(üåêøÿÿÿÿ8ìª™¥˜2J$9590d9ab-a135-48a7-95f4-e55ea0bc7ce2
-k
-java:S1604š"(Make this anonymous inner class a lambda(¥Šîj8ìª™¥˜2J$cb5c8a4b-8776-4ac5-b7a5-c4d74122a12d
-q
-java:S1604é"(Make this anonymous inner class a lambda(âàÑÒşÿÿÿÿ8ìª™¥˜2J$00fdf9bd-f4bd-491f-aa49-169d5b3cb81e
-q
-java:S1604ğ"(Make this anonymous inner class a lambda(ù„Â¢ùÿÿÿÿ8íª™¥˜2J$bbe20520-840c-482c-9724-904b3abe8d30
-q
-java:S1604÷"(Make this anonymous inner class a lambda(×—³ øÿÿÿÿ8íª™¥˜2J$e71d7515-17fd-4d2e-b708-eafb405689a0
-l
-java:S1604ş"(Make this anonymous inner class a lambda(š²¸Š8íª™¥˜2J$015ba5e5-2f08-4572-9146-d01be290d663
-l
-java:S1604…"(Make this anonymous inner class a lambda(®Òû8íª™¥˜2J$692a4915-1d49-4186-bd70-bd756b00cce8
-l
-java:S1604Œ"(Make this anonymous inner class a lambda(ş¼à¢8íª™¥˜2J$69a2e97f-4496-4f1e-9c8f-355491a5bb59
-l
-java:S1604“"(Make this anonymous inner class a lambda(æçğ–8íª™¥˜2J$a4996f7b-a176-4893-ba7c-02f7bf42e7ff
-q
-java:S1604³"(Make this anonymous inner class a lambda(Ï¥µ™üÿÿÿÿ8íª™¥˜2J$2d21d538-e55d-4594-bd50-5292a1afd457
-q
-java:S1604»"(Make this anonymous inner class a lambda(ÙÕ¾ôûÿÿÿÿ8íª™¥˜2J$9576e072-6534-4460-ade0-c0524c42bb7d
-q
-java:S1604Ã"(Make this anonymous inner class a lambda(ºé¯¬ıÿÿÿÿ8îª™¥˜2J$7a813591-98f0-468c-9376-97c720aa97f9
-l
-java:S1604Ë"(Make this anonymous inner class a lambda(ıÏ˜¥8ïª™¥˜2J$9b51f319-e247-4e51-854b-0c54cc6e6518
-q
-java:S1604Ó"(Make this anonymous inner class a lambda(§üÍéøÿÿÿÿ8ïª™¥˜2J$db389e27-46f3-4d3e-9ac8-347c2a880f00
-l
-java:S1604Û"(Make this anonymous inner class a lambda(ßëĞğ8ïª™¥˜2J$74bc2933-e6d3-423b-a48e-a82e128164ac
-l
-java:S1604ã"(Make this anonymous inner class a lambda(İŞ­…8ïª™¥˜2J$3819ca4a-5690-41df-a5b3-8dede6201aa9
-l
-java:S1604ë"(Make this anonymous inner class a lambda(ëñ×Ğ8ïª™¥˜2J$a945caf6-5fbd-421f-bfed-b52dd9296bc7
-q
-java:S1604ó"(Make this anonymous inner class a lambda(Àñí§üÿÿÿÿ8ïª™¥˜2J$22df1137-d850-4834-aded-e6e6de78d87b
-q
-java:S1604û"(Make this anonymous inner class a lambda(Ğšáªıÿÿÿÿ8ïª™¥˜2J$f588e4d5-64ce-4a1d-bba2-4e67666caf68
-l
-java:S1604ƒ"(Make this anonymous inner class a lambda(øëÆº8ïª™¥˜2J$485dbf8d-7fdb-4aa5-b1c6-89eb121fb658
-q
-java:S1604"(Make this anonymous inner class a lambda(„±ÓÎùÿÿÿÿ8ïª™¥˜2J$b778ecfe-a334-48de-8f1c-33d36e247df7
-q
-java:S1604—"(Make this anonymous inner class a lambda(Ù‡©øÿÿÿÿ8ïª™¥˜2J$afd69602-4112-421b-8a65-95a16f9bdcda
-l
-java:S1604 "(Make this anonymous inner class a lambda(‚™£Š8ïª™¥˜2J$bea8beb1-7d46-4c52-946c-64cb735cabe9
-l
-java:S1604ª"(Make this anonymous inner class a lambda(ÇµÇß8ïª™¥˜2J$119a73e4-313d-4345-a3f2-3f6cec8bf048
-q
-java:S1604²"(Make this anonymous inner class a lambda(Îİ·ùùÿÿÿÿ8ğª™¥˜2J$9d3e0c5b-cef3-4cfd-849a-750c0d1881e9
-l
-java:S1604º"(Make this anonymous inner class a lambda(Ì©©ó8ğª™¥˜2J$1cfe7ce9-75da-4e29-8898-e097bc30acd6
-q
-java:S1604Ä"(Make this anonymous inner class a lambda(†Õ‚Œûÿÿÿÿ8ğª™¥˜2J$92f7a6f5-778f-45a6-aea1-47f4da6d6abc
-l
-java:S1604Ğ"(Make this anonymous inner class a lambda(Èõ©8ğª™¥˜2J$c0f1a9e5-a7bc-4e06-a59a-67b327fde9d4
-q
-java:S1604Ø"(Make this anonymous inner class a lambda(¥„Íºÿÿÿÿÿ8ğª™¥˜2J$bb0acc40-1cae-42de-839f-0b43f821800c
-q
-java:S1604à"(Make this anonymous inner class a lambda(­­ÂÕÿÿÿÿÿ8ğª™¥˜2J$57267b5d-da68-4704-ad95-08d6929f9950
-l
-java:S1604è"(Make this anonymous inner class a lambda(ïœˆ8ğª™¥˜2J$9eda0f24-359f-4209-9f77-040bc6b0569a
-q
-java:S1604É"(Make this anonymous inner class a lambda(¨í¡§úÿÿÿÿ8ñª™¥˜2J$cea78d94-b6da-4c60-b34d-51edca6cbd9b
-ˆ
-java:S2583ê
-"DChange this condition so that it does not always evaluate to "false"(“Ë8¨ÿ™¥˜2J$9d869637-daa3-4799-b5a4-14ecd06eceb9
-«	java:S116ÿ"cRename this field "jMenuItemCategoria_Socio" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ú¤¡ÿøÿÿÿÿ8‰€š¥˜2J$a3b3fc52-2a8a-49c4-91d7-8c107b9b0f50
-¡
-java:S1450Ò"]Remove the "ativaMensagens" field and declare it as a local variable in the relevant methods.(ÈüÕ†8’°™¥˜2J$e16426bc-1621-48eb-bf88-b1d58a4e743a
-©
-java:S1450Ó"`Remove the "desativaMensagens" field and declare it as a local variable in the relevant methods.(Ó¾üºúÿÿÿÿ8”°™¥˜2J$20b56c48-4d04-4784-8018-c4026c0b37f0
-›
-java:S1450Ô"WRemove the "jButton1" field and declare it as a local variable in the relevant methods.(å……¶8—°™¥˜2J$cb5de3ab-9e02-45d7-96d0-d395de498ff9
-›
-java:S1450Õ"WRemove the "jButton2" field and declare it as a local variable in the relevant methods.(¤½ÃÜ8˜°™¥˜2J$fdb1a94d-d27b-46fc-b76d-ff8fedbab162
- 
-java:S1450Ö"WRemove the "jButton3" field and declare it as a local variable in the relevant methods.(ĞäğËıÿÿÿÿ8š°™¥˜2J$d6be9a3a-9068-4d6b-b428-b2e28ec03d6f
- 
-java:S1450×"WRemove the "jButton4" field and declare it as a local variable in the relevant methods.(€„ˆÎÿÿÿÿÿ8œ°™¥˜2J$5a86b63a-3e1f-487e-85e2-60b25d9cceaf
-¶
-java:S1450Ø"mRemove the "jButtonCategoriaSocioRelatorio" field and declare it as a local variable in the relevant methods.(²•¸–ıÿÿÿÿ8°™¥˜2J$834c8dfc-86cb-4956-8710-a8ace09132e7
-®
-java:S1450Ù"eRemove the "jButtonChequeRelatorio" field and declare it as a local variable in the relevant methods.(Ì„ªÉÿÿÿÿÿ8 °™¥˜2J$73ccf531-20ee-4f34-9c84-84878f70eb33
-¯
-java:S1450Ú"fRemove the "jButtonEntradaRelatorio" field and declare it as a local variable in the relevant methods.(©³Ûùÿÿÿÿ8¢°™¥˜2J$33121995-f431-4439-93e5-be06d6491451
-­
-java:S1450Û"jRemove the "jButtonFuncionarioRelatorio" field and declare it as a local variable in the relevant methods.(ì¯x8¤°™¥˜2J$0844cf2c-97a8-4648-85ba-7db64620ab0a
-¸
-java:S1450Ü"tRemove the "jButtonInternalFrameRelatoriosVoltar1" field and declare it as a local variable in the relevant methods.(ÊÜ“Œ8¦°™¥˜2J$4f3bc385-4aaf-4cf3-80b8-17b75e5efe56
-­
-java:S1450İ"dRemove the "jButtonSaidaRelatorio" field and declare it as a local variable in the relevant methods.(¶«ˆŒşÿÿÿÿ8§°™¥˜2J$314358fd-ff23-4f2d-b672-0cf7b84fc870
-­
-java:S1450Ş"dRemove the "jButtonSocioRelatorio" field and declare it as a local variable in the relevant methods.(Œ¿õüüÿÿÿÿ8ì€š¥˜2J$976e3350-5fd3-42bf-b844-6c3a6096949e
-°
-java:S1450à"lRemove the "jButtonTelaPrincipalCadastros" field and declare it as a local variable in the relevant methods.(ş¯ÅÄ8¬°™¥˜2J$2cc2422e-95bb-41a8-b646-9cdba8484ef0
-±
-java:S1450á"hRemove the "jButtonTelaPrincipalCaixa" field and declare it as a local variable in the relevant methods.(¹…¼¨üÿÿÿÿ8®°™¥˜2J$81aa35e4-5ce9-4344-8132-0751447355e0
-­
-java:S1450â"iRemove the "jButtonTelaPrincipalLogoff" field and declare it as a local variable in the relevant methods.(¸¼¨Ø8¯°™¥˜2J$bae5223a-1b00-4b87-8d81-b11d27e3bd9c
-¶
-java:S1450ã"mRemove the "jButtonTelaPrincipalRelatorios" field and declare it as a local variable in the relevant methods.(›ÎÊüúÿÿÿÿ8õ€š¥˜2J$09d7e01a-7ea8-4a74-bece-3b9264dba496
-š
-java:S1450ê"VRemove the "jLabel4" field and declare it as a local variable in the relevant methods.(«¢•ã8³°™¥˜2J$3af79f25-065f-472e-b93d-75b4a4cde42a
-š
-java:S1450ë"VRemove the "jLabel5" field and declare it as a local variable in the relevant methods.(ó Ù®8µ°™¥˜2J$1228c9c4-a18b-4fca-88e5-bb6275e4d539
-Ÿ
-java:S1450ì"VRemove the "jLabel6" field and declare it as a local variable in the relevant methods.(¸ôÂøÿÿÿÿ8¸°™¥˜2J$4e9b4da2-27bc-4e80-a4d2-e96d7abd52df
-˜
-java:S1450í"TRemove the "jMenu" field and declare it as a local variable in the relevant methods.(¿‘ú¾8¹°™¥˜2J$fca77326-347f-408f-aa6f-33063f2ed912
-™
-java:S1450î"URemove the "jMenu1" field and declare it as a local variable in the relevant methods.(şÚÖ˜8»°™¥˜2J$e6957c43-16b1-40e6-973b-490b15f652b9
-™
-java:S1450ï"URemove the "jMenu3" field and declare it as a local variable in the relevant methods.(ƒŞøõ8½°™¥˜2J$e2f7a840-a933-44ec-96a4-a66728e811a0
-™
-java:S1450ğ"URemove the "jMenu4" field and declare it as a local variable in the relevant methods.(¬È·à8ˆš¥˜2J$3daefc93-c974-4a07-9aea-4881a3e11a6f
-¡
-java:S1450ñ"]Remove the "jMenuAuditoria" field and declare it as a local variable in the relevant methods.(Ê ²Š8ïÑæ†™2J$3ce40e91-0436-432c-9323-7ee9cdcc926a
-¡
-java:S1450ò"XRemove the "jMenuBar1" field and declare it as a local variable in the relevant methods.(úıÁ›ÿÿÿÿÿ8À°™¥˜2J$84c2d9f5-40d6-41a7-9507-2876f2250472
-¡
-java:S1450ó"]Remove the "jMenuCadastros" field and declare it as a local variable in the relevant methods.(İ›‹›8Â°™¥˜2J$38431d86-a86d-435b-9855-32d9136192a6
-œ
-java:S1450ô"YRemove the "jMenuItem1" field and declare it as a local variable in the relevant methods.(Éíå48Ã°™¥˜2J$37ebe8e8-f917-46e2-a8b7-359d5e606371
-
-java:S1450õ"YRemove the "jMenuItem2" field and declare it as a local variable in the relevant methods.(ßÛİ•8Ä°™¥˜2J$0bc5a660-c427-4a02-963a-1518b1646bd2
-¢
-java:S1450ö"YRemove the "jMenuItem3" field and declare it as a local variable in the relevant methods.(ÇÄˆÆøÿÿÿÿ8Æ°™¥˜2J$99c2f1a5-6a17-4b59-899d-4d8cb5c4ecb3
-
-java:S1450÷"YRemove the "jMenuItem4" field and declare it as a local variable in the relevant methods.(¸ªÊå8È°™¥˜2J$bb29f24c-377e-4b10-bcff-277c0d3b3734
-
-java:S1450ø"YRemove the "jMenuItem5" field and declare it as a local variable in the relevant methods.(ÈãÏ€8È°™¥˜2J$792144e2-5c08-49e0-bd37-a032ca860bb8
-
-java:S1450ù"YRemove the "jMenuItem6" field and declare it as a local variable in the relevant methods.(ÃÁ–î8É°™¥˜2J$017791f0-f1af-4280-a015-8a7a2eae6412
-¢
-java:S1450ú"YRemove the "jMenuItem7" field and declare it as a local variable in the relevant methods.(½à®—üÿÿÿÿ8Ê°™¥˜2J$6d837d55-57aa-441f-9d37-2809e2c63271
-±
-java:S1450û"hRemove the "jMenuItemAuditoriaCheques" field and declare it as a local variable in the relevant methods.(÷Ï™ùÿÿÿÿ8Ë°™¥˜2J$044f2480-ae68-4aef-9967-7950030968e8
-°
-java:S1450ü"gRemove the "jMenuItemAuditoriaContas" field and declare it as a local variable in the relevant methods.(İş–Éøÿÿÿÿ8Ì°™¥˜2J$1f414ecd-7f62-4853-8197-d18f176e4cc7
-­
-java:S1450ı"iRemove the "jMenuItemAuditoriaEntradas" field and declare it as a local variable in the relevant methods.(™á¨8Î°™¥˜2J$8ce86e61-9211-4c4f-ac15-14054f56fa6c
-«
-java:S1450ş"gRemove the "jMenuItemAuditoriaSaidas" field and declare it as a local variable in the relevant methods.(Í‚¸8Ğ°™¥˜2J$534a35aa-c423-4d40-81f8-7679f6d7b259
-°
-java:S1450ÿ"gRemove the "jMenuItemCategoria_Socio" field and declare it as a local variable in the relevant methods.(ú¤¡ÿøÿÿÿÿ8Ó°™¥˜2J$c8e533a6-ff34-4644-8feb-dd31f2e73b63
-©
-java:S1450€"`Remove the "jMenuItemContrato" field and declare it as a local variable in the relevant methods.(­Ãì­úÿÿÿÿ8­š¥˜2J$b7f40743-2642-4a75-9f92-9c82fdfd5e3e
-®
-java:S1450"eRemove the "jMenuItemCriarUsuarios" field and declare it as a local variable in the relevant methods.(ğ™ÈÓûÿÿÿÿ8ÕÒæ†™2J$e4475f6e-90e4-4b5a-be2e-421e3ba3e99f
-¢
-java:S1450‚"_Remove the "jMenuItemDespesa" field and declare it as a local variable in the relevant methods.(ÿ©ªh8Ø°™¥˜2J$e8e337e1-911d-4adb-a88d-c00360b58fe6
-¨
-java:S1450ƒ"dRemove the "jMenuItemFuncionarios" field and declare it as a local variable in the relevant methods.(ßéå8Ú°™¥˜2J$426e1fe9-62b9-4c05-8615-1b45260c94fd
-§
-java:S1450„"cRemove the "jMenuItemLogradouros" field and declare it as a local variable in the relevant methods.(ŞÜ¡á8İ°™¥˜2J$6be258f3-e2e6-4175-a54b-9ab485435cc2
-£
-java:S1450…"_Remove the "jMenuItemReceita" field and declare it as a local variable in the relevant methods.(ËÑòí8à°™¥˜2J$ed940d96-da7d-4e41-9822-2bc098d0e65b
-¤
-java:S1450†"`Remove the "jMenuItemReceitas" field and declare it as a local variable in the relevant methods.(Ú¯ÜÄ8ã°™¥˜2J$0e2e200b-c75f-4370-be2f-0b4f3440eb36
- 
-java:S1450‡"\Remove the "jMenuItemSair" field and declare it as a local variable in the relevant methods.(±øÊ¯8å°™¥˜2J$3a0567ff-c228-486d-8510-e388cd62bdac
-¦
-java:S1450ˆ"]Remove the "jMenuItemSocio" field and declare it as a local variable in the relevant methods.(©Ì—ğÿÿÿÿÿ8è°™¥˜2J$ec825b65-2ac1-4df1-acae-d55910abcfa5
-¡
-java:S1450‰"]Remove the "jMenuItemTaxas" field and declare it as a local variable in the relevant methods.(€êÕ÷8ë°™¥˜2J$2fa568bd-2288-4149-bee7-f0444f1d1c8d
-´
-java:S1450Š"kRemove the "jMenuItemTelaPrincipalBackup" field and declare it as a local variable in the relevant methods.(úşôªıÿÿÿÿ8î°™¥˜2J$be2d723a-4733-4120-8a25-73af476add8f
-¬
-java:S1450‹"cRemove the "jMenuItemTipoDespesa" field and declare it as a local variable in the relevant methods.(¦£·®ıÿÿÿÿ8ğ°™¥˜2J$9fd0bc37-df14-4e9c-b616-54368102c3f9
-¬
-java:S1450Œ"cRemove the "jMenuItemTipoReceita" field and declare it as a local variable in the relevant methods.( ıÒûÿÿÿÿ8ò°™¥˜2J$f25d0dd3-6f40-4d31-b4f4-35beb13336b2
-›
-java:S1450"XRemove the "jMenuSair" field and declare it as a local variable in the relevant methods.(ûğ™c8ó°™¥˜2J$de93ea01-1b7d-440d-bf87-efd2a53dbb72
-š
-java:S1450"VRemove the "jPanel3" field and declare it as a local variable in the relevant methods.(Œ³èÈ8õ°™¥˜2J$cd6d82f3-6c1c-4893-b650-fb39f87e9973
-Ÿ
-java:S1450"VRemove the "jPanel4" field and declare it as a local variable in the relevant methods.(§É†¬şÿÿÿÿ8Ìš¥˜2J$6a365133-6c33-4282-83b4-de3a42f7a301
-²
-java:S1450“"iRemove the "jPanelImagemTelaPrincipal1" field and declare it as a local variable in the relevant methods.(ñÇúúÿÿÿÿ8û°™¥˜2J$f138d6f8-2f02-40f0-908c-cb7bff9d81cf
-²
-java:S1450”"iRemove the "jPanelImagemTelaPrincipal2" field and declare it as a local variable in the relevant methods.(ğëë¥ùÿÿÿÿ8ÿ°™¥˜2J$907286a8-c53a-44d3-97c9-48f2923ec870
-«
-java:S1450•"hRemove the "jPanelInternalFrameContas" field and declare it as a local variable in the relevant methods.(Ä¾ï%8±™¥˜2J$b5b40799-3142-4227-a59b-1205c7fe6a1c
-µ
-java:S1450–"lRemove the "jPanelInternalFrameRelatorios" field and declare it as a local variable in the relevant methods.(•€¢Æıÿÿÿÿ8„±™¥˜2J$898f1679-2740-4dc8-918b-2454161bc5a5
-
-java:S1450—"ZRemove the "jSeparator1" field and declare it as a local variable in the relevant methods.(’©ìÉ8‡±™¥˜2J$4060d6b0-24c0-4ad2-94c5-12de2e9fcb7f
-£
-java:S1450˜"ZRemove the "jSeparator2" field and declare it as a local variable in the relevant methods.(¨¨›ıÿÿÿÿ8Š±™¥˜2J$8829da65-036e-4459-bf85-bab058c49f0a
-
-java:S1450™"ZRemove the "jSeparator3" field and declare it as a local variable in the relevant methods.(„¡Æ8±™¥˜2J$f52992fd-cc71-43e0-baf8-4d08fc520ca2
-
-java:S1450š"TRemove the "menu1" field and declare it as a local variable in the relevant methods.(âğéüÿÿÿÿ8‘±™¥˜2J$54c9876c-92ca-4b92-be46-c54a516d126d
-¡
-java:S1450›"XRemove the "menuItem1" field and declare it as a local variable in the relevant methods.(‡ŠåÍÿÿÿÿÿ8“±™¥˜2J$7955e5ab-9227-456f-a4da-7bffcf4f8a33
-¡
-java:S1450œ"XRemove the "menuItem2" field and declare it as a local variable in the relevant methods.(êÉùìıÿÿÿÿ8”±™¥˜2J$88fdb2df-95e8-4a6e-9092-f418d45769cf
-œ
-java:S1450"XRemove the "menuItem3" field and declare it as a local variable in the relevant methods.(ş©Æ€8—±™¥˜2J$e1edd962-780b-4600-b0b4-d33212e782d2
-©
-java:S1450"eRemove the "menuItemPopupCadastros" field and declare it as a local variable in the relevant methods.(‡±Ç8˜±™¥˜2J$4a045409-96dc-49af-a327-e2230dad27e1
-¤
-java:S1450Ÿ"`Remove the "menuItemPopupSair" field and declare it as a local variable in the relevant methods.(è‹³°8èš¥˜2J$90a0c6e6-b278-46d8-bcd8-a0051ee29523
-r
-java:S1948I"*Make "trayIcon" transient or serializable.(”Ê¨ùÿÿÿÿ8œ±™¥˜2J$0a692e4f-c9c0-4242-9e8f-cecd0388fd79
-t
-java:S1948J",Make "systemTray" transient or serializable.(‚—Èÿÿÿÿÿ8ª‚š¥˜2J$275a2b48-6ac1-483f-8aa9-b82db74c6e37
-Œ
-java:S3252O"DUse static access with "java.text.DateFormat" for "getDateInstance".(£°Ÿ„øÿÿÿÿ8è‚š¥˜2J$0c4bd046-b121-443c-bf0f-c06bc4ce5f4e
-p	java:S108a")Either remove or fill this block of code.(Âş±ÿùÿÿÿÿ8¢í¥˜2J$ce835a8b-57cf-4452-a3c0-e1d54a847e4c
-‘
-java:S3252f"IUse static access with "javax.swing.WindowConstants" for "EXIT_ON_CLOSE".(Õû»öşÿÿÿÿ8†÷ø†™2J$d93b3302-17cd-4e9a-9591-200860576c92
-ƒ
-java:S1161–":Add the "@Override" annotation above this method signature(¦³±ÿÿÿÿÿ8Ëƒš¥˜2J$0cfbaab8-aa86-4018-8170-067fdafeb95c
-|
-java:S3878®"8Remove this array creation and simply pass the elements.(ÀÒÈ‚8÷ƒš¥˜2J$abc4373d-ac56-4186-a8f7-6df19bca5258
-
-java:S3878Æ"8Remove this array creation and simply pass the elements.(³­ù¡ùÿÿÿÿ8¥ò†™2J$dfd29b9d-f0b2-45e2-bbe9-c3ffa9311238
-u
-java:S1874Â"1Remove this use of "CTRL_MASK"; it is deprecated.(Ø›¹µ8Éò†™2J$4889240d-ba85-4956-9284-53768b386226
-~
-java:S1161ó":Add the "@Override" annotation above this method signature(†ŒË³8Òò†™2J$2fca28b2-e328-402a-b95b-8a1d173900f2
-–	java:S100™"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õè—¦şÿÿÿÿ8Øò†™2J$64dcf9d8-4264-4673-87c4-be945bff3f2e
-n
-java:S1172±"*Remove this unused method parameter "evt".(Éáİû8Şò†™2J$cbd67e6c-8929-46a5-b348-7ae7f45421ab
-n
-java:S1172·"*Remove this unused method parameter "evt".(ñı£¢8äò†™2J$c5fb67a0-3829-4f15-9158-2c38ecb19c39
-n
-java:S1172¼"*Remove this unused method parameter "evt".(ãäÊÚ8æò†™2J$63ec9c04-0efc-4d8e-901c-3ecf3e0701bb
-n
-java:S1172À"*Remove this unused method parameter "evt".(çÅ‘8èò†™2J$75fd812d-e7e2-49b0-8f65-3cad6b5ae5ab
-s
-java:S1172Ğ"*Remove this unused method parameter "evt".(òÒúÆûÿÿÿÿ8ìò†™2J$f17a4290-d85a-40a8-a19f-c7d0dcb57002
-
-java:S3252Ó"DUse static access with "java.text.DateFormat" for "getTimeInstance".(öŠ®•øÿÿÿÿ8ïò†™2J$addd7e75-84e0-42d0-87df-69d031d7cd9c
-„
-java:S3252Ó";Use static access with "java.text.DateFormat" for "MEDIUM".(öŠ®•øÿÿÿÿ8ğò†™2J$77e2987f-491e-4579-bd1d-1a31c269ca65
-w
-java:S1874Ó".Remove this use of "Locale"; it is deprecated.(öŠ®•øÿÿÿÿ8óò†™2J$0c494167-1759-4d64-b78c-f5a7ef99a94f
-	java:S100ê"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄÌÔl8÷ò†™2J$a01c7c6d-e8fa-487f-9ef3-0ce12c959cd2
-n
-java:S1172"*Remove this unused method parameter "evt".(Ç‰…«8ıò†™2J$c32971c6-9a7b-4794-94d1-17b4e351308a
-n	java:S106¨"+Replace this use of System.out by a logger.(ìÔüò8„‚ò†™2J$f30a930a-2ad2-4d0b-bb17-5a459efa2d51
-¢
-java:S2142»"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ò¶È8‡‚ò†™2J$b2edc0ac-e1c4-49c5-92a7-554fb105fb38
-n
-java:S1172Î"*Remove this unused method parameter "evt".(òÓÎÓ8‚ò†™2J$f1784b91-7ed5-4e41-b609-11762914cde7
-	java:S125Ï"<This block of commented-out lines of code should be removed.(’üÅ8‚ò†™2J$97cfa78f-aa7a-4daf-b1f2-7b0bff4ac157
-s
-java:S1172Û"*Remove this unused method parameter "evt".(—Åˆüÿÿÿÿ8’‚ò†™2J$19a6dbb9-3e85-42a4-83f6-423c5117a0f7
-n
-java:S1172â"*Remove this unused method parameter "evt".(ÇĞÈØ8•‚ò†™2J$63cfd9f5-5c47-4b36-9c98-4184948e98d3
-n
-java:S1172ğ"*Remove this unused method parameter "evt".(‹ƒ£ã8˜‚ò†™2J$37e8d388-bb58-440d-932c-4f3070beae83
-	java:S125ô"<This block of commented-out lines of code should be removed.(¦‚·É8™‚ò†™2J$044fa41c-18eb-46a6-920b-c8bc7d5ff783
-m
-java:S1172û"*Remove this unused method parameter "evt".(³à¿h8œ‚ò†™2J$be0a8b35-9c9b-4e80-9878-e45645938e20
-s
-java:S1172ÿ"*Remove this unused method parameter "evt".(ÊìÓşÿÿÿÿ8‚ò†™2J$e45a048e-3fdc-4d8b-be9f-1d057e746734
-	java:S125ƒ	"<This block of commented-out lines of code should be removed.(Õ¬ÄÂ8Ÿ‚ò†™2J$66ade74c-c54e-4f3e-b1f3-1a22d93bceff
-s
-java:S1172‹	"*Remove this unused method parameter "evt".(Üèß«úÿÿÿÿ8¡‚ò†™2J$0629be72-d64b-4d4b-8a9d-e72d66456c3b
-„	java:S125š	"<This block of commented-out lines of code should be removed.(û¹¯äüÿÿÿÿ8¤‚ò†™2J$5fd055c5-f089-40cf-9dbc-a7d4b6c22788
-§
-java:S2142©	"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(è®ã¶øÿÿÿÿ8¨‚ò†™2J$27f6ce10-36ce-4992-a0e7-93540e92440e
-s
-java:S1172°	"*Remove this unused method parameter "evt".(Çò¬Îùÿÿÿÿ8ª‚ò†™2J$5eed354e-7200-41c7-a65e-64d342ee1495
-s
-java:S1172Ì	"*Remove this unused method parameter "evt".(şÄ‚ºÿÿÿÿÿ8°‚ò†™2J$e7615593-8438-412d-8d8b-e8ae6028527a
-~
-java:S1117Î	"5Rename "c" which hides the field declared at line 71.(ÃõÚ™ıÿÿÿÿ8³‚ò†™2J$edec4148-6b00-4316-90e6-fddb574db061
-s
-java:S1172Ó	"*Remove this unused method parameter "evt".(Ò¨ÂÛÿÿÿÿÿ8µ‚ò†™2J$2c9b8f5f-4c3c-4b9e-aee8-2b2e2de540a3
-~
-java:S1117Ô	"5Rename "c" which hides the field declared at line 71.(Âˆİ øÿÿÿÿ8¶‚ò†™2J$43d6f9e1-0ddd-4cfd-a388-dfb5b5674423
-n
-java:S1172Ü	"*Remove this unused method parameter "evt".(İæ²æ8¸‚ò†™2J$2daf7436-eac4-4857-8f07-4978a64ff05d
-y
-java:S1117İ	"5Rename "c" which hides the field declared at line 71.(„â»ş8¸‚ò†™2J$c72fe272-b125-49e4-b738-3ce1194729f6
-n
-java:S1172â	"*Remove this unused method parameter "evt".(¼ğÔ8º‚ò†™2J$831a90bf-f4c0-40ee-a71a-72a901f6e434
-s
-java:S1172è	"*Remove this unused method parameter "evt".(‚õ†Ïÿÿÿÿÿ8»‚ò†™2J$713122e1-a57a-46fa-831e-8929eea37a2c
-n
-java:S1172î	"*Remove this unused method parameter "evt".(ôùşë8¿‚ò†™2J$6c75f86b-5e14-48c5-a100-766cb5a83607
-s
-java:S1172ô	"*Remove this unused method parameter "evt".(®š÷“ûÿÿÿÿ8Á‚ò†™2J$b534c2a5-4b7b-4755-87f3-6ffe0109a1b4
-ƒ	java:S899„
-";Do something with the "boolean" value returned by "delete".(¨˜³Àûÿÿÿÿ8Å‚ò†™2J$bc1f22e3-e602-4b9c-a1ed-ea4a7ac2960a
-—
-java:S4042„
-"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(¨˜³Àûÿÿÿÿ8Æ‚ò†™2J$997bdf78-e850-4ea3-bc2d-697378208f40
-Š	java:S899‡
-"BDo something with the "boolean" value returned by "createNewFile".(´›äúÿÿÿÿ8Ç‚ò†™2J$1344164c-22f2-4998-8227-910fb90d54fe
-y
-java:S1117Š
-"5Rename "c" which hides the field declared at line 71.(Øï¹¼8Ê‚ò†™2J$04c705bd-5c78-4a2c-943e-00b53b04ea69
-s
-java:S2093÷	"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8µƒò†™2J$321ce3cd-1bfe-4c3d-9733-e028dec8ccb0
-s
-java:S1172¢
-"*Remove this unused method parameter "evt".(ıÛİ“ıÿÿÿÿ8·ƒò†™2J$72d3d5a1-f822-48ff-b6a1-de1a001cdaa7
-ƒ	java:S899²
-";Do something with the "boolean" value returned by "delete".(¨˜³Àûÿÿÿÿ8¸ƒò†™2J$9f3d606b-e7a7-4c9d-8e84-cb37ea28dd8f
-—
-java:S4042²
-"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(¨˜³Àûÿÿÿÿ8¹ƒò†™2J$49ec70fe-0ef1-40ef-a0f8-7371a3305966
-Š	java:S899µ
-"BDo something with the "boolean" value returned by "createNewFile".(´›äúÿÿÿÿ8ºƒò†™2J$2002a58d-a5ae-4c68-a0f5-2d3d0a3e2a7f
-~
-java:S1117¸
-"5Rename "c" which hides the field declared at line 71.(™ôËµşÿÿÿÿ8¼ƒò†™2J$e71f8cc5-229b-4452-ad98-683c15230630
-s
-java:S2093¥
-"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8¿ƒò†™2J$06ab6885-6a64-42de-8678-bbe9a892d025
-n
-java:S1172Ï
-"*Remove this unused method parameter "evt".(úŞÌı8Áƒò†™2J$39763f51-ba2f-4955-94e0-fcb6f3dcba28
-ƒ	java:S899Ş
-";Do something with the "boolean" value returned by "delete".(¨˜³Àûÿÿÿÿ8Âƒò†™2J$4a23dacd-edd0-43e0-a673-54ad163fe95b
-—
-java:S4042Ş
-"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(¨˜³Àûÿÿÿÿ8Ãƒò†™2J$99faa483-6eda-424a-9e65-a6aa9e518b77
-Š	java:S899á
-"BDo something with the "boolean" value returned by "createNewFile".(´›äúÿÿÿÿ8Åƒò†™2J$e0db111d-6d04-4783-b34c-ce8722e52569
-s
-java:S1172ğ
-"*Remove this unused method parameter "evt".(·‡½çúÿÿÿÿ8Çƒò†™2J$7d36a84a-6dc9-464e-b357-44e862db4b05
-n
-java:S1172õ
-"*Remove this unused method parameter "evt".(‰ÿ¢¼8Éƒò†™2J$c02b1f68-bb3d-467c-a41e-278161c6f631
-n
-java:S1172"*Remove this unused method parameter "evt".(ö‘–¿8Ìƒò†™2J$2dd7d32d-5a02-443d-83fe-3e9500fbbc49
-n
-java:S1172†"*Remove this unused method parameter "evt".(Ûşøñ8Ïƒò†™2J$26b2a501-e50f-40b6-b06b-f5c62128bc42
-
-java:S3252‰"=Use static access with "java.awt.Frame" for "MAXIMIZED_BOTH".(­Ñ˜¬8Ñƒò†™2J$f924fcec-be01-47ef-8236-a80e15bca66e
-s
-java:S1172Œ"*Remove this unused method parameter "evt".(Ä‚–âÿÿÿÿÿ8Òƒò†™2J$7ec98c97-5a12-4ebd-a3e5-f9f314d78157
-
-java:S3252"=Use static access with "java.awt.Frame" for "MAXIMIZED_BOTH".(­Ñ˜¬8Ôƒò†™2J$2acdc3e9-5f39-461a-a3db-f4a40dcedb41
-n
-java:S1172’"*Remove this unused method parameter "evt".(‚Äù±8Õƒò†™2J$f9ebfb1a-fb9e-4ae9-bb15-3144be25e606
-~
-java:S1161–":Add the "@Override" annotation above this method signature(“–ış8×ƒò†™2J$70f06f99-99a4-4d72-a8ee-abd470a1ec06
-q	java:S108©")Either remove or fill this block of code.(²’ƒ¶üÿÿÿÿ8«„ò†™2J$d808aa18-125f-4bf3-bb84-3226f6d055de
-s
-java:S1172¯"*Remove this unused method parameter "evt".(õ¤¥äüÿÿÿÿ8­„ò†™2J$fe76aa7d-e279-4b83-a954-c44260528134
-q	java:S108²")Either remove or fill this block of code.(²’ƒ¶üÿÿÿÿ8®„ò†™2J$0495cc13-14a7-4b7c-9499-7ac366a26677
-n
-java:S1172¹"*Remove this unused method parameter "evt".(Ùÿ‚Ñ8¯„ò†™2J$6754da48-6a24-4d6a-8a9b-6b427b5ae6f4
-n
-java:S1172¼"*Remove this unused method parameter "evt".(¡Õè¤8°„ò†™2J$9c261db1-2db7-4ca9-9f86-653d652555e2
-s
-java:S1172¿"*Remove this unused method parameter "evt".(’Îå«úÿÿÿÿ8±„ò†™2J$0dfbaa77-3c56-48ba-9c8e-f1b831dacd46
-s
-java:S1172Â"*Remove this unused method parameter "evt".(ÊäÁêüÿÿÿÿ8³„ò†™2J$427d2eb8-f7c5-4b11-821e-001f7e8c9299
-s
-java:S1197È"*Move the array designators [] to the type.(¡şÏÖøÿÿÿÿ8ñ„ò†™2J$448bc6ae-b31e-4299-9100-c37800fb724c
-r
-java:S1128"/Remove this unused import 'java.awt.Dimension'.(˜‚º·8©úø†™2J$9e3a3e30-f255-45d4-a15e-ecd47ce27fbc
-|
-java:S1128"4Remove this unused import 'java.awt.GraphicsDevice'.(£ö¶¡ûÿÿÿÿ8ö„ò†™2J$d2e3c4e5-e6dd-471b-8fda-239ead0f3979
-u
-java:S1128"-Remove this unused import 'java.awt.Toolkit'.(Õºşÿÿÿÿ8©úø†™2J$442ad6d0-1cc1-478e-9db2-36c7ec0e8ec7
-w
-java:S1128"4Remove this unused import 'java.io.FileInputStream'.(˜³ÉÓ8ø„ò†™2J$0abbdea5-298e-4038-8362-8244e8125116
-w
-java:S1128"5Remove this unused import 'java.io.FileOutputStream'.(˜«ªg8ù„ò†™2J$7775e306-fc19-4f07-9917-14d81b37a796
-t
-java:S1128$"1Remove this unused import 'java.util.Properties'.(¬µ²8ù„ò†™2J$69f43d9d-7ae3-45e9-9946-de852cf605af
-v
-java:S1128%".Remove this unused import 'java.util.Scanner'.(ÒÜÅ¸úÿÿÿÿ8ù„ò†™2J$febada8e-eff9-4d64-a0dd-c5a148180bd7
-x
-java:S1128+"5Remove this unused import 'javax.swing.JFileChooser'.(õ‡æÂ8ú„ò†™2J$966c893d-dd49-459d-8363-1fe54004edee
-ƒ
-java:S11287"@Remove this unused import 'acal.infra.backup.DatabaseFunctions'.(ã´ÇÌ8ú„ò†™2J$6f78cb4d-83ff-4122-9c16-0b59fd9b5f4f
-s
-java:S1068—"/Remove this unused "jSeparator1" private field.(’©ìÉ8ü„ò†™2J$a29878c0-c44c-449c-b9bf-42680b47fc1b
-z
-java:S1144Ğ"1Remove this unused private "timer1OnTime" method.(òÒúÆûÿÿÿÿ8”…ò†™2J$96af5d76-7d5f-45e5-a0a9-752f202a48bd
-u
-java:S1144’"1Remove this unused private "timer2OnTime" method.(‚Äù±8•…ò†™2J$d635e45b-2b2d-4d44-bb13-5335533341b9

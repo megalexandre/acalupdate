@@ -88,17 +88,13 @@ public class TelaTabelaConta extends javax.swing.JFrame {
       getTableModelTela();
       ConfigurarTabela();
     }
-    
    public void ConfigurarTabela(){
     jTabBanco.setModel(pModelBanco);
     jTabTela .setModel(pModelTela);
     adicionarEventosTela(jTabTela);
     adicionarEventosBanco(jTabBanco);
-    //jTabTela.setDefaultRenderer(Object.class, new Render());
-    //jTabBanco.setDefaultRenderer(Object.class, new Render());
-    
    }
-   
+
    public void contar()
    {
        

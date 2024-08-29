@@ -1,21 +1,0 @@
-
-•	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‡Ş³ÃJ$29a67db2-157b-4f94-b589-c5b9a9126782
-•	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.( ŞµJ$24ae8c03-862a-4a6d-9473-d20263fbeb92
-•	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(î¦ÒJ$47c84323-78ca-4d5f-9914-215f2ba6e9b2
-š	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¼ÃäüÿÿÿÿJ$69fa4440-a25f-46cf-a910-d6ad8f78517c
-š	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Û•ŒÈûÿÿÿÿJ$998e186d-e12f-4ff3-85d2-94c8901136ce
-š	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ÄÔÌ…şÿÿÿÿJ$625a52a3-ce68-425f-b30b-5ec2aba5b270
-•	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(å—ÖµJ$fd386a82-e1d0-49b6-8e44-0b0b79758987
-š	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(šŞšÎùÿÿÿÿJ$c5d6279a-06a8-4560-a527-27866932ee86
-•	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ÀÁìñJ$e771a716-b17f-4bec-8a7d-10cb94d0bc39
-š	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ºÚÿÃÿÿÿÿÿJ$c5a98cb4-2762-4a30-882f-aa46e3bfb36c
-•	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ãÜ–ïJ$82d195fc-b6b6-47a3-917d-55c00cd1fa0a
-š	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Ï¶Å÷şÿÿÿÿJ$e7e6563e-b26f-4795-aefe-e07ec8a2a888
-š	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(½øıÿÿÿÿJ$093ecfbe-f0fe-493c-8643-5254e15fb986
-]
-java:S1116B"Remove this empty statement.(ôŸìúÿÿÿÿJ$3358bec4-3304-4407-80c6-e30e359bb15b
-w
-java:S1854"5Remove this useless assignment to local variable "c".(áºúÜüÿÿÿÿJ$9a76877b-40cc-4de3-8677-7a053137cb5b
-h
-java:S1481"&Remove this unused "c" local variable.(áºúÜüÿÿÿÿJ$1dda5402-b40b-4801-b9ba-3ac67e588e29
-x	java:S125‘"<This block of commented-out lines of code should be removed.(ƒ‡ıöJ$2fb1313f-e76c-468f-a695-4bb66453a896

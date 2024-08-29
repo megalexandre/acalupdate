@@ -1,14 +1,0 @@
-
-k
-java:S3740U"/Provide the parametrized type for this generic.(ÏÉ“ÉJ$30b7c463-dc1e-4488-bd44-794095df3e28
-•
-java:S1192"RDefine a constant instead of duplicating this literal "Salvo com sucesso" 3 times.(Ìí·Ü8áù¤˜2J$6850c83e-7331-47a3-be6a-676edac9542e
-•	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Î¼ªôıÿÿÿÿ8ŞÒ‘¤˜2J$c55d4ac3-be87-4593-833e-92c57afefbce
-f	java:S106"+Replace this use of System.out by a logger.(Ìí·ÜJ$201e59e5-e235-4516-a04f-aac57dc4d75c
-	java:S100#"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°âš‹8âÒ‘¤˜2J$1be78034-1fd9-469d-9fa5-f91c60c8ccb1
-m	java:S106-"+Replace this use of System.out by a logger.(Ìí·Ü8òù¤˜2J$46f3dc63-c135-4b97-8cda-460197f738d0
-	java:S100:"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øñã8ãÒ‘¤˜2J$25462f8e-e8b9-4f0f-9898-e6809460e245
-m	java:S106D"+Replace this use of System.out by a logger.(Ìí·Ü8öù¤˜2J$06be1528-4dfe-4e9a-bfe8-55ad309a1f1c
-•	java:S100Q"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üä·úÿÿÿÿ8äÒ‘¤˜2J$a7072a96-0ff7-4934-ac69-5cc7d3a6ee8f
-i
-java:S1874U"-Remove this use of "Query"; it is deprecated.(ÏÉ“ÉJ$f0e5afb2-d5df-4f12-87ec-95760cd53e76

@@ -311,7 +311,7 @@ Email : acallages@hotmail.com.]]></text>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{consumptionStart}]]></textFieldExpression>
@@ -363,7 +363,113 @@ Email : acallages@hotmail.com.]]></text>
 				<reportElement x="336" y="80" width="219" height="1" uuid="f91b63dc-5472-49e9-9c47-d9010c5d6537"/>
 			</line>
 		</band>
-		<band height="50"/>
+		<band height="3">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="a1502c22-8d55-44b6-b996-051090fff1da">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</line>
+		</band>
+		<band height="168">
+			<staticText>
+				<reportElement x="0" y="0" width="554" height="20" uuid="860adbaa-ddd6-4717-9130-ac26cf8ca48e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[PADRÃO DA PORTARIA MS 2914/2011]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="554" height="14" uuid="1b4d07b7-f708-44a5-bf4c-996f871616a0"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Decreto Federal nº. 5.440/2005]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="34" width="138" height="14" uuid="9541668d-64f8-41e0-bc30-79787210704c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parâmetros]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="34" width="140" height="14" uuid="fcb39627-4992-462f-bdb7-6c82ea0ae865"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Exigidas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="34" width="138" height="14" uuid="6d0e2ffc-1832-4359-bc16-07171bd5ef5f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Analisadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="34" width="138" height="14" uuid="43f0d5ba-440b-442c-9b6e-397146ab343c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Em Conformidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="86" width="554" height="14" uuid="c0570c4c-e3cf-4210-a2f8-02eaa8bcf318"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parâmetros de Qualidade da Água]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="553" height="68" uuid="72e20b7e-7a6a-4051-b3f0-8520abdc4f1a"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[<b>Coliformes Totais:</b> Indicador que mensura contaminação bacteriológica, do tipo: bacilos gram-negativos, aeróbios ou anaeróbios facultativos não esporogênicos, oxidase-negativos.<br />
+<b>E.coli :</b> Indicador que mensura contaminação bacteriológica de origem fecal.<br />
+<b>Cloro Residual:</b> Indicador de Poder Desinfetante oriundo do Cloro (Agente de Desinfecção).<br />
+<b>Turbidez:</b> Indicador do espalhamento de luz produzido pela presença de partículas em suspensão ou coloidais.<br />
+<b>Cor Aparente:</b> Indicador que mensura a cor em amostras com turbidez.
+]]></text>
+			</staticText>
+		</band>
 		<band height="161">
 			<rectangle radius="10">
 				<reportElement x="225" y="0" width="105" height="80" uuid="88ff8b35-7078-4129-8afc-fce7a5daa770">

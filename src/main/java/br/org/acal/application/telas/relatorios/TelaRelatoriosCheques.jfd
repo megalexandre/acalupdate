@@ -1,0 +1,287 @@
+JFDML JFormDesigner: "8.2.3.0.386" Java: "17.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {comp jPanel15::l:::x}"
+			"$verticalGroup": "par l {comp jPanel15:::p::p}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq t {space :::p, par t {comp jPanel3::t:::x, comp jPanel2::l:::x, comp jPanel5::l:::x, comp jPanel7::l:::x, comp jPanel12::l:::x, seq t {comp jButton3:::p:120:p, space :::x, comp jButton4:::p:120:p}, comp jPanel16::l::897:x}, space :::p}}"
+				"$verticalGroup": "par l {seq l {space :p:10:p, comp jPanel3:::p:49:p, space :p:10:p, comp jPanel2:::p:49:p, space :p:10:p, comp jPanel5:::p:49:p, space :p:10:p, comp jPanel7:::p:50:p, space :p:10:p, comp jPanel12:::p:50:p, space :p:10:p, comp jPanel16:::p::p, space ::10:x, par l:::p {comp jButton4::l:::x, comp jButton3::l:p:35:p}, space :p:10:p}}"
+			} ) {
+				name: "jPanel15"
+				"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :p:33:p, comp jLabel2:::p::p, space :::x, comp jPanel1:::p::p, space :::p, comp jCheckBoxId:::p:140:p}}"
+					"$verticalGroup": "par l {seq t {space :::x, comp jLabel2:::p::p, space :p:54:p}, seq l {par l:::p {comp jPanel1::l:::x, comp jCheckBoxId::l:p:42:p}, space :0:0:x}}"
+				} ) {
+					name: "jPanel3"
+					"border": new javax.swing.border.EtchedBorder( 1, null, null )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "jLabel2"
+						"text": "Regristro"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "jCheckBoxId"
+						"text": "Filtrar por Regristro"
+						"preferredSize": new java.awt.Dimension( 100, 23 )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jCheckBoxIdActionPerformed", true ) )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq t {space ::97:x, comp jLabel8:::p::p, space :p:11:p, comp jTextFieldIdMenor:::p:52:p, space u:::p, comp jLabel7:::p:10:p, space :::p, comp jTextFieldIdMaior:::p:52:p, space :p:38:p}}"
+						"$verticalGroup": "par l {seq t {space :::x, par b {comp jTextFieldIdMaior::b:p::p, comp jLabel8::b:p::p, comp jLabel7::b:p::p, comp jTextFieldIdMenor::b:p::p}, space :::p}}"
+					} ) {
+						name: "jPanel1"
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "jTextFieldIdMaior"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldIdMaiorActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "jLabel7"
+							"text": "E"
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "jLabel8"
+							"text": "Entre"
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "jTextFieldIdMenor"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldIdMenorActionPerformed", true ) )
+						} )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :p:35:p, comp jLabel1:::p::p, space :::x, comp jPanel4:::p::p, space :::p, comp jPanel8:::p::p}}"
+					"$verticalGroup": "par l {seq t {space :::x, comp jLabel1:::p::p, space :p:54:p}, seq l {par t {comp jPanel4::t:p::p, comp jPanel8::t:p::p}, space :0:0:x}}"
+				} ) {
+					name: "jPanel2"
+					"border": new javax.swing.border.EtchedBorder( 1, null, null )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "jLabel1"
+						"text": "Valor"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq t {space :0:0:x, comp jCheckBoxValor:::p:140:p}}"
+						"$verticalGroup": "par l {comp jCheckBoxValor::l::43:x}"
+					} ) {
+						name: "jPanel8"
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "jCheckBoxValor"
+							"text": "Filtrar por Valor"
+							"maximumSize": new java.awt.Dimension( 100, 23 )
+							"minimumSize": new java.awt.Dimension( 100, 23 )
+							"preferredSize": new java.awt.Dimension( 100, 23 )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jCheckBoxValorActionPerformed", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq t {space ::97:x, comp jLabel10:::p::p, space u:::p, comp jTextFieldValorMenor:::p:52:p, space :p:11:p, comp jLabel9:::p:10:p, space :::p, comp jTextFieldValorMaior:::p:52:p, space :p:38:p}}"
+						"$verticalGroup": "par l {seq t {space ::13:x, par b {comp jTextFieldValorMaior::b:p::p, comp jLabel10::b:p::p, comp jLabel9::b:p::p, comp jTextFieldValorMenor::b:p::p}, space :::p}}"
+					} ) {
+						name: "jPanel4"
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "jTextFieldValorMaior"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldValorMaiorActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "jLabel9"
+							"text": "E"
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "jLabel10"
+							"text": "Entre"
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "jTextFieldValorMenor"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldValorMenorActionPerformed", true ) )
+						} )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :p:35:p, comp jLabel3:::p::p, space :::x, comp jPanel6:::p::p, space :::p, comp jPanel10:::p::p}}"
+					"$verticalGroup": "par l {seq t {space :::x, comp jLabel3:::p::p, space :p:54:p}, seq l {par l {seq l {space :p:4:p, comp jPanel10:::p::p}, comp jPanel6::l:p::p}, space :0:0:x}}"
+				} ) {
+					name: "jPanel5"
+					"border": new javax.swing.border.EtchedBorder( 1, null, null )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "jLabel3"
+						"text": "Data"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq t {space :0:0:x, comp jCheckBoxData:::p:140:p}}"
+						"$verticalGroup": "par l {comp jCheckBoxData::l::43:x}"
+					} ) {
+						name: "jPanel10"
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "jCheckBoxData"
+							"text": "Filtrar por Data"
+							"maximumSize": new java.awt.Dimension( 100, 23 )
+							"minimumSize": new java.awt.Dimension( 100, 23 )
+							"preferredSize": new java.awt.Dimension( 100, 23 )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jCheckBoxDataActionPerformed", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq t {space :p:30:p, comp jLabel12:::p::p, space :p:32:p, comp jFormattedTextFieldDataMenor:::p:79:p, space u:::p, comp jLabel11:::p:10:p, space s:::p, comp jFormattedTextFieldDataMaior::::79:x, space :p:35:p}}"
+						"$verticalGroup": "par l {seq t {space :::x, par b {comp jLabel12::b:p::p, comp jLabel11::b:p::p, comp jFormattedTextFieldDataMenor::b:p::p, comp jFormattedTextFieldDataMaior::b:p::p}, space :::p}}"
+					} ) {
+						name: "jPanel6"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "jLabel11"
+							"text": "E"
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "jLabel12"
+							"text": "Entre"
+						} )
+						add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+							name: "jFormattedTextFieldDataMenor"
+						} )
+						add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+							name: "jFormattedTextFieldDataMaior"
+						} )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :p:35:p, comp jLabel4:::p::p, space :::x, comp jPanel9:::p::p, space :::p, comp jPanel11:::p::p}}"
+					"$verticalGroup": "par l {seq t {space :::x, comp jLabel4:::p::p, space :p:54:p}, seq l {par l:::p {comp jPanel11::l:::x, comp jPanel9::l:::x}, space :0:0:x}}"
+				} ) {
+					name: "jPanel7"
+					"border": new javax.swing.border.EtchedBorder( 1, null, null )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "jLabel4"
+						"text": "Funcionario"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq t {space :0:0:x, comp jCheckBoxFuncionario:::p:140:p}}"
+						"$verticalGroup": "par l {comp jCheckBoxFuncionario::l:::x}"
+					} ) {
+						name: "jPanel11"
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "jCheckBoxFuncionario"
+							"text": "Filtrar por Funcionario"
+							"maximumSize": new java.awt.Dimension( 100, 23 )
+							"minimumSize": new java.awt.Dimension( 100, 23 )
+							"preferredSize": new java.awt.Dimension( 100, 23 )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jCheckBoxFuncionarioActionPerformed", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :::p, comp jComboBoxFuncionario:::p::p, space ::107:x}}"
+						"$verticalGroup": "par l {seq t {space :::x, comp jComboBoxFuncionario:::p::p, space :::p}}"
+					} ) {
+						name: "jPanel9"
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "jComboBoxFuncionario"
+							"model": new javax.swing.DefaultComboBoxModel
+						} )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :p:35:p, comp jLabel5:::p::p, space :::x, comp jPanel14:::p::p, space :::p, comp jPanel13:::p::p}}"
+					"$verticalGroup": "par l {seq t {space :::x, comp jLabel5:::p::p, space :p:25:p}, seq l {par t {comp jPanel14::t:p::p, comp jPanel13::t:p::p}, space :0:0:x}}"
+				} ) {
+					name: "jPanel12"
+					"border": new javax.swing.border.EtchedBorder( 1, null, null )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "jLabel5"
+						"text": "Favorecido"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq t {space :0:0:x, comp jCheckBoxFavorecido:::p:140:p}}"
+						"$verticalGroup": "par l {comp jCheckBoxFavorecido::l::43:x}"
+					} ) {
+						name: "jPanel13"
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "jCheckBoxFavorecido"
+							"text": "Filtrar por Favorecido"
+							"maximumSize": new java.awt.Dimension( 100, 23 )
+							"minimumSize": new java.awt.Dimension( 100, 23 )
+							"preferredSize": new java.awt.Dimension( 100, 23 )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jCheckBoxFavorecidoActionPerformed", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq t {space :::p, comp jTextFieldFavorecido::::216:x, space :::p}}"
+						"$verticalGroup": "par l {seq t {space ::13:x, comp jTextFieldFavorecido:::p::p, space :::p}}"
+					} ) {
+						name: "jPanel14"
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "jTextFieldFavorecido"
+						} )
+					} )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton3"
+					"text": "Hoje"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton3ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton4"
+					"text": "Gerar"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton4ActionPerformed", true ) )
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {space :p:35:p, comp jLabel6:::p::p, space s:::p, comp jPanel18:::::x}}"
+					"$verticalGroup": "par l {seq l {space :::p, comp jLabel6:::p::p, space :0:0:x}, comp jPanel18::l:::x}"
+				} ) {
+					name: "jPanel16"
+					"border": new javax.swing.border.EtchedBorder( 1, null, null )
+					"preferredSize": new java.awt.Dimension( 486, 50 )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "jLabel6"
+						"text": "Ordernar"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {space :p::p, comp jCheckRegristro:::::x, space :p:5:p, comp jCheckOrdernarValor:::::x, space s:::p, comp jCheckData:::::x, space :p:5:p, comp jCheckFuncionario:::::x, space :p:5:p, comp jCheckFavorecido:::::x, space :p:64:p}}"
+						"$verticalGroup": "par l {seq l {space :::p, par b {comp jCheckRegristro::b:p::p, comp jCheckOrdernarValor::b:p::p, comp jCheckData::b:p::p, comp jCheckFuncionario::b:p::p, comp jCheckFavorecido::b:p::p}, space ::19:x}}"
+					} ) {
+						name: "jPanel18"
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "jCheckRegristro"
+							"text": "Regristro"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jCheckRegristroActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "jCheckOrdernarValor"
+							"text": "Valor"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jCheckOrdernarValorActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "jCheckData"
+							"text": "Data"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jCheckDataActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "jCheckFuncionario"
+							"text": "Funcionario"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jCheckFuncionarioActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "jCheckFavorecido"
+							"text": "Despeza"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jCheckFavorecidoActionPerformed", true ) )
+						} )
+					} )
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 915, 447 )
+		} )
+		add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+			name: "jScrollPane1"
+			add( new FormComponent( "javax.swing.JTextArea" ) {
+				name: "jTextArea1"
+				"columns": 20
+				"rows": 5
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 463 )
+		} )
+	}
+}

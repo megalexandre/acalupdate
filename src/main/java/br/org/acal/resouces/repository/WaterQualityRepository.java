@@ -1,5 +1,6 @@
 package br.org.acal.resouces.repository;
 
+import br.org.acal.commons.WaterQualityParameter;
 import br.org.acal.domain.model.WaterParam;
 import br.org.acal.infra.HibernateUtil;
 import br.org.acal.domain.model.WaterQuality;
@@ -26,7 +27,7 @@ public class WaterQualityRepository {
 
             return query.getResultList().stream().map(it ->
                     WaterQuality.builder()
-                            .waterParam(WaterParam.builder().name("meu pau").build())
+                            .waterParam(WaterQualityParameter.fromNumber(it.getParam()))
                             .number(it.getNumber())
                             .required(it.getRequired())
                             .analyzed(it.getAnalyzed())

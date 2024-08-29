@@ -17,7 +17,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 import static java.text.NumberFormat.getCurrencyInstance;
 
@@ -27,6 +26,7 @@ import static java.text.NumberFormat.getCurrencyInstance;
 @NoArgsConstructor
 public class InvoiceReport {
 
+    private List<WaterQualityReport> waterQuality;
 
     private String number;
     private String payedAt;
@@ -51,7 +51,7 @@ public class InvoiceReport {
     private String usefulConsumption;
     private String waterValue;
     private String freeTier;
-    private Collection<WaterQualityReport> waterQuality;
+
 
     public static InvoiceReport adapter(Invoice invoice, Collection<WaterQuality> waterQuality){
         return InvoiceReport

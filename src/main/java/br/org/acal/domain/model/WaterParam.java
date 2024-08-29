@@ -6,8 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class WaterParam {
-
     private String number;
-
     private String name;
 }

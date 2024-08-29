@@ -1,9 +1,18 @@
 package br.org.acal.resouces.adapter;
 
+import br.org.acal.commons.WaterQualityParameter;
 import br.org.acal.domain.model.WaterQuality;
 import br.org.acal.resouces.model.WaterQualityModel;
 
-public interface WaterQualityAdapter {
-    WaterQuality map (WaterQualityModel item);
-    WaterQualityModel map (WaterQuality item);
+public class WaterQualityAdapter {
+    public static WaterQuality map(WaterQualityModel item){
+        return WaterQuality.builder()
+                .waterParam(WaterQualityParameter.fromNumber(item.getParam()))
+                .number(item.getNumber())
+                .required(item.getRequired())
+                .analyzed(item.getAnalyzed())
+                .accordance(item.getAccordance())
+                .date(item.getDate())
+            .build();
+    }
 }

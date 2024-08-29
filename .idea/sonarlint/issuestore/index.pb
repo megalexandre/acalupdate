@@ -580,3 +580,7 @@ p
 @src/main/java/br/org/acal/resouces/entidades/Categoriasocio.java,b\f\bfdf8334471694f4e5c1113fbe8a001228f40e67
 p
 @src/main/java/br/org/acal/resouces/entidades/Enderecopessoa.java,e\0\e0e37afedc8001aa86e0273f8a210cccd52c5822
+D
+sql/acal24082024.sql,0\2\02d5d9db0e689629f7df60733093942c8e8206b4
+l
+<src/main/java/br/org/acal/commons/WaterQualityParameter.java,6\2\623f4e0d000f402e664d3f0e5b23ddbca387ef01

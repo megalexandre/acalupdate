@@ -14,110 +14,48 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="waterParam" class="java.lang.String"/>
+	<field name="required" class="java.lang.String"/>
+	<field name="analyzed" class="java.lang.String"/>
+	<field name="accordance" class="java.lang.String"/>
 	<detail>
-		<band height="48" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="555" height="20" uuid="6bd8795b-bfcb-4803-b172-7c136fa20e55"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[PADRÃO DA PORTARIA MS 2914/2011]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="20" width="555" height="14" uuid="90ae55b2-afe9-43c2-a5d8-42e408c376d6"/>
-				<box>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Decreto Federal nº. 5.440/2005]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="34" width="138" height="14" uuid="bd09db90-ceb4-490f-a885-00561fa5748a">
+		<band height="30">
+			<textField>
+				<reportElement x="0" y="0" width="255" height="30" uuid="00fb0bdb-7782-4f5a-8c47-fe388426654a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Parâmetros]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="138" y="34" width="140" height="14" uuid="ef14a26e-b5ba-47ba-9edf-e6a92958a9a1"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Exigidas]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="278" y="34" width="138" height="14" uuid="41af5dba-4cc2-41d1-8679-49e29101c55e"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Analisadas]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="416" y="34" width="139" height="14" uuid="0bfd1ae4-1827-43c6-9c42-96247bba0ddd">
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{waterParam}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="255" y="0" width="100" height="30" uuid="00fb0bdb-7782-4f5a-8c47-fe388426654a">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Em Conformidade]]></text>
-			</staticText>
-		</band>
-		<band height="50"/>
-		<band height="82">
-			<staticText>
-				<reportElement x="0" y="14" width="555" height="68" uuid="a7c4fccc-3d27-4971-800c-8f17176cb0f2">
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{required}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="30" uuid="0a61eb0f-92c8-4d3d-b8c9-92c336299a9b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<textElement verticalAlignment="Top" markup="html">
-					<font size="9" isBold="false"/>
-				</textElement>
-				<text><![CDATA[<b>Coliformes Totais:</b> Indicador que mensura contaminação bacteriológica, do tipo: bacilos gram-negativos, aeróbios ou anaeróbios facultativos não esporogênicos, oxidase-negativos.<br />
-<b>E.coli :</b> Indicador que mensura contaminação bacteriológica de origem fecal.<br />
-<b>Cloro Residual:</b> Indicador de Poder Desinfetante oriundo do Cloro (Agente de Desinfecção).<br />
-<b>Turbidez:</b> Indicador do espalhamento de luz produzido pela presença de partículas em suspensão ou coloidais.<br />
-<b>Cor Aparente:</b> Indicador que mensura a cor em amostras com turbidez.
-]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="0" width="555" height="14" uuid="7e2b2bf6-667d-45ee-9b3a-a184314f5313">
+				<box padding="1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{analyzed}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="0" width="100" height="30" uuid="a35df048-a415-4451-8177-e7898c9eea31">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Parâmetros de Qualidade da Água]]></text>
-			</staticText>
+				<box padding="1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{accordance}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

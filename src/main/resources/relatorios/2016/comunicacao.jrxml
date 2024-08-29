@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comunicacao" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b111e136-d8b3-4aff-a206-381d04cc5ced">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select
+
+    concat(e.tipo,' ', e.nome) as endereco ,
+    p.numeroEndereco as numero,
+    concat(trim(p.nome),' ', trim(p.sobrenome)) as nome
+from pessoa p
+inner join partnerModel s on s.idPessoa = p.id
+inner join endereco e on e.id = p.idEndereco
+where s.idCategoriaSocio in (2,3,6,8,11,12,13,15,16,17,19,21)
+
+order by e.tipo, e.nome, p.nome
+
+]]>
+	</queryString>
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="116" splitType="Stretch">
+			<image>
+				<reportElement uuid="5837f6d2-4780-4c11-863f-7044ca6ca09b" positionType="Float" x="0" y="0" width="555" height="94"/>
+				<imageExpression><![CDATA["/home/alexandre/acal-2016/src/img/acal-logo.jpg"]]></imageExpression>
+			</image>
+		</band>
+		<band height="126">
+			<staticText>
+				<reportElement uuid="19960598-eb24-4563-b581-2ed5040d33c2" x="0" y="0" width="555" height="40"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C O N V I T E]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8d3b8fde-8294-423f-a256-e22aaa624693" x="22" y="40" width="508" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Nome: " + $F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="555d4aa1-49a4-475a-9bd0-39d1c886fea3" x="22" y="80" width="508" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Nº: " + $F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b9893518-38ef-497a-b00d-b48d92cae3b5" x="22" y="60" width="508" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Endereço: " + $F{endereco}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="148">
+			<staticText>
+				<reportElement uuid="3b40639a-1eea-43b7-a6ae-384ae23900d6" x="22" y="0" width="508" height="137"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[À Associação Comunitária e Assistencial de Lages - ACAL vem através de sua diretoria, devidamente representada por sua presidente Patrícia Soares da Silva convidar Vossa Excelência para participar de uma Assembléia Geral Extraordinária que será realizada dia vinte e nove de outubro do corrente ano (29/10/2016), com início as 19h00min no auditório do Colégio Municipal José Prado Alves, situado a Rua Quintino Alves S/Nº. Lages do Batata - Jacobina -BA
+A sua presença é de fundamental importância!
+<br/><br/>
+Na oportunidade será discutida a seguinte pauta:]]></text>
+			</staticText>
+		</band>
+		<band height="243">
+			<staticText>
+				<reportElement uuid="6ecc96f2-f79f-43b2-a5fd-c3100795998c" x="22" y="0" width="508" height="221"/>
+				<textElement markup="html">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[<ul>
+<li>Prestação de Contas da atual Diretoria,</li><br/>
+<li>Ações da atual gestão,</li><br/>
+<li>Regularização do sistema de abastecimento de água,</li><br/>
+<li>O que ocorrer.</li><br/>
+</ul>
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="09721e9f-3983-4526-a301-45e7b4e8a794" x="22" y="221" width="508" height="22"/>
+				<textElement textAlignment="Right" markup="html">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Atenciosamente,]]></text>
+			</staticText>
+		</band>
+		<band height="134">
+			<staticText>
+				<reportElement uuid="27073669-2152-4510-a288-872981447f7e" x="22" y="42" width="508" height="92"/>
+				<textElement textAlignment="Center" markup="html">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patrícia Soares da Silva,<br/>
+Presidente da ACAL]]></text>
+			</staticText>
+		</band>
+		<band height="7">
+			<break>
+				<reportElement uuid="30cb3b38-ced3-4f4b-97b0-840e23b88a17" x="0" y="6" width="555" height="1"/>
+			</break>
+		</band>
+	</detail>
+</jasperReport>

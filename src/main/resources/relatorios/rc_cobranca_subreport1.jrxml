@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rc_cobranca_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3318567f-5e79-4f9d-a1ce-498a96ee0bac">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idEnderecoPessoa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+
+c.id         as numeroconta,
+c.dataGerada as data,
+c.dataPag    as pagamento,
+c.dataVence  as vencimento,
+c.idEnderecoPessoa as enderecoPessoa,
+(CASE
+WHEN (Month(c.dataVence) = 1 ) THEN "Dezembro"
+WHEN (Month(c.dataVence) = 2 ) THEN "Janeiro"
+WHEN (Month(c.dataVence) = 3 ) THEN "Fevereiro"
+WHEN (Month(c.dataVence) = 4 ) THEN "Março"
+WHEN (Month(c.dataVence) = 5 ) THEN "Abril"
+WHEN (Month(c.dataVence) = 6 ) THEN "Maio"
+WHEN (Month(c.dataVence) = 7 ) THEN "Junho"
+WHEN (Month(c.dataVence) = 8 ) THEN "Julho"
+WHEN (Month(c.dataVence) = 9 ) THEN "Agosto"
+WHEN (Month(c.dataVence) = 10 ) THEN "Setembro"
+WHEN (Month(c.dataVence) = 11 ) THEN "Outubro"
+WHEN (Month(c.dataVence) = 12 ) THEN "Novembro"
+
+END )  as MesReferente,
+Year(c.dataVence) as AnoReferente,
+
+concat(p.nome," ",p.sobrenome) as partnerModel,
+
+concat(e.tipo," ",e.nome) as endereco,
+ep.Numero as numero,
+
+s.numeroSocio,
+cs.nome as categoriaSocio,
+
+t.valor as taxaSocio,
+
+COALESCE(h.Consumo,0) AS consumo,
+
+COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+ELSE (h.Consumo -  (15000))
+END ) ,0)as excessoLTd,
+
+COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+ELSE ((h.Consumo - (15000))*(select valor FROM taxa where id = 20))/10
+
+END ) ,0)as excessoValor,
+
+COALESCE(
+sum(t2.Valor), 0
+) as taxas
+
+
+, (t.valor + COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+
+ELSE ((h.Consumo - (15000))*(select valor FROM taxa where id = 20))/10
+
+END ) ,0)+ COALESCE(sum(t2.Valor), 0))
+AS totalconta
+
+from conta c
+
+inner join enderecopessoa ep on ep.id = c.idEnderecoPessoa
+inner join pessoa          p on  p.id = ep.idPessoa
+inner join endereco        e on  e.id = ep.idEndereco
+inner join partnerModel           s on  p.id = s.idPessoa
+inner join categoriasocio cs on cs.id = ep.idCategoriaSocio
+inner join taxa            t on  t.id = cs.taxasId
+left  join hidrometro      h on  c.id = h.idconta
+left  join taxasconta     tc on  c.id = tc.contaid
+left  join taxa           t2 on  t2.id = tc.taxaid
+
+where c.dataPag is null
+and (DATEDIFF(now(),c.dataVence)>30)
+and c.idEnderecoPessoa = $P{idEnderecoPessoa}
+group by c.id]]>
+	</queryString>
+	<field name="numeroconta" class="java.lang.Integer"/>
+	<field name="data" class="java.sql.Timestamp"/>
+	<field name="pagamento" class="java.sql.Timestamp"/>
+	<field name="vencimento" class="java.sql.Timestamp"/>
+	<field name="enderecoPessoa" class="java.lang.Integer"/>
+	<field name="MesReferente" class="java.lang.String"/>
+	<field name="AnoReferente" class="java.lang.Long"/>
+	<field name="partnerModel" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeroSocio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="categoriaSocio" class="java.lang.String"/>
+	<field name="taxaSocio" class="java.math.BigDecimal"/>
+	<field name="consumo" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="excessoLTd" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="excessoValor" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="taxas" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalconta" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalconta_1" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement uuid="b6a1eaa6-1fa2-4eae-8f65-a50cf16879da" x="0" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Boleto Numero:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2fa5cc53-6d9b-4d31-991c-8aa93fa550f1" x="455" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Valor:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d300bf33-fa63-4c7d-b989-b8bffd2ed1ff" x="105" y="0" width="162" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Vencimento:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="f9b6e1ec-5b99-45d7-b2b3-28490b70847a" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{numeroconta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="c6e55538-4e07-41e0-910a-b2e527275be7" x="455" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{totalconta}]]></textFieldExpression>
+			</textField>
+			<textField pattern=" dd MMMMM yyyy">
+				<reportElement uuid="4e9e4a76-bd31-49a1-887a-fa88f963ce67" x="105" y="0" width="162" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20">
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="9df9ad68-ef6d-49c6-a852-35365bc7299f" x="455" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{totalconta_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d300bf33-fa63-4c7d-b989-b8bffd2ed1ff" x="336" y="0" width="119" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Valor total dos debitos:]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>

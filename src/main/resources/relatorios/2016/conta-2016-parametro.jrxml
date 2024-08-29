@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="conta-2016-parametro" language="groovy" pageWidth="546" pageHeight="842" columnWidth="506" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bbff8c88-48ce-4755-93eb-fe8f1585522b">
+	<property name="ireport.zoom" value="2.4200000000000004"/>
+	<property name="ireport.x" value="14"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="data" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+	pc.exigido,
+	pc.analisado,
+	pc.conformidade,
+	tp.nom_parametro,
+	(
+	select max(analisado) from parametro_coleta pc_
+		where
+			Month(pc_.data) = Month($P{data}) and
+			Year(pc_.data) = Year($P{data})
+	) as qtd_analisado
+
+FROM
+parametro_coleta pc
+	inner join tipo_parametro tp on tp.ide_tipo_parametro = pc.ide_tipo_parametro
+where
+Month(pc.data) = (Month($P{data})) and
+Year(pc.data) =  (Year($P{data}))]]>
+	</queryString>
+	<field name="exigido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="analisado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="conformidade" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nom_parametro" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qtd_analisado" class="java.lang.String"/>
+	<title>
+		<band height="20">
+			<staticText>
+				<reportElement uuid="7a260a32-7ba8-4245-a22c-f52b07245001" x="0" y="0" width="506" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[PADRÃO DA PORTARIA MS 2914/2011]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="28">
+			<staticText>
+				<reportElement uuid="7a260a32-7ba8-4245-a22c-f52b07245001" x="0" y="0" width="506" height="14"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Decreto Federal nº. 5.440/2005]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d6d73e1-4f40-4863-9b1a-5cb5d7913159" x="0" y="14" width="137" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parâmetros]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d6d73e1-4f40-4863-9b1a-5cb5d7913159" x="137" y="14" width="130" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Exigidas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d6d73e1-4f40-4863-9b1a-5cb5d7913159" x="267" y="14" width="130" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Analisadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d6d73e1-4f40-4863-9b1a-5cb5d7913159" x="397" y="14" width="109" height="14"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Em Conformidade]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement uuid="3fc818bf-126d-4b1a-acac-ae3b3ea95559" x="0" y="0" width="137" height="14"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nom_parametro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5002dbbc-fdf7-4413-8849-3f56a4f64908" x="137" y="0" width="130" height="14"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{exigido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c544d454-ad7f-4fb7-a501-94f7dfdf6dc6" x="397" y="0" width="109" height="14"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conformidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0d3cd239-be48-409c-b77b-4a7af7578948" x="267" y="0" width="130" height="14"/>
+				<box leftPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{analisado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="81">
+			<staticText>
+				<reportElement uuid="f7d2f495-82c8-40af-b434-38a8e20f7d10" x="0" y="0" width="506" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parâmetros de Qualidade da Água]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6817f221-ad37-456f-bd11-473bb17aedfa" x="0" y="13" width="506" height="68"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[<b>Coliformes Totais:</b> Indicador que mensura contaminação bacteriológica, do tipo: bacilos gram-negativos, aeróbios ou anaeróbios facultativos não esporogênicos, oxidase-negativos.<br />
+<b>E.coli :</b> Indicador que mensura contaminação bacteriológica de origem fecal.<br />
+<b>Cloro Residual:</b> Indicador de Poder Desinfetante oriundo do Cloro (Agente de Desinfecção).<br />
+<b>Turbidez:</b> Indicador do espalhamento de luz produzido pela presença de partículas em suspensão ou coloidais.<br />
+<b>Cor Aparente:</b> Indicador que mensura a cor em amostras com turbidez.
+]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>

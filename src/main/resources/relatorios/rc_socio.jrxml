@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rc_cobraça" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="40e39977-d5ff-4b3d-bed8-694200c80fc8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="complementos" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+
+c.id         as numeroconta,
+c.dataGerada as data,
+c.dataPag    as pagamento,
+c.dataVence  as vencimento,
+
+(CASE
+WHEN (Month(c.dataVence) = 1 ) THEN "Dezembro"
+WHEN (Month(c.dataVence) = 2 ) THEN "Janeiro"
+WHEN (Month(c.dataVence) = 3 ) THEN "Fevereiro"
+WHEN (Month(c.dataVence) = 4 ) THEN "Março"
+WHEN (Month(c.dataVence) = 5 ) THEN "Abril"
+WHEN (Month(c.dataVence) = 6 ) THEN "Maio"
+WHEN (Month(c.dataVence) = 7 ) THEN "Junho"
+WHEN (Month(c.dataVence) = 8 ) THEN "Julho"
+WHEN (Month(c.dataVence) = 9 ) THEN "Agosto"
+WHEN (Month(c.dataVence) = 10 ) THEN "Setembro"
+WHEN (Month(c.dataVence) = 11 ) THEN "Outubro"
+WHEN (Month(c.dataVence) = 12 ) THEN "Novembro"
+
+END )  as MesReferente,
+Year(c.dataVence) as AnoReferente,
+
+-- dados de pessoa
+concat(p.nome," ",p.sobrenome) as partnerModel,
+
+-- dados do endere
+concat(e.tipo," ",e.nome) as endereco,
+ep.Numero as numero,
+
+-- dados de partnerModel
+s.numeroSocio,
+cs.nome as categoriaSocio,
+
+-- taxa de partnerModel
+
+t.valor as taxaSocio,
+
+
+-- dados do hidrometro
+-- consumo em litros
+COALESCE(h.Consumo,0) AS consumo,
+
+-- excesso em litros
+COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+ELSE (h.Consumo -  (15000))
+END ) ,0)as excessoLTd,
+
+
+-- valor de excesso em reais
+
+COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+ELSE ((h.Consumo - (15000))*(select valor FROM taxa where id = 20))/10
+
+END ) ,0)as excessoValor,
+
+
+
+COALESCE(
+sum(t2.Valor), 0
+) as taxas
+
+
+, (t.valor + COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+
+ELSE ((h.Consumo - (15000))*(select valor FROM taxa where id = 20))/10
+
+END ) ,0)+ COALESCE(sum(t2.Valor), 0))
+AS totalconta
+
+from conta c
+
+inner join enderecopessoa ep on ep.id = c.idEnderecoPessoa
+inner join pessoa          p on  p.id = ep.idPessoa
+inner join endereco        e on  e.id = ep.idEndereco
+inner join partnerModel           s on  p.id = s.idPessoa
+inner join categoriasocio cs on cs.id = ep.idCategoriaSocio
+inner join taxa            t on  t.id = cs.taxasId
+left  join hidrometro      h on  c.id = h.idconta
+left  join taxasconta     tc on  c.id = tc.contaid
+left  join taxa           t2 on  t2.id = tc.taxaid
+
+$P!{complementos}]]>
+	</queryString>
+	<field name="numeroconta" class="java.lang.Integer"/>
+	<field name="data" class="java.sql.Timestamp"/>
+	<field name="pagamento" class="java.sql.Timestamp"/>
+	<field name="vencimento" class="java.sql.Timestamp"/>
+	<field name="MesReferente" class="java.lang.String"/>
+	<field name="AnoReferente" class="java.lang.Long"/>
+	<field name="partnerModel" class="java.lang.String"/>
+	<field name="endereco" class="java.lang.String"/>
+	<field name="numero" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeroSocio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="categoriaSocio" class="java.lang.String"/>
+	<field name="taxaSocio" class="java.math.BigDecimal"/>
+	<field name="consumo" class="java.lang.Double"/>
+	<field name="excessoLTd" class="java.lang.Double"/>
+	<field name="excessoValor" class="java.lang.Double"/>
+	<field name="taxas" class="java.math.BigDecimal"/>
+	<field name="totalconta" class="java.lang.Double"/>
+	<detail>
+		<band height="228" splitType="Stretch">
+			<staticText>
+				<reportElement x="12" y="119" width="84" height="20" uuid="1874e403-630c-4cac-b6d5-69348d8a3946"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Mensalidade  nº:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="96" y="119" width="171" height="20" uuid="0ab48763-6005-4caf-a355-806f3bbe2bf6"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroconta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="79" width="151" height="20" uuid="7056d47d-1a1c-4923-9a9d-44333b005249"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Prezado(a) Sócio, Sr(a)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="12" y="99" width="255" height="20" uuid="cfe28f51-f708-4cff-9ff3-0ca3854c8fea"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{partnerModel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="139" width="84" height="20" uuid="1da6a642-8359-48fc-85b4-ebbf0d475dd8"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Refêrente ao mês:]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="96" y="139" width="171" height="20" uuid="f317152c-295e-4e2e-9484-0c941f9fd87d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="179" width="255" height="26" uuid="4e1190ad-de1b-47ff-beac-3e4c40a7d721"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[O desenvolvimento da Associação é a responsabilidade de cada um de nos!]]></text>
+			</staticText>
+			<image>
+				<reportElement x="-2" y="3" width="79" height="74" uuid="73bde3f6-87f0-45b0-aefb-9e388c195d65"/>
+				<imageExpression><![CDATA["C:\\Users\\megalexandre\\Documents\\java\\repo-master\\src\\relatorios\\acal.jpg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="0" y="2" width="555" height="1" uuid="aedb47cc-0da1-45f9-ba31-fe2f03ae281e"/>
+			</line>
+			<line>
+				<reportElement x="1" y="205" width="553" height="1" uuid="6e79c8a3-648d-4d9c-bda6-b1350df8b4ee"/>
+			</line>
+			<textField>
+				<reportElement x="383" y="119" width="171" height="20" uuid="df14947e-e414-47b7-91ee-c8775d4dc9bb"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroconta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="287" y="99" width="267" height="20" uuid="d1bd8725-febc-4a44-9927-d5e2b0789b45"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{partnerModel}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="383" y="139" width="171" height="20" uuid="f536b325-bd94-404d-afa5-d3d4e6feeb98"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="119" width="96" height="20" uuid="2b7b4da7-ad8d-4c29-b907-3fc24da8a040"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Mensalidade  nº:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="79" width="140" height="20" uuid="b1388fa0-0094-4e4e-846f-d460b3de37d9"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Prezado(a) Sócio, Sr(a)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="139" width="96" height="20" uuid="24c38f8f-ae86-4a38-943b-fc12934a19ab"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Refêrente ao mês:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="179" width="267" height="26" uuid="b2510469-bd20-4b25-9d78-572cf88d2707"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[O desenvolvimento da Associação é a responsabilidade de cada um de nos!]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="2" width="201" height="75" uuid="c5ac8908-68dc-4c89-8fc7-b6e847eb0d5c"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[CNPJ - 13.228.119/0001-68
+Publicaçao do estatuto no Diário Oficial de 22-06-1983
+Reconhecido como Órgão de utilidade publica Municipal - conf.lei N 7 de 27-10-1983
+Reconhecido como Órgão de utilidade publica Estadual - conf.lei N 7049 de 16-04-1997
+Rua Morro do Chapéu, S/N - Tel 0(xx74) 3674-2165  -Lages do Batata - Jacobina Ba
+Email : Acallages@hotmail.com]]></text>
+			</staticText>
+			<image>
+				<reportElement x="278" y="3" width="76" height="74" uuid="1b00d3db-f21b-425a-8ea3-bf9202c74d06"/>
+				<imageExpression><![CDATA["C:\\Users\\megalexandre\\Documents\\java\\repo-master\\src\\relatorios\\acal.jpg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="278" y="2" width="1" height="203" uuid="223ae070-4b31-48aa-bf6e-007b7bf6ae95"/>
+			</line>
+			<staticText>
+				<reportElement x="12" y="159" width="84" height="20" uuid="1b033510-e8c8-4c1d-bc2f-419158f11e40"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Vecimento mês:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="159" width="96" height="20" uuid="21bfbd27-69b5-4550-b060-e435aec83efd"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Vecimento mês:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="96" y="159" width="171" height="20" uuid="59c8a528-8976-4bee-869e-3aa51ad08e5f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="3" width="1" height="202" uuid="d73ff863-8023-4ea7-ac03-e39eceae9e94"/>
+			</line>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="384" y="159" width="171" height="20" uuid="c1ee5879-a5b3-4a71-b636-fd17941ad402"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="554" y="2" width="1" height="203" uuid="1144a214-1e2e-4dca-8052-1d04f96a340c"/>
+			</line>
+			<staticText>
+				<reportElement x="78" y="3" width="201" height="74" uuid="2d2f5235-cbad-4c80-8da7-8ae3b00d1a95"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[CNPJ - 13.228.119/0001-68
+Publicaçao do estatuto no Diário Oficial de 22-06-1983
+Reconhecido como Órgão de utilidade publica Municipal - conf.lei N 7 de 27-10-1983
+Reconhecido como Órgão de utilidade publica Estadual - conf.lei N 7049 de 16-04-1997
+Rua Morro do Chapéu, S/N - Tel 0(xx74) 3674-2165  -Lages do Batata - Jacobina Ba
+Email : Acallages@hotmail.com]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

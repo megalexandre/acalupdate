@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_conta" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a43a4a2b-ec02-4c54-93b3-13f3680f1bf5">
+	<property name="ireport.zoom" value="1.3310000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="39"/>
+	<queryString>
+		<![CDATA[SELECT
+     COALESCE(c.dataPag,"NÃO CONSTA") AS dataPag,
+     concat(p.nome," ",p.sobrenome) AS Socio,
+     lower(concat(e.tipo," ",e.nome)) AS endereco,
+     COALESCE(h.Consumo,0) AS consumo,
+     COALESCE((CASE WHEN((h.Consumo-15000)<0)THEN0ELSE(h.Consumo-15000)END),0) AS excessoLTd,
+     ( SELECT valor FROM `taxa` WHERE id = 1 ),
+     ( SELECT valor FROM `taxa` WHERE id = 2 ),
+     ( SELECT valor FROM `taxa` WHERE id = 1 ),
+     ( SELECT valor FROM `taxa` WHERE id = 2 ),
+     )ELSE(0)END)+COALESCE(sum(t2.Valor),0)) AS ValorTotal,
+     c.`id` AS numeroConta,
+     c.`dataVence` AS dataPag,
+     cs.`nome` AS endereco,
+     t1.`valor` AS endereco
+FROM
+     `partnerModel` s INNER JOIN `conta` c ON s.`id` = c.`idNumeroSocio`
+     INNER JOIN `pessoa` p ON s.`idPessoa` = p.`id`
+     INNER JOIN `categoriasocio` cs ON s.`idCategoriaSocio` = cs.`id`
+     INNER JOIN `taxa` t1 ON cs.`taxasId` = t1.`id`
+     INNER JOIN `endereco` e ON p.`idEndereco` = e.`id`
+     INNER JOIN `left` h ON c.`id` = h.`idconta`
+     INNER JOIN `left` tc ON c.`id` = tc.`contaid`
+     INNER JOIN `left` t2 ON tc.`taxaid` = t2.`id`
+WHERE
+     (c.dataPag IS null)
+GROUP BY
+     c.id
+ORDER BY
+     c.id ASC,
+     tc.taxaid ASC]]>
+	</queryString>
+	<field name="numeroConta" class="java.lang.Long"/>
+	<field name="dataPag" class="java.lang.String"/>
+	<field name="dataVence" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Socio" class="java.lang.String"/>
+	<field name="endereco" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="consumo" class="java.lang.Double"/>
+	<field name="excessoLTd" class="java.lang.Double"/>
+	<field name="ValorHidrometro" class="java.math.BigDecimal"/>
+	<field name="valorExcesso" class="java.lang.Double"/>
+	<field name="outraTaxas" class="java.math.BigDecimal"/>
+	<field name="ValorTotal" class="java.lang.Double"/>
+	<detail>
+		<band height="387" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="bcf69857-12ff-4abf-bb7c-52c50a3eda2f" x="0" y="16" width="555" height="360"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="080ffaa5-ad68-4241-a4a9-49e4e3e7faed" x="11" y="123" width="75" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Conta numero]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a074d7a9-b798-4a82-9f00-4f9c15d45e4c" x="87" y="122" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroConta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2885f236-2ed9-4b1a-8e46-d4ed12ac968d" x="0" y="16" width="555" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ACAL - Associação Comunitária e assistêncial de Lages]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="76c5dbf3-abf5-4ab9-b77d-ae502596c935" x="86" y="43" width="403" height="64"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[CNPJ - 13.228.119/0001-68
+Publicaçao do estatuto no Diário Oficial de 22-06-1983
+Reconhecido como Órgão de utilidade publica Municipal - conf.lei N 7 de 27-10-1983
+Reconhecido como Órgão de utilidade publica Estadual - conf.lei N 7049 de 16-04-1997
+Rua Morro do Chapéu, S/N - Tel 0(xx74) 3674-2165  -Lages do Batata - Jacobina Ba
+Email : Acallages@hotmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2beedae-ea03-4a4d-9340-64cc5c1531ff" x="11" y="142" width="75" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Socio]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="0b616201-9d7d-4b63-8eff-380cb5604f18" x="87" y="141" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Socio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c5cba835-11b0-4387-9223-e6cf059b2402" x="11" y="162" width="75" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Endereco]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f80963bd-b493-48c1-9f2f-821bc12c82f8" x="87" y="161" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="40ce6d16-f61a-472c-bb5d-4c5598e0a5f1" x="11" y="182" width="75" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Cateogoria]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="e614df27-1b5e-45f3-b18d-261ebb315894" x="87" y="181" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cf2ffe75-e639-42da-8505-1789c0903460" x="355" y="122" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[Valor da Taxa]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="c761cffe-e501-4217-8bb1-cb7002121fb3" x="435" y="122" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="46b06d9f-94cc-4a93-b2e3-67296c224bf9" x="215" y="142" width="64" height="20"/>
+				<textElement/>
+				<text><![CDATA[Consumo(Ltd)]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="5f05d947-29a1-4f4d-9392-8e45886ea99b" x="279" y="142" width="76" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{consumo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4cae70f1-81d3-4067-be0b-1c7158a5a139" x="215" y="162" width="64" height="20"/>
+				<textElement/>
+				<text><![CDATA[Excesso(Ltd)]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="37da6aa6-b50b-4748-83f8-fc5acddd8b43" x="279" y="162" width="76" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{excessoLTd}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f0c63933-9f37-4bdb-93ee-63264e5e7acd" x="355" y="142" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[ValorHidrometro]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="894a2874-c851-4819-9412-f09a9b8d4352" x="435" y="142" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ValorHidrometro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d8654f09-0e6f-4a57-8004-44b3af5fdf38" x="355" y="162" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[ValorExcesso]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="3762a751-5923-4860-b3c4-515d2112a286" x="435" y="162" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{valorExcesso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="31532f1c-6b69-40c4-82ee-27909de913d1" x="355" y="182" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[OutraTaxas]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="b286b4d3-d49e-43bc-90ec-7ff49b09f423" x="435" y="182" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{outraTaxas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3f123a67-30c1-4787-af9d-031837fce890" x="355" y="202" width="80" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="ec40f2b6-8f3e-41f3-afdc-0770ebc238da" x="435" y="202" width="120" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ValorTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b77d6f53-6198-4019-bd46-b05c4dfb527e" x="0" y="221" width="479" height="20"/>
+				<box bottomPadding="2">
+					<bottomPen lineWidth="1.0" lineStyle="Dashed"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Aba da Empresa                                                                                                                                            ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7e1c635e-ffa2-4829-9c66-46d2ec5a52c4" x="0" y="241" width="478" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Aba do Cliente                                                                                                                                                 ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8b577766-0884-4157-a4cf-511def62d71a" x="275" y="315" width="80" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{excessoLTd}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8dac9bba-e9b1-4ec3-9874-fbafe50b8b6b" x="355" y="316" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[ValorExcesso]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="79b5fb53-98ae-4a76-81fa-a30c00076d65" x="435" y="316" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{valorExcesso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="4f9497df-3f76-4fdc-acd3-d85627ddd251" x="435" y="296" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ValorHidrometro}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="ef8d0543-2c96-4437-ade2-4b8f4b1ccfb4" x="435" y="276" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f96fcbb6-0118-45fe-9bd9-7c83cac5937c" x="87" y="334" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2c917717-3af3-425a-9f0c-40b6a5630954" x="11" y="315" width="75" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[endereco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4e4e80d8-ae27-4d28-b5ef-268135942256" x="355" y="276" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[Valor da Taxa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fff3ef16-f231-4b3d-a778-0d51f5ffe8c5" x="215" y="315" width="60" height="20"/>
+				<textElement/>
+				<text><![CDATA[Excesso(Ltd)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="159dcd8d-0de0-4540-bf7b-0c34df80d4dd" x="355" y="296" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[ValorHidrometro]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="b387c161-83c7-4c07-93bd-fd5a642ed6e6" x="435" y="336" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{outraTaxas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4aa726a2-8f8c-458b-b991-c2887355d57d" x="11" y="295" width="75" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Socio]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="94f5f901-d8c0-4669-a30f-e06c9c09cde2" x="87" y="294" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Socio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5b9aa33d-5bb2-4e0c-aa2f-ef0ff65a61b0" x="215" y="295" width="60" height="20"/>
+				<textElement/>
+				<text><![CDATA[Consumo(Ltd)]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="5d1064ea-c994-442b-98a9-20fbed5e611e" x="275" y="295" width="80" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{consumo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="506fa3ec-584d-41a2-9428-94c1abd4c580" x="11" y="335" width="75" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Cateogoria]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="7f89c31e-1b02-4282-8718-83f6a3081aa6" x="435" y="356" width="120" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ValorTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b3877c28-b786-4ef1-adae-9a576e93d18b" x="87" y="275" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroConta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a194705a-5bf0-4a6c-8a15-141e90fa3a3f" x="11" y="276" width="75" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Conta numero]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="538b3262-c346-48a5-a15c-97de3b39983d" x="87" y="314" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="bcf4558d-36ae-4f3c-8c38-3ccd9cef884e" x="355" y="356" width="80" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b1ba0250-d2cc-41c8-8a2a-636ea722324c" x="355" y="336" width="80" height="20"/>
+				<textElement/>
+				<text><![CDATA[OutraTaxas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="345f4e84-530f-45f8-bc57-ba731821ee8b" x="479" y="221" width="76" height="20"/>
+				<box bottomPadding="2">
+					<bottomPen lineWidth="1.0" lineStyle="Dashed"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Aba da Empresa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e2ca2ab4-27eb-4553-b6ea-a1dc1ea5b8e0" x="479" y="241" width="76" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Aba do cliente]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="780a2217-78ba-4c86-bd94-4d3e99eb51a3" x="355" y="261" width="200" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="63fe52df-e43d-40c3-bc1d-9fce46e7e5b7" x="355" y="107" width="200" height="15"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b11a0d6a-2219-40d5-993b-c32f8e16fcde" x="11" y="202" width="75" height="20"/>
+				<textElement/>
+				<text><![CDATA[Pagamento]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement uuid="26d543d3-f442-4fb4-aa6e-cefef95f84e6" x="87" y="202" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dataVence}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="0cd06fb9-e25d-49a6-bbd6-901e803fffcb" x="86" y="356" width="100" height="18"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dataVence}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="40bbdc8f-4fe1-4a89-a2f1-091b89dad9e0" x="10" y="356" width="75" height="18"/>
+				<textElement/>
+				<text><![CDATA[Pagamento]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

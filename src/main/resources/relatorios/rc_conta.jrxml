@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_conta" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a43a4a2b-ec02-4c54-93b3-13f3680f1bf5">
+	<property name="ireport.zoom" value="1.7715610000000017"/>
+	<property name="ireport.x" value="61"/>
+	<property name="ireport.y" value="53"/>
+	<parameter name="complementos" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+
+-- dados de conta
+c.id         as numeroconta,
+c.dataGerada as data,
+c.dataPag    as pagamento,
+c.dataVence  as vencimento,
+cs.nome as categoria 
+-- dados de pessoa
+concat(p.nome," ",p.sobrenome) as partnerModel,
+
+-- dados do endere
+concat(e.tipo," ",e.nome) as endereco,
+ep.Numero as numero,
+
+-- dados de partnerModel
+s.numeroSocio,
+cs.nome as categoriaSocio,
+
+-- taxa de partnerModel
+
+t.valor as taxaSocio,
+
+
+-- dados do hidrometro
+-- consumo em litros
+COALESCE(h.Consumo,0) AS consumo,
+
+-- excesso em litros
+COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+ELSE (h.Consumo -  (15000))
+END ) ,0)as excessoLTd,
+
+
+-- valor de excesso em reais
+
+COALESCE(
+(CASE
+WHEN ((h.Consumo - (SELECT valor FROM taxa where id = 1) ) < 0 ) THEN 0
+ELSE ((h.Consumo - (SELECT valor FROM taxa where id = 1))*(select valor FROM taxa where id = 2))/5
+
+END ) ,0)as excessoValor,
+
+
+
+COALESCE(
+sum(t2.Valor), 0
+
+) as taxas
+
+
+, (t.valor + COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+
+ELSE ((h.Consumo - (15000))*(select valor FROM taxa where id = 2))/5
+
+END ) ,0)+ COALESCE(sum(t2.Valor), 0))
+AS totalconta
+
+from conta c
+
+inner join enderecopessoa ep on ep.id = c.idEnderecoPessoa
+inner join pessoa          p on  p.id = ep.idPessoa
+inner join endereco        e on  e.id = ep.idEndereco
+inner join partnerModel           s on  p.id = s.idPessoa
+inner join categoriasocio cs on cs.id = ep.idCategoriaSocio
+inner join taxa            t on  t.id = cs.taxasId
+
+left  join hidrometro      h on  c.id = h.idconta
+left  join taxasconta     tc on  c.id = tc.contaid
+left  join taxa           t2 on  t2.id = tc.taxaid
+$P!{complementos}]]>
+	</queryString>
+	<field name="numeroconta" class="java.lang.Integer"/>
+	<field name="data" class="java.sql.Timestamp"/>
+	<field name="pagamento" class="java.sql.Timestamp"/>
+	<field name="vencimento" class="java.sql.Timestamp"/>
+	<field name="partnerModel" class="java.lang.String"/>
+	<field name="endereco" class="java.lang.String"/>
+	<field name="numero" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeroSocio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="categoriaSocio" class="java.lang.String"/>
+	<field name="taxaSocio" class="java.math.BigDecimal"/>
+	<field name="consumo" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="excessoLTd" class="java.lang.Double"/>
+	<field name="excessoValor" class="java.lang.Double"/>
+	<field name="taxas" class="java.math.BigDecimal"/>
+	<field name="totalconta" class="java.lang.Double"/>
+	<detail>
+		<band height="387" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="e4ab2ada-f21a-4514-832f-1949da003d53" x="0" y="0" width="555" height="372"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="080ffaa5-ad68-4241-a4a9-49e4e3e7faed" x="11" y="104" width="64" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Conta numero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2885f236-2ed9-4b1a-8e46-d4ed12ac968d" x="0" y="0" width="555" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ACAL - Associação Comunitária e assistêncial de Lages]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="76c5dbf3-abf5-4ab9-b77d-ae502596c935" x="87" y="27" width="322" height="64"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[CNPJ - 13.228.119/0001-68
+Publicaçao do estatuto no Diário Oficial de 22-06-1983
+Reconhecido como Órgão de utilidade publica Municipal - conf.lei N 7 de 27-10-1983
+Reconhecido como Órgão de utilidade publica Estadual - conf.lei N 7049 de 16-04-1997
+Rua Morro do Chapéu, S/N - Tel 0(xx74) 3674-2165  -Lages do Batata - Jacobina Ba
+Email : Acallages@hotmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2beedae-ea03-4a4d-9340-64cc5c1531ff" x="11" y="124" width="64" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Socio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c5cba835-11b0-4387-9223-e6cf059b2402" x="11" y="143" width="64" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Endereço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="40ce6d16-f61a-472c-bb5d-4c5598e0a5f1" x="11" y="163" width="64" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Cateogoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cf2ffe75-e639-42da-8505-1789c0903460" x="411" y="124" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Valor da Taxa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="46b06d9f-94cc-4a93-b2e3-67296c224bf9" x="11" y="184" width="64" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Consumo(Ltd)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4cae70f1-81d3-4067-be0b-1c7158a5a139" x="11" y="202" width="64" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Excesso(Ltd)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8654f09-0e6f-4a57-8004-44b3af5fdf38" x="411" y="145" width="65" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ValorExcesso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="31532f1c-6b69-40c4-82ee-27909de913d1" x="412" y="164" width="64" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[OutrasTaxas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f123a67-30c1-4787-af9d-031837fce890" x="412" y="185" width="64" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b77d6f53-6198-4019-bd46-b05c4dfb527e" x="0" y="221" width="479" height="20"/>
+				<box bottomPadding="2">
+					<bottomPen lineWidth="1.0" lineStyle="Dashed"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Aba da Empresa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7e1c635e-ffa2-4829-9c66-46d2ec5a52c4" x="0" y="241" width="478" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Aba da Empresa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="345f4e84-530f-45f8-bc57-ba731821ee8b" x="479" y="221" width="76" height="20"/>
+				<box bottomPadding="2">
+					<bottomPen lineWidth="1.0" lineStyle="Dashed"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Aba do Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e2ca2ab4-27eb-4553-b6ea-a1dc1ea5b8e0" x="479" y="241" width="76" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[Aba da Empresa]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="63fe52df-e43d-40c3-bc1d-9fce46e7e5b7" x="413" y="107" width="141" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="61929975-8bf0-479e-8a66-a1be695f791a" x="87" y="124" width="158" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{partnerModel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="80ca3f6b-9bf4-41ed-81c8-06ccac50e509" x="87" y="143" width="158" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d65be6a3-2242-4c20-8ae1-0173302b0451" x="87" y="163" width="117" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categoriaSocio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="13779f97-f962-44c2-92b9-9908d83002d8" x="87" y="184" width="117" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consumo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="45258edf-2896-4bf0-aecd-bd6ec82da81d" x="87" y="202" width="117" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{excessoLTd}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="96a99ddf-6e96-49fe-8ce5-43171dcf1e0c" x="476" y="124" width="77" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{taxas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="c466798f-6079-451a-9c15-24c3f7ec36bd" x="476" y="145" width="77" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{excessoValor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="114f8d7c-d732-4548-a861-014d3f9346fb" x="477" y="185" width="75" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalconta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="5b4ea73b-bf80-4999-8b6c-74ca27a7552b" x="476" y="164" width="76" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{taxas}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="9217e86d-a9a5-411b-8395-e62ce49206fb" x="264" y="122" width="135" height="97"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="833248bf-4ee2-47ce-93ca-55855547bdce" x="409" y="44" width="70" height="47"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="21e3450a-5039-410d-8dbd-f79c20c2bb51" x="410" y="27" width="67" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Numero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9a3e7f67-1e67-44e8-b42a-05267acb233c" x="414" y="94" width="140" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Emitido em]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9a0a3463-9408-421c-bab5-5ab5a0b770b4" x="87" y="104" width="158" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroconta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="60304f34-ab74-4aec-b151-7120e3011023" x="264" y="122" width="135" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Carimbo]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="69bcc85c-cb1e-44c9-9472-1de9d0245d8c" x="85" y="261" width="117" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroconta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="427afebe-5db4-4a61-b07f-fad2c7060447" x="409" y="342" width="64" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6aa31ca5-13e4-4f6d-bdac-21fa6883215a" x="85" y="320" width="160" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categoriaSocio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="db79c6a1-15f1-428e-8dcc-7264cad6086d" x="9" y="341" width="64" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Consumo(Ltd)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1d293212-2f33-4b32-8985-102f948f8775" x="9" y="300" width="64" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Endereço]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="399f465e-ddbf-4b44-b88c-231386f2f2c5" x="479" y="323" width="76" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{taxas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a1fa67f3-647a-4f7a-8f27-ff475176c878" x="9" y="261" width="64" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Conta numero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7952625b-0765-4601-b3b2-572a87a2bdce" x="409" y="302" width="65" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[ValorExcesso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a980a848-fb42-4f16-b646-40944eddd38f" x="409" y="281" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Valor da Taxa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f55f842d-f474-40f7-9121-03b872d24080" x="9" y="359" width="64" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Excesso(Ltd)]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="812277e8-9238-41d4-a0ec-f15a30ac7ea4" x="477" y="343" width="78" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalconta}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1790eb22-3f3f-4144-bdcd-82a7aca5788e" x="85" y="275" width="160" height="25"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{partnerModel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="42cd7acc-bef6-41f4-8ee7-fe1c166e1b6d" x="85" y="341" width="119" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consumo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5ca26b89-682b-48ca-a56c-405e0369c815" x="410" y="321" width="64" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[OutrasTaxas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="95cab2c6-aa91-4959-a466-a4effab0b47f" x="9" y="320" width="64" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Cateogoria]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="a1d303b8-7c16-4362-8108-4e8f4fb5a1ad" x="264" y="302" width="135" height="60"/>
+			</rectangle>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="f3ee1032-66e0-4a0f-ad58-9b7864edce8d" x="479" y="280" width="77" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{taxas}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1774e4ca-69f6-4591-adbc-a17643a97393" x="85" y="300" width="160" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e419384e-a135-431f-ac05-08fa33f2cb98" x="9" y="281" width="64" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Socio]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="1e91e4e4-6974-4074-832b-cccbdde08ee9" x="479" y="302" width="77" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{excessoValor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="57cf9f77-2444-4e49-b0e5-f972a9c7a4c1" x="264" y="305" width="135" height="18"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Carimbo]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="aa2503f6-6d18-48c6-a448-4306f840646a" x="85" y="359" width="117" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{excessoLTd}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="b66522f4-eac9-4a61-a3c7-0a6ca4c68cfa" x="409" y="261" width="147" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="501ac118-3352-4391-8e19-ad90857b9386" x="264" y="261" width="135" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Vencimento]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="ff4237de-7e95-4532-8fc3-ad17cc1da8a7" x="264" y="281" width="135" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="47e7b1de-1a7e-4775-94df-30f294b5a0a4" x="264" y="91" width="135" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Vencimento]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="e8f5a39d-d29d-46d1-8cca-622872fdeb68" x="264" y="102" width="135" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="2ea1f5f1-5fc9-4177-8ab5-1f6a7c6aa6bc" x="9" y="27" width="78" height="64"/>
+				<imageExpression><![CDATA["I:\\alexandre\\repoFinal3\\src\\relatorios\\acal.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement uuid="df771967-b6a8-4dec-ab46-e93233b36791" x="479" y="27" width="73" height="64"/>
+				<imageExpression><![CDATA["I:\\alexandre\\repoFinal3\\src\\relatorios\\acalLogoFolha.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="833248bf-4ee2-47ce-93ca-55855547bdce" x="204" y="334" width="60" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

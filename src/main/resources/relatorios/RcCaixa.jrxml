@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RcCaixa" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="538ab83d-c324-4fec-88d5-d58360bba9c2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select
+
+c.id         as numeroconta,
+c.dataGerada as data,
+c.dataPag    as pagamento,
+c.dataVence  as vencimento,
+-- dados de pessoa
+concat(p.nome," ",p.sobrenome) as partnerModel,
+
+-- dados do endere
+concat(e.tipo," ",e.nome) as endereco,
+ep.Numero as numero,
+
+-- dados de partnerModel
+s.numeroSocio,
+cs.nome as categoriaSocio,
+
+-- taxa de partnerModel
+
+t.valor as taxaSocio,
+
+
+-- dados do hidrometro
+-- consumo em litros
+COALESCE(h.Consumo,0) AS consumo,
+
+-- excesso em litros
+COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+ELSE (h.Consumo -  (15000))
+END ) ,0)as excessoLTd,
+
+
+-- valor de excesso em reais
+
+COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+ELSE ((h.Consumo - (15000))*(select valor FROM taxa where id = 20))/10
+
+END ) ,0)as excessoValor,
+
+
+
+COALESCE(
+sum(t2.Valor), 0
+
+) as taxas
+
+
+, (t.valor + COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+
+ELSE ((h.Consumo - (15000))*(select valor FROM taxa where id = 20))/10
+
+END ) ,0)+ COALESCE(sum(t2.Valor), 0))
+AS totalconta
+
+from conta c
+
+inner join enderecopessoa ep on ep.id = c.idEnderecoPessoa
+inner join pessoa          p on  p.id = ep.idPessoa
+inner join endereco        e on  e.id = ep.idEndereco
+inner join partnerModel           s on  p.id = s.idPessoa
+inner join categoriasocio cs on cs.id = ep.idCategoriaSocio
+inner join taxa            t on  t.id = cs.taxasId
+
+left  join hidrometro      h on  c.id = h.idconta
+
+left  join taxasconta     tc on  c.id = tc.contaid
+left  join taxa           t2 on  t2.id = tc.taxaid
+where c.datapag is not null
+
+group by c.id
+order by c.dataPag]]>
+	</queryString>
+	<field name="numeroconta" class="java.lang.Integer"/>
+	<field name="data" class="java.sql.Timestamp"/>
+	<field name="pagamento" class="java.sql.Timestamp"/>
+	<field name="vencimento" class="java.sql.Timestamp"/>
+	<field name="partnerModel" class="java.lang.String"/>
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeroSocio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="categoriaSocio" class="java.lang.String"/>
+	<field name="taxaSocio" class="java.math.BigDecimal"/>
+	<field name="consumo" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="excessoLTd" class="java.lang.Double"/>
+	<field name="excessoValor" class="java.lang.Double"/>
+	<field name="taxas" class="java.math.BigDecimal"/>
+	<field name="totalconta" class="java.lang.Double"/>
+	<variable name="totalconta_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<variable name="totalconta_2" class="java.lang.Double" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<variable name="totalconta_3" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<variable name="totalconta_4" class="java.lang.Double" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<variable name="totalconta_5" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="9d3a4e02-73a8-445a-80c8-b70d7213ddfa" x="455" y="59" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{totalconta_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField evaluationTime="Page">
+				<reportElement uuid="2bf41fb5-30dd-4f3a-9f67-67568c962d6b" x="455" y="15" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{totalconta_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="bb13ec67-7859-4191-9a30-311729fe8a5d" x="0" y="0" width="56" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5a5ecbd8-27d5-40ad-96f1-b0e80a7fde4f" x="115" y="0" width="55" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[numero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a66e33c2-6355-4309-bba6-ffa27b4da818" x="455" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[totalconta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b74564d3-670f-41f3-a3c0-0d0933fdb45d" x="317" y="0" width="138" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[partnerModel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d27c8b95-44ab-4961-b41d-f16bdceef57f" x="170" y="0" width="147" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[categoriaSocio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6725840d-1430-4711-bec0-cb29c3196c56" x="55" y="0" width="60" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[pagamento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="98c62c13-29f9-4ab0-9bec-420a76a6a552" x="0" y="0" width="56" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroconta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ff93bc87-e174-4450-b390-14d1ca3743d2" x="115" y="0" width="55" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="d0a7fa54-8537-4385-815e-a586a3bdd368" x="455" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalconta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a9e4c2e3-173c-497e-b4ba-fbf854dde17e" x="317" y="0" width="138" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{partnerModel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c2eb1c9a-87d7-4883-9eea-9890c83a141e" x="170" y="0" width="147" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{categoriaSocio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="7e32dcf5-6001-446e-9ad9-ba1c45c2e1fc" x="55" y="0" width="60" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pagamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement uuid="9cc6ebb5-d65b-4c2d-b748-28233c50700a" x="23" y="25" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{totalconta_3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement uuid="31dec33e-dd3f-4cac-b79f-f39c1a4a6331" x="207" y="28" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{totalconta_4}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement uuid="246928ee-2263-4528-9a4b-2b6ffe9e2743" x="325" y="22" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{totalconta_5}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

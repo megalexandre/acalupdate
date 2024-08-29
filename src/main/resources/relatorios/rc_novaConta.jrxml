@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rc_novaConta" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="63fa3ee1-3841-434e-bbd2-bd4e9547e776">
+	<property name="ireport.zoom" value="1.652892561983471"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="65"/>
+	<parameter name="complementos" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+
+c.id         as numeroconta,
+c.dataGerada as data,
+c.dataPag    as pagamento,
+c.dataVence  as vencimento,
+
+(CASE
+WHEN (Month(c.dataVence) = 1 ) THEN "Dezembro"
+WHEN (Month(c.dataVence) = 2 ) THEN "Janeiro"
+WHEN (Month(c.dataVence) = 3 ) THEN "Fevereiro"
+WHEN (Month(c.dataVence) = 4 ) THEN "Março"
+WHEN (Month(c.dataVence) = 5 ) THEN "Abril"
+WHEN (Month(c.dataVence) = 6 ) THEN "Maio"
+WHEN (Month(c.dataVence) = 7 ) THEN "Junho"
+WHEN (Month(c.dataVence) = 8 ) THEN "Julho"
+WHEN (Month(c.dataVence) = 9 ) THEN "Agosto"
+WHEN (Month(c.dataVence) = 10 ) THEN "Setembro"
+WHEN (Month(c.dataVence) = 11 ) THEN "Outubro"
+WHEN (Month(c.dataVence) = 12 ) THEN "Novembro"
+
+END )  as MesReferente,
+
+(CASE
+ WHEN (Month(c.dataVence) = 1 )THEN (Year(c.dataVence)-1)
+ ELSE Year(c.dataVence)
+end )
+AnoReferente,
+
+
+-- dados de pessoa
+concat(p.nome," ",p.sobrenome) as partnerModel,
+
+-- dados do endere
+concat(e.tipo," ",e.nome) as endereco,
+ep.Numero as numero,
+
+-- dados de partnerModel
+s.numeroSocio,
+cs.nome as categoriaSocio,
+
+-- taxa de partnerModel
+c.ValorTaxa as taxaSocio,
+
+-- dados do hidrometro
+-- consumo em litros
+COALESCE(h.Consumo,0) AS consumo,
+
+-- excesso em litros
+COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+ELSE (h.Consumo -  (15000))
+END ) ,0)as excessoLTd,
+
+-- valor de excesso em reais
+COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+ELSE ((h.Consumo - (15000))* (select valor FROM taxa where id = 20))/10
+END ) ,0)as excessoValor,
+
+( 0) as taxas
+
+,
+(c.ValorTaxa +
+COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+ELSE ((h.Consumo - (15000))* (select valor FROM taxa where id = 20))/10
+END ) ,0))
+AS totalconta
+
+from conta c
+
+inner join enderecopessoa ep on ep.id = c.idEnderecoPessoa
+inner join pessoa          p on  p.id = ep.idPessoa
+inner join endereco        e on  e.id = ep.idEndereco
+inner join partnerModel           s on  p.id = s.idPessoa
+inner join categoriasocio cs on cs.id = ep.idCategoriaSocio
+inner join taxa            t on  t.id = cs.taxasId
+left  join hidrometro      h on  c.id = h.idconta
+left  join taxasconta     tc on  c.id = tc.contaid
+left  join taxa           t2 on  t2.id = tc.taxaid
+
+$P!{complementos}]]>
+	</queryString>
+	<field name="numeroSocio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="taxas" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="excessoValor" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="partnerModel" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="taxaSocio" class="java.math.BigDecimal"/>
+	<field name="AnoReferente" class="java.lang.Long"/>
+	<field name="consumo" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="excessoLTd" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeroconta" class="java.lang.Integer"/>
+	<field name="categoriaSocio" class="java.lang.String"/>
+	<field name="data" class="java.sql.Timestamp"/>
+	<field name="vencimento" class="java.sql.Timestamp"/>
+	<field name="totalconta" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MesReferente" class="java.lang.String"/>
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pagamento" class="java.sql.Timestamp"/>
+	<detail>
+		<band height="395" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-1" y="0" width="555" height="382" uuid="e798bfbd-69ad-4cb1-83a2-d6456033bf5e"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement x="1" y="109" width="166" height="33" uuid="04a93793-9714-41d4-9441-0ee45f0468bd"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement x="4" y="242" width="166" height="33" uuid="0d058a62-5604-4c10-be30-dba198b0045e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="78" y="27" width="348" height="82" uuid="3b9ed80a-6ef3-413e-aa25-bbdf7f55b9cc"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[CNPJ - 13.228.119/0001-68
+Publicaçao do estatuto no Diário Oficial de 22-06-1983.
+Reconhecido como Órgão de utilidade publica Municipal - conf.lei N 7 de 27-10-1983.
+Reconhecido como Órgão de utilidade publica Estadual - conf.lei N 7049 de 16-04-1997.
+Rua Morro do Chapéu, CEP 44700-000,  S/N - Tel (74) 3674-2165
+Lages do Batata - Jacobina, Ba.
+Email : acallages@hotmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="27" uuid="2a497e24-e0c0-425f-a044-f025b2c7933c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ACAL - Associação Comunitária e Assistêncial de Lages]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="426" y="27" width="129" height="64" uuid="7b62f4a2-f76b-4acb-a863-7de1035a02f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contribuição de serviços assistenciais aos Socios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="142" width="68" height="20" uuid="efe7658c-397a-4d4c-b35a-5b878047e259"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Socio]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="67" y="142" width="145" height="20" uuid="e66ebd95-5c86-4544-acab-531be3e800ae"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{partnerModel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="162" width="68" height="20" uuid="dab8ed5e-c1fc-420d-a6b1-a0967703a960"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Endereco]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="67" y="162" width="145" height="20" uuid="518a8091-fa45-4fb3-bb44-4b70179b6dee"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="182" width="68" height="20" uuid="aaaa496e-554e-4fd7-81da-5b75532b1d76"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   Categoria]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="67" y="182" width="145" height="20" uuid="8ea03781-5e60-4b49-9b8c-c367bbc596d5"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{categoriaSocio}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="212" y="124" width="133" height="100" uuid="f8c6d5d2-e57c-4471-abc3-d76faf3508d6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="345" y="91" width="110" height="20" uuid="4967e2f0-b687-4639-aad1-b42a2d5019bf"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   Data de Emissão ]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="455" y="91" width="89" height="20" uuid="5e572c65-9477-49ec-ae27-6616fc49c84e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="111" width="110" height="20" uuid="b4fc47e8-91e3-480e-9a69-c152c7886314"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   Conta Ref a:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="111" width="50" height="20" uuid="b0e0d036-e5fc-459e-90de-fae9f5e3888e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{MesReferente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="111" width="27" height="20" uuid="8298a95d-ede5-46a4-b86a-6adf83bbe39e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{AnoReferente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="505" y="111" width="12" height="20" uuid="9019d6be-f40f-49a7-b12a-942c33a969dd"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="345" y="151" width="110" height="20" uuid="40479498-c458-4f4c-b466-3a7f34240032"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Valor da Mensalidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="345" y="131" width="110" height="20" uuid="f4c75a7c-3686-417c-9144-b4c1e9cc7e16"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Vencimento]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="455" y="131" width="89" height="20" uuid="8d44103f-48ac-4a55-a8a9-6cd329b20285"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="151" width="89" height="20" uuid="04aa4f28-d5dc-4db5-99f1-d3ef88e7a875"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{taxaSocio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="191" width="110" height="20" uuid="7a6eb52d-5c6a-4a4d-a534-e3547972ae17"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   Outras taxas]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="191" width="89" height="20" uuid="04570918-1fd5-47bf-bc36-9c360441e63c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{taxas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="211" width="110" height="20" uuid="1856cec4-dbad-452b-a940-6bc1b81514c3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Valor total]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="211" width="89" height="20" uuid="4552932f-663c-4f8f-9c33-5d3a1d21ae25"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalconta}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement mode="Transparent" x="0" y="231" width="555" height="1" uuid="63f40993-18e9-4218-a038-9724ddbe2e79"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="345" y="342" width="110" height="20" uuid="01a8440e-a73d-41a2-bb41-3c655cbeb63a"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   Outras taxas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="67" y="295" width="145" height="20" uuid="255edefe-f18e-4a27-aa5e-0972e1c37045"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="275" width="68" height="20" uuid="bca8a058-3c35-4c6f-861d-f491416f4053"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Socio]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="212" y="275" width="133" height="100" uuid="3485ad80-e706-4313-b9d8-f85f01fa5b6e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="345" y="302" width="110" height="20" uuid="abed1868-532f-4d2a-9a1d-79ad2f36f5b2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Valor da Mensalidade]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="67" y="315" width="145" height="20" uuid="05658cb6-83fd-428c-92c2-cb5d9ad407d1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{categoriaSocio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="262" width="50" height="20" uuid="06f20c2d-4143-4801-8554-72fc1c3392d1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{MesReferente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="242" width="110" height="20" uuid="5320ea8a-c4bf-41b8-aa6a-667f909763dd"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   Data de Emissão ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="315" width="68" height="20" uuid="218c65b9-276d-4fa7-a544-39eddf12de03"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   Categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="345" y="262" width="110" height="20" uuid="47c7da99-55f2-4375-9669-375365ae8a73"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   Conta Ref a:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="295" width="68" height="20" uuid="3fe625b3-c8de-486a-8727-8092fa8fe907"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Endereco]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="455" y="242" width="89" height="20" uuid="ee43dcf4-e3bf-44d9-87a0-ebdd246f890e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="362" width="89" height="20" uuid="a13d06f5-0888-489d-bdcf-81bbb048279c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalconta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="262" width="27" height="20" uuid="ac3f4896-58b8-41be-96b4-d4e58060d252"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{AnoReferente}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="67" y="275" width="145" height="20" uuid="ad4785d2-2565-47fb-b9ca-a65e085a86b0"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{partnerModel}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="455" y="282" width="89" height="20" uuid="bed6437a-7a8c-4a7b-8d30-9089569e2020"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="362" width="110" height="20" uuid="55defb71-14d6-4d70-a533-d4a36f8f7843"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Valor total]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="302" width="89" height="20" uuid="7bf72da2-8f9b-4220-8522-5684e87275c4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{taxaSocio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="282" width="110" height="20" uuid="d1e62350-ed7b-4716-8354-d5d4cc0be89a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Vencimento]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="342" width="89" height="20" uuid="197a52db-3d8e-4bbc-ada0-a506fe193858"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{taxas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="505" y="262" width="12" height="20" uuid="0578320f-0d14-4a38-a458-10d6e65240ae"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="109" width="95" height="33" uuid="c495e07c-9a69-438f-be31-a9e1925ea027"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Nº de Associado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="242" width="95" height="33" uuid="e6d1d557-789c-458d-b303-58cca8f294a5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Nº de Ligação]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="99" y="242" width="71" height="33" uuid="78bb178a-6079-4ab5-9615-b17594763eb5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="212" y="124" width="133" height="20" uuid="88d5f5be-6e76-40d0-b280-a761458f2230"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Boleto nº:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="212" y="144" width="133" height="20" uuid="906b3e7e-0a90-4339-8a18-8b25608b4dd7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroconta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="212" y="275" width="133" height="20" uuid="c1b09c72-ad03-44a7-8780-29b987545dcb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Boleto nº:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="212" y="295" width="133" height="20" uuid="14f60178-870d-4d75-9a51-9920826772fc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroconta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement x="212" y="184" width="133" height="20" uuid="001a3297-bb01-4cc9-92b7-9375a00d24c8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pagamento} == null ? "" : "Pago em:"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement x="212" y="204" width="133" height="20" uuid="001a3297-bb01-4cc9-92b7-9375a00d24c8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pagamento} == null ? "" : $F{pagamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement x="212" y="335" width="133" height="20" uuid="001a3297-bb01-4cc9-92b7-9375a00d24c8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pagamento} == null ? "" : "Pago em:"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement x="212" y="355" width="133" height="20" uuid="001a3297-bb01-4cc9-92b7-9375a00d24c8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pagamento} == null ? "" : $F{pagamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="99" y="109" width="68" height="33" uuid="361734ae-e458-457b-a506-35488caac34f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="202" width="68" height="20" uuid="c4e6e744-4ce0-47bd-bb07-8015ba01bfa6">
+					<printWhenExpression><![CDATA[$F{consumo} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   Consumo]]></text>
+			</staticText>
+			<textField pattern="#,##0 Litros">
+				<reportElement x="67" y="202" width="138" height="20" uuid="3169bc3c-c00a-4f60-a406-d3acc7cdf5fe">
+					<printWhenExpression><![CDATA[$F{consumo} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{consumo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="335" width="68" height="20" uuid="c4e6e744-4ce0-47bd-bb07-8015ba01bfa6">
+					<printWhenExpression><![CDATA[$F{consumo} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   Consumo]]></text>
+			</staticText>
+			<textField pattern="#,##0 Litros">
+				<reportElement x="67" y="335" width="138" height="20" uuid="3169bc3c-c00a-4f60-a406-d3acc7cdf5fe">
+					<printWhenExpression><![CDATA[$F{consumo} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{consumo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="171" width="110" height="20" uuid="ec7220a0-4a24-45ed-b3b7-3c57ae356501">
+					<printWhenExpression><![CDATA[$F{consumo} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Valor Excesso ]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="171" width="89" height="20" uuid="c6ca5d81-c48c-4d00-a401-17534458f2ee"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{excessoValor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="322" width="110" height="20" uuid="ec7220a0-4a24-45ed-b3b7-3c57ae356501">
+					<printWhenExpression><![CDATA[$F{consumo} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Valor Excesso  ]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="322" width="89" height="20" uuid="c6ca5d81-c48c-4d00-a401-17534458f2ee">
+					<printWhenExpression><![CDATA[$F{consumo} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{excessoValor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rc_exclusivo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="364df8d2-c784-4e5d-9f5b-b58f9c27d775">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="complementos" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+c.id         as numeroconta,
+c.dataGerada as data,
+c.dataPag    as pagamento,
+c.dataVence  as vencimento,
+c.dataReferente as referente,
+cs.nome as categoria ,
+-- dados de pessoa
+concat(trim(p.nome)," ",trim(p.sobrenome)) as partnerModel,
+
+-- dados do endere
+concat(e.tipo," ",e.nome) as endereco,
+ep.Numero as numero,
+
+-- dados de partnerModel
+s.numeroSocio,
+cs.nome as categoriaSocio,
+s.SocioExclusivo,
+-- taxa de partnerModel
+
+t.valor as taxaSocio,
+
+
+-- dados do hidrometro
+-- consumo em litros
+COALESCE(h.Consumo,0) AS consumo,
+
+-- excesso em litros
+COALESCE(
+(CASE
+WHEN ((h.Consumo - (15000) ) < 0 ) THEN 0
+ELSE (h.Consumo -  (15000))
+END ) ,0)as excessoLTd,
+
+
+-- valor de excesso em reais
+
+COALESCE(
+(CASE
+WHEN ((h.Consumo - (SELECT valor FROM taxa where id = 1) ) < 0 ) THEN 0
+ELSE ((h.Consumo - (SELECT valor FROM taxa where id = 1))*(select valor FROM taxa where id = 2))/5
+
+END ) ,0)as excessoValor,
+
+
+
+COALESCE(
+sum(t2.Valor), 0
+
+) as taxas
+
+
+,
+c.ValorTaxa AS totalconta,
+concat(e.tipo,' ',e.nome ,' Nº ',ep.numero) as endereco
+
+from conta c
+
+inner join enderecopessoa ep on ep.id = c.idEnderecoPessoa
+inner join pessoa          p on  p.id = ep.idPessoa
+inner join endereco        e on  e.id = ep.idEndereco
+inner join partnerModel           s on  p.id = s.idPessoa
+inner join categoriasocio cs on cs.id = ep.idCategoriaSocio
+inner join taxa            t on  t.id = cs.taxasId
+
+left  join hidrometro      h on  c.id = h.idconta
+left  join taxasconta     tc on  c.id = tc.contaid
+left  join taxa           t2 on  t2.id = tc.taxaid
+
+
+$P!{complementos}]]>
+	</queryString>
+	<field name="numeroconta" class="java.lang.Integer"/>
+	<field name="data" class="java.sql.Timestamp"/>
+	<field name="pagamento" class="java.sql.Timestamp"/>
+	<field name="vencimento" class="java.sql.Timestamp"/>
+	<field name="referente" class="java.sql.Date"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="partnerModel" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeroSocio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="categoriaSocio" class="java.lang.String"/>
+	<field name="SocioExclusivo" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="taxaSocio" class="java.math.BigDecimal"/>
+	<field name="consumo" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="excessoLTd" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="excessoValor" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="taxas" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalconta" class="java.math.BigDecimal"/>
+	<detail>
+		<band height="239" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="bc12b6aa-3273-4dd1-b2af-4b23bd210bae" x="0" y="0" width="550" height="234"/>
+			</rectangle>
+			<image>
+				<reportElement uuid="289a1e4e-50e5-4a07-ae4a-fc84dda394a6" x="5" y="23" width="69" height="81"/>
+				<imageExpression><![CDATA["D:\\acal-git\\acal-2016\\src\\relatorios\\acal.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="aa05a696-9ccc-41f6-9c17-1546be1eb014" x="0" y="0" width="275" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACAL - ASSOCIAÇÃO COMUNITARIA E ASSISTÊNCIA DE LAGES]]></text>
+			</staticText>
+			<textField pattern="EEEEE, dd MMMMM yyyy">
+				<reportElement uuid="3f2f0c91-6f7d-4f5e-8f2d-15e86fd36b03" x="71" y="160" width="194" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="76c5dbf3-abf5-4ab9-b77d-ae502596c935" x="74" y="23" width="191" height="81"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[CNPJ - 13.228.119/0001-68
+Publicação do estatuto no Diário Oficial de 22-06-1983.
+Reconhecido como Órgão de utilidade publica Municipal - conf.lei N 7 de 27-10-1983.
+Reconhecido como Órgão de utilidade publica Estadual - conf.lei N 7049 de 16-04-1997.
+Rua Morro do Chapéu, CEP 44700-000,  S/N - Tel (74) 3674-2165
+Lages do Batata - Jacobina, BA.
+Email : acallages@hotmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ad8cb348-0854-4fa7-93b2-df480407814a" x="5" y="160" width="66" height="14"/>
+				<textElement/>
+				<text><![CDATA[Emitido em:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d182c691-f35d-4e47-a672-65d893bcdae8" x="0" y="202" width="275" height="32"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[O Desenvolvimento da associação é a responsabilidade de cada um de nos!]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b019badd-3681-4cc3-8069-7b34f396b4be" x="5" y="118" width="66" height="14"/>
+				<textElement/>
+				<text><![CDATA[Socio:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="0dbc45d0-dba9-492f-a5d3-58158fce980b" x="71" y="118" width="194" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{partnerModel} + " Nº: "+ $F{numeroSocio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7c644787-3f91-4cac-8e39-7a575ad33500" x="5" y="174" width="66" height="14"/>
+				<textElement/>
+				<text><![CDATA[Vencimento:]]></text>
+			</staticText>
+			<textField pattern="EEEEE, dd MMMMM yyyy">
+				<reportElement uuid="cef38b95-76ab-40d0-bf61-0ddce208d758" x="71" y="174" width="194" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="46f8ca3d-6487-4508-9060-91b6c7c232c2" x="275" y="0" width="1" height="234"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="d3b05db7-c3fa-46b2-b9a9-9f342d98c8e6" x="5" y="146" width="66" height="14"/>
+				<textElement/>
+				<text><![CDATA[Valor:]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement uuid="138ce87b-876f-4ec4-8a8f-fb4b29659ca6" x="71" y="146" width="194" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{totalconta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="791f5536-f7fb-45bc-9d51-be8453df9deb" x="124" y="104" width="141" height="14"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pagamento} == null ? "" : "Pago em: " +
+new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{pagamento})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a182bae5-b56e-49e8-86b8-771a824d41a7" x="5" y="104" width="119" height="14"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Boleto Nº: "+ $F{numeroconta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7b009df7-ccd4-4d2a-8629-6b869b384ec0" x="5" y="188" width="66" height="14"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Referente:]]></text>
+			</staticText>
+			<textField pattern="MMMMM , yyyy">
+				<reportElement uuid="be08713f-6c44-43c9-ac08-3c6de337c192" x="71" y="188" width="194" height="14"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{referente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4e67b620-0f78-4ace-bac8-4fb8c7111caf" x="71" y="132" width="194" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d3b05db7-c3fa-46b2-b9a9-9f342d98c8e6" x="5" y="132" width="66" height="14"/>
+				<textElement/>
+				<text><![CDATA[Endereço:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aa05a696-9ccc-41f6-9c17-1546be1eb014" x="276" y="0" width="274" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACAL - ASSOCIAÇÃO COMUNITARIA E ASSISTÊNCIA DE LAGES]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="289a1e4e-50e5-4a07-ae4a-fc84dda394a6" x="287" y="23" width="68" height="81"/>
+				<imageExpression><![CDATA["D:\\acal-git\\acal-2016\\src\\relatorios\\acal.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="76c5dbf3-abf5-4ab9-b77d-ae502596c935" x="355" y="23" width="195" height="81"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[CNPJ - 13.228.119/0001-68
+Publicação do estatuto no Diário Oficial de 22-06-1983.
+Reconhecido como Órgão de utilidade publica Municipal - conf.lei N 7 de 27-10-1983.
+Reconhecido como Órgão de utilidade publica Estadual - conf.lei N 7049 de 16-04-1997.
+Rua Morro do Chapéu, CEP 44700-000,  S/N - Tel (74) 3674-2165
+Lages do Batata - Jacobina, BA.
+Email : acallages@hotmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d3b05db7-c3fa-46b2-b9a9-9f342d98c8e6" x="287" y="146" width="68" height="14"/>
+				<textElement/>
+				<text><![CDATA[Valor:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b019badd-3681-4cc3-8069-7b34f396b4be" x="287" y="118" width="68" height="14"/>
+				<textElement/>
+				<text><![CDATA[Socio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d3b05db7-c3fa-46b2-b9a9-9f342d98c8e6" x="287" y="132" width="68" height="14"/>
+				<textElement/>
+				<text><![CDATA[Endereço:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="0dbc45d0-dba9-492f-a5d3-58158fce980b" x="355" y="118" width="194" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{partnerModel} + " - Nº: "+ $F{numeroSocio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4e67b620-0f78-4ace-bac8-4fb8c7111caf" x="355" y="132" width="194" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement uuid="138ce87b-876f-4ec4-8a8f-fb4b29659ca6" x="355" y="146" width="194" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{totalconta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ad8cb348-0854-4fa7-93b2-df480407814a" x="287" y="160" width="68" height="14"/>
+				<textElement/>
+				<text><![CDATA[Emitido em:]]></text>
+			</staticText>
+			<textField pattern="EEEEE, dd MMMMM yyyy">
+				<reportElement uuid="3f2f0c91-6f7d-4f5e-8f2d-15e86fd36b03" x="355" y="160" width="194" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7c644787-3f91-4cac-8e39-7a575ad33500" x="287" y="174" width="68" height="14"/>
+				<textElement/>
+				<text><![CDATA[Vencimento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d182c691-f35d-4e47-a672-65d893bcdae8" x="276" y="202" width="274" height="32"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[O Desenvolvimento da associação é a responsabilidade de cada um de nos!]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7b009df7-ccd4-4d2a-8629-6b869b384ec0" x="287" y="188" width="68" height="14"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Referente:]]></text>
+			</staticText>
+			<textField pattern="MMMMM , yyyy">
+				<reportElement uuid="be08713f-6c44-43c9-ac08-3c6de337c192" x="355" y="188" width="194" height="14"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{referente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE, dd MMMMM yyyy">
+				<reportElement uuid="cef38b95-76ab-40d0-bf61-0ddce208d758" x="355" y="174" width="194" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="791f5536-f7fb-45bc-9d51-be8453df9deb" x="406" y="104" width="143" height="14"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pagamento} == null ? "" : "Pago em: " +
+new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{pagamento})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a182bae5-b56e-49e8-86b8-771a824d41a7" x="287" y="104" width="119" height="14"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Boleto Nº: "+ $F{numeroconta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

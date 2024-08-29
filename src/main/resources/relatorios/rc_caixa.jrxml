@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rc_caixa" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1e637a16-cd9e-476b-bab2-92ec2750549f">
+	<property name="ireport.zoom" value="1.3310000000000006"/>
+	<property name="ireport.x" value="56"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="datainicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="datafim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+    c.id         as numeroconta,
+	c.dataGerada as data,
+	c.dataPag    as pagamento,
+	c.dataVence  as vencimento,
+	c.dataReferente as referencia,
+
+	concat(trim(p.nome)," ",trim(p.sobrenome)) as partnerModel,
+	concat(trim(e.tipo)," ",trim(e.nome)) as endereco,
+	ep.Numero as numero,
+	s.numeroSocio,
+	cs.nome as categoriaSocio,
+	c.ValorTaxa as taxaSocio,
+
+	COALESCE(h.Consumo, (h.consumo_final - h.consumo_inicial), 0) AS consumo,
+	h.consumo_final ,
+	h.consumo_inicial,
+
+	COALESCE(
+		CASE
+			when h.Consumo is null
+			then (
+				CASE
+					WHEN ((h.consumo_final - h.consumo_inicial)-10000 < 0) then 0
+					ELSE ((h.consumo_final - h.consumo_inicial)-10000)
+				END)
+			ELSE (
+				CASE
+					WHEN ((h.Consumo)-10000 < 0) then 0
+					ELSE ((h.Consumo)-10000)
+				END
+			)
+	end,0) as excessoLTd,
+
+	COALESCE(
+		CASE
+			when h.Consumo is null
+			then (
+				CASE
+					WHEN ((h.consumo_final - h.consumo_inicial)-10000 < 0) then 0
+					ELSE ((h.consumo_final - h.consumo_inicial)-10000) *(0.0035)
+				END)
+			ELSE (
+				CASE
+					WHEN ((h.Consumo)-10000 < 0) then 0
+					ELSE ((h.Consumo)-10000)* (0.0035)
+				END
+			)
+	end,0) as excessoValor,
+
+	COALESCE(c.valorOutros,0) as valorOutros,
+
+	(
+	COALESCE(c.ValorTaxa,0) +
+	COALESCE(c.valorOutros,0) +
+	COALESCE(
+		CASE
+			when h.Consumo is null
+			then (
+				CASE
+					WHEN ((h.consumo_final - h.consumo_inicial)-10000 < 0) then 0
+					ELSE ((h.consumo_final - h.consumo_inicial)-10000) *(0.0035)
+				END)
+			ELSE (
+				CASE
+					WHEN ((h.Consumo)-10000 < 0) then 0
+					ELSE ((h.Consumo)-10000)* (0.0035)
+				END
+			)
+	end, 0)
+
+	)AS totalconta
+
+from conta c
+	inner join enderecopessoa ep on ep.id = c.idEnderecoPessoa
+	inner join pessoa          p on  p.id = ep.idPessoa
+	inner join endereco        e on  e.id = ep.idEndereco
+	inner join partnerModel           s on  p.id = s.idPessoa
+	inner join categoriasocio cs on cs.id = ep.idCategoriaSocio
+	inner join taxa            t on  t.id = cs.taxasId
+	left  join hidrometro      h on  c.id = h.idconta
+	left  join taxasconta     tc on  c.id = tc.contaid
+	left  join taxa           t2 on  t2.id = tc.taxaid
+where c.dataPag between $P{datainicio} and $P{datafim}
+	order by p.nome , p.sobrenome]]>
+	</queryString>
+	<field name="numeroconta" class="java.lang.Integer"/>
+	<field name="data" class="java.sql.Timestamp"/>
+	<field name="pagamento" class="java.sql.Timestamp"/>
+	<field name="vencimento" class="java.sql.Timestamp"/>
+	<field name="referencia" class="java.sql.Date"/>
+	<field name="partnerModel" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeroSocio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="categoriaSocio" class="java.lang.String"/>
+	<field name="taxaSocio" class="java.math.BigDecimal"/>
+	<field name="consumo" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="consumo_final" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="consumo_inicial" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="excessoLTd" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="excessoValor" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorOutros" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalconta" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalconta_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<variable name="totalconta_2" class="java.lang.Double" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<variable name="totalconta_3" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<variable name="totalconta_4" class="java.lang.Double" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<variable name="totalconta_5" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<variable name="totalconta_6" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<variable name="totalconta_7" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<variable name="totalconta_8" class="java.lang.Double" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<variable name="totalconta_9" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalconta}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="65" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="143300c6-0b9d-4acb-8905-b3c439cb7323" x="134" y="43" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{totalconta_6}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="¤ #,##0.00">
+				<reportElement uuid="db61111b-16a5-402c-8ed2-f98caf6138ac" x="134" y="23" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{totalconta_7}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c6b1a567-07cd-4386-9067-7724a3a1cd56" x="0" y="0" width="234" height="22" forecolor="#000000"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Acal relatório de caixa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="58a195b6-62cd-4322-b458-59ac3777b6cb" x="0" y="23" width="134" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Valor Total do Relatório]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9b9f3876-58c1-478d-8a29-2e25f9513a9c" x="0" y="43" width="134" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Numero de Contas ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="db1a7145-9251-47f5-84e6-8ffdcc644230" x="317" y="25" width="134" height="18"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Relatório referente a data:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="32485fe0-673b-458b-86a2-06b6628ca895" x="451" y="25" width="351" height="18"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Relatório referente a data: " +
+new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{datainicio})+ " até " +
+new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{datafim})+"."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="156bbf5c-46cb-42b8-ab4a-6e0f0bf90245" x="317" y="45" width="53" height="20"/>
+				<textElement/>
+				<text><![CDATA[Emitido]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="ac214802-d52f-49be-b8c1-1323fc373903" x="370" y="45" width="212" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="106078a9-5531-4186-bdb4-0ce4cda6022c" x="0" y="0" width="35" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="126e8227-9217-44bc-b7bb-bce01b50455f" x="35" y="0" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="79f63235-bf24-4409-aa8d-3196dc7d847f" x="161" y="0" width="143" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Socio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="16465ad6-27e0-42b7-8b95-c53c1e8f7adf" x="304" y="0" width="110" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Endereco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="72535118-63da-4990-9da6-a6552c92a334" x="414" y="0" width="37" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Casa ºN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="47ec2db4-0958-48b8-8b5c-3c064884da08" x="451" y="0" width="35" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[nº Socio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="de9eebe8-4a7d-48d8-b53a-03f26d88ae08" x="576" y="0" width="43" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Valor ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f8cc2533-2c7b-4a04-8050-286f4216a4a3" x="736" y="0" width="66" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="2f87e3c4-d1f0-4f88-b515-241ed97b67ae" x="0" y="0" width="802" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="db1d275c-4e30-47ba-abe2-e89fd67d33b3" x="0" y="20" width="802" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="98449430-f73f-44eb-b7dc-343fff416563" x="679" y="1" width="57" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hidrômentro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9f4dbcd3-23dd-4a77-b6c3-f2783e28458d" x="77" y="1" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Pag]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f1de080e-eb9e-444f-8667-6278f534b4d6" x="119" y="0" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ven]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d56e538-d907-4142-9177-a43baeaab716" x="486" y="1" width="90" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="46238fa6-dce1-4b5d-8803-4123f5c772cd" x="619" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Outros]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b0ccbb37-7b6e-4227-b2a5-45f44d4e91b0" x="0" y="0" width="35" height="27"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroconta}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="ca42b22e-b1a1-4a36-aac5-92ebd87f6806" x="304" y="0" width="110" height="27"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endereco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8a06a200-4628-47c1-b37c-ee1100520332" x="414" y="0" width="37" height="27"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8deb49fd-7368-433b-a7fc-fe5116131dae" x="451" y="0" width="35" height="27"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numeroSocio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="efd36c40-2522-4d91-ab60-634061e51a9f" x="736" y="0" width="66" height="27"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalconta}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="9f621820-6b01-4f54-9ebc-ed813c8b9a7d" x="0" y="27" width="802" height="1" forecolor="#CCCCCC"/>
+			</line>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="c131e26f-af23-4d10-ae9e-1ba8ed47ee22" x="679" y="0" width="57" height="26"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{excessoValor}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="ffb17fd6-01fa-4fd1-b633-4512e5b81b75" x="486" y="0" width="90" height="27"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categoriaSocio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="554ef470-f677-4828-8cf3-84e9a5cd7ec3" x="35" y="0" width="42" height="29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="9ab3fead-68f4-4970-a4e3-ebe67eeadbe4" x="161" y="0" width="143" height="27"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{partnerModel}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="32be2004-65ff-46a2-a3b6-4ebde07973e8" x="77" y="0" width="42" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pagamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="2f914def-3da9-4f43-b007-392a4d5ea07e" x="119" y="0" width="42" height="27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e95b7e4c-e5d3-4073-86f9-b639de056ecd" x="576" y="0" width="43" height="27"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{taxaSocio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="0121e95f-e0e3-42de-9e94-f9dc5a0dd514" x="619" y="0" width="60" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorOutros}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="40">
+			<textField evaluationTime="Report" pattern="¤ #,##0.00">
+				<reportElement uuid="db61111b-16a5-402c-8ed2-f98caf6138ac" x="134" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalconta_7}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="58a195b6-62cd-4322-b458-59ac3777b6cb" x="0" y="0" width="134" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Valor Total do Relatório]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement uuid="143300c6-0b9d-4acb-8905-b3c439cb7323" x="134" y="20" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalconta_6}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9b9f3876-58c1-478d-8a29-2e25f9513a9c" x="0" y="20" width="134" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Numero de Contas ]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="dcaa7a78-3c0e-4f84-b246-43bd8313fb8e" x="0" y="0" width="802" height="1"/>
+			</line>
+		</band>
+	</lastPageFooter>
+</jasperReport>

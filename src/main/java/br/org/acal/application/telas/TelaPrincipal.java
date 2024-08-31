@@ -351,7 +351,6 @@ public class TelaPrincipal extends JFrame {
 
         jPanelImagemTelaPrincipal1.setOpaque(false);
 
-        jLabel6.setIcon(new ImageIcon(getClass().getResource("/img/agua.jpg"))); // NOI18N
         jLabel6.setToolTipText("");
         jLabel6.setMaximumSize(jPanelImagemTelaPrincipal.getMaximumSize());
         jLabel6.setMinimumSize(jPanelImagemTelaPrincipal.getMinimumSize());
@@ -582,7 +581,6 @@ public class TelaPrincipal extends JFrame {
 
         jPanelImagemTelaPrincipal2.setOpaque(false);
 
-        jLabel5.setIcon(new ImageIcon(getClass().getResource("/img/agua.jpg"))); // NOI18N
         jLabel5.setMaximumSize(jPanelImagemTelaPrincipal.getMaximumSize());
         jLabel5.setMinimumSize(jPanelImagemTelaPrincipal.getMinimumSize());
         jLabel5.setOpaque(true);
@@ -620,7 +618,6 @@ public class TelaPrincipal extends JFrame {
 
         jPanelImagemTelaPrincipal.setOpaque(false);
 
-        jLabel4.setIcon(new ImageIcon(getClass().getResource("/img/agua.jpg"))); // NOI18N
         jLabel4.setMaximumSize(jPanelImagemTelaPrincipal.getMaximumSize());
         jLabel4.setMinimumSize(jPanelImagemTelaPrincipal.getMinimumSize());
         jLabel4.setOpaque(true);
@@ -1052,7 +1049,6 @@ public class TelaPrincipal extends JFrame {
         try {
             if (Files.notExists(backupDir)) {
                 Files.createDirectories(backupDir);
-                System.out.println("Diretório de backup criado em: " + backupDir);
             }
         } catch (IOException e) {
             showError("Erro ao criar o diretório de backup.", e);

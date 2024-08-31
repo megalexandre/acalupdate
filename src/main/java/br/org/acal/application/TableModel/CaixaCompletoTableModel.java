@@ -72,34 +72,21 @@ public class CaixaCompletoTableModel extends AbstractTableModel{
     
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        switch (columnIndex) {
-            case numeroconta:
-            return Integer.class;
-            case data:
-            return Date.class;
-            case pagamento:
-            return Date.class;
-            case vencimento:
-            return Date.class;
-            case socio:
-            return String.class;
-            case endereco:
-            return String.class;
-            case numero:
-            return Integer.class;
-            case categoriaSocio:
-            return String.class;     
-            case taxaSocio:
-            return BigDecimal.class;  
-            case consumo:
-            return Integer.class;
-            case excessoValor:
-            return BigDecimal.class;
-            case totalconta:
-            return BigDecimal.class;
-        default:
-        throw new IndexOutOfBoundsException("Index Não Encontrado");
-        }
+        return switch (columnIndex) {
+            case numeroconta -> Integer.class;
+            case data -> Date.class;
+            case pagamento -> Date.class;
+            case vencimento -> Date.class;
+            case socio -> String.class;
+            case endereco -> String.class;
+            case numero -> Integer.class;
+            case categoriaSocio -> String.class;
+            case taxaSocio -> BigDecimal.class;
+            case consumo -> Integer.class;
+            case excessoValor -> BigDecimal.class;
+            case totalconta -> BigDecimal.class;
+            default -> throw new IndexOutOfBoundsException("Index Não Encontrado");
+        };
     }
      
     
@@ -112,35 +99,22 @@ public class CaixaCompletoTableModel extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) {
     
     CaixaView c = linhas.get(rowIndex);
- 
-        switch (columnIndex) {
-            case numeroconta:
-            return c.getNumeroconta();
-            case data:
-            return c.getData();
-            case pagamento:
-            return c.getPagamento();
-            case vencimento:
-            return c.getVencimento();
-            case socio:
-            return c.getSocio();
-            case endereco:
-            return c.getEndereco();
-            case numero:
-            return c.getNumero();
-            case categoriaSocio:
-            return c.getCategoriaSocio();
-            case taxaSocio:
-            return c.getTaxaSocio();
-            case consumo:
-            return c.getConsumo();
-            case excessoValor:
-            return c.getExcessoValor();
-            case totalconta:
-            return c.getTotalconta();
-        default:
-        throw new IndexOutOfBoundsException("Campo Não Encontrado");
-        }
+
+        return switch (columnIndex) {
+            case numeroconta -> c.getNumeroconta();
+            case data -> c.getData();
+            case pagamento -> c.getPagamento();
+            case vencimento -> c.getVencimento();
+            case socio -> c.getSocio();
+            case endereco -> c.getEndereco();
+            case numero -> c.getNumero();
+            case categoriaSocio -> c.getCategoriaSocio();
+            case taxaSocio -> c.getTaxaSocio();
+            case consumo -> c.getConsumo();
+            case excessoValor -> c.getExcessoValor();
+            case totalconta -> c.getTotalconta();
+            default -> throw new IndexOutOfBoundsException("Campo Não Encontrado");
+        };
     }
     
      public void setValueAt(CaixaView aValue, int rowIndex) {  

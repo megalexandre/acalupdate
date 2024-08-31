@@ -58,6 +58,10 @@ public class LoginScreen extends JFrame {
         start();
     }
 
+    private void createUIComponents() {
+
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner non-commercial license
@@ -92,7 +96,7 @@ public class LoginScreen extends JFrame {
 
                     //---- name ----
                     name.setText("root");
-                    name.addActionListener(e -> jTextFieldTelaLoginNomeActionPerformed(e));
+                    name.addActionListener(this::jTextFieldTelaLoginNomeActionPerformed);
                     panel8.add(name);
                 }
                 panel7.add(panel8);
@@ -108,7 +112,7 @@ public class LoginScreen extends JFrame {
 
                     //---- password ----
                     password.setText("123");
-                    password.addActionListener(e -> jPasswordFieldTelaPrincipalSenhaActionPerformed(e));
+                    password.addActionListener(this::jPasswordFieldTelaPrincipalSenhaActionPerformed);
                     panel9.add(password);
                 }
                 panel7.add(panel9);
@@ -123,7 +127,7 @@ public class LoginScreen extends JFrame {
                 jButtonTelaLoginLogar.setText("Logar");
                 jButtonTelaLoginLogar.setMinimumSize(new Dimension(180, 22));
                 jButtonTelaLoginLogar.setPreferredSize(new Dimension(180, 22));
-                jButtonTelaLoginLogar.addActionListener(e -> jButtonTelaLoginLogarActionPerformed(e));
+                jButtonTelaLoginLogar.addActionListener(this::jButtonTelaLoginLogarActionPerformed);
                 panel6.add(jButtonTelaLoginLogar, BorderLayout.CENTER);
             }
             root.add(panel6, BorderLayout.SOUTH);

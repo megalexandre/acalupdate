@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoicedetail" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="741b4b3f-e4c1-4f68-b7ea-fe3d4a3b9c69">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<!--
+
+	<parameter name="partnerNumber" class="java.lang.String"/>
+	<parameter name="number" class="java.lang.String"/>
+	<parameter name="period" class="java.lang.String"/>
+	-->
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<detail>
+		<!--
+		<band height="56" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="80f64524-69e4-491c-b0e9-375ae20fd5e1">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</line>
+			<rectangle radius="10">
+				<reportElement x="225" y="10" width="105" height="35" uuid="edecb560-ecb7-462d-bbba-1308c95da884">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement x="335" y="10" width="220" height="35" uuid="2f45b571-38c2-48a9-91e3-c8b6be37001e">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement x="0" y="10" width="220" height="35" uuid="c6e8aa40-726d-4bab-be38-cf9846d18bad">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="10" width="220" height="17" uuid="861e7e3d-21ab-4da2-8fc2-0d950ba23ab7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Nº de Associado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="10" width="105" height="17" uuid="3a3f1d97-5771-4e85-9660-1cb6dc398d9a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Boleto nº:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="10" width="220" height="17" uuid="9b0e7460-e2af-46bf-9f3a-7a616da689c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Conta referente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="225" y="27" width="105" height="18" uuid="bbba5009-1a13-44a0-a89f-f65b17ae7fed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="27" width="220" height="18" uuid="43455dd4-d929-4eae-845b-23e01bacb321"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{period}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="27" width="220" height="18" uuid="aa754dd8-860d-4d22-8fdb-3d7c58117d2a">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{partnerNumber}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="55" width="555" height="1" uuid="6395ba77-e916-4fec-9179-62e182473ed9">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</line>
+		</band>
+		-->
+	</detail>
+</jasperReport>

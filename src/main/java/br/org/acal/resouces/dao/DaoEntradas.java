@@ -3,7 +3,7 @@ package br.org.acal.resouces.dao;
 import br.org.acal.resouces.entidades.Entrada;
 import br.org.acal.infra.HibernateUtil;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -72,7 +72,7 @@ public class DaoEntradas  {
            sessao = HibernateUtil.getSessionFactory().openSession();
            transacao = sessao.beginTransaction();
            query = sessao.createQuery("from Entrada e where e.idCedente.idPessoa.nome  LIKE :nome");
-           query.setString("nome","%"+nome+"%");
+           query.setParameter("nome","%"+nome+"%");
            //query.setParameter("nome",nome);
            entradas = query.list();
            transacao.commit(); 
@@ -154,7 +154,7 @@ public class DaoEntradas  {
         try{
            sessao = HibernateUtil.getSessionFactory().openSession();
            tx = sessao.beginTransaction();
-           query = sessao.createSQLQuery("select sum(valor) from entrada where data between :inicio and :fim");
+           query = sessao.createNativeQuery("select sum(valor) from entrada where data between :inicio and :fim");
           //  query.setParameter("inicio",inicio);
           // query.setParameter("fim",fim);
     
@@ -184,7 +184,7 @@ public class DaoEntradas  {
         try{
            sessao = HibernateUtil.getSessionFactory().openSession();
            tx = sessao.beginTransaction();
-           query = sessao.createSQLQuery("select sum(valor) from entrada where  idFuncionario = :idfuncioanario");
+           query = sessao.createNativeQuery("select sum(valor) from entrada where  idFuncionario = :idfuncioanario");
            //query.setParameter("inicio",inicio);
            //query.setParameter("fim",fim);
            query.setParameter("idfuncionario",idfuncionario);
@@ -216,7 +216,7 @@ public class DaoEntradas  {
         try{
            sessao = HibernateUtil.getSessionFactory().openSession();
            tx = sessao.beginTransaction();
-           query = sessao.createSQLQuery("select sum(valor) from entrada where data between :incio and :fim ");
+           query = sessao.createNativeQuery("select sum(valor) from entrada where data between :incio and :fim ");
            query.setParameter("inicio",inicio);
            query.setParameter("fim",fim);
            //query.setParameter("idfuncionario",idfuncionario);
@@ -249,7 +249,7 @@ public class DaoEntradas  {
         try{
            sessao = HibernateUtil.getSessionFactory().openSession();
            tx = sessao.beginTransaction();
-           query = sessao.createSQLQuery("select sum(valor) from entrada where  idFuncionario = :idfuncioanario and data between :inicio and :fim");
+           query = sessao.createNativeQuery("select sum(valor) from entrada where  idFuncionario = :idfuncioanario and data between :inicio and :fim");
            query.setParameter("inicio",inicio);
            query.setParameter("fim",fim);
            query.setParameter("idfuncionario",idfuncionario);

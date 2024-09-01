@@ -6,7 +6,7 @@ import java.util.List;
 import br.org.acal.resouces.entidades.Motivodespesa;
 import br.org.acal.infra.HibernateUtil;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -95,7 +95,7 @@ public class DaoMotivoDespesa   {
            sessao = HibernateUtil.getSessionFactory().openSession();
            transacao = sessao.beginTransaction();
            query = sessao.createQuery("from Motivodespesa m where m.nome LIKE :nome");
-           query.setString("nome","%"+nome+"%");
+           query.setParameter("nome","%"+nome+"%");
            //query.setParameter("nome",nome);
            motivoDespesa = query.list();
            transacao.commit(); 

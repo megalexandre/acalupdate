@@ -5,7 +5,7 @@ import java.util.List;
 import br.org.acal.resouces.entidades.Pessoa;
 import br.org.acal.infra.HibernateUtil;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -160,8 +160,7 @@ public class DaoPessoa {
            sessao = HibernateUtil.getSessionFactory().openSession();
            transacao = sessao.beginTransaction();
            query = sessao.createQuery("from Pessoa p where concat(p.nome,p.sobrenome) LIKE :nomeCompleto");
-           query.setString("nome","%"+nomeCompleto+"%");
-           //query.setParameter("nome",nome);
+           query.setParameter("nome","%"+nomeCompleto+"%");
            pessoa = query.list();
            transacao.commit(); 
            
@@ -190,8 +189,7 @@ public class DaoPessoa {
            sessao = HibernateUtil.getSessionFactory().openSession();
            transacao = sessao.beginTransaction();
            query = sessao.createQuery("from Pessoa p where p.nome LIKE :nome");
-           query.setString("nome","%"+nome+"%");
-           //query.setParameter("nome",nome);
+           query.setParameter("nome","%"+nome+"%");
            pessoa = query.list();
            transacao.commit(); 
            

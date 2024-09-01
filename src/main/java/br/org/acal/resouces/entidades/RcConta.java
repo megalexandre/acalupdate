@@ -1,31 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.org.acal.resouces.entidades;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
-
-/**
- *
- * @author megalexandre
- */
 @Entity
 @Table(name = "rc_conta")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "RcConta.findAll", query = "SELECT r FROM RcConta r"),
     @NamedQuery(name = "RcConta.findByNumeroconta", query = "SELECT r FROM RcConta r WHERE r.numeroconta = :numeroconta"),
@@ -44,6 +33,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "RcConta.findByTaxas", query = "SELECT r FROM RcConta r WHERE r.taxas = :taxas"),
     @NamedQuery(name = "RcConta.findByTotalconta", query = "SELECT r FROM RcConta r WHERE r.totalconta = :totalconta")})
 public class RcConta implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "taxas")
     private int taxas;
@@ -52,14 +47,11 @@ public class RcConta implements Serializable {
     @Column(name = "numeroconta")
     private int numeroconta;
     @Column(name = "data")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date data;
     @Column(name = "pagamento")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date pagamento;
     @Basic(optional = false)
     @Column(name = "vencimento")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date vencimento;
     @Column(name = "socio")
     private String socio;

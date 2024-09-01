@@ -3,7 +3,7 @@ package br.org.acal.resouces.dao;
 import br.org.acal.resouces.entidades.Funcionario;
 import br.org.acal.infra.HibernateUtil;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -94,7 +94,7 @@ public class DaoFuncionario{
            sessao = HibernateUtil.getSessionFactory().openSession();
            transacao = sessao.beginTransaction();
            query = sessao.createQuery("from Funcionario f where f.nome LIKE :nome");
-           query.setString("nome","%"+nome+"%");
+           query.setParameter("nome","%"+nome+"%");
            //query.setParameter("nome",nome);
            funcionario = query.list();
            transacao.commit(); 

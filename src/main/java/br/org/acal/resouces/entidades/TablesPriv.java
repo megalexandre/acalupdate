@@ -1,25 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.org.acal.resouces.entidades;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-/**
- *
- * @author aliss_000
- */
 @Entity
 @Table(name = "tables_priv")
 @NamedQueries({
@@ -33,7 +23,6 @@ public class TablesPriv implements Serializable {
     private String grantor;
     @Basic(optional = false)
     @Column(name = "Timestamp")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
     @Basic(optional = false)
     @Column(name = "Table_priv")

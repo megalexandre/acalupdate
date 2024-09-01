@@ -1,40 +1,31 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.org.acal.resouces.entidades;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 /**
  *
  * @author alexandre
  */
 @Entity
 @Table(name = "socio")
-@XmlRootElement
 
 public class Socio implements Serializable {
     @Column(name = "carneDiferenciado")
@@ -53,14 +44,11 @@ public class Socio implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Column(name = "dataVence")
-    @Temporal(TemporalType.DATE)
     private Date dataVence;
     @Column(name = "dataAprovacao")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date dataAprovacao;
     @Basic(optional = false)
     @Column(name = "dataMatricula")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date dataMatricula;
     @Lob
     @Column(name = "observacao")
@@ -158,7 +146,6 @@ public class Socio implements Serializable {
         changeSupport.firePropertyChange("idCategoriaSocio", oldIdCategoriaSocio, idCategoriaSocio);
     }
 
-    @XmlTransient
     public List<Entrada> getEntradaList() {
         return entradaList;
     }

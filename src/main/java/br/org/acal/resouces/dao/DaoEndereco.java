@@ -3,7 +3,7 @@ package br.org.acal.resouces.dao;
 import br.org.acal.resouces.entidades.Endereco;
 import br.org.acal.infra.HibernateUtil;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -95,7 +95,7 @@ public class DaoEndereco {
            sessao = HibernateUtil.getSessionFactory().openSession();
            transacao = sessao.beginTransaction();
            query = sessao.createQuery("from Endereco e where e.nome LIKE :nome");
-           query.setString("nome","%"+nome+"%");
+           query.setParameter("nome","%"+nome+"%");
            //query.setParameter("nome",nome);
            endereco = query.list();
            transacao.commit(); 

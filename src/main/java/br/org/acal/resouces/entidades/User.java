@@ -5,21 +5,17 @@
 package br.org.acal.resouces.entidades;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 /**
  *
  * @author alexandre
  */
 @Entity
 @Table(name = "user")
-@XmlRootElement
 
 public class User implements Serializable {
     @Basic(optional = false)
@@ -113,15 +109,12 @@ public class User implements Serializable {
     @Column(name = "ssl_type")
     private String sslType;
     @Basic(optional = false)
-    @Lob
     @Column(name = "ssl_cipher")
     private byte[] sslCipher;
     @Basic(optional = false)
-    @Lob
     @Column(name = "x509_issuer")
     private byte[] x509Issuer;
     @Basic(optional = false)
-    @Lob
     @Column(name = "x509_subject")
     private byte[] x509Subject;
     @Basic(optional = false)
@@ -138,7 +131,6 @@ public class User implements Serializable {
     private int maxUserConnections;
     @Column(name = "plugin")
     private String plugin;
-    @Lob
     @Column(name = "authentication_string")
     private String authenticationString;
     private static final long serialVersionUID = 1L;

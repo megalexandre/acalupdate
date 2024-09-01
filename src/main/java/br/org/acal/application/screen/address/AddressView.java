@@ -1,26 +1,34 @@
 package br.org.acal.application.screen.address;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-
 import br.org.acal.application.screen.render.StripperRender;
-import br.org.acal.domain.model.Address;
 import br.org.acal.resouces.repository.AddressRepository;
 import lombok.val;
-import org.jdesktop.swingx.*;
+import org.jdesktop.swingx.HorizontalLayout;
+import org.springframework.stereotype.Component;
 
-import static com.sun.xml.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.util.List;
 
+
+@Component
 public class AddressView extends JPanel {
-    public AddressView() {
+
+    private final AddressRepository addressRepository;
+
+    public AddressView(AddressRepository addressRepository) {
         initComponents();
+        this.addressRepository = addressRepository;
 
     }
 
@@ -29,7 +37,7 @@ public class AddressView extends JPanel {
     }
 
     private void find(){
-        val addresses = new AddressRepository().findAll();
+        val addresses = addressRepository.findAll();
         AddressTableModel addressTableModel = new AddressTableModel(addresses.stream().map(AddressTable::of).toList());
 
         table.setModel(addressTableModel);

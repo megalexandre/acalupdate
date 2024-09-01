@@ -1,32 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.org.acal.resouces.entidades;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author alexandre
- */
 @Entity
 @Table(name = "saidaslog")
-@XmlRootElement
-
 public class Saidaslog implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,10 +25,8 @@ public class Saidaslog implements Serializable {
     @Column(name = "idoriginal")
     private Integer idoriginal;
     @Column(name = "dataoriginal")
-    @Temporal(TemporalType.DATE)
     private Date dataoriginal;
     @Column(name = "dataalteracao")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date dataalteracao;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "valor")

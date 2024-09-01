@@ -1,25 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.org.acal.resouces.entidades;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-/**
- *
- * @author ACAL
- */
+import java.io.Serializable;
 @Entity
 @Table(name = "socios_view")
-@XmlRootElement
-
 public class SociosView implements Serializable {
     @Column(name = "SocioExclusivo")
     private Boolean socioExclusivo;

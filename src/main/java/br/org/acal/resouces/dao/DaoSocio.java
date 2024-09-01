@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 
 import br.org.acal.resouces.entidades.Categoriasocio;
@@ -19,7 +18,7 @@ import br.org.acal.resouces.entidades.Socio;
 import br.org.acal.resouces.entidades.Sociotabela;
 import br.org.acal.infra.HibernateUtil;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 public class DaoSocio{
@@ -103,9 +102,7 @@ public class DaoSocio{
            sessao = HibernateUtil.getSessionFactory().openSession();
            transacao = sessao.beginTransaction();
            query = sessao.createQuery("from Socio s  where s.idPessoa.nome like :nome   ");
-           query.setString("nome","%"+nome+"%");
-           //query.setParameter("id",id);
-          
+           query.setParameter("nome","%"+nome+"%");
            socio = query.list();
            if(socio instanceof Socio){
                JOptionPane.showMessageDialog(null, "é");
@@ -199,7 +196,7 @@ public class DaoSocio{
         try{
            sessao = HibernateUtil.getSessionFactory().openSession();
            transacao = sessao.beginTransaction();
-           query = sessao.createSQLQuery("select id from Socio ");
+           query = sessao.createNativeQuery("select id from Socio ");
            socio = query.list();
            transacao.commit(); 
            
@@ -247,8 +244,7 @@ public class DaoSocio{
 
     public List<Sociotabela> findAllCustomers(){
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            TypedQuery<Sociotabela> query = session.createQuery("from Sociotabela", Sociotabela.class);
-            return query.getResultList();
+            return session.createQuery("from Sociotabela", Sociotabela.class).getResultList();
         }
     }
     

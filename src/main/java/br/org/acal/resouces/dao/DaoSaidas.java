@@ -7,7 +7,7 @@ import java.util.List;
 import br.org.acal.resouces.entidades.Saida;
 import br.org.acal.infra.HibernateUtil;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -72,11 +72,9 @@ public class DaoSaidas {
             transcao = sessao.beginTransaction();    
             sessao.delete(saida); 
             transcao.commit();
-            System.out.println("Salvo com sucesso");  
         }
         catch(HibernateException e)
         {
-            System.out.println("Erro ao iniciar a sessao para persistencia " + e);
             transcao.rollback();
         }
         finally
@@ -126,7 +124,7 @@ public class DaoSaidas {
            sessao = HibernateUtil.getSessionFactory().openSession();
            transacao = sessao.beginTransaction();
            query = sessao.createQuery("from Saida s where s.favorecido LIKE :nome");
-           query.setString("nome","%"+nome+"%");
+           query.setParameter("nome","%"+nome+"%");
            //query.setParameter("nome",nome);
            saida = query.list();
            transacao.commit(); 
@@ -155,7 +153,7 @@ public class DaoSaidas {
         try{
            sessao = HibernateUtil.getSessionFactory().openSession();
            tx = sessao.beginTransaction();
-           query = sessao.createSQLQuery("select sum(valor) from saida where data between :inicio and :fim");
+           query = sessao.createNativeQuery("select sum(valor) from saida where data between :inicio and :fim");
            query.setParameter("inicio",inicio);
           query.setParameter("fim",fim);
          

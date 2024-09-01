@@ -57,14 +57,16 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TelaPrincipal extends JFrame {
     private Calendar c;
-    SimpleDateFormat sdf = new SimpleDateFormat();
     private TrayIcon trayIcon = null;
     private SystemTray systemTray;
+    private final TelaRelatoriosContas telaRelatoriosContas;
 
-    public TelaPrincipal() {
+    public TelaPrincipal(TelaRelatoriosContas telaRelatoriosContas) {
         initComponents();
         c = Calendar.getInstance(Locale.of("pt", "BR"));
         DateFormat df = SimpleDateFormat.getDateInstance(DateFormat.DATE_FIELD, Locale.of("pt", "BR"));
@@ -87,6 +89,7 @@ public class TelaPrincipal extends JFrame {
             systemTray.add(trayIcon);
         } catch (AWTException ignored) {
         }
+        this.telaRelatoriosContas = telaRelatoriosContas;
     }
 
     private void createAndCentralizerWindows() {
@@ -1394,8 +1397,7 @@ public class TelaPrincipal extends JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenuItem1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        TelaRelatoriosContas tc = new TelaRelatoriosContas();
-        tc.setVisible(true);
+        telaRelatoriosContas.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem5ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -1462,16 +1464,6 @@ public class TelaPrincipal extends JFrame {
         ContasEditor ce = new ContasEditor();
         ce.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
-
-
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new TelaPrincipal().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.MenuItem ativaMensagens;

@@ -7,7 +7,7 @@ import java.util.List;
 import br.org.acal.resouces.entidades.CaixaView;
 import br.org.acal.infra.HibernateUtil;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -53,7 +53,7 @@ public class DaoContaView {
            sessao = HibernateUtil.getSessionFactory().openSession();
            transacao = sessao.beginTransaction();
            query = sessao.createQuery("from CaixaView where vencimento < :para" );
-           query.setCalendarDate("para", c);
+           query.setParameter("para", c);
            caixa = query.list();
            transacao.commit(); 
            

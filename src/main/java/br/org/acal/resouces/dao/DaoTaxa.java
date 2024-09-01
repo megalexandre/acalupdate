@@ -3,7 +3,7 @@ package br.org.acal.resouces.dao;
 import br.org.acal.resouces.entidades.Taxa;
 import br.org.acal.infra.HibernateUtil;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -26,7 +26,6 @@ public class DaoTaxa  {
         }
         catch(HibernateException e)
         {
-            System.out.println("Erro ao iniciar a sessao para persistencia " + e);
             transcao.rollback();
         }
         finally
@@ -153,7 +152,7 @@ public class DaoTaxa  {
            sessao = HibernateUtil.getSessionFactory().openSession();
            transacao = sessao.beginTransaction();
            query = sessao.createQuery("from Taxa e where e.nome LIKE :nome");
-           query.setString("nome","%"+nome+"%");
+           query.setParameter("nome","%"+nome+"%");
            //query.setParameter("nome",nome);
            taxas = query.list();
            transacao.commit(); 

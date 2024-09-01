@@ -7,20 +7,23 @@ import javax.swing.border.*;
 
 import br.org.acal.application.screen.address.AddressView;
 import br.org.acal.application.screen.customer.CustomerView;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MainScreen extends JFrame {
-
-    public MainScreen() {
+    private final AddressView addressView;
+    public MainScreen(AddressView addressView) {
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
+
+        this.addressView = addressView;
     }
 
     private void addressMenu(ActionEvent e) {
-        AddressView view = new AddressView();
         body.removeAll();
-        body.add(view);
+        body.add(addressView);
         body.revalidate();
         body.repaint();
     }

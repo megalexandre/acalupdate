@@ -1,33 +1,22 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.org.acal.resouces.entidades;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author alexandre
- */
 @Entity
 @Table(name = "taxa")
-@XmlRootElement
-
 public class Taxa implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,7 +32,6 @@ public class Taxa implements Serializable {
     @Lob
     @Column(name = "observacao")
     private String observacao;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "valor")
     private BigDecimal valor;
@@ -105,7 +93,6 @@ public class Taxa implements Serializable {
         this.valor = valor;
     }
 
-    @XmlTransient
     public List<Taxasconta> getTaxascontaList() {
         return taxascontaList;
     }
@@ -114,7 +101,6 @@ public class Taxa implements Serializable {
         this.taxascontaList = taxascontaList;
     }
 
-    @XmlTransient
     public List<Categoriasocio> getCategoriasocioList() {
         return categoriasocioList;
     }

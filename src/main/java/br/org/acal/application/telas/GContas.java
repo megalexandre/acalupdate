@@ -700,8 +700,6 @@ public class GContas extends JFrame {
                                         Hidrometro h = new Hidrometro();
                                         h.setIdconta(c);
                                         h.setConsumo((double)model.getValueAt(i, 9));
-                                        //lista de taxasConta na conta...
-                                       // c.setTaxascontaList(taxas1);
                                         c.setHidrometro(h);
                                         new DaoContasMensais().AdicionarConta(c); 
                                         
@@ -945,8 +943,8 @@ public class GContas extends JFrame {
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
     private void jButton2ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        TelaRelatoriosContas tc = new TelaRelatoriosContas();
-        tc.setVisible(true);
+      // TelaRelatoriosContas tc = new TelaRelatoriosContas();
+       // tc.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox1ItemStateChanged(ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged

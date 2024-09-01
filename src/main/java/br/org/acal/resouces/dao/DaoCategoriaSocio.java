@@ -2,8 +2,8 @@ package br.org.acal.resouces.dao;
 
 import br.org.acal.resouces.entidades.Categoriasocio;
 import br.org.acal.infra.HibernateUtil;
+import org.hibernate.query.Query;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -118,7 +118,7 @@ public class DaoCategoriaSocio {
            sessao = HibernateUtil.getSessionFactory().openSession();
            transacao = sessao.beginTransaction();
            Query query = sessao.createQuery("from Categoriasocio where nome like  :nome");
-           query.setString("nome","%"+nome+"%");
+           query.setParameter("nome","%"+nome+"%");
            categoriaSocio =  query.list();
            transacao.commit(); 
            

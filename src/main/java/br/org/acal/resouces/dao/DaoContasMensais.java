@@ -3,7 +3,7 @@ package br.org.acal.resouces.dao;
 import br.org.acal.resouces.entidades.Conta;
 import br.org.acal.infra.HibernateUtil;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -93,7 +93,7 @@ public class DaoContasMensais  {
         try{
            sessao = HibernateUtil.getSessionFactory().openSession();
            tx = sessao.beginTransaction();
-          query = sessao.createSQLQuery(
+          query = sessao.createQuery(
 "select c.dataVence from Conta c inner join enderecopessoa e on c.idenderecopessoa = e.id where e.numero =:numero" );
            query.setParameter("numero",numero);
            datas =  query.list();
@@ -360,7 +360,7 @@ public class DaoContasMensais  {
         try{
            sessao = HibernateUtil.getSessionFactory().openSession();
            tx = sessao.beginTransaction();
-           query = sessao.createSQLQuery("select sum(valor) from contas where datapag between :inicio and :fim ");
+           query = sessao.createNativeQuery("select sum(valor) from contas where datapag between :inicio and :fim ");
            query.setParameter("inicio",inicio);
            query.setParameter("fim",fim);
            conta =  query.list();

@@ -1,17 +1,16 @@
 package br.org.acal.resouces.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
@@ -29,7 +28,6 @@ public class PartnerModel implements Serializable {
     @Column(name = "SocioExclusivo")
     private Boolean memberOnly;
 
-    @Basic(optional = false)
     @Column(name = "numeroSocio")
     private int partnerNumber;
 

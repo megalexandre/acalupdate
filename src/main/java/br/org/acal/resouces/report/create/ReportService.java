@@ -19,6 +19,6 @@ public class ReportService {
                         masterReport,
                         data.getParam(),
                         data.getDataSource()
-                ), false);
+                ), true);
     }
 }

@@ -18,6 +18,7 @@ import br.org.acal.resouces.repository.WaterQualityRepository;
 import br.org.acal.commons.Print;
 import lombok.val;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.stereotype.Component;
 
 import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;
@@ -38,14 +39,23 @@ import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 
+@Component
 public final class TelaRelatoriosContas extends javax.swing.JFrame {
 
     private final int OPEN = 1;
     private final int CLOSED = 2;
 
-    public TelaRelatoriosContas() {
+    private final InvoiceRepository invoiceRepository;
+
+    private final WaterQualityRepository waterQualityRepository;
+
+    public TelaRelatoriosContas(
+            WaterQualityRepository waterQualityRepository,
+            InvoiceRepository invoiceRepository) {
         initComponents();
         travarComponentes();
+        this.invoiceRepository = invoiceRepository;
+        this.waterQualityRepository = waterQualityRepository;
     }
 
     private void initComponents() {
@@ -894,10 +904,9 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
                 FindInvoice find = createFilter();
 
                 try {
-
-                    val invoices =  new InvoiceRepository().find(find);
+                    val invoices = invoiceRepository.find(find);
                     val period = invoices.stream().map(it -> it.getPeriod().toLocalDate()).toList();
-                    val waterQuality = new WaterQualityRepository().find(period);
+                    val waterQuality = waterQualityRepository.find(period);
 
                     val invoiceReport = invoices.stream().map(
                         it -> InvoiceReport.adapter(it, filter(it, waterQuality) )
@@ -1125,10 +1134,6 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         jFormattedTextFieldDataMaior.setEnabled(false);
         jComboBoxCategoria.setEnabled(false);
         jComboBoxSocio.setEnabled(false);
-    }
-
-    public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(() -> new TelaRelatoriosContas().setVisible(true));
     }
 
     private javax.swing.JButton jButton1;

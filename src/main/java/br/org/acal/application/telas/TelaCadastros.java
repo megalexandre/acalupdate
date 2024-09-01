@@ -4149,9 +4149,7 @@ public class TelaCadastros extends JFrame {
             if (!f1.isEmpty()) {
                 for (Funcionario f : f1) {
                     if (f.getIdPessoa().getDataNasc() != null) {
-                        model.addRow(new Object[]{f.getIdPessoa().getNome(), f.getIdPessoa().getSobrenome(), f.getIdPessoa().getCpf(), f.getIdPessoa().getCidade(), SimpleDateFormat.getDateInstance().format(f.getIdPessoa().getDataNasc()), f.getIdPessoa().getEmail(), f.getIdPessoa().getStatus()});
                     } else {
-                        model.addRow(new Object[]{f.getIdPessoa().getNome(), f.getIdPessoa().getSobrenome(), f.getIdPessoa().getCpf(), f.getIdPessoa().getCidade(), "nulo", f.getIdPessoa().getEmail(), f.getIdPessoa().getStatus()});
                     }
                 }
             } else {
@@ -4354,20 +4352,6 @@ public class TelaCadastros extends JFrame {
             ArrayList<Funcionario> funcionarios = (ArrayList) new DaoFuncionario().BuscarFuncionarios();
             model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
-            if (!funcionarios.isEmpty()) {
-                for (Funcionario funcionario : funcionarios) {
-
-                    if (funcionario.getIdPessoa().getDataNasc() != null) {
-                        model.addRow(new Object[]{funcionario.getIdPessoa().getNome(), funcionario.getIdPessoa().getSobrenome(), funcionario.getIdPessoa().getCpf(), funcionario.getIdPessoa().getCidade(), SimpleDateFormat.getDateInstance().format(funcionario.getIdPessoa().getDataNasc()), funcionario.getIdPessoa().getEmail(), funcionario.getIdPessoa().getStatus()});
-                    } else {
-                        model.addRow(new Object[]{funcionario.getIdPessoa().getNome(), funcionario.getIdPessoa().getSobrenome(), funcionario.getIdPessoa().getCpf(), funcionario.getIdPessoa().getCidade(), "nulo", funcionario.getIdPessoa().getEmail(), funcionario.getIdPessoa().getStatus()});
-                    }
-
-                }
-            } else {
-
-                JOptionPane.showMessageDialog(this, "A tabela de Pessoas está vazia", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
         } else if (pesquisarTable.equals("logradouros")) {
 
             ArrayList<Endereco> enderecos = (ArrayList) new DaoEndereco().BuscarTodosEnderecos();
@@ -6572,7 +6556,7 @@ public class TelaCadastros extends JFrame {
         jTextAreaFuncionarioObservacoes.setText(f.getObservacao());
         jTextFieldFuncionarioNumeroDaMatricula.setText(String.valueOf(f.getMatricula()));
 
-        if (pessoa.getStatus()) {
+        if (pessoa.isStatus()) {
             jComboBoxFuncionarioStatus.setSelectedItem("Ativo");
         } else {
             jComboBoxFuncionarioStatus.setSelectedItem("Desativo");
@@ -7270,7 +7254,7 @@ public class TelaCadastros extends JFrame {
         jFormattedTextFieldSocioDataMatricula.setText(SimpleDateFormat.getDateInstance().format(socio.getDataMatricula()));
 
 
-        if (socio.getIdPessoa().getStatus()) {
+        if (socio.getIdPessoa().isStatus()) {
 
             jRadioButtonSocioAtivo.setSelected(true);
         } else {
@@ -7355,7 +7339,7 @@ public class TelaCadastros extends JFrame {
 
       
 
-        if (pessoa.getStatus()) {
+        if (pessoa.isStatus()) {
             jRadioButtonSocioAtivo.setSelected(true);
         } else {
             jRadioButtonSocioInativo.setSelected(false);

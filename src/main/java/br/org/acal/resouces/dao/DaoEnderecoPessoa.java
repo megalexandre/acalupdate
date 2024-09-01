@@ -4,9 +4,8 @@ import br.org.acal.resouces.entidades.Enderecopessoa;
 import br.org.acal.resouces.entidades.Geracaocontas;
 import br.org.acal.resouces.entidades.Pessoa;
 import br.org.acal.infra.HibernateUtil;
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -48,28 +47,20 @@ public class DaoEnderecoPessoa {
       
         boolean teste = false;
         Pessoa p = null;
-        Session sessao = null; 
+
         Query query = null;
         Transaction transacao = null;
-        
-        try{
-           sessao = HibernateUtil.getSessionFactory().openSession();
-           transacao = sessao.beginTransaction();
-           query = sessao.createQuery("from Pessoa p where p.cnpj = :cnpj");
-           query.setParameter("cnpj",cnpj);
-           p  = (Pessoa) query.uniqueResult();
-           transacao.commit(); 
-           
-        }
-        catch(HibernateException e)
-        {
+        try (Session sessao = HibernateUtil.getSessionFactory().openSession()) {
+            transacao = sessao.beginTransaction();
+            query = sessao.createQuery("from Pessoa p where p.cnpj = :cnpj");
+            query.setParameter("cnpj", cnpj);
+            p = (Pessoa) query.uniqueResult();
+            transacao.commit();
+
+        } catch (HibernateException e) {
             System.out.println(e);
             transacao.rollback();
         }
-        finally
-        {
-             sessao.close();
-        }  
         return !p.getCnpj().isEmpty();
     }
     
@@ -113,7 +104,7 @@ public class DaoEnderecoPessoa {
           try{
            session = HibernateUtil.getSessionFactory().openSession();
            transaction = session.beginTransaction();
-           query =  session.createSQLQuery("select count(*) from enderecopessoa");
+           query =  session.createNativeQuery("select count(*) from enderecopessoa");
            qtd = (BigInteger)query.uniqueResult();
           
            transaction.commit(); 
@@ -137,7 +128,6 @@ public class DaoEnderecoPessoa {
         Session sessao = null; 
         Query query = null;
         Transaction transacao = null;
-        Criteria c = null;
         try{
            sessao = HibernateUtil.getSessionFactory().openSession();
            
@@ -169,14 +159,11 @@ public class DaoEnderecoPessoa {
         Session sessao = null; 
         Query query = null;
         Transaction transacao = null;
-        Criteria c = null;
         try{
            sessao = HibernateUtil.getSessionFactory().openSession();
            
            transacao = sessao.beginTransaction();
-          query = sessao.createQuery("from Enderecopessoa");
-          //query = sessao.createQuery("from Enderecopessoa ").setFirstResult(inicio).setMaxResults(total);
-           
+           query = sessao.createQuery("from Enderecopessoa");
            socio = query.list();
            
           
@@ -185,7 +172,6 @@ public class DaoEnderecoPessoa {
         }
         catch(HibernateException e)
         {
-            System.out.println(e);
             transacao.rollback();
         }
         finally
@@ -205,7 +191,6 @@ public class DaoEnderecoPessoa {
             transcao = sessao.beginTransaction();    
             sessao.delete(p); 
             transcao.commit();
-            System.out.println("Salvo com sucesso");  
         }
         catch(HibernateException e)
         {

@@ -1,21 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.org.acal.resouces.entidades;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -35,11 +30,9 @@ public class Cheque implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Column(name = "dataPagamento")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date dataPagamento;
     @Basic(optional = false)
     @Column(name = "dataVencimento")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date dataVencimento;
     @Basic(optional = false)
     @Column(name = "numero")

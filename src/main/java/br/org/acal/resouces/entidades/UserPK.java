@@ -1,18 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.org.acal.resouces.entidades;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
-/**
- *
- * @author alexandre
- */
+import java.io.Serializable;
 @Embeddable
 public class UserPK implements Serializable {
     @Basic(optional = false)

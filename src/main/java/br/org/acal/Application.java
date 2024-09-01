@@ -1,35 +1,31 @@
 package br.org.acal;
 
-import br.org.acal.application.screen.MainScreen;
-import br.org.acal.application.telas.TelaPrincipal;
+import br.org.acal.application.screen.LoginScreen;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLightLaf;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
+@SpringBootApplication
+@ComponentScan(basePackages = {"br.org.acal", "br.org.acal"})
+@EntityScan(basePackages = "br.org.acal")
 public class Application {
 
     public static void main(String[] args) {
-        FlatLightLaf.setup();
+        FlatIntelliJLaf.setup();
 
-        try {
-            UIManager.setLookAndFeel(new FlatIntelliJLaf());
-        } catch (UnsupportedLookAndFeelException ignored){}
+        ConfigurableApplicationContext context =  new SpringApplicationBuilder(Application.class)
+                .headless(false)
+                .run(args);
 
         SwingUtilities.invokeLater(() -> {
-            /*
-            LoginScreen login = new LoginScreen();
+            LoginScreen login = context.getBean(LoginScreen.class);
             login.setVisible(true);
-            */
-            TelaPrincipal telaPrincipal = new TelaPrincipal();
-            telaPrincipal.setVisible(true);
-
-            MainScreen mainScreen = new MainScreen();
-            mainScreen.setVisible(true);
         });
-
     }
 
 }

@@ -1,31 +1,38 @@
 package br.org.acal.resouces.repository;
 
-import br.org.acal.commons.WaterQualityParameter;
-import br.org.acal.domain.model.WaterParam;
-import br.org.acal.infra.HibernateUtil;
 import br.org.acal.domain.model.WaterQuality;
-import br.org.acal.resouces.model.WaterQualityModel;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
+import br.org.acal.resouces.adapter.WaterQualityAdapter;
+import org.springframework.stereotype.Repository;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.util.List;
 
 
+@Repository
 public class WaterQualityRepository {
-    public List<WaterQuality> find(List<LocalDate> duoDate) {
 
+    private final WaterQualityRepositoryInterface waterQualityRepositoryInterface;
+
+    public WaterQualityRepository(WaterQualityRepositoryInterface waterQualityRepositoryInterface){
+        this.waterQualityRepositoryInterface = waterQualityRepositoryInterface;
+    }
+
+    public List<WaterQuality> find(List<LocalDate> duoDate) {
+        return waterQualityRepositoryInterface.findAll().stream().map(WaterQualityAdapter::map).toList();
+
+        /*
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<WaterQualityModel> cq = cb.createQuery(WaterQualityModel.class);
             Root<WaterQualityModel> waterQuality = cq.from(WaterQualityModel.class);
-            cq.where(waterQuality.get("date").in(duoDate));
-            Query<WaterQualityModel> query = session.createQuery(cq);
 
-            return query.getResultList().stream().map(it ->
+            // Assuming 'date' is a LocalDate field in WaterQualityModel
+            cq.where(waterQuality.get("date").in(duoDate));
+
+            Query<WaterQualityModel> query = session.createQuery(cq);
+            List<WaterQualityModel> resultList = query.getResultList();
+
+            return resultList.stream().map(it ->
                     WaterQuality.builder()
                             .waterParam(WaterQualityParameter.fromNumber(it.getParam()))
                             .number(it.getNumber())
@@ -36,6 +43,7 @@ public class WaterQualityRepository {
                             .build()
             ).toList();
         }
+        */
     }
 
 }

@@ -2,6 +2,7 @@ package br.org.acal.application.screen;
 
 import br.org.acal.application.telas.TelaPrincipal;
 import org.jdesktop.swingx.VerticalLayout;
+import org.springframework.stereotype.Component;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,14 +18,19 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
+@Component
 public class LoginScreen extends JFrame {
+    private final TelaPrincipal telaPrincipal;
+    private final MainScreen mainScreen;
 
-    public LoginScreen() {
+    public LoginScreen(TelaPrincipal telaPrincipal, MainScreen mainScreen) {
         initComponents();
         setContentPane(root);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(220, 180);
         setLocationRelativeTo(null);
+        this.telaPrincipal = telaPrincipal;
+        this.mainScreen = mainScreen;
     }
 
     private void start(){
@@ -33,7 +39,8 @@ public class LoginScreen extends JFrame {
         String pass = new String(password.getPassword());
 
         if("root".equals(log) && "123".equals(pass)){
-            new TelaPrincipal().setVisible(true);
+            mainScreen.setVisible(true);
+            telaPrincipal.setVisible(true);
             dispose();
         } else {
             name.setText("");

@@ -1,18 +1,16 @@
 package br.org.acal.resouces.entidades;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
+import java.io.Serializable;
 @Entity
 @Table(name = "sociotabela")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Sociotabela.findAll", query = "SELECT s FROM Sociotabela s"),
     @NamedQuery(name = "Sociotabela.findById", query = "SELECT s FROM Sociotabela s WHERE s.id = :id"),

@@ -13,7 +13,6 @@ import br.org.acal.resouces.entidades.EnderecoView;
 import br.org.acal.resouces.entidades.Enderecopessoa;
 import br.org.acal.resouces.entidades.Entrada;
 import br.org.acal.resouces.entidades.Entradaslog;
-import br.org.acal.resouces.entidades.Fucionarionomeview;
 import br.org.acal.resouces.entidades.Funcionario;
 import br.org.acal.resouces.entidades.Geracaocontas;
 import br.org.acal.resouces.entidades.Hidrometro;
@@ -83,7 +82,6 @@ public class HibernateUtil {
             metadataSources.addAnnotatedClass(EnderecoView.class);
             metadataSources.addAnnotatedClass(Entrada.class);
             metadataSources.addAnnotatedClass(Entradaslog.class);
-            metadataSources.addAnnotatedClass(Fucionarionomeview.class);
             metadataSources.addAnnotatedClass(Funcionario.class);
             metadataSources.addAnnotatedClass(Geracaocontas.class);
             metadataSources.addAnnotatedClass(Hidrometro.class);

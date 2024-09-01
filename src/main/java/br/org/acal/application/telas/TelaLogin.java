@@ -113,7 +113,7 @@ public class TelaLogin extends JFrame {
         String pass = new String(jPasswordFieldTelaPrincipalSenha.getPassword());
 
         if("root".equals(log) && "123".equals(pass)){
-            new TelaPrincipal().setVisible(true);
+            //new TelaPrincipal().setVisible(true);
             dispose();
         } else {
             jTextFieldTelaLoginNome.setText("");

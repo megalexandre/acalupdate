@@ -1,27 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.org.acal.resouces.entidades;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- *
- * @author alexandre
- */
+
 @Entity
 @Table(name = "chequeslog")
 
@@ -35,13 +27,10 @@ public class Chequeslog implements Serializable {
     @Column(name = "idOriginal")
     private Integer idOriginal;
     @Column(name = "dataPagamento")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date dataPagamento;
     @Column(name = "dataVencimento")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date dataVencimento;
     @Column(name = "dataAlteracao")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date dataAlteracao;
     @Column(name = "numero")
     private Integer numero;

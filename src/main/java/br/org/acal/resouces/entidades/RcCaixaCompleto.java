@@ -4,25 +4,21 @@
  */
 package br.org.acal.resouces.entidades;
 
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  *
  * @author Head
  */
 @Entity
 @Table(name = "rc_caixa_completo")
-@XmlRootElement
 
 public class RcCaixaCompleto implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -31,14 +27,11 @@ public class RcCaixaCompleto implements Serializable {
     @Id
     private int numeroconta;
     @Column(name = "data")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date data;
     @Column(name = "pagamento")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date pagamento;
     @Basic(optional = false)
     @Column(name = "vencimento")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date vencimento;
     @Column(name = "socio")
     private String socio;

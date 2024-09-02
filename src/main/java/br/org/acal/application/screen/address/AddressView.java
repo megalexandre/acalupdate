@@ -83,8 +83,12 @@ public class AddressView extends JPanel implements Serializable {
             val row = target.getSelectedRow();
             this.address = addresses.get(row);
             startDetail(address);
-            tabbedPane1.setSelectedIndex(DETAIL_INDEX);
+            setSelectedTab(DETAIL_INDEX);
         }
+    }
+
+    private void setSelectedTab(int index){
+        tabbedPane1.setSelectedIndex(index);
     }
 
     private void startDetail(Address address){
@@ -100,8 +104,14 @@ public class AddressView extends JPanel implements Serializable {
     }
 
     private void save(ActionEvent e) {
-        val item = Address.builder().name(addressName.getName()).number(addressType.getName()).build();
+        val item = Address.builder()
+                .name(addressName.getText())
+                .type(addressType.getSelectedItem().toString()
+            ).build();
+
         addressDataSource.save(item);
+        find();
+        setSelectedTab(LIST_INDEX);
     }
 
     private void initComponents() {

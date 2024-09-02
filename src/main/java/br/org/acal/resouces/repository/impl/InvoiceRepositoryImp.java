@@ -1,4 +1,4 @@
-package br.org.acal.resouces.repository;
+package br.org.acal.resouces.repository.impl;
 
 import br.org.acal.domain.FindInvoice;
 import br.org.acal.domain.StatusPaymentInvoice;
@@ -8,6 +8,7 @@ import br.org.acal.resouces.model.CategoryModel;
 import br.org.acal.resouces.model.CustomerModel;
 import br.org.acal.resouces.model.InvoiceModel;
 import br.org.acal.resouces.model.LinkModel;
+import br.org.acal.resouces.repository.interfaces.InvoiceRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.JoinType;
@@ -15,25 +16,22 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
+
 import jakarta.persistence.criteria.Fetch;
-import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.List;
-@Repository
-public class InvoiceRepository {
 
-    private final InvoiceRepositoryInterface invoiceRepositoryInterface;
+@Repository
+public class InvoiceRepositoryImp {
+
+    private final InvoiceRepository invoiceRepository;
 
     private final EntityManager entityManager;
 
-    public InvoiceRepository(InvoiceRepositoryInterface invoiceRepositoryInterface, EntityManager entityManager){
-        this.invoiceRepositoryInterface = invoiceRepositoryInterface;
+    public InvoiceRepositoryImp(InvoiceRepository invoiceRepository, EntityManager entityManager){
+        this.invoiceRepository = invoiceRepository;
         this.entityManager = entityManager;
     }
     public List<Invoice> find(FindInvoice findInvoice) {

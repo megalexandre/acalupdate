@@ -1,4 +1,4 @@
-package br.org.acal.application.screen;
+package br.org.acal.application.screen.main;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -15,9 +15,9 @@ public class MainScreen extends JFrame {
     public MainScreen(AddressView addressView) {
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setMinimumSize(new Dimension(800,600));
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
-
         this.addressView = addressView;
     }
 

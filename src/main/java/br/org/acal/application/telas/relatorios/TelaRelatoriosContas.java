@@ -3,6 +3,8 @@ package br.org.acal.application.telas.relatorios;
 import br.org.acal.application.report.InvoiceReport;
 import br.org.acal.application.telas.TelaPrincipal;
 import br.org.acal.commons.DateUtils;
+import br.org.acal.domain.repository.InvoiceDataSource;
+import br.org.acal.domain.repository.WaterQualityDataSource;
 import br.org.acal.resouces.dao.DaoCategoriaSocio;
 import br.org.acal.resouces.dao.DaoEndereco;
 import br.org.acal.resouces.dao.view.DaoSocioView;
@@ -13,11 +15,10 @@ import br.org.acal.resouces.report.create.ReportService;
 import br.org.acal.domain.model.Invoice;
 import br.org.acal.domain.model.ReportData;
 import br.org.acal.domain.model.WaterQuality;
-import br.org.acal.resouces.repository.InvoiceRepository;
-import br.org.acal.resouces.repository.WaterQualityRepository;
 import br.org.acal.commons.Print;
 import lombok.val;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import javax.swing.AbstractButton;
@@ -45,17 +46,18 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
     private final int OPEN = 1;
     private final int CLOSED = 2;
 
-    private final InvoiceRepository invoiceRepository;
+    private final InvoiceDataSource invoiceRepositoryDataSource;
 
-    private final WaterQualityRepository waterQualityRepository;
+    private final WaterQualityDataSource waterQualityDataSource;
 
     public TelaRelatoriosContas(
-            WaterQualityRepository waterQualityRepository,
-            InvoiceRepository invoiceRepository) {
+            @Lazy WaterQualityDataSource waterQualityDataSource,
+            @Lazy InvoiceDataSource invoiceRepositoryDataSource) {
+        this.invoiceRepositoryDataSource = invoiceRepositoryDataSource;
+        this.waterQualityDataSource = waterQualityDataSource;
+
         initComponents();
         travarComponentes();
-        this.invoiceRepository = invoiceRepository;
-        this.waterQualityRepository = waterQualityRepository;
     }
 
     private void initComponents() {
@@ -851,12 +853,12 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
             jComboBoxCategoria.setEnabled(true);
             if (jComboBoxCategoria.getItemCount() == 0) {
                 new DaoCategoriaSocio().BuscarTodasCategorias().forEach(it ->
-                    jComboBoxCategoria.addItem(
-                        JComboBoxItem.builder()
-                            .number(String.valueOf(it.getId()))
-                                .name(it.getNome())
-                                .build()
-                            )
+                        jComboBoxCategoria.addItem(
+                                JComboBoxItem.builder()
+                                        .number(String.valueOf(it.getId()))
+                                        .name(it.getNome())
+                                        .build()
+                        )
                 );
             }
 
@@ -893,7 +895,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         }
     }
 
-    private Collection<WaterQuality> filter(Invoice invoice, List<WaterQuality> waterQualities){
+    private Collection<WaterQuality> filter(Invoice invoice, List<WaterQuality> waterQualities) {
         return waterQualities.stream().filter(it -> it.period().equals(invoice.period())).toList();
     }
 
@@ -904,12 +906,12 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
                 FindInvoice find = createFilter();
 
                 try {
-                    val invoices = invoiceRepository.find(find);
+                    val invoices = invoiceRepositoryDataSource.find(find);
                     val period = invoices.stream().map(it -> it.getPeriod().toLocalDate()).toList();
-                    val waterQuality = waterQualityRepository.find(period);
+                    val waterQuality = waterQualityDataSource.find(period);
 
                     val invoiceReport = invoices.stream().map(
-                        it -> InvoiceReport.adapter(it, filter(it, waterQuality) )
+                            it -> InvoiceReport.adapter(it, filter(it, waterQuality))
                     ).toList();
 
                     Map<String, Object> map = new HashMap<>();
@@ -1022,17 +1024,17 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
             if (jComboBoxLogradouro.getItemCount() == 0) {
 
                 jComboBoxLogradouro.addItem(
-                    JComboBoxItem.builder()
-                        .name("")
-                        .number(null)
-                    .build()
+                        JComboBoxItem.builder()
+                                .name("")
+                                .number(null)
+                                .build()
                 );
 
                 new DaoEndereco().BuscarTodosEnderecos().forEach(it ->
-                    JComboBoxItem.builder()
-                        .name(it.getTipo() + " " + it.getNome())
-                        .number(String.valueOf(it.getId()))
-                    .build()
+                        JComboBoxItem.builder()
+                                .name(it.getTipo() + " " + it.getNome())
+                                .number(String.valueOf(it.getId()))
+                                .build()
                 );
             }
 
@@ -1077,29 +1079,30 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
     private void jToggleButtonCarnePadraoActionPerformed(java.awt.event.ActionEvent evt) {
         jToggleButtonCarneSocio.setSelected(false);
     }
-    private boolean isValidForm(){
+
+    private boolean isValidForm() {
         return
-            isValid(jCheckBoxId, jTextFieldIdMenor) &&
-            isValid(jCheckBoxId, jTextFieldIdMaior) &&
-            isValid(jCheckBoxStatus, jComboBoxStatus) &&
-            isValid(jCheckBoxCategoria, jComboBoxCategoria) &&
-            isValid(jCheckBoxSocio, jComboBoxSocio) &&
-            isValid(jCheckLogradouro, jComboBoxLogradouro) &&
-            atLeastOneIsSelected(
-                jCheckBoxId, jCheckBoxStatus, jCheckBoxCategoria,
-                jCheckBoxSocio, jCheckLogradouro
-            );
+                isValid(jCheckBoxId, jTextFieldIdMenor) &&
+                        isValid(jCheckBoxId, jTextFieldIdMaior) &&
+                        isValid(jCheckBoxStatus, jComboBoxStatus) &&
+                        isValid(jCheckBoxCategoria, jComboBoxCategoria) &&
+                        isValid(jCheckBoxSocio, jComboBoxSocio) &&
+                        isValid(jCheckLogradouro, jComboBoxLogradouro) &&
+                        atLeastOneIsSelected(
+                                jCheckBoxId, jCheckBoxStatus, jCheckBoxCategoria,
+                                jCheckBoxSocio, jCheckLogradouro
+                        );
     }
 
-    private boolean atLeastOneIsSelected(JCheckBox ...checkBox){
+    private boolean atLeastOneIsSelected(JCheckBox... checkBox) {
         return stream(checkBox).anyMatch(AbstractButton::isSelected);
     }
 
-    private boolean isValid(JCheckBox check, JComboBox<?> comboBox){
+    private boolean isValid(JCheckBox check, JComboBox<?> comboBox) {
 
         Object selectedItem = comboBox.getSelectedItem();
 
-        if(selectedItem == null && !check.isSelected()){
+        if (selectedItem == null && !check.isSelected()) {
             return true;
         }
 
@@ -1114,7 +1117,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         return false;
     }
 
-    private boolean isValid(JCheckBox check, JTextField jTextField){
+    private boolean isValid(JCheckBox check, JTextField jTextField) {
         return !check.isSelected() || (!jTextField.getText().isEmpty());
     }
 

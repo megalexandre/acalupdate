@@ -1,5 +1,7 @@
 package br.org.acal.application.screen.address;
 
+import br.org.acal.resouces.entidades.CaixaView;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -13,7 +15,6 @@ public class AddressTableModel extends AbstractTableModel {
     public AddressTableModel(List<AddressTable> addresses){
         this.addresses = addresses;
     }
-
     @Override
     public String getColumnName(int columnIndex) {
         return columns[columnIndex];

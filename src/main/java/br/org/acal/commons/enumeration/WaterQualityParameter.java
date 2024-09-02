@@ -1,7 +1,6 @@
-package br.org.acal.commons;
+package br.org.acal.commons.enumeration;
 
 import br.org.acal.domain.model.WaterParam;
-import br.org.acal.domain.model.WaterQuality;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

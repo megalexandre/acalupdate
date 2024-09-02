@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class AddressTable {
+
     private String number;
     private String name;
     public static AddressTable of(Address address){

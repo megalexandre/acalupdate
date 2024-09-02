@@ -1,7 +1,10 @@
-package br.org.acal.resouces.repository;
+package br.org.acal.resouces.repository.impl;
 
 import br.org.acal.domain.model.WaterQuality;
+import br.org.acal.domain.repository.WaterQualityDataSource;
 import br.org.acal.resouces.adapter.WaterQualityAdapter;
+import br.org.acal.resouces.repository.interfaces.WaterQualityRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -9,16 +12,15 @@ import java.util.List;
 
 
 @Repository
-public class WaterQualityRepository {
+public class WaterQualityRepositoryImpl implements WaterQualityDataSource {
+    private final WaterQualityRepository waterQualityRepository;
 
-    private final WaterQualityRepositoryInterface waterQualityRepositoryInterface;
-
-    public WaterQualityRepository(WaterQualityRepositoryInterface waterQualityRepositoryInterface){
-        this.waterQualityRepositoryInterface = waterQualityRepositoryInterface;
+    public WaterQualityRepositoryImpl(@Lazy WaterQualityRepository waterQualityRepository){
+        this.waterQualityRepository = waterQualityRepository;
     }
 
     public List<WaterQuality> find(List<LocalDate> duoDate) {
-        return waterQualityRepositoryInterface.findAll().stream().map(WaterQualityAdapter::map).toList();
+        return waterQualityRepository.findAll().stream().map(WaterQualityAdapter::map).toList();
 
         /*
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

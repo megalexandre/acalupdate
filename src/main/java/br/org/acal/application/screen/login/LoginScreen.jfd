@@ -44,7 +44,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "jButtonTelaLoginLogar"
 					"text": "Logar"
-					"minimumSize": new java.awt.Dimension( 180, 22 )
+					"minimumSize": new java.awt.Dimension( 180, 30 )
 					"preferredSize": new java.awt.Dimension( 180, 22 )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTelaLoginLogarActionPerformed", true ) )
 				}, new FormLayoutConstraints( class java.lang.String ) {

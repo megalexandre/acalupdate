@@ -1,6 +1,7 @@
 package br.org.acal;
 
-import br.org.acal.application.screen.LoginScreen;
+import br.org.acal.application.screen.login.LoginScreen;
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -11,14 +12,15 @@ import org.springframework.context.annotation.ComponentScan;
 import javax.swing.SwingUtilities;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"br.org.acal", "br.org.acal"})
+@ComponentScan(basePackages = {"br.org.acal"})
 @EntityScan(basePackages = "br.org.acal")
 public class Application {
 
     public static void main(String[] args) {
-        FlatIntelliJLaf.setup();
+        //FlatIntelliJLaf.setup();
+        FlatDarkLaf.setup();
 
-        ConfigurableApplicationContext context =  new SpringApplicationBuilder(Application.class)
+        ConfigurableApplicationContext context = new SpringApplicationBuilder(Application.class)
                 .headless(false)
                 .run(args);
 

@@ -1,5 +1,6 @@
-package br.org.acal.application.screen;
+package br.org.acal.application.screen.login;
 
+import br.org.acal.application.screen.main.MainScreen;
 import br.org.acal.application.telas.TelaPrincipal;
 import org.jdesktop.swingx.VerticalLayout;
 import org.springframework.stereotype.Component;
@@ -29,8 +30,9 @@ public class LoginScreen extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(220, 180);
         setLocationRelativeTo(null);
-        this.telaPrincipal = telaPrincipal;
         this.mainScreen = mainScreen;
+        this.telaPrincipal = telaPrincipal;
+        this.jButtonTelaLoginLogar.setPreferredSize(new Dimension(jButtonTelaLoginLogar.getWidth(),30));
     }
 
     private void start(){
@@ -63,10 +65,6 @@ public class LoginScreen extends JFrame {
 
     private void jButtonTelaLoginLogarActionPerformed(ActionEvent e) {
         start();
-    }
-
-    private void createUIComponents() {
-
     }
 
     private void initComponents() {
@@ -103,7 +101,7 @@ public class LoginScreen extends JFrame {
 
                     //---- name ----
                     name.setText("root");
-                    name.addActionListener(this::jTextFieldTelaLoginNomeActionPerformed);
+                    name.addActionListener(e -> jTextFieldTelaLoginNomeActionPerformed(e));
                     panel8.add(name);
                 }
                 panel7.add(panel8);
@@ -119,7 +117,7 @@ public class LoginScreen extends JFrame {
 
                     //---- password ----
                     password.setText("123");
-                    password.addActionListener(this::jPasswordFieldTelaPrincipalSenhaActionPerformed);
+                    password.addActionListener(e -> jPasswordFieldTelaPrincipalSenhaActionPerformed(e));
                     panel9.add(password);
                 }
                 panel7.add(panel9);
@@ -132,9 +130,9 @@ public class LoginScreen extends JFrame {
 
                 //---- jButtonTelaLoginLogar ----
                 jButtonTelaLoginLogar.setText("Logar");
-                jButtonTelaLoginLogar.setMinimumSize(new Dimension(180, 22));
+                jButtonTelaLoginLogar.setMinimumSize(new Dimension(180, 30));
                 jButtonTelaLoginLogar.setPreferredSize(new Dimension(180, 22));
-                jButtonTelaLoginLogar.addActionListener(this::jButtonTelaLoginLogarActionPerformed);
+                jButtonTelaLoginLogar.addActionListener(e -> jButtonTelaLoginLogarActionPerformed(e));
                 panel6.add(jButtonTelaLoginLogar, BorderLayout.CENTER);
             }
             root.add(panel6, BorderLayout.SOUTH);

@@ -1,12 +1,16 @@
 package br.org.acal.application.screen.address;
 
 import br.org.acal.application.screen.render.StripperRender;
-import br.org.acal.resouces.repository.AddressRepository;
+import br.org.acal.commons.enumeration.AddressType;
+import br.org.acal.domain.model.Address;
+import br.org.acal.domain.repository.AddressDataSource;
 import lombok.val;
 import org.jdesktop.swingx.HorizontalLayout;
+import org.jdesktop.swingx.VerticalLayout;
 import org.springframework.stereotype.Component;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -14,22 +18,42 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
+
+import static java.util.stream.IntStream.range;
 
 
 @Component
-public class AddressView extends JPanel {
+public class AddressView extends JPanel implements Serializable {
+    private final AddressDataSource addressDataSource;
+    private List<Address> addresses;
+    private Address address;
+    private final int LIST_INDEX = 0;
+    private final int DETAIL_INDEX = 1;
 
-    private final AddressRepository addressRepository;
-
-    public AddressView(AddressRepository addressRepository) {
+    public AddressView(
+        AddressDataSource addressDataSource
+    ) {
         initComponents();
-        this.addressRepository = addressRepository;
+        start();
+        this.addressDataSource = addressDataSource;
+    }
 
+    private void start(){
+        Arrays.stream(AddressType.values()).forEach(item ->
+            this.addressType.addItem(item.getDescription())
+        );
+        addressType.setSelectedItem(null);
+        detailPanel.setMaximumSize(new Dimension(800,Integer.MAX_VALUE));
     }
 
     private void find(ActionEvent e) {
@@ -37,27 +61,54 @@ public class AddressView extends JPanel {
     }
 
     private void find(){
-        val addresses = addressRepository.findAll();
-        AddressTableModel addressTableModel = new AddressTableModel(addresses.stream().map(AddressTable::of).toList());
+        this.addresses = addressDataSource.findAll();
+        val addressTableModel = new AddressTableModel(addresses.stream().map(AddressTable::of).toList());
 
         table.setModel(addressTableModel);
+        val customRenderer = new StripperRender();
 
-        DefaultTableCellRenderer customRenderer = new StripperRender();
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(customRenderer);
-        }
-
+        range(0, table.getColumnCount()).forEach(i ->
+            table.getColumnModel().getColumn(i).setCellRenderer(customRenderer)
+        );
+        tabbedPane1.setSelectedIndex(LIST_INDEX);
     }
 
     private void clear(ActionEvent e) {
         table.setModel(new AddressTableModel(List.of()));
     }
 
+    private void tableMouseClicked(MouseEvent e) {
+        if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+            val target = (JTable) e.getSource();
+            val row = target.getSelectedRow();
+            this.address = addresses.get(row);
+            startDetail(address);
+            tabbedPane1.setSelectedIndex(DETAIL_INDEX);
+        }
+    }
+
+    private void startDetail(Address address){
+        addressName.setText(address.getName());
+        addressType.setSelectedItem(address.getType());
+    }
+
+    private void back(ActionEvent e) {
+        address = null;
+        addressName.setText(null);
+        addressType.setSelectedItem(null);
+        find();
+    }
+
+    private void save(ActionEvent e) {
+        val item = Address.builder().name(addressName.getName()).number(addressType.getName()).build();
+        addressDataSource.save(item);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner non-commercial license
         tabbedPane1 = new JTabbedPane();
-        panel1 = new JPanel();
+        listaTab = new JPanel();
         scrollPane1 = new JScrollPane();
         table = new JTable();
         panel2 = new JPanel();
@@ -66,6 +117,17 @@ public class AddressView extends JPanel {
         panel3 = new JPanel();
         findButton = new JButton();
         clearButton = new JButton();
+        DetailTab = new JPanel();
+        detailPanel = new JPanel();
+        panel4 = new JPanel();
+        label2 = new JLabel();
+        addressType = new JComboBox();
+        panel5 = new JPanel();
+        label3 = new JLabel();
+        addressName = new JTextField();
+        panel7 = new JPanel();
+        buttonConfirm = new JButton();
+        buttonBack = new JButton();
 
         //======== this ========
         setLayout(new GridLayout());
@@ -73,15 +135,23 @@ public class AddressView extends JPanel {
         //======== tabbedPane1 ========
         {
 
-            //======== panel1 ========
+            //======== listaTab ========
             {
-                panel1.setLayout(new BorderLayout());
+                listaTab.setLayout(new BorderLayout());
 
                 //======== scrollPane1 ========
                 {
+
+                    //---- table ----
+                    table.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            tableMouseClicked(e);
+                        }
+                    });
                     scrollPane1.setViewportView(table);
                 }
-                panel1.add(scrollPane1, BorderLayout.CENTER);
+                listaTab.add(scrollPane1, BorderLayout.CENTER);
 
                 //======== panel2 ========
                 {
@@ -109,9 +179,60 @@ public class AddressView extends JPanel {
                     }
                     panel2.add(panel3, BorderLayout.EAST);
                 }
-                panel1.add(panel2, BorderLayout.SOUTH);
+                listaTab.add(panel2, BorderLayout.SOUTH);
             }
-            tabbedPane1.addTab("Lista", panel1);
+            tabbedPane1.addTab("Lista", listaTab);
+
+            //======== DetailTab ========
+            {
+                DetailTab.setBorder(new EmptyBorder(5, 5, 5, 5));
+                DetailTab.setLayout(new BorderLayout());
+
+                //======== detailPanel ========
+                {
+                    detailPanel.setLayout(new VerticalLayout());
+
+                    //======== panel4 ========
+                    {
+                        panel4.setLayout(new VerticalLayout());
+
+                        //---- label2 ----
+                        label2.setText("Tipo:");
+                        panel4.add(label2);
+                        panel4.add(addressType);
+                    }
+                    detailPanel.add(panel4);
+
+                    //======== panel5 ========
+                    {
+                        panel5.setLayout(new VerticalLayout());
+
+                        //---- label3 ----
+                        label3.setText("Nome:");
+                        panel5.add(label3);
+                        panel5.add(addressName);
+                    }
+                    detailPanel.add(panel5);
+                }
+                DetailTab.add(detailPanel, BorderLayout.CENTER);
+
+                //======== panel7 ========
+                {
+                    panel7.setLayout(new BorderLayout());
+
+                    //---- buttonConfirm ----
+                    buttonConfirm.setText("Confirmar");
+                    buttonConfirm.addActionListener(e -> save(e));
+                    panel7.add(buttonConfirm, BorderLayout.WEST);
+
+                    //---- buttonBack ----
+                    buttonBack.setText("cancelar");
+                    buttonBack.addActionListener(e -> back(e));
+                    panel7.add(buttonBack, BorderLayout.EAST);
+                }
+                DetailTab.add(panel7, BorderLayout.SOUTH);
+            }
+            tabbedPane1.addTab("Detalhe", DetailTab);
         }
         add(tabbedPane1);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
@@ -120,7 +241,7 @@ public class AddressView extends JPanel {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     // Generated using JFormDesigner non-commercial license
     private JTabbedPane tabbedPane1;
-    private JPanel panel1;
+    private JPanel listaTab;
     private JScrollPane scrollPane1;
     private JTable table;
     private JPanel panel2;
@@ -129,5 +250,16 @@ public class AddressView extends JPanel {
     private JPanel panel3;
     private JButton findButton;
     private JButton clearButton;
+    private JPanel DetailTab;
+    private JPanel detailPanel;
+    private JPanel panel4;
+    private JLabel label2;
+    private JComboBox addressType;
+    private JPanel panel5;
+    private JLabel label3;
+    private JTextField addressName;
+    private JPanel panel7;
+    private JButton buttonConfirm;
+    private JButton buttonBack;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

@@ -1,9 +1,12 @@
 package br.org.acal.application.screen.address;
 
+import br.org.acal.application.screen.address.model.CreateAddress;
 import br.org.acal.application.screen.render.StripperRender;
 import br.org.acal.commons.enumeration.AddressType;
 import br.org.acal.domain.model.Address;
-import br.org.acal.domain.repository.AddressDataSource;
+import br.org.acal.domain.usecase.address.DeleteAddressUsecase;
+import br.org.acal.domain.usecase.address.FindAllAddressUsecase;
+import br.org.acal.domain.usecase.address.SaveAddressUsecase;
 import lombok.val;
 import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
@@ -12,14 +15,15 @@ import org.springframework.stereotype.Component;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -27,25 +31,33 @@ import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 import static java.util.stream.IntStream.range;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 
 @Component
 public class AddressView extends JPanel implements Serializable {
-    private final AddressDataSource addressDataSource;
+    private final DeleteAddressUsecase delete;
+    private final FindAllAddressUsecase findAll;
+    private final SaveAddressUsecase save;
     private List<Address> addresses;
     private Address address;
+    public AddressTable addresTable;
     private final int LIST_INDEX = 0;
     private final int DETAIL_INDEX = 1;
 
     public AddressView(
-        AddressDataSource addressDataSource
+        DeleteAddressUsecase delete,
+        FindAllAddressUsecase findAll,
+        SaveAddressUsecase save
     ) {
         initComponents();
         start();
-        this.addressDataSource = addressDataSource;
+        this.delete = delete;
+        this.findAll = findAll;
+        this.save = save;
     }
 
     private void start(){
@@ -53,7 +65,36 @@ public class AddressView extends JPanel implements Serializable {
             this.addressType.addItem(item.getDescription())
         );
         addressType.setSelectedItem(null);
-        detailPanel.setMaximumSize(new Dimension(800,Integer.MAX_VALUE));
+
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                showPopup(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                showPopup(e);
+            }
+
+            private void showPopup(MouseEvent e) {
+                if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
+                    int row = table.rowAtPoint(e.getPoint());
+                    int column = table.columnAtPoint(e.getPoint());
+
+                    if (!table.isRowSelected(row)) {
+                        table.setRowSelectionInterval(row, row);
+                    }
+                    if (!table.isColumnSelected(column)) {
+                        table.setColumnSelectionInterval(column, column);
+                    }
+
+                    address = addresses.get(row);
+                    contextMenu.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+
     }
 
     private void find(ActionEvent e) {
@@ -61,7 +102,7 @@ public class AddressView extends JPanel implements Serializable {
     }
 
     private void find(){
-        this.addresses = addressDataSource.findAll();
+        this.addresses = findAll.execute(null);
         val addressTableModel = new AddressTableModel(addresses.stream().map(AddressTable::of).toList());
 
         table.setModel(addressTableModel);
@@ -104,14 +145,37 @@ public class AddressView extends JPanel implements Serializable {
     }
 
     private void save(ActionEvent e) {
-        val item = Address.builder()
-                .name(addressName.getText())
-                .type(addressType.getSelectedItem().toString()
-            ).build();
 
-        addressDataSource.save(item);
-        find();
-        setSelectedTab(LIST_INDEX);
+        val type = addressType.getSelectedItem() != null ? addressType.getSelectedItem().toString() : null;
+
+        val item = CreateAddress.builder()
+            .name(addressName.getText())
+            .type(type)
+        .build();
+
+        if(item.isValid()){
+            save.execute(item.toAddress());
+            find();
+            setSelectedTab(LIST_INDEX);
+        }else {
+            showMessage("Preencha todos os campos");
+        }
+    }
+
+    private void showMessage(String message){
+        showMessageDialog(this, message, "Campos invalidos", INFORMATION_MESSAGE);
+    }
+
+    private void delete(ActionEvent e) {
+
+        val operation = delete.execute(address.getNumber());
+
+        if(operation.isSuccess()){
+            find();
+        } else {
+            showMessage(operation.getErrors().stream().findFirst().orElseThrow());
+        }
+
     }
 
     private void initComponents() {
@@ -138,6 +202,9 @@ public class AddressView extends JPanel implements Serializable {
         panel7 = new JPanel();
         buttonConfirm = new JButton();
         buttonBack = new JButton();
+        contextMenu = new JPopupMenu();
+        menuItemEdit = new JMenuItem();
+        menuItemDelete = new JMenuItem();
 
         //======== this ========
         setLayout(new GridLayout());
@@ -233,18 +300,31 @@ public class AddressView extends JPanel implements Serializable {
                     //---- buttonConfirm ----
                     buttonConfirm.setText("Confirmar");
                     buttonConfirm.addActionListener(e -> save(e));
-                    panel7.add(buttonConfirm, BorderLayout.WEST);
+                    panel7.add(buttonConfirm, BorderLayout.EAST);
 
                     //---- buttonBack ----
                     buttonBack.setText("cancelar");
                     buttonBack.addActionListener(e -> back(e));
-                    panel7.add(buttonBack, BorderLayout.EAST);
+                    panel7.add(buttonBack, BorderLayout.WEST);
                 }
                 DetailTab.add(panel7, BorderLayout.SOUTH);
             }
             tabbedPane1.addTab("Detalhe", DetailTab);
         }
         add(tabbedPane1);
+
+        //======== contextMenu ========
+        {
+
+            //---- menuItemEdit ----
+            menuItemEdit.setText("Editar");
+            contextMenu.add(menuItemEdit);
+
+            //---- menuItemDelete ----
+            menuItemDelete.setText("Deletar");
+            menuItemDelete.addActionListener(e -> delete(e));
+            contextMenu.add(menuItemDelete);
+        }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
@@ -271,5 +351,8 @@ public class AddressView extends JPanel implements Serializable {
     private JPanel panel7;
     private JButton buttonConfirm;
     private JButton buttonBack;
+    private JPopupMenu contextMenu;
+    private JMenuItem menuItemEdit;
+    private JMenuItem menuItemDelete;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

@@ -8,5 +8,6 @@ import java.util.List;
 public interface AddressDataSource {
     List<Address> findAll();
     Address save(Address address);
+    void delete(String id);
 
 }

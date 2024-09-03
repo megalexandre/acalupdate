@@ -42,7 +42,7 @@ public class LoginScreen extends JFrame {
 
         if("root".equals(log) && "123".equals(pass)){
             mainScreen.setVisible(true);
-            telaPrincipal.setVisible(true);
+            //telaPrincipal.setVisible(true);
             dispose();
         } else {
             name.setText("");

@@ -88,14 +88,14 @@ new FormModel {
 							"text": "Confirmar"
 							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "save", true ) )
 						}, new FormLayoutConstraints( class java.lang.String ) {
-							"value": "West"
+							"value": "East"
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
 							name: "buttonBack"
 							"text": "cancelar"
 							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "back", true ) )
 						}, new FormLayoutConstraints( class java.lang.String ) {
-							"value": "East"
+							"value": "West"
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "South"
@@ -107,6 +107,20 @@ new FormModel {
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
 			"size": new java.awt.Dimension( 400, 300 )
+		} )
+		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+			name: "contextMenu"
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItemEdit"
+				"text": "Editar"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItemDelete"
+				"text": "Deletar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "delete", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 490, 140 )
 		} )
 	}
 }

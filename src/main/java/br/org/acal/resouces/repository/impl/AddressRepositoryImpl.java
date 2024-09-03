@@ -24,4 +24,9 @@ public class AddressRepositoryImpl implements AddressDataSource {
     public Address save(Address address) {
         return AddressAdapter.map(addressRepository.save( AddressAdapter.map(address)));
     }
+
+    @Override
+    public void delete(String id) {
+        addressRepository.deleteById(id);
+    }
 }

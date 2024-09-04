@@ -1,6 +1,6 @@
 package br.org.acal.resouces.repository.interfaces;
 
-import br.org.acal.resouces.model.LinkModel;
+import br.org.acal.resources.model.LinkModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

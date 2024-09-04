@@ -1,7 +1,7 @@
 package br.org.acal.resouces.adapter;
 
 import br.org.acal.domain.entity.Price;
-import br.org.acal.resouces.model.PriceModel;
+import br.org.acal.resources.model.PriceModel;
 
 public class PriceAdapter {
     public static Price map(PriceModel item){

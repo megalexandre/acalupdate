@@ -1,7 +1,7 @@
 package br.org.acal.resouces.adapter;
 
 import br.org.acal.domain.entity.Invoice;
-import br.org.acal.resouces.model.InvoiceModel;
+import br.org.acal.resources.model.InvoiceModel;
 
 public class InvoiceAdapter {
     public static Invoice map(InvoiceModel item){

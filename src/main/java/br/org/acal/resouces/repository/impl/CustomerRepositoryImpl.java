@@ -2,7 +2,6 @@ package br.org.acal.resouces.repository.impl;
 
 import br.org.acal.domain.entity.Customer;
 import br.org.acal.domain.datasource.CustomerDataSource;
-import br.org.acal.resouces.adapter.CustomerAdapter;
 import br.org.acal.resouces.repository.interfaces.CustomerRepositoryJpa;
 import org.springframework.stereotype.Repository;
 

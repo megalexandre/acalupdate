@@ -1,7 +1,7 @@
 package br.org.acal.resouces.adapter;
 
 import br.org.acal.domain.entity.Category;
-import br.org.acal.resouces.model.CategoryModel;
+import br.org.acal.resources.model.CategoryModel;
 
 public class CategoryAdapter {
     public static Category map(CategoryModel item){

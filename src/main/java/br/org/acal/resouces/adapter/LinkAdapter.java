@@ -1,7 +1,7 @@
 package br.org.acal.resouces.adapter;
 
 import br.org.acal.domain.entity.Link;
-import br.org.acal.resouces.model.LinkModel;
+import br.org.acal.resources.model.LinkModel;
 
 public class LinkAdapter {
     public static Link map(LinkModel item){

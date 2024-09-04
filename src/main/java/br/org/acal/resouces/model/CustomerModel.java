@@ -4,6 +4,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -35,6 +36,12 @@ public class CustomerModel implements Serializable {
     @Column(name = "sobrenome")
     private String lastName;
 
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PartnerModel partner;
+
+    @Column(name = "cnpj")
+    private String cnpj;
+
+    @Column(name = "cpf")
+    private String cpf;
 }

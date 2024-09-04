@@ -1,15 +1,11 @@
-package br.org.acal.domain.model;
+package br.org.acal.domain.entity;
 
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 @Builder
-public class Customer {
-
+public class WaterParam {
     private String number;
     private String name;
-
 }

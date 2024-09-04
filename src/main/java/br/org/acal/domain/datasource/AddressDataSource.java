@@ -1,7 +1,6 @@
-package br.org.acal.domain.repository;
+package br.org.acal.domain.datasource;
 
-import br.org.acal.domain.model.Address;
-import org.springframework.stereotype.Component;
+import br.org.acal.domain.entity.Address;
 
 import java.util.List;
 

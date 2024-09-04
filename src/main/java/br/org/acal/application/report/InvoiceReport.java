@@ -2,9 +2,9 @@ package br.org.acal.application.report;
 
 import br.org.acal.commons.LocalDateTimeUtil;
 import br.org.acal.commons.Prices;
-import br.org.acal.domain.model.Address;
-import br.org.acal.domain.model.Invoice;
-import br.org.acal.domain.model.WaterQuality;
+import br.org.acal.domain.entity.Address;
+import br.org.acal.domain.entity.Invoice;
+import br.org.acal.domain.entity.WaterQuality;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

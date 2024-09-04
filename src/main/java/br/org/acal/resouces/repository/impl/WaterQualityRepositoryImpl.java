@@ -1,9 +1,9 @@
 package br.org.acal.resouces.repository.impl;
 
-import br.org.acal.domain.model.WaterQuality;
-import br.org.acal.domain.repository.WaterQualityDataSource;
+import br.org.acal.domain.entity.WaterQuality;
+import br.org.acal.domain.datasource.WaterQualityDataSource;
 import br.org.acal.resouces.adapter.WaterQualityAdapter;
-import br.org.acal.resouces.repository.interfaces.WaterQualityRepository;
+import br.org.acal.resouces.repository.interfaces.WaterQualityRepositoryJpa;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
@@ -13,9 +13,9 @@ import java.util.List;
 
 @Repository
 public class WaterQualityRepositoryImpl implements WaterQualityDataSource {
-    private final WaterQualityRepository waterQualityRepository;
+    private final WaterQualityRepositoryJpa waterQualityRepository;
 
-    public WaterQualityRepositoryImpl(@Lazy WaterQualityRepository waterQualityRepository){
+    public WaterQualityRepositoryImpl(@Lazy WaterQualityRepositoryJpa waterQualityRepository){
         this.waterQualityRepository = waterQualityRepository;
     }
 

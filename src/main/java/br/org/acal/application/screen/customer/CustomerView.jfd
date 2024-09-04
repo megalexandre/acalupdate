@@ -7,23 +7,44 @@ new FormModel {
 			name: "this"
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
 				name: "tabbedPane1"
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) ) {
-					name: "panel1"
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "label1"
-						"text": "Meu ovo Esquerdo"
-					} )
-				}, new FormLayoutConstraints( null ) {
-					"title": "text"
-				} )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) ) {
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 					name: "panel2"
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "label2"
-						"text": "Meu ovo direito"
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+						name: "panel1"
+						"border": &EmptyBorder0 new javax.swing.border.EmptyBorder( 5, 5, 5, 5 )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane1"
+							add( new FormComponent( "javax.swing.JTable" ) {
+								name: "table"
+							} )
+						}, new FormLayoutConstraints( class java.lang.String ) {
+							"value": "Center"
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "Center"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+						name: "panel3"
+						"border": #EmptyBorder0
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label1"
+							"text": "Name:"
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textField1"
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "buttonSeach"
+							"text": "Consultar"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "seach", true ) )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "search", true ) )
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "South"
 					} )
 				}, new FormLayoutConstraints( null ) {
-					"title": "text"
+					"title": "Lista"
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {

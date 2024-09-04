@@ -1,6 +1,6 @@
-package br.org.acal.domain.repository;
+package br.org.acal.domain.datasource;
 
-import br.org.acal.domain.model.WaterQuality;
+import br.org.acal.domain.entity.WaterQuality;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

@@ -1,6 +1,6 @@
 package br.org.acal.resouces.adapter;
 
-import br.org.acal.domain.model.Link;
+import br.org.acal.domain.entity.Link;
 import br.org.acal.resouces.model.LinkModel;
 
 public class LinkAdapter {

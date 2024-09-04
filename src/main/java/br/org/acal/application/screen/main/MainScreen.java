@@ -12,26 +12,29 @@ import org.springframework.stereotype.Component;
 @Component
 public class MainScreen extends JFrame {
     private final AddressView addressView;
-    public MainScreen(AddressView addressView) {
+    private final CustomerView customerView;
+
+    public MainScreen(AddressView addressView, CustomerView customerView) {
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(800,600));
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         this.addressView = addressView;
+        this.customerView = customerView;
     }
 
     private void addressMenu(ActionEvent e) {
-        body.removeAll();
-        body.add(addressView);
-        body.revalidate();
-        body.repaint();
+        showPanel(addressView);
     }
 
     private void customerMenu(ActionEvent e) {
-        CustomerView view = new CustomerView();
+        showPanel(customerView);
+    }
+
+    private void showPanel(JPanel pane){
         body.removeAll();
-        body.add(view);
+        body.add(pane);
         body.revalidate();
         body.repaint();
     }

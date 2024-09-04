@@ -1,6 +1,6 @@
 package br.org.acal.application.screen.address;
 
-import br.org.acal.domain.model.Address;
+import br.org.acal.domain.entity.Address;
 import lombok.Builder;
 import lombok.Data;
 

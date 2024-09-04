@@ -1,6 +1,6 @@
 package br.org.acal.resouces.report.create;
 
-import br.org.acal.domain.model.ReportData;
+import br.org.acal.domain.entity.ReportData;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;

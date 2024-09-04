@@ -1,6 +1,6 @@
 package br.org.acal.resouces.adapter;
 
-import br.org.acal.domain.model.WaterMeter;
+import br.org.acal.domain.entity.WaterMeter;
 import br.org.acal.resouces.model.WaterMeterModel;
 import br.org.acal.commons.Coalesce;
 

@@ -1,11 +1,9 @@
 package br.org.acal.domain.usecase.address;
 
-import br.org.acal.domain.model.Address;
-import br.org.acal.domain.repository.AddressDataSource;
+import br.org.acal.domain.entity.Address;
+import br.org.acal.domain.datasource.AddressDataSource;
 import br.org.acal.domain.usecase.Usecase;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class SaveAddressUsecase implements Usecase<Address, Address> {

@@ -1,6 +1,6 @@
 package br.org.acal.resouces.adapter;
 
-import br.org.acal.domain.model.Address;
+import br.org.acal.domain.entity.Address;
 import br.org.acal.resouces.model.AddressModel;
 
 public class AddressAdapter {

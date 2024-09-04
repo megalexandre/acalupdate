@@ -1,6 +1,6 @@
 package br.org.acal.resouces.adapter;
 
-import br.org.acal.domain.model.Price;
+import br.org.acal.domain.entity.Price;
 import br.org.acal.resouces.model.PriceModel;
 
 public class PriceAdapter {

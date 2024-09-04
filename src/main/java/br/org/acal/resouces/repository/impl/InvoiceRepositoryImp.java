@@ -2,13 +2,13 @@ package br.org.acal.resouces.repository.impl;
 
 import br.org.acal.domain.FindInvoice;
 import br.org.acal.domain.StatusPaymentInvoice;
-import br.org.acal.domain.model.Invoice;
+import br.org.acal.domain.entity.Invoice;
 import br.org.acal.resouces.adapter.InvoiceAdapter;
 import br.org.acal.resouces.model.CategoryModel;
 import br.org.acal.resouces.model.CustomerModel;
 import br.org.acal.resouces.model.InvoiceModel;
 import br.org.acal.resouces.model.LinkModel;
-import br.org.acal.resouces.repository.interfaces.InvoiceRepository;
+import br.org.acal.resouces.repository.interfaces.InvoiceRepositoryJpa;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.JoinType;
@@ -26,12 +26,12 @@ import java.util.ArrayList;
 @Repository
 public class InvoiceRepositoryImp {
 
-    private final InvoiceRepository invoiceRepository;
+    private final InvoiceRepositoryJpa invoiceRepositoryJpa;
 
     private final EntityManager entityManager;
 
-    public InvoiceRepositoryImp(InvoiceRepository invoiceRepository, EntityManager entityManager){
-        this.invoiceRepository = invoiceRepository;
+    public InvoiceRepositoryImp(InvoiceRepositoryJpa invoiceRepositoryJpa, EntityManager entityManager){
+        this.invoiceRepositoryJpa = invoiceRepositoryJpa;
         this.entityManager = entityManager;
     }
     public List<Invoice> find(FindInvoice findInvoice) {

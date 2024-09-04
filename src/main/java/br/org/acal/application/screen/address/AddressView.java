@@ -3,7 +3,7 @@ package br.org.acal.application.screen.address;
 import br.org.acal.application.screen.address.model.CreateAddress;
 import br.org.acal.application.screen.render.StripperRender;
 import br.org.acal.commons.enumeration.AddressType;
-import br.org.acal.domain.model.Address;
+import br.org.acal.domain.entity.Address;
 import br.org.acal.domain.usecase.address.DeleteAddressUsecase;
 import br.org.acal.domain.usecase.address.FindAllAddressUsecase;
 import br.org.acal.domain.usecase.address.SaveAddressUsecase;

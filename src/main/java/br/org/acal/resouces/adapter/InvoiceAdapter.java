@@ -1,6 +1,6 @@
 package br.org.acal.resouces.adapter;
 
-import br.org.acal.domain.model.Invoice;
+import br.org.acal.domain.entity.Invoice;
 import br.org.acal.resouces.model.InvoiceModel;
 
 public class InvoiceAdapter {

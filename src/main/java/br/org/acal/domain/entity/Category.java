@@ -1,4 +1,4 @@
-package br.org.acal.domain.model;
+package br.org.acal.domain.entity;
 
 import lombok.Builder;
 import lombok.Data;

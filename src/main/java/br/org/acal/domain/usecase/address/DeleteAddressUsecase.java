@@ -1,17 +1,22 @@
 package br.org.acal.domain.usecase.address;
 
 import br.org.acal.domain.FindLink;
-import br.org.acal.domain.repository.AddressDataSource;
-import br.org.acal.domain.repository.LinkDataSource;
+import br.org.acal.domain.datasource.AddressDataSource;
+import br.org.acal.domain.datasource.LinkDataSource;
 import br.org.acal.domain.response.UsecaseResponse;
 import br.org.acal.domain.usecase.Usecase;
 import lombok.val;
 import org.springframework.stereotype.Service;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 import static java.util.List.of;
 
 @Service
-public class DeleteAddressUsecase implements Usecase<String, UsecaseResponse> {
+public class DeleteAddressUsecase implements Serializable, Usecase<String, UsecaseResponse> {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private final AddressDataSource addressDataSource;
     private final LinkDataSource linkDataSource;
     private final String ERROR_MESSAGE = "Não pode ser deletado, está associado uma ligação";

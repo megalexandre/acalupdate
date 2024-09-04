@@ -1,9 +1,9 @@
 package br.org.acal.resouces.repository.impl;
 
-import br.org.acal.domain.model.Address;
-import br.org.acal.domain.repository.AddressDataSource;
+import br.org.acal.domain.entity.Address;
+import br.org.acal.domain.datasource.AddressDataSource;
 import br.org.acal.resouces.adapter.AddressAdapter;
-import br.org.acal.resouces.repository.interfaces.AddressRepositoryB;
+import br.org.acal.resouces.repository.interfaces.AddressRepositoryJpa;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
@@ -11,8 +11,8 @@ import java.util.List;
 
 @Repository
 public class AddressRepositoryImpl implements AddressDataSource {
-    private final AddressRepositoryB addressRepository;
-    public AddressRepositoryImpl(AddressRepositoryB addressRepository){
+    private final AddressRepositoryJpa addressRepository;
+    public AddressRepositoryImpl(AddressRepositoryJpa addressRepository){
         this.addressRepository = addressRepository;
     }
     public List<Address> findAll() {

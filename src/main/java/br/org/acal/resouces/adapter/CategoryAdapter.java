@@ -1,6 +1,6 @@
 package br.org.acal.resouces.adapter;
 
-import br.org.acal.domain.model.Category;
+import br.org.acal.domain.entity.Category;
 import br.org.acal.resouces.model.CategoryModel;
 
 public class CategoryAdapter {

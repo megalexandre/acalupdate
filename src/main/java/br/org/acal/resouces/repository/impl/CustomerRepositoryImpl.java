@@ -17,6 +17,6 @@ public class CustomerRepositoryImpl implements CustomerDataSource {
     }
     @Override
     public List<Customer> findAll() {
-        return customerRepositoryJpa.findAll().stream().map(CustomerAdapter::map).toList();
+        return customerRepositoryJpa.findAllByOrderByNameAsc().stream().map(CustomerAdapter::map).toList();
     }
 }

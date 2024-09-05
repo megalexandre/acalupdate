@@ -5,13 +5,13 @@ public enum Print {
     NEW_INVOICE("/print/acal/invoice.jrxml"),
     NEW_INVOICE_DETAIL("/report/invoice/invoiceDetail.jasper");
 
-    private final StringUtil path;
+    private final String path;
 
-    Print(StringUtil path) {
+    Print(String path) {
         this.path = path;
     }
 
-    public StringUtil getPath() {
+    public String getPath() {
         return path;
     }
 }

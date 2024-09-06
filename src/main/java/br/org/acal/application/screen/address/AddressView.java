@@ -1,7 +1,8 @@
 package br.org.acal.application.screen.address;
 
+import javax.swing.*;
 import br.org.acal.application.screen.address.model.CreateAddress;
-import br.org.acal.application.screen.render.StripperRender;
+import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.commons.enumeration.AddressType;
 import br.org.acal.domain.entity.Address;
 import br.org.acal.domain.usecase.address.DeleteAddressUsecase;
@@ -106,7 +107,7 @@ public class AddressView extends JPanel implements Serializable {
         val addressTableModel = new AddressTableModel(addresses.stream().map(AddressTable::of).toList());
 
         table.setModel(addressTableModel);
-        val customRenderer = new StripperRender();
+        val customRenderer = new StrippedTableCellRenderer();
 
         range(0, table.getColumnCount()).forEach(i ->
             table.getColumnModel().getColumn(i).setCellRenderer(customRenderer)

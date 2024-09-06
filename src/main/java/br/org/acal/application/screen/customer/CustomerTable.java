@@ -11,11 +11,12 @@ public class CustomerTable {
     private String name;
     private String number;
     private String document;
+
     public static CustomerTable of(Customer customer){
         return CustomerTable.builder()
             .number(customer.getNumber())
             .name(customer.getName())
-            .document(customer.getDocument().getNumber())
+            .document(customer.getDocument().documentNumber())
         .build();
     }
 

@@ -27,19 +27,9 @@ new FormModel {
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 						name: "panelOptions"
 						"border": #EmptyBorder0
-						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
 							name: "panel7"
-							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
-								name: "panel6"
-								add( new FormComponent( "javax.swing.JLabel" ) {
-									name: "label2"
-									"text": "Documento:"
-								} )
-								add( new FormComponent( "javax.swing.JTextField" ) {
-									name: "textFieldDocument"
-								} )
-							} )
-							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
 								name: "panel5"
 								add( new FormComponent( "javax.swing.JLabel" ) {
 									name: "label1"
@@ -49,10 +39,20 @@ new FormModel {
 									name: "textFieldName"
 								} )
 							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+								name: "panel6"
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label2"
+									"text": "Documento:"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textFieldDocument"
+								} )
+							} )
 						}, new FormLayoutConstraints( class java.lang.String ) {
-							"value": "South"
+							"value": "West"
 						} )
-						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
 							name: "panel4"
 							add( new FormComponent( "javax.swing.JButton" ) {
 								name: "buttonClear"
@@ -78,6 +78,23 @@ new FormModel {
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
 			"size": new java.awt.Dimension( 400, 300 )
+		} )
+		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+			name: "contextMenu"
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem1"
+				"text": "Visualizar"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem2"
+				"text": "Ligações"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem3"
+				"text": "Faturas"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 445, 150 )
 		} )
 	}
 }

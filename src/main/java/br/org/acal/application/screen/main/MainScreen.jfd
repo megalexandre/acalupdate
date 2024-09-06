@@ -42,8 +42,9 @@ new FormModel {
 					name: "menu2"
 					"text": "Faturas"
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "menuItem5"
+						name: "invoiceMenu"
 						"text": "Consultas"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "invoiceMenu", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItem6"

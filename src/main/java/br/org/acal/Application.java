@@ -17,7 +17,7 @@ import javax.swing.SwingUtilities;
 public class Application {
 
     public static void main(String[] args) {
-        FlatIntelliJLaf.setup();
+       FlatDarkLaf.setup();
 
         ConfigurableApplicationContext context = new SpringApplicationBuilder(Application.class)
                 .headless(false)

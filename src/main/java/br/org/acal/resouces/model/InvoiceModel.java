@@ -37,7 +37,7 @@ public class InvoiceModel {
     @JoinColumn(name = "idEnderecoPessoa", referencedColumnName = "id")
     private LinkModel link;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "invoice", cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "invoice", cascade = CascadeType.ALL)
     private WaterMeterModel waterMeter;
 
     @Column(name = "dataPag")

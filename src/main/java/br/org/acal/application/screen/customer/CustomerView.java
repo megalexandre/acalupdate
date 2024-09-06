@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import br.org.acal.application.screen.address.AddressTableModel;
+import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.domain.usecase.customer.FindCustomer;
 import lombok.val;
 import org.jdesktop.swingx.*;
@@ -27,11 +28,42 @@ public class CustomerView extends JPanel {
         val customers = find.execute(null);
         val tableModel = new CustomerTableModel(customers.stream().map(CustomerTable::of).toList());
         table.setModel(tableModel);
+        table.setDefaultRenderer(String.class, new StrippedTableCellRenderer());
+        setContextMenu();
     }
 
     private void seach(ActionEvent e) {
 
-        // TODO add your code here
+    }
+
+    private void setContextMenu(){
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                showPopup(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                showPopup(e);
+            }
+
+            private void showPopup(MouseEvent e) {
+                if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
+                    int row = table.rowAtPoint(e.getPoint());
+                    int column = table.columnAtPoint(e.getPoint());
+
+                    if (!table.isRowSelected(row)) {
+                        table.setRowSelectionInterval(row, row);
+                    }
+                    if (!table.isColumnSelected(column)) {
+                        table.setColumnSelectionInterval(column, column);
+                    }
+
+                    contextMenu.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
     }
 
     private void clear(ActionEvent e) {
@@ -48,15 +80,19 @@ public class CustomerView extends JPanel {
         table = new JTable();
         panelOptions = new JPanel();
         panel7 = new JPanel();
-        panel6 = new JPanel();
-        label2 = new JLabel();
-        textFieldDocument = new JTextField();
         panel5 = new JPanel();
         label1 = new JLabel();
         textFieldName = new JTextField();
+        panel6 = new JPanel();
+        label2 = new JLabel();
+        textFieldDocument = new JTextField();
         panel4 = new JPanel();
         buttonClear = new JButton();
         buttonSeach = new JButton();
+        contextMenu = new JPopupMenu();
+        menuItem1 = new JMenuItem();
+        menuItem2 = new JMenuItem();
+        menuItem3 = new JMenuItem();
 
         //======== this ========
         setLayout(new GridLayout());
@@ -89,22 +125,11 @@ public class CustomerView extends JPanel {
 
                     //======== panel7 ========
                     {
-                        panel7.setLayout(new HorizontalLayout());
-
-                        //======== panel6 ========
-                        {
-                            panel6.setLayout(new HorizontalLayout());
-
-                            //---- label2 ----
-                            label2.setText("Documento:");
-                            panel6.add(label2);
-                            panel6.add(textFieldDocument);
-                        }
-                        panel7.add(panel6);
+                        panel7.setLayout(new FlowLayout());
 
                         //======== panel5 ========
                         {
-                            panel5.setLayout(new HorizontalLayout());
+                            panel5.setLayout(new VerticalLayout());
 
                             //---- label1 ----
                             label1.setText("Name:");
@@ -112,12 +137,23 @@ public class CustomerView extends JPanel {
                             panel5.add(textFieldName);
                         }
                         panel7.add(panel5);
+
+                        //======== panel6 ========
+                        {
+                            panel6.setLayout(new VerticalLayout());
+
+                            //---- label2 ----
+                            label2.setText("Documento:");
+                            panel6.add(label2);
+                            panel6.add(textFieldDocument);
+                        }
+                        panel7.add(panel6);
                     }
-                    panelOptions.add(panel7, BorderLayout.SOUTH);
+                    panelOptions.add(panel7, BorderLayout.WEST);
 
                     //======== panel4 ========
                     {
-                        panel4.setLayout(new HorizontalLayout());
+                        panel4.setLayout(new FlowLayout());
 
                         //---- buttonClear ----
                         buttonClear.setText("Limpar");
@@ -139,6 +175,22 @@ public class CustomerView extends JPanel {
             tabbedPane1.addTab("Lista", panel2);
         }
         add(tabbedPane1);
+
+        //======== contextMenu ========
+        {
+
+            //---- menuItem1 ----
+            menuItem1.setText("Visualizar");
+            contextMenu.add(menuItem1);
+
+            //---- menuItem2 ----
+            menuItem2.setText("Liga\u00e7\u00f5es");
+            contextMenu.add(menuItem2);
+
+            //---- menuItem3 ----
+            menuItem3.setText("Faturas");
+            contextMenu.add(menuItem3);
+        }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
@@ -151,14 +203,18 @@ public class CustomerView extends JPanel {
     private JTable table;
     private JPanel panelOptions;
     private JPanel panel7;
-    private JPanel panel6;
-    private JLabel label2;
-    private JTextField textFieldDocument;
     private JPanel panel5;
     private JLabel label1;
     private JTextField textFieldName;
+    private JPanel panel6;
+    private JLabel label2;
+    private JTextField textFieldDocument;
     private JPanel panel4;
     private JButton buttonClear;
     private JButton buttonSeach;
+    private JPopupMenu contextMenu;
+    private JMenuItem menuItem1;
+    private JMenuItem menuItem2;
+    private JMenuItem menuItem3;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

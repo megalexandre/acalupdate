@@ -7,14 +7,17 @@ import javax.swing.border.*;
 
 import br.org.acal.application.screen.address.AddressView;
 import br.org.acal.application.screen.customer.CustomerView;
+import br.org.acal.application.screen.invoice.InvoiceView;
+import br.org.acal.domain.entity.Invoice;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MainScreen extends JFrame {
     private final AddressView addressView;
     private final CustomerView customerView;
+    private final InvoiceView invoiceView;
 
-    public MainScreen(AddressView addressView, CustomerView customerView) {
+    public MainScreen(AddressView addressView, CustomerView customerView, InvoiceView invoiceView) {
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(800,600));
@@ -22,6 +25,7 @@ public class MainScreen extends JFrame {
         setLocationRelativeTo(null);
         this.addressView = addressView;
         this.customerView = customerView;
+        this.invoiceView = invoiceView;
     }
 
     private void addressMenu(ActionEvent e) {
@@ -32,12 +36,21 @@ public class MainScreen extends JFrame {
         showPanel(customerView);
     }
 
+    private void invoiceMenu(ActionEvent e) {
+        showPanel(invoiceView);
+    }
+
     private void showPanel(JPanel pane){
         body.removeAll();
         body.add(pane);
         body.revalidate();
         body.repaint();
     }
+
+    private void CustomerMenu(ActionEvent e) {
+        // TODO add your code here
+    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -49,7 +62,7 @@ public class MainScreen extends JFrame {
         categoryMenu = new JMenuItem();
         menuItem4 = new JMenuItem();
         menu2 = new JMenu();
-        menuItem5 = new JMenuItem();
+        invoiceMenu = new JMenuItem();
         menuItem6 = new JMenuItem();
         menu3 = new JMenu();
         menuItem7 = new JMenuItem();
@@ -75,7 +88,10 @@ public class MainScreen extends JFrame {
 
                 //---- customerMenu ----
                 customerMenu.setText("S\u00f3cios");
-                customerMenu.addActionListener(this::customerMenu);
+                customerMenu.addActionListener(e -> {
+			CustomerMenu(e);
+			customerMenu(e);
+		});
                 menu1.add(customerMenu);
 
                 //---- categoryMenu ----
@@ -92,9 +108,10 @@ public class MainScreen extends JFrame {
             {
                 menu2.setText("Faturas");
 
-                //---- menuItem5 ----
-                menuItem5.setText("Consultas");
-                menu2.add(menuItem5);
+                //---- invoiceMenu ----
+                invoiceMenu.setText("Consultas");
+                invoiceMenu.addActionListener(e -> invoiceMenu(e));
+                menu2.add(invoiceMenu);
 
                 //---- menuItem6 ----
                 menuItem6.setText("Consultas Avan\u00e7adas");
@@ -134,7 +151,7 @@ public class MainScreen extends JFrame {
     private JMenuItem categoryMenu;
     private JMenuItem menuItem4;
     private JMenu menu2;
-    private JMenuItem menuItem5;
+    private JMenuItem invoiceMenu;
     private JMenuItem menuItem6;
     private JMenu menu3;
     private JMenuItem menuItem7;

@@ -6,13 +6,17 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class InvoiceTableModel extends AbstractTableModel {
-    private final int NUMBER = 0;
-    private final int PAYED_AT = 1;
-    private final int DUO_DATE = 2;
+    private final int CUSTOMER = 0;
+    private final int ADDRESS = 1;
+    private final int NUMBER = 2;
     private final int PERIOD = 3;
-    private final int CUSTOMER= 4;
+    private final int PAYED_AT = 4;
+    private final int TOTAL = 5;
     private final List<InvoiceTable> itens;
-    private final String[] columns = new String[]{"#","Pago em:", "Vencimento:", "Periodo:", "Cliente:" };
+
+    private final String[] columns = new String[]{
+        "Cliente", "Endereço:", "Número", "Periodo", "Pago em:", "Total:"
+    };
 
     public InvoiceTableModel(List<InvoiceTable> itens){
         this.itens = itens;
@@ -35,11 +39,12 @@ public class InvoiceTableModel extends AbstractTableModel {
         InvoiceTable item = itens.get(rowIndex);
 
         return switch (columnIndex) {
-            case NUMBER -> item.getNumber();
-            case PAYED_AT -> item.getPayedAt();
-            case DUO_DATE -> item.getDuoDate();
-            case PERIOD -> item.getPeriod();
             case CUSTOMER -> item.getCustomer();
+            case ADDRESS -> item.getAddress();
+            case PAYED_AT -> item.getPayedAt();
+            case NUMBER -> item.getNumber();
+            case PERIOD -> item.getPeriod();
+            case TOTAL -> item.getTotal();
             default -> throw new IndexOutOfBoundsException("Campo Não Encontrado");
         };
     }

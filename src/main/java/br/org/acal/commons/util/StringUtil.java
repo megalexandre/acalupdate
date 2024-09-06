@@ -1,4 +1,4 @@
-package br.org.acal.commons;
+package br.org.acal.commons.util;
 
 public class StringUtil {
     public static String clean(String string){

@@ -1,4 +1,4 @@
-package br.org.acal.commons;
+package br.org.acal.commons.util;
 
 import java.time.format.DateTimeFormatter;
 

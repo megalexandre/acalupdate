@@ -1,6 +1,6 @@
 package br.org.acal.application.report;
 
-import br.org.acal.commons.LocalDateTimeUtil;
+import br.org.acal.commons.util.LocalDateTimeUtil;
 import br.org.acal.commons.Prices;
 import br.org.acal.domain.entity.Address;
 import br.org.acal.domain.entity.Invoice;

@@ -14,6 +14,8 @@ import lombok.val;
 import org.jdesktop.swingx.*;
 import org.springframework.stereotype.Component;
 
+import static java.util.stream.IntStream.range;
+
 @Component
 public class CustomerView extends JPanel {
 
@@ -28,7 +30,11 @@ public class CustomerView extends JPanel {
         val customers = find.execute(null);
         val tableModel = new CustomerTableModel(customers.stream().map(CustomerTable::of).toList());
         table.setModel(tableModel);
-        table.setDefaultRenderer(String.class, new StrippedTableCellRenderer());
+        val render = new StrippedTableCellRenderer();
+        table.setDefaultRenderer(String.class, render);
+        range(0, table.getColumnCount()).forEach(i ->
+            table.getColumnModel().getColumn(i).setCellRenderer(render)
+        );
         setContextMenu();
     }
 

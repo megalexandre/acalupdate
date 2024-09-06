@@ -22,6 +22,8 @@ public class Invoice {
     private BigDecimal otherValues;
     private WaterMeter waterMeter;
 
+
+
     public Period period(){
         return Period.of(period);
     }

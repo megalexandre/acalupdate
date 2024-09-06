@@ -2,7 +2,7 @@ package br.org.acal.application.telas.relatorios;
 
 import br.org.acal.application.report.InvoiceReport;
 import br.org.acal.application.telas.TelaPrincipal;
-import br.org.acal.commons.DateUtils;
+import br.org.acal.commons.util.DateUtil;
 import br.org.acal.domain.datasource.InvoiceDataSource;
 import br.org.acal.domain.datasource.WaterQualityDataSource;
 import br.org.acal.resouces.dao.DaoCategoriaSocio;
@@ -956,13 +956,13 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         }
 
         if (jCheckBoxData.isSelected()) {
-            find.setCreatedAtStart(DateUtils.from(jFormattedTextFieldDataMenor.getDate()));
-            find.setCreatedAtEnd(DateUtils.from(jFormattedTextFieldDataMaior.getDate()));
+            find.setCreatedAtStart(DateUtil.from(jFormattedTextFieldDataMenor.getDate()));
+            find.setCreatedAtEnd(DateUtil.from(jFormattedTextFieldDataMaior.getDate()));
         }
 
         if (jCheckBoxDataVecimento.isSelected()) {
-            find.setDuoDateStart(DateUtils.from(jDateVencimentoMenor.getDate()));
-            find.setDuoDateEnd(DateUtils.from(jDateVencimentoMenor.getDate()));
+            find.setDuoDateStart(DateUtil.from(jDateVencimentoMenor.getDate()));
+            find.setDuoDateEnd(DateUtil.from(jDateVencimentoMenor.getDate()));
         }
 
         if (jCheckBoxCategoria.isSelected()) {

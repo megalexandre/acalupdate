@@ -3,7 +3,6 @@ spring:
     url: jdbc:mysql://localhost:3308/acal
     username: root
     password: 123
-    driver-class-name: com.mysql.jdbc.Driver
 
   jpa:
     show-sql: true

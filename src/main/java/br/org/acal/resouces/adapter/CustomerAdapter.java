@@ -1,10 +1,9 @@
 package br.org.acal.resouces.adapter;
 
-import br.org.acal.commons.StringUtil;
+import br.org.acal.commons.util.StringUtil;
 import br.org.acal.domain.entity.Customer;
 import br.org.acal.domain.entity.Document;
 import br.org.acal.resouces.model.CustomerModel;
-import lombok.val;
 
 public class CustomerAdapter {
     public static Customer map(CustomerModel customerModel){

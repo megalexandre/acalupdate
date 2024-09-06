@@ -23,7 +23,4 @@ public class Period {
         return Period.builder().month(localDate.getMonth()).year(localDate.getYear()).build();
     }
 
-    public String asString() {
-        return year + "/" + month;
-    }
 }

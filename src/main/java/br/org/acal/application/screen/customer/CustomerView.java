@@ -8,8 +8,9 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import br.org.acal.application.screen.address.AddressTableModel;
+import br.org.acal.application.screen.customer.model.FindCustomer;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
-import br.org.acal.domain.usecase.customer.FindCustomer;
+import br.org.acal.domain.usecase.customer.FindCustomerUseCase;
 import lombok.val;
 import org.jdesktop.swingx.*;
 import org.springframework.stereotype.Component;
@@ -19,27 +20,45 @@ import static java.util.stream.IntStream.range;
 @Component
 public class CustomerView extends JPanel {
 
-   public FindCustomer find;
+   private final FindCustomerUseCase find;
 
-    public CustomerView(FindCustomer find) {
+    public CustomerView(FindCustomerUseCase find) {
         initComponents();
         this.find = find;
     }
 
     private void search(ActionEvent e) {
-        val customers = find.execute(null);
+        search();
+    }
+
+    private void search(){
+        val customers = find.execute(createFilter());
         val tableModel = new CustomerTableModel(customers.stream().map(CustomerTable::of).toList());
         table.setModel(tableModel);
         val render = new StrippedTableCellRenderer();
         table.setDefaultRenderer(String.class, render);
+
         range(0, table.getColumnCount()).forEach(i ->
-            table.getColumnModel().getColumn(i).setCellRenderer(render)
+                table.getColumnModel().getColumn(i).setCellRenderer(render)
         );
         setContextMenu();
     }
 
-    private void seach(ActionEvent e) {
 
+    private FindCustomer createFilter() {
+        val filter = FindCustomer.builder();
+
+        if(textFieldName.getText() != null){
+            filter.name(textFieldName.getText());
+        }
+        if(textFieldDocument.getText() != null){
+            filter.document(textFieldDocument.getText());
+        }
+
+        return filter.build();
+    }
+
+    private void seach(ActionEvent e) {
     }
 
     private void setContextMenu(){
@@ -76,6 +95,18 @@ public class CustomerView extends JPanel {
         table.setModel(new AddressTableModel(List.of()));
     }
 
+    private void textFieldNameKeyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            search();
+        }
+    }
+
+    private void textFieldDocumentKeyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            search();
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner non-commercial license
@@ -93,6 +124,7 @@ public class CustomerView extends JPanel {
         label2 = new JLabel();
         textFieldDocument = new JTextField();
         panel4 = new JPanel();
+        panel3 = new JPanel();
         buttonClear = new JButton();
         buttonSeach = new JButton();
         contextMenu = new JPopupMenu();
@@ -118,6 +150,7 @@ public class CustomerView extends JPanel {
 
                     //======== scrollPane1 ========
                     {
+                        scrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
                         scrollPane1.setViewportView(table);
                     }
                     panel1.add(scrollPane1, BorderLayout.CENTER);
@@ -131,48 +164,76 @@ public class CustomerView extends JPanel {
 
                     //======== panel7 ========
                     {
-                        panel7.setLayout(new FlowLayout());
+                        panel7.setLayout(new BorderLayout());
 
                         //======== panel5 ========
                         {
+                            panel5.setMinimumSize(new Dimension(150, 38));
                             panel5.setLayout(new VerticalLayout());
 
                             //---- label1 ----
-                            label1.setText("Name:");
+                            label1.setText("Nome:");
                             panel5.add(label1);
+
+                            //---- textFieldName ----
+                            textFieldName.setMinimumSize(new Dimension(150, 22));
+                            textFieldName.setPreferredSize(new Dimension(150, 22));
+                            textFieldName.addKeyListener(new KeyAdapter() {
+                                @Override
+                                public void keyPressed(KeyEvent e) {
+                                    textFieldNameKeyPressed(e);
+                                }
+                            });
                             panel5.add(textFieldName);
                         }
-                        panel7.add(panel5);
+                        panel7.add(panel5, BorderLayout.WEST);
 
                         //======== panel6 ========
                         {
+                            panel6.setMinimumSize(new Dimension(150, 38));
                             panel6.setLayout(new VerticalLayout());
 
                             //---- label2 ----
                             label2.setText("Documento:");
                             panel6.add(label2);
+
+                            //---- textFieldDocument ----
+                            textFieldDocument.setMinimumSize(new Dimension(150, 22));
+                            textFieldDocument.setPreferredSize(new Dimension(150, 22));
+                            textFieldDocument.addKeyListener(new KeyAdapter() {
+                                @Override
+                                public void keyPressed(KeyEvent e) {
+                                    textFieldDocumentKeyPressed(e);
+                                }
+                            });
                             panel6.add(textFieldDocument);
                         }
-                        panel7.add(panel6);
+                        panel7.add(panel6, BorderLayout.EAST);
                     }
                     panelOptions.add(panel7, BorderLayout.WEST);
 
                     //======== panel4 ========
                     {
-                        panel4.setLayout(new FlowLayout());
+                        panel4.setLayout(new BorderLayout());
 
-                        //---- buttonClear ----
-                        buttonClear.setText("Limpar");
-                        buttonClear.addActionListener(e -> clear(e));
-                        panel4.add(buttonClear);
+                        //======== panel3 ========
+                        {
+                            panel3.setLayout(new BorderLayout());
 
-                        //---- buttonSeach ----
-                        buttonSeach.setText("Consultar");
-                        buttonSeach.addActionListener(e -> {
+                            //---- buttonClear ----
+                            buttonClear.setText("Limpar");
+                            buttonClear.addActionListener(e -> clear(e));
+                            panel3.add(buttonClear, BorderLayout.WEST);
+
+                            //---- buttonSeach ----
+                            buttonSeach.setText("Consultar");
+                            buttonSeach.addActionListener(e -> {
 			seach(e);
 			search(e);
 		});
-                        panel4.add(buttonSeach);
+                            panel3.add(buttonSeach, BorderLayout.EAST);
+                        }
+                        panel4.add(panel3, BorderLayout.SOUTH);
                     }
                     panelOptions.add(panel4, BorderLayout.EAST);
                 }
@@ -216,6 +277,7 @@ public class CustomerView extends JPanel {
     private JLabel label2;
     private JTextField textFieldDocument;
     private JPanel panel4;
+    private JPanel panel3;
     private JButton buttonClear;
     private JButton buttonSeach;
     private JPopupMenu contextMenu;

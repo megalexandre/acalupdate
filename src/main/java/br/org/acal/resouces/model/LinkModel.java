@@ -2,6 +2,7 @@ package br.org.acal.resouces.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -25,18 +26,18 @@ public class LinkModel implements Serializable {
     @Column(name = "id")
     private String number;
 
-    @JoinColumn(name = "idPessoa", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @JoinColumn( name = "idPessoa", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private CustomerModel customer;
 
     @JoinColumn(name = "idEndereco", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     private AddressModel address;
 
     @JoinColumn(name = "idCategoriaSocio", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private CategoryModel category;
 
     @Column(name = "Numero")
-    private String partnerNumber;
+    private String linkNumber;
 }

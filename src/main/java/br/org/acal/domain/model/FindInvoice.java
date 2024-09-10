@@ -1,5 +1,6 @@
-package br.org.acal.domain;
+package br.org.acal.domain.model;
 
+import br.org.acal.commons.enumeration.StatusPaymentInvoice;
 import lombok.Data;
 
 import java.time.LocalDateTime;

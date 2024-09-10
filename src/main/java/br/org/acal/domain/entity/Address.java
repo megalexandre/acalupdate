@@ -11,7 +11,6 @@ public class Address {
     private String type;
 
     private String name;
-
     public String getDisplayName(){
         return type + " " + name;
     }

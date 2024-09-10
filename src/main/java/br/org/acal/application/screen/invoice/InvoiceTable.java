@@ -20,6 +20,7 @@ public class InvoiceTable {
     private String duoDate;
     private String period;
     private String customer;
+    private String document;
     private String address;
     private String total;
 
@@ -30,7 +31,11 @@ public class InvoiceTable {
                 .duoDate(date.format(invoice.getDuoDate()))
                 .period(PeriodUtil.formatter(invoice.period()))
                 .customer(invoice.getLink().getCustomer().getName())
-                .address(invoice.getLink().getAddress().getDisplayName())
+                .document(invoice.getLink().getCustomer().getDocument().documentNumber())
+                .address(
+                    invoice.getLink().getAddress().getDisplayName() +" "+
+                    invoice.getLink().getLinkNumber()
+                )
                 .total(currency.format(invoice.totalValue()))
                 .build();
     }

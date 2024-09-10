@@ -8,7 +8,7 @@ import lombok.Data;
 public class Link {
 
     private String number;
-    private String partnerNumber;
+    private String linkNumber;
     private Customer customer;
     private Address address;
     private Category category;

@@ -1,6 +1,6 @@
 package br.org.acal.domain.usecase.address;
 
-import br.org.acal.domain.FindLink;
+import br.org.acal.domain.model.FindLink;
 import br.org.acal.domain.datasource.AddressDataSource;
 import br.org.acal.domain.datasource.LinkDataSource;
 import br.org.acal.domain.response.UsecaseResponse;

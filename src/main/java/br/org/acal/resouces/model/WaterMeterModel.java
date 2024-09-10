@@ -1,5 +1,6 @@
 package br.org.acal.resouces.model;
 
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,7 +33,7 @@ public class WaterMeterModel implements Serializable {
     @Column(name = "consumo_final")
     private Double consumptionEnd;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idConta", referencedColumnName = "id")
     private InvoiceModel invoice;
 }

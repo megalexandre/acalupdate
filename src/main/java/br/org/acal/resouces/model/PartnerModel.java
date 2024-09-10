@@ -2,6 +2,7 @@ package br.org.acal.resouces.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -31,7 +32,7 @@ public class PartnerModel implements Serializable {
     @Column(name = "numeroSocio")
     private int partnerNumber;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idPessoa", referencedColumnName = "id")
     private CustomerModel customer;
 

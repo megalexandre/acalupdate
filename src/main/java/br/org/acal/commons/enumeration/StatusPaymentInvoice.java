@@ -1,4 +1,4 @@
-package br.org.acal.domain;
+package br.org.acal.commons.enumeration;
 
 public enum StatusPaymentInvoice {
 

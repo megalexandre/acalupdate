@@ -10,7 +10,7 @@ public class LinkAdapter {
                 .number(item.getNumber())
                 .address(AddressAdapter.map(item.getAddress()) )
                 .customer(CustomerAdapter.map(item.getCustomer()))
-                .partnerNumber(item.getPartnerNumber())
+                .linkNumber(item.getLinkNumber())
                 .category(CategoryAdapter.map(item.getCategory()))
             .build();
     }
@@ -20,7 +20,7 @@ public class LinkAdapter {
             .builder()
                 .number(item.getNumber())
                 .address(AddressAdapter.map(item.getAddress()) )
-                .partnerNumber(item.getPartnerNumber())
+                .linkNumber(item.getLinkNumber())
                 .customer(CustomerAdapter.map(item.getCustomer()))
                 .category(CategoryAdapter.map(item.getCategory()))
             .build();

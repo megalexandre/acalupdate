@@ -5,19 +5,17 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import br.org.acal.application.screen.customer.CustomerTable;
-import br.org.acal.application.screen.customer.CustomerTableModel;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
-import br.org.acal.domain.usecase.invoice.FindInvoice;
+import br.org.acal.domain.usecase.invoice.FindInvoiceUseCase;
 import lombok.val;
 import org.springframework.stereotype.Component;
 
 @Component
 public class InvoiceView extends JPanel {
 
-    private final FindInvoice find;
+    private final FindInvoiceUseCase find;
     public InvoiceView(
-        FindInvoice find
+        FindInvoiceUseCase find
     ) {
         initComponents();
         this.find = find;

@@ -36,7 +36,7 @@ public class CustomerModel implements Serializable {
     @Column(name = "sobrenome")
     private String lastName;
 
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
     private PartnerModel partner;
 
     @Column(name = "cnpj")

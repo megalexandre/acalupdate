@@ -15,6 +15,7 @@ public class AddressRepositoryImpl implements AddressDataSource {
     public AddressRepositoryImpl(AddressRepositoryJpa addressRepository){
         this.addressRepository = addressRepository;
     }
+
     public List<Address> findAll() {
         Sort sort = Sort.by(Sort.Order.asc("type"), Sort.Order.asc("name"));
         return addressRepository.findAll(sort).stream().map(AddressAdapter::map).toList();

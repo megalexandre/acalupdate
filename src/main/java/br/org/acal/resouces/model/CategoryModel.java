@@ -36,4 +36,7 @@ public class CategoryModel implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private PriceModel price;
 
+    @Basic(optional = false)
+    @Column(name = "group_id")
+    private String group;
 }

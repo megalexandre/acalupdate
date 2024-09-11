@@ -22,6 +22,15 @@ new FormModel {
 						}, new FormLayoutConstraints( class java.lang.String ) {
 							"value": "Center"
 						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+							name: "panel8"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label3"
+								"text": "Sócios:"
+							} )
+						}, new FormLayoutConstraints( class java.lang.String ) {
+							"value": "North"
+						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "Center"
 					} )
@@ -99,7 +108,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 400, 300 )
+			"size": new java.awt.Dimension( 550, 395 )
 		} )
 		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
 			name: "contextMenu"

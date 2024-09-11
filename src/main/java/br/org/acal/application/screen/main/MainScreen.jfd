@@ -30,6 +30,11 @@ new FormModel {
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "customerMenu", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "linkMenu"
+						"text": "Ligações"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "linkMenu", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "categoryMenu"
 						"text": "Categorias"
 					} )

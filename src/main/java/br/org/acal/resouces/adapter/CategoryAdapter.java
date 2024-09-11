@@ -1,5 +1,6 @@
 package br.org.acal.resouces.adapter;
 
+import br.org.acal.commons.enumeration.Group;
 import br.org.acal.domain.entity.Category;
 import br.org.acal.resouces.model.CategoryModel;
 
@@ -10,6 +11,7 @@ public class CategoryAdapter {
                 .number(item.getNumber())
                 .name(item.getName())
                 .price(PriceAdapter.map(item.getPrice()))
+                .group(Group.fromNumber(item.getGroup()))
             .build();
     }
 
@@ -19,6 +21,7 @@ public class CategoryAdapter {
                 .number(item.getNumber())
                 .name(item.getName())
                 .price(PriceAdapter.map(item.getPrice()))
+                .group(item.getNumber())
             .build();
 
     }

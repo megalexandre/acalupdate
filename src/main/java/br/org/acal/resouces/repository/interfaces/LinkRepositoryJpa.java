@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface LinkRepositoryJpa extends JpaRepository<LinkModel, String> {
     List<LinkModel> findByAddressNumber(String addressNumber);
+
 }
 

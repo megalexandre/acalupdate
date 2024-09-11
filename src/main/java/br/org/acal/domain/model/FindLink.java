@@ -4,6 +4,8 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+
+@Deprecated
 @Data
 public class FindLink {
     private String addressId;

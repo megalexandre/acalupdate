@@ -4,6 +4,7 @@ package br.org.acal.application.screen.customer;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
+import java.util.Optional;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -49,10 +50,10 @@ public class CustomerView extends JPanel {
         val filter = FindCustomer.builder();
 
         if(textFieldName.getText() != null){
-            filter.name(textFieldName.getText());
+            filter.name(Optional.of(textFieldName.getText()));
         }
         if(textFieldDocument.getText() != null){
-            filter.document(textFieldDocument.getText());
+            filter.document(Optional.of(textFieldDocument.getText()));
         }
 
         return filter.build();
@@ -93,6 +94,8 @@ public class CustomerView extends JPanel {
 
     private void clear(ActionEvent e) {
         table.setModel(new AddressTableModel(List.of()));
+        textFieldDocument.setText(null);
+        textFieldName.setText(null);
     }
 
     private void textFieldNameKeyPressed(KeyEvent e) {
@@ -115,6 +118,8 @@ public class CustomerView extends JPanel {
         panel1 = new JPanel();
         scrollPane1 = new JScrollPane();
         table = new JTable();
+        panel8 = new JPanel();
+        label3 = new JLabel();
         panelOptions = new JPanel();
         panel7 = new JPanel();
         panel5 = new JPanel();
@@ -154,6 +159,16 @@ public class CustomerView extends JPanel {
                         scrollPane1.setViewportView(table);
                     }
                     panel1.add(scrollPane1, BorderLayout.CENTER);
+
+                    //======== panel8 ========
+                    {
+                        panel8.setLayout(new FlowLayout());
+
+                        //---- label3 ----
+                        label3.setText("S\u00f3cios:");
+                        panel8.add(label3);
+                    }
+                    panel1.add(panel8, BorderLayout.NORTH);
                 }
                 panel2.add(panel1, BorderLayout.CENTER);
 
@@ -268,6 +283,8 @@ public class CustomerView extends JPanel {
     private JPanel panel1;
     private JScrollPane scrollPane1;
     private JTable table;
+    private JPanel panel8;
+    private JLabel label3;
     private JPanel panelOptions;
     private JPanel panel7;
     private JPanel panel5;

@@ -9,20 +9,125 @@ new FormModel {
 				name: "tabbedPane1"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 					name: "panel1"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+						name: "panel3"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label1"
+							"text": "Faturas"
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "North"
+					} )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 						name: "scrollPane1"
+						"verticalScrollBarPolicy": 22
 						add( new FormComponent( "javax.swing.JTable" ) {
 							name: "table"
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "Center"
 					} )
-					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 						name: "panel2"
-						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "buttonSearch"
-							"text": "Consultar"
-							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "search", true ) )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+							name: "panel4"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+								name: "panel6"
+								"minimumSize": new java.awt.Dimension( 150, 42 )
+								"preferredSize": new java.awt.Dimension( 150, 42 )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label2"
+									"text": "Endereço:"
+								} )
+								add( new FormComponent( "javax.swing.JComboBox" ) {
+									name: "comboBox1"
+									"preferredSize": new java.awt.Dimension( 150, 26 )
+									"minimumSize": new java.awt.Dimension( 150, 26 )
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+								name: "panel7"
+								"minimumSize": new java.awt.Dimension( 150, 16 )
+								"preferredSize": new java.awt.Dimension( 150, 16 )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label3"
+									"text": "Categoria:"
+								} )
+								add( new FormComponent( "javax.swing.JComboBox" ) {
+									name: "comboBox2"
+									"minimumSize": new java.awt.Dimension( 150, 26 )
+									"preferredSize": new java.awt.Dimension( 150, 26 )
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+								name: "panel8"
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label4"
+									"text": "Sócio:"
+								} )
+								add( new FormComponent( "javax.swing.JComboBox" ) {
+									name: "comboBox3"
+									"preferredSize": new java.awt.Dimension( 150, 26 )
+									"minimumSize": new java.awt.Dimension( 150, 26 )
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+								name: "panel9"
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label5"
+									"text": "Status:"
+								} )
+								add( new FormComponent( "javax.swing.JComboBox" ) {
+									name: "comboBox4"
+									"minimumSize": new java.awt.Dimension( 150, 26 )
+									"preferredSize": new java.awt.Dimension( 150, 26 )
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+								name: "panel10"
+								"minimumSize": new java.awt.Dimension( 200, 42 )
+								"preferredSize": new java.awt.Dimension( 200, 42 )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label6"
+									"text": "Periodo:"
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+									name: "panel11"
+									"preferredSize": new java.awt.Dimension( 250, 26 )
+									"minimumSize": new java.awt.Dimension( 250, 26 )
+									add( new FormComponent( "javax.swing.JComboBox" ) {
+										name: "comboBoxPeriodYear"
+										"minimumSize": new java.awt.Dimension( 100, 26 )
+										"preferredSize": new java.awt.Dimension( 100, 26 )
+									} )
+									add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+										name: "formattedTextFieldPeriodMonth"
+										"minimumSize": new java.awt.Dimension( 100, 26 )
+										"preferredSize": new java.awt.Dimension( 100, 26 )
+									} )
+								} )
+							} )
+						}, new FormLayoutConstraints( class java.lang.String ) {
+							"value": "North"
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
+							"alignment": 2
+						} ) {
+							name: "panel5"
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "buttonClear"
+								"text": "Limpar"
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "buttonSearch"
+								"text": "Consultar"
+								"horizontalAlignment": 2
+								"verticalAlignment": 3
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "search", true ) )
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchAction", true ) )
+							} )
+						}, new FormLayoutConstraints( class java.lang.String ) {
+							"value": "South"
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "South"
@@ -35,7 +140,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 400, 300 )
+			"size": new java.awt.Dimension( 890, 525 )
 		} )
 	}
 }

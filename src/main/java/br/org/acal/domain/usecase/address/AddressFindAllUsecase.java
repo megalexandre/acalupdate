@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FindAllAddressUsecase implements Usecase<Void, List<Address>> {
+public class AddressFindAllUsecase implements Usecase<Void, List<Address>> {
     private final AddressDataSource addressDataSource;
-    public FindAllAddressUsecase(AddressDataSource addressDataSource){
+    public AddressFindAllUsecase(AddressDataSource addressDataSource){
         this.addressDataSource = addressDataSource;
     }
 

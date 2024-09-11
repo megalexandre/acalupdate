@@ -8,6 +8,7 @@ import javax.swing.border.*;
 import br.org.acal.application.screen.address.AddressView;
 import br.org.acal.application.screen.customer.CustomerView;
 import br.org.acal.application.screen.invoice.InvoiceView;
+import br.org.acal.application.screen.link.LinkView;
 import br.org.acal.domain.entity.Invoice;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +17,9 @@ public class MainScreen extends JFrame {
     private final AddressView addressView;
     private final CustomerView customerView;
     private final InvoiceView invoiceView;
+    private final LinkView linkView;
 
-    public MainScreen(AddressView addressView, CustomerView customerView, InvoiceView invoiceView) {
+    public MainScreen(AddressView addressView, CustomerView customerView, InvoiceView invoiceView, LinkView linkView) {
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(800,600));
@@ -26,6 +28,7 @@ public class MainScreen extends JFrame {
         this.addressView = addressView;
         this.customerView = customerView;
         this.invoiceView = invoiceView;
+        this.linkView = linkView;
     }
 
     private void addressMenu(ActionEvent e) {
@@ -39,6 +42,7 @@ public class MainScreen extends JFrame {
     private void invoiceMenu(ActionEvent e) {
         showPanel(invoiceView);
     }
+    private void linkMenu(ActionEvent e) { showPanel(linkView);}
 
     private void showPanel(JPanel pane){
         body.removeAll();
@@ -52,6 +56,8 @@ public class MainScreen extends JFrame {
     }
 
 
+
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner non-commercial license
@@ -59,6 +65,7 @@ public class MainScreen extends JFrame {
         menu1 = new JMenu();
         addressMenu = new JMenuItem();
         customerMenu = new JMenuItem();
+        linkMenu = new JMenuItem();
         categoryMenu = new JMenuItem();
         menuItem4 = new JMenuItem();
         menu2 = new JMenu();
@@ -93,6 +100,11 @@ public class MainScreen extends JFrame {
 			customerMenu(e);
 		});
                 menu1.add(customerMenu);
+
+                //---- linkMenu ----
+                linkMenu.setText("Liga\u00e7\u00f5es");
+                linkMenu.addActionListener(e -> linkMenu(e));
+                menu1.add(linkMenu);
 
                 //---- categoryMenu ----
                 categoryMenu.setText("Categorias");
@@ -148,6 +160,7 @@ public class MainScreen extends JFrame {
     private JMenu menu1;
     private JMenuItem addressMenu;
     private JMenuItem customerMenu;
+    private JMenuItem linkMenu;
     private JMenuItem categoryMenu;
     private JMenuItem menuItem4;
     private JMenu menu2;

@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class FindInvoice {
+public class InvoiceFilter {
     private String startId;
     private String endId;
     private StatusPaymentInvoice status;
@@ -17,9 +17,6 @@ public class FindInvoice {
     private LocalDateTime duoDateStart;
     private LocalDateTime duoDateEnd;
 
-    private String categoria;
-    private String customerId;
-    private String logradouro;
-    private Boolean socioExclusivo;
+
 }
 

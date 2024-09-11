@@ -3,6 +3,8 @@ package br.org.acal;
 import br.org.acal.application.screen.login.LoginScreen;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -27,6 +29,7 @@ public class Application {
             LoginScreen login = context.getBean(LoginScreen.class);
             login.setVisible(true);
         });
+
     }
 
 }

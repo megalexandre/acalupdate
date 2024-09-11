@@ -6,9 +6,9 @@ import br.org.acal.domain.usecase.Usecase;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SaveAddressUsecase implements Usecase<Address, Address> {
+public class AddressSaveUsecase implements Usecase<Address, Address> {
     private final AddressDataSource addressDataSource;
-    public SaveAddressUsecase(AddressDataSource addressDataSource){
+    public AddressSaveUsecase(AddressDataSource addressDataSource){
         this.addressDataSource = addressDataSource;
     }
 

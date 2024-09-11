@@ -8,7 +8,7 @@ import br.org.acal.domain.datasource.WaterQualityDataSource;
 import br.org.acal.resouces.dao.DaoCategoriaSocio;
 import br.org.acal.resouces.dao.DaoEndereco;
 import br.org.acal.resouces.dao.view.DaoSocioView;
-import br.org.acal.domain.model.FindInvoice;
+import br.org.acal.domain.model.InvoiceFilter;
 import br.org.acal.commons.enumeration.StatusPaymentInvoice;
 import br.org.acal.resouces.entidades.SociosView;
 import br.org.acal.resouces.report.create.ReportService;
@@ -903,7 +903,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         if (isValidForm()) {
             new Thread(() -> {
 
-                FindInvoice find = createFilter();
+                InvoiceFilter find = createFilter();
 
                 try {
                     val invoices = invoiceRepositoryDataSource.find(find);
@@ -937,8 +937,8 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         }
     }
 
-    private FindInvoice createFilter() {
-        val find = new FindInvoice();
+    private InvoiceFilter createFilter() {
+        val find = new InvoiceFilter();
 
         if (jCheckBoxId.isSelected()) {
             find.setEndId(jTextFieldIdMaior.getText());
@@ -965,22 +965,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
             find.setDuoDateEnd(DateUtil.from(jDateVencimentoMenor.getDate()));
         }
 
-        if (jCheckBoxCategoria.isSelected()) {
-            find.setCategoria(jComboBoxCategoria.getSelectedItem().toString());
-        }
 
-        if (jCheckBoxSocio.isSelected()) {
-
-            JComboBoxItem item = (JComboBoxItem) jComboBoxSocio.getSelectedItem();
-            find.setCustomerId(item.getNumber());
-        }
-        if (jCheckBoxLogradouro.isSelected()) {
-            find.setLogradouro(jComboBoxLogradouro.getSelectedItem().toString());
-        }
-
-        if (jToggleButtonCarnePadrao.isSelected()) {
-
-        }
 
         return find;
     }

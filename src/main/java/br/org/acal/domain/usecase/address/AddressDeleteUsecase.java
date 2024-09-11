@@ -14,13 +14,13 @@ import java.io.Serializable;
 import static java.util.List.of;
 
 @Service
-public class DeleteAddressUsecase implements Serializable, Usecase<String, UsecaseResponse> {
+public class AddressDeleteUsecase implements Serializable, Usecase<String, UsecaseResponse> {
     @Serial
     private static final long serialVersionUID = 1L;
     private final AddressDataSource addressDataSource;
     private final LinkDataSource linkDataSource;
-    private final String ERROR_MESSAGE = "Não pode ser deletado, está associado uma ligação";
-    public DeleteAddressUsecase(
+
+    public AddressDeleteUsecase(
             AddressDataSource addressDataSource,
             LinkDataSource linkDataSource){
         this.addressDataSource = addressDataSource;
@@ -37,6 +37,7 @@ public class DeleteAddressUsecase implements Serializable, Usecase<String, Useca
             return UsecaseResponse.builder().success(true).build();
         }
 
+        String ERROR_MESSAGE = "Não pode ser deletado, está associado uma ligação";
         return UsecaseResponse.builder().success(false).errors(of(ERROR_MESSAGE)).build();
     }
 

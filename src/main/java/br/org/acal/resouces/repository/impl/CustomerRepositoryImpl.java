@@ -15,6 +15,7 @@ import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Fetch;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
@@ -57,19 +58,36 @@ public class CustomerRepositoryImpl implements CustomerDataSource {
     private List<Predicate> createPredicates(CriteriaBuilder cb, FindCustomer findCustomer, Root<CustomerModel> customerRoot) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if (findCustomer.getName() != null && !findCustomer.getName().isEmpty()) {
+        findCustomer.getName()
+            .filter(this::isValid)
+            .ifPresent(name -> predicates.add(
+                cb.like(cb.lower(customerRoot.get("name")), "%" + name.trim().toLowerCase() + "%")
+            ));
 
-            predicates.add(cb.like(customerRoot.get("name"), "%" + findCustomer.getName().trim() + "%"));
-        }
-        if(findCustomer.getDocument() != null && !findCustomer.getDocument().isEmpty()){
-            String cleanedDocument = findCustomer.getDocument().replaceAll("[^0-9]", "");
-            Expression<String> documentWithoutPunctuation = cb.function("REPLACE", String.class, customerRoot.get("cpf"), cb.literal("."), cb.literal(""));
-            documentWithoutPunctuation = cb.function("REPLACE", String.class, documentWithoutPunctuation, cb.literal("-"), cb.literal(""));
-            documentWithoutPunctuation = cb.function("REPLACE", String.class, documentWithoutPunctuation, cb.literal("/"), cb.literal(""));
-            documentWithoutPunctuation = cb.function("REPLACE", String.class, documentWithoutPunctuation, cb.literal(","), cb.literal(""));
-            predicates.add(cb.like(documentWithoutPunctuation, "%" + cleanedDocument + "%"));
-        }
+        findCustomer.getDocument()
+            .filter(this::isValid)
+            .map(this::cleanDocument)
+            .ifPresent(cleanedDocument -> {
+                Expression<String> documentWithoutPunctuation = removePunctuation(cb, customerRoot.get("cpf"));
+                predicates.add(cb.like(documentWithoutPunctuation, "%" + cleanedDocument + "%"));
+            });
 
         return predicates;
+    }
+
+    private String cleanDocument(String document) {
+        return document.replaceAll("[^0-9]", "");
+    }
+
+    private Expression<String> removePunctuation(CriteriaBuilder cb, Path<String> documentPath) {
+        String replace = "replace";
+        Expression<String> documentWithoutPunctuation = cb.function(replace, String.class, documentPath, cb.literal("."), cb.literal(""));
+        documentWithoutPunctuation = cb.function(replace, String.class, documentWithoutPunctuation, cb.literal("-"), cb.literal(""));
+        documentWithoutPunctuation = cb.function(replace, String.class, documentWithoutPunctuation, cb.literal("/"), cb.literal(""));
+        return cb.function(replace, String.class, documentWithoutPunctuation, cb.literal(","), cb.literal(""));
+    }
+
+    private boolean isValid(String value){
+        return !value.trim().isEmpty();
     }
 }

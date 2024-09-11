@@ -1,13 +1,12 @@
 package br.org.acal.application.screen.address;
 
-import javax.swing.*;
 import br.org.acal.application.screen.address.model.CreateAddress;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.commons.enumeration.AddressType;
 import br.org.acal.domain.entity.Address;
-import br.org.acal.domain.usecase.address.DeleteAddressUsecase;
-import br.org.acal.domain.usecase.address.FindAllAddressUsecase;
-import br.org.acal.domain.usecase.address.SaveAddressUsecase;
+import br.org.acal.domain.usecase.address.AddressDeleteUsecase;
+import br.org.acal.domain.usecase.address.AddressFindAllUsecase;
+import br.org.acal.domain.usecase.address.AddressSaveUsecase;
 import lombok.val;
 import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
@@ -40,9 +39,9 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 @Component
 public class AddressView extends JPanel implements Serializable {
-    private final DeleteAddressUsecase delete;
-    private final FindAllAddressUsecase findAll;
-    private final SaveAddressUsecase save;
+    private final AddressDeleteUsecase delete;
+    private final AddressFindAllUsecase findAll;
+    private final AddressSaveUsecase save;
     private List<Address> addresses;
     private Address address;
     public AddressTable addresTable;
@@ -50,9 +49,9 @@ public class AddressView extends JPanel implements Serializable {
     private final int DETAIL_INDEX = 1;
 
     public AddressView(
-        DeleteAddressUsecase delete,
-        FindAllAddressUsecase findAll,
-        SaveAddressUsecase save
+        AddressDeleteUsecase delete,
+        AddressFindAllUsecase findAll,
+        AddressSaveUsecase save
     ) {
         initComponents();
         start();

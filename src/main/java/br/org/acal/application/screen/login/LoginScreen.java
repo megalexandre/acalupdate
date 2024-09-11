@@ -21,17 +21,15 @@ import java.awt.event.ActionEvent;
 
 @Component
 public class LoginScreen extends JFrame {
-    private final TelaPrincipal telaPrincipal;
     private final MainScreen mainScreen;
 
-    public LoginScreen(TelaPrincipal telaPrincipal, MainScreen mainScreen) {
+    public LoginScreen(MainScreen mainScreen) {
         initComponents();
         setContentPane(root);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(220, 180);
         setLocationRelativeTo(null);
         this.mainScreen = mainScreen;
-        this.telaPrincipal = telaPrincipal;
         this.jButtonTelaLoginLogar.setPreferredSize(new Dimension(jButtonTelaLoginLogar.getWidth(),30));
     }
 
@@ -42,7 +40,6 @@ public class LoginScreen extends JFrame {
 
         if("root".equals(log) && "123".equals(pass)){
             mainScreen.setVisible(true);
-            //telaPrincipal.setVisible(true);
             dispose();
         } else {
             name.setText("");

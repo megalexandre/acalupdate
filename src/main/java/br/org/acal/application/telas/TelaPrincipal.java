@@ -1093,7 +1093,6 @@ public class TelaPrincipal extends JFrame {
         //tray = true; 
         systemTray.remove(trayIcon);
         dispose();
-        new TelaLogin().setVisible(true);
 
     }//GEN-LAST:event_jButtonTelaPrincipalLogoffActionPerformed
 

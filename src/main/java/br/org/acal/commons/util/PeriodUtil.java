@@ -9,6 +9,6 @@ public class PeriodUtil {
 
     public static String formatter(Period period){
         String month = period.getMonth().getDisplayName(TextStyle.FULL, Locale.of("pt", "BR"));
-        return month + "/" +  period.getYear();
+        return String.format("%02d", period.getMonth().ordinal() + 1) + "/" +  period.getYear() + " ("+ month +")";
     }
 }

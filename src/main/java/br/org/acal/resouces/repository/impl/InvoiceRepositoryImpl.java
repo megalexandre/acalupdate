@@ -1,9 +1,10 @@
 package br.org.acal.resouces.repository.impl;
 
-import br.org.acal.domain.model.InvoiceFilter;
 import br.org.acal.commons.enumeration.StatusPaymentInvoice;
 import br.org.acal.domain.datasource.InvoiceDataSource;
 import br.org.acal.domain.entity.Invoice;
+import br.org.acal.domain.entity.Period;
+import br.org.acal.domain.model.InvoiceFilter;
 import br.org.acal.domain.model.InvoicePaginate;
 import br.org.acal.resouces.adapter.InvoiceAdapter;
 import br.org.acal.resouces.model.CategoryModel;
@@ -17,16 +18,14 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Fetch;
 import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Order;
-import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -62,69 +61,49 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
     }
     @Override
     public Page<Invoice> find(InvoicePaginate invoicePaginate) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<InvoiceModel> cq = cb.createQuery(InvoiceModel.class);
-        Root<InvoiceModel> invoice = cq.from(InvoiceModel.class);
 
-        invoice.fetch("waterMeter", JoinType.LEFT);
-        Fetch<InvoiceModel, LinkModel> link = invoice.fetch("link", JoinType.INNER);
-        Fetch<CustomerModel, LinkModel> customer = link.fetch("customer", JoinType.INNER);
-        customer.fetch("partner", JoinType.INNER);
-        link.fetch("address", JoinType.INNER);
-        Fetch<CategoryModel, LinkModel> category = link.fetch("category", JoinType.INNER);
-        category.fetch("price", JoinType.INNER);
+        var sort = Sort.by(
+                Sort.Order.desc("period"),
+                Sort.Order.desc("link.address.name"),
+                Sort.Order.asc("link.customer.name")
+        );
 
-        var pageable = invoicePaginate.pageable().orElse(PageRequest.of(0, 1000));
-
-        List<Predicate> predicates = createPredicates(cb, invoicePaginate, invoice);
-        cq.where(predicates.toArray(new Predicate[0]));
-
-        if (pageable.getSort().isSorted()) {
-            List<Order> orders = pageable.getSort().stream()
-                .map(order ->
-                    order.isAscending() ? cb.asc(invoice.get(order.getProperty())) :
-                    cb.desc(invoice.get(order.getProperty())))
-                .toList();
-
-            cq.orderBy(orders);
-        }
-
-        TypedQuery<InvoiceModel> query = entityManager.createQuery(cq);
-        query.setFirstResult((int) pageable.getOffset());
-        query.setMaxResults(pageable.getPageSize());
+        var pageable = invoicePaginate.pageable().orElse(PageRequest.of(0, 100, sort));
 
 
-        List<InvoiceModel> resultList = query.getResultList();
+        Boolean statusOpen = invoicePaginate.status()
+            .filter(status -> status.equals(StatusPaymentInvoice.OPEN))
+            .map(_ -> true)
+            .orElse(null);
 
-        CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
-        Root<InvoiceModel> countRoot = countQuery.from(InvoiceModel.class);
-        countQuery.select(cb.count(countRoot)).where(predicates.toArray(new Predicate[0]));
-        Long totalRecords = entityManager.createQuery(countQuery).getSingleResult();
+        Boolean statusPayed = invoicePaginate.status()
+            .filter(status -> status.equals(StatusPaymentInvoice.PAYED))
+            .map(_ -> true)
+            .orElse(null);
 
-        List<Invoice> invoices = resultList.stream().map(InvoiceAdapter::map).toList();
+        Boolean statusOverdue = invoicePaginate.status()
+            .filter(status -> status.equals(StatusPaymentInvoice.OVERDUE))
+            .map(_ -> true)
+            .orElse(null);
 
-        return new PageImpl<>(invoices, pageable, totalRecords);
+        var data = repositoryJpa.findInvoices(
+            invoicePaginate.selectedCustomer().orElse(null),
+            invoicePaginate.selectedCategory().orElse(null),
+            invoicePaginate.selectedAddress().orElse(null),
+            invoicePaginate.period().map(Period::startMonth).orElse(null),
+            invoicePaginate.period().map(Period::endMonth).orElse(null),
+            statusOpen,
+            statusPayed,
+            statusOverdue,
+            LocalDateTime.now(),
+            pageable
+        );
+
+        List<Invoice> invoices = data.getContent().stream()
+            .map(InvoiceAdapter::map)
+            .toList();
+
+        return new PageImpl<>(invoices, pageable, data.getTotalElements());
     }
 
-    private List<Predicate> createPredicates(CriteriaBuilder cb, InvoicePaginate paginate, Root<InvoiceModel> invoice) {
-        List<Predicate> predicates = new ArrayList<>();
-        /*
-        if (invoiceFilter.getStartId() != null && invoiceFilter.getEndId() != null) {
-            predicates.add(cb.between(invoice.get("number"), invoiceFilter.getStartId(), invoiceFilter.getEndId()));
-        }
-
-        if (invoiceFilter.getStatus() != null) {
-            if (invoiceFilter.getStatus() == StatusPaymentInvoice.OPEN) {
-                predicates.add(cb.isNull(invoice.get("payedAt")));
-            } else if (invoiceFilter.getStatus() == StatusPaymentInvoice.CLOSED) {
-                predicates.add(cb.isNotNull(invoice.get("payedAt")));
-            }
-        }
-
-        if (invoiceFilter.getCreatedAtStart() != null && invoiceFilter.getCreatedAtEnd() != null) {
-            predicates.add(cb.between(invoice.get("createdAt"), invoiceFilter.getCreatedAtStart(), invoiceFilter.getCreatedAtEnd()));
-        }
-        */
-        return predicates;
-    }
 }

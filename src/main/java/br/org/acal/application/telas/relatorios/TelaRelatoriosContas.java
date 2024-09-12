@@ -950,7 +950,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
                 find.setStatus(StatusPaymentInvoice.OPEN);
             }
             if (jComboBoxStatus.getSelectedIndex() == CLOSED) {
-                find.setStatus(StatusPaymentInvoice.CLOSED);
+                find.setStatus(StatusPaymentInvoice.PAYED);
 
             }
         }

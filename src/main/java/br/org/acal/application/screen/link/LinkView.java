@@ -44,6 +44,7 @@ public class LinkView extends JPanel {
         this.findAllAddress = findAllAddress;
         this.categoryFindAll = categoryFindAll;
 
+        comboBoxAddress.addItem(JComboBoxModel.clearData());
         comboBoxAddress.addActionListener(e -> {
             var item = (JComboBoxModel) comboBoxAddress.getSelectedItem();
             if (item != null) {
@@ -51,6 +52,7 @@ public class LinkView extends JPanel {
             }
         });
 
+        comboBoxCategory.addItem(JComboBoxModel.clearData());
         comboBoxCategory.addActionListener(e -> {
             var item = (JComboBoxModel) comboBoxCategory.getSelectedItem();
             if (item != null) {
@@ -76,8 +78,8 @@ public class LinkView extends JPanel {
             }
         });
 
-        comboBoxCategory.addItem(JComboBoxModel.clearData());
-        comboBoxAddress.addItem(JComboBoxModel.clearData());
+
+
         comboBoxGroup.addItem(JComboBoxModel.clearData());
     }
 

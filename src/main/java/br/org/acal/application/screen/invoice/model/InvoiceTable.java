@@ -1,4 +1,4 @@
-package br.org.acal.application.screen.invoice;
+package br.org.acal.application.screen.invoice.model;
 
 import br.org.acal.commons.util.PeriodUtil;
 import br.org.acal.domain.entity.Invoice;
@@ -23,6 +23,7 @@ public class InvoiceTable {
     private String document;
     private String address;
     private String total;
+    private Invoice invoice;
 
     public static InvoiceTable of(Invoice invoice){
         return InvoiceTable.builder()
@@ -37,11 +38,12 @@ public class InvoiceTable {
                     invoice.getLink().getLinkNumber()
                 )
                 .total(currency.format(invoice.totalValue()))
+                .invoice(invoice)
                 .build();
     }
 
     private static String orEmpty(LocalDateTime value ){
-        return value == null ? "" : dateTime.format(value);
+        return value == null ? "" : date.format(value);
     }
 }
 

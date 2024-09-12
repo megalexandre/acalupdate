@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FindCustomerUseCase implements Usecase<FindCustomer, List<Customer>> {
+public class CustomerFindUseCase implements Usecase<FindCustomer, List<Customer>> {
     private final CustomerDataSource customerDataSource;
 
-    public FindCustomerUseCase(CustomerDataSource customerDataSource){
+    public CustomerFindUseCase(CustomerDataSource customerDataSource){
         this.customerDataSource = customerDataSource;
     }
 

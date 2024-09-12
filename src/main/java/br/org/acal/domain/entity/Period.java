@@ -6,6 +6,7 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.Year;
 
 @Data
 @Builder
@@ -19,6 +20,15 @@ public class Period {
 
     public static Period of(LocalDate localDate){
         return Period.builder().month(localDate.getMonth()).year(localDate.getYear()).build();
+    }
+
+    public LocalDateTime startMonth() {
+        return LocalDate.of(year, month, 1).atStartOfDay();
+    }
+
+    public LocalDateTime endMonth() {
+        return LocalDate.of(year, month, month.length(Year.isLeap(year)))
+                .atTime(23, 59, 59, 999_999_999);
     }
 
 }

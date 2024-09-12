@@ -11,7 +11,7 @@ import javax.swing.border.*;
 import br.org.acal.application.screen.address.AddressTableModel;
 import br.org.acal.application.screen.customer.model.FindCustomer;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
-import br.org.acal.domain.usecase.customer.FindCustomerUseCase;
+import br.org.acal.domain.usecase.customer.CustomerFindUseCase;
 import lombok.val;
 import org.jdesktop.swingx.*;
 import org.springframework.stereotype.Component;
@@ -21,9 +21,9 @@ import static java.util.stream.IntStream.range;
 @Component
 public class CustomerView extends JPanel {
 
-   private final FindCustomerUseCase find;
+   private final CustomerFindUseCase find;
 
-    public CustomerView(FindCustomerUseCase find) {
+    public CustomerView(CustomerFindUseCase find) {
         initComponents();
         this.find = find;
     }

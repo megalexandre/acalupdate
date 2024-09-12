@@ -40,9 +40,14 @@ new FormModel {
 									"text": "Endereço:"
 								} )
 								add( new FormComponent( "javax.swing.JComboBox" ) {
-									name: "comboBox1"
+									name: "comboBoxAddress"
 									"preferredSize": new java.awt.Dimension( 150, 26 )
 									"minimumSize": new java.awt.Dimension( 150, 26 )
+									auxiliary() {
+										"JavaCodeGenerator.typeParameters": "JComboBoxModel"
+									}
+									addEvent( new FormEvent( "javax.swing.event.PopupMenuListener", "popupMenuWillBecomeInvisible", "comboBoxAddressPopupMenuWillBecomeInvisible", true ) )
+									addEvent( new FormEvent( "javax.swing.event.PopupMenuListener", "popupMenuWillBecomeVisible", "comboBoxAddressPopupMenuWillBecomeVisible", true ) )
 								} )
 							} )
 							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
@@ -54,9 +59,13 @@ new FormModel {
 									"text": "Categoria:"
 								} )
 								add( new FormComponent( "javax.swing.JComboBox" ) {
-									name: "comboBox2"
+									name: "comboBoxCategory"
 									"minimumSize": new java.awt.Dimension( 150, 26 )
 									"preferredSize": new java.awt.Dimension( 150, 26 )
+									auxiliary() {
+										"JavaCodeGenerator.typeParameters": "JComboBoxModel"
+									}
+									addEvent( new FormEvent( "javax.swing.event.PopupMenuListener", "popupMenuWillBecomeVisible", "comboBoxCategoryPopupMenuWillBecomeVisible", true ) )
 								} )
 							} )
 							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
@@ -66,9 +75,13 @@ new FormModel {
 									"text": "Sócio:"
 								} )
 								add( new FormComponent( "javax.swing.JComboBox" ) {
-									name: "comboBox3"
+									name: "comboBoxCustomer"
 									"preferredSize": new java.awt.Dimension( 150, 26 )
 									"minimumSize": new java.awt.Dimension( 150, 26 )
+									auxiliary() {
+										"JavaCodeGenerator.typeParameters": "JComboBoxModel"
+									}
+									addEvent( new FormEvent( "javax.swing.event.PopupMenuListener", "popupMenuWillBecomeVisible", "comboBoxCustomerPopupMenuWillBecomeVisible", true ) )
 								} )
 							} )
 							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
@@ -78,33 +91,27 @@ new FormModel {
 									"text": "Status:"
 								} )
 								add( new FormComponent( "javax.swing.JComboBox" ) {
-									name: "comboBox4"
+									name: "comboBoxStatus"
 									"minimumSize": new java.awt.Dimension( 150, 26 )
 									"preferredSize": new java.awt.Dimension( 150, 26 )
+									auxiliary() {
+										"JavaCodeGenerator.typeParameters": "JComboBoxStatus"
+									}
+									addEvent( new FormEvent( "javax.swing.event.PopupMenuListener", "popupMenuWillBecomeVisible", "comboBoxStatusPopupMenuWillBecomeVisible", true ) )
 								} )
 							} )
 							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
 								name: "panel10"
-								"minimumSize": new java.awt.Dimension( 200, 42 )
-								"preferredSize": new java.awt.Dimension( 200, 42 )
+								"minimumSize": new java.awt.Dimension( 150, 42 )
+								"preferredSize": new java.awt.Dimension( 150, 42 )
 								add( new FormComponent( "javax.swing.JLabel" ) {
 									name: "label6"
 									"text": "Periodo:"
 								} )
-								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
-									name: "panel11"
-									"preferredSize": new java.awt.Dimension( 250, 26 )
-									"minimumSize": new java.awt.Dimension( 250, 26 )
-									add( new FormComponent( "javax.swing.JComboBox" ) {
-										name: "comboBoxPeriodYear"
-										"minimumSize": new java.awt.Dimension( 100, 26 )
-										"preferredSize": new java.awt.Dimension( 100, 26 )
-									} )
-									add( new FormComponent( "javax.swing.JFormattedTextField" ) {
-										name: "formattedTextFieldPeriodMonth"
-										"minimumSize": new java.awt.Dimension( 100, 26 )
-										"preferredSize": new java.awt.Dimension( 100, 26 )
-									} )
+								add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+									name: "formattedTextFieldPeriodMonth"
+									"minimumSize": new java.awt.Dimension( 150, 26 )
+									"preferredSize": new java.awt.Dimension( 150, 26 )
 								} )
 							} )
 						}, new FormLayoutConstraints( class java.lang.String ) {
@@ -117,6 +124,7 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JButton" ) {
 								name: "buttonClear"
 								"text": "Limpar"
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "clearAction", true ) )
 							} )
 							add( new FormComponent( "javax.swing.JButton" ) {
 								name: "buttonSearch"
@@ -128,6 +136,37 @@ new FormModel {
 							} )
 						}, new FormLayoutConstraints( class java.lang.String ) {
 							"value": "South"
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+							name: "panel11"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+								name: "panel13"
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "labelHelp"
+									"text": "Ajuda"
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+								name: "panel12"
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "button3"
+									"text": "<< Primera"
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "button1"
+									"text": "< Anterior"
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "button2"
+									"text": "Proxima >"
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "button4"
+									"text": "Ultima >>"
+								} )
+							} )
+						}, new FormLayoutConstraints( class java.lang.String ) {
+							"value": "Center"
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "South"

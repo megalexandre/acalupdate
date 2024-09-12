@@ -1,6 +1,4 @@
-package br.org.acal.application.screen.invoice;
-
-import br.org.acal.domain.entity.Document;
+package br.org.acal.application.screen.invoice.model;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
@@ -54,5 +52,8 @@ public class InvoiceTableModel extends AbstractTableModel {
 
     }
 
+    public InvoiceTable getInvoiceAt(int rowIndex) {
+        return itens.get(rowIndex);
+    }
 
 }

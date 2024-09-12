@@ -2,6 +2,7 @@ package br.org.acal.application.screen.link.model;
 
 import br.org.acal.domain.entity.Address;
 import br.org.acal.domain.entity.Category;
+import br.org.acal.domain.entity.Customer;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,6 +12,13 @@ public class JComboBoxModel {
 
     private String number;
     private String name;
+
+    public static JComboBoxModel of(Customer customer){
+        return JComboBoxModel.builder().
+                number(customer.getNumber()).
+                name(customer.getName())
+                .build();
+    }
     public static JComboBoxModel of(Address address){
         return JComboBoxModel.builder().
             number(address.getNumber()).

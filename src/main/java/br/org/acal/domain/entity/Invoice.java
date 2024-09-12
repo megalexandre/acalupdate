@@ -1,12 +1,15 @@
 package br.org.acal.domain.entity;
 
 import br.org.acal.commons.Prices;
+import br.org.acal.commons.enumeration.StatusPaymentInvoice;
 import lombok.Builder;
 import lombok.Data;
 import lombok.val;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import static java.time.LocalDateTime.now;
 
 @Data
 @Builder
@@ -21,6 +24,17 @@ public class Invoice {
     private BigDecimal partnerValue;
     private BigDecimal otherValues;
     private WaterMeter waterMeter;
+
+    public StatusPaymentInvoice status(){
+
+        if(payedAt != null ){
+            return StatusPaymentInvoice.PAYED;
+        } else if (duoDate.isAfter(now())){
+            return StatusPaymentInvoice.OPEN;
+        }
+
+        return StatusPaymentInvoice.OVERDUE;
+    }
 
     public Period period(){
         return Period.of(period);

@@ -112,6 +112,20 @@ new FormModel {
 									name: "formattedTextFieldPeriodMonth"
 									"minimumSize": new java.awt.Dimension( 150, 26 )
 									"preferredSize": new java.awt.Dimension( 150, 26 )
+									addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "formattedTextFieldPeriodMonthKeyPressed", true ) )
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+								name: "panel14"
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label7"
+									"text": "Número:"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textFieldNumber"
+									"preferredSize": new java.awt.Dimension( 150, 26 )
+									"minimumSize": new java.awt.Dimension( 150, 26 )
+									addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "textFieldNumberKeyPressed", true ) )
 								} )
 							} )
 						}, new FormLayoutConstraints( class java.lang.String ) {
@@ -143,26 +157,33 @@ new FormModel {
 								name: "panel13"
 								add( new FormComponent( "javax.swing.JLabel" ) {
 									name: "labelHelp"
-									"text": "Ajuda"
 								} )
 							} )
 							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
 								name: "panel12"
 								add( new FormComponent( "javax.swing.JButton" ) {
-									name: "button3"
+									name: "buttonFirst"
 									"text": "<< Primera"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "firstAction", true ) )
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
-									name: "button1"
+									name: "buttonPrevious"
 									"text": "< Anterior"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "previousAction", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "labelPageNumber"
+									"text": "0"
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
-									name: "button2"
+									name: "buttonNext"
 									"text": "Proxima >"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "nextAction", true ) )
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
-									name: "button4"
+									name: "buttonLast"
 									"text": "Ultima >>"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "lastAction", true ) )
 								} )
 							} )
 						}, new FormLayoutConstraints( class java.lang.String ) {

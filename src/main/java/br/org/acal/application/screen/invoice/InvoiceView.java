@@ -19,6 +19,7 @@ import br.org.acal.application.screen.link.model.JComboBoxStatus;
 import br.org.acal.application.screen.link.model.LinkTableModel;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.commons.enumeration.StatusPaymentInvoice;
+import br.org.acal.domain.entity.Invoice;
 import br.org.acal.domain.model.InvoicePaginate;
 import br.org.acal.domain.usecase.address.AddressFindAllUsecase;
 import br.org.acal.domain.usecase.category.CategoryFindAllUseCase;
@@ -27,6 +28,8 @@ import br.org.acal.domain.usecase.invoice.InvoicePaginateUseCase;
 import lombok.val;
 import org.jdesktop.swingx.*;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import static java.util.stream.IntStream.range;
@@ -40,6 +43,8 @@ public class InvoiceView extends JPanel {
     private String selectedAddress;
     private String selectedCategory;
     private String selectedCustomer;
+    private int pageNumber = 0;
+    private Page<Invoice> page;
 
     private final String SELECT = "Selecione";
 
@@ -98,6 +103,7 @@ public class InvoiceView extends JPanel {
         }
     }
     private void search(ActionEvent e) {
+        pageNumber = 0;
         search();
     }
 
@@ -106,7 +112,9 @@ public class InvoiceView extends JPanel {
     }
 
     private void search(){
-        val invoices = paginate.execute(createFilter());
+        page = paginate.execute(createFilter());
+        labelPageNumber.setText(String.valueOf(page.getNumber()));
+        val invoices = page;
         val tableModel = new InvoiceTableModel(invoices.stream().map(InvoiceTable::of).toList());
         table.setModel(tableModel);
         table.setDefaultRenderer(String.class, new StrippedTableCellRenderer());
@@ -136,9 +144,22 @@ public class InvoiceView extends JPanel {
             .selectedAddress(selectedAddress)
             .selectedCategory(selectedCategory)
             .selectedCustomer(selectedCustomer)
+            .number("".equals(textFieldNumber.getText()) ? null: textFieldNumber.getText())
             .period(formattedTextFieldPeriodMonth.getText())
             .status(((JComboBoxStatus) comboBoxStatus.getSelectedItem()).getStatus())
+            .pageable(createPageable())
             .build();
+    }
+
+
+    private PageRequest createPageable(){
+        var sort = Sort.by(
+                Sort.Order.desc("period"),
+                Sort.Order.desc("link.address.name"),
+                Sort.Order.asc("link.customer.name")
+        );
+
+       return PageRequest.of(pageNumber, 100, sort);
     }
 
 
@@ -195,9 +216,46 @@ public class InvoiceView extends JPanel {
         createMask();
 
         table.setModel(new LinkTableModel(List.of()));
+        pageNumber =0;
     }
 
+    private void firstAction(ActionEvent e) {
+        pageNumber = 0;
+        search();
+    }
 
+    private void lastAction(ActionEvent e) {
+        pageNumber = page.getTotalPages()-1;
+        search();
+    }
+
+    private void nextAction(ActionEvent e) {
+        if(pageNumber < page.getTotalPages()){
+            pageNumber++;
+            search();
+        }
+    }
+
+    private void previousAction(ActionEvent e) {
+        if(pageNumber > 0){
+            pageNumber--;
+            search();
+        }
+    }
+
+    private void formattedTextFieldPeriodMonthKeyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            pageNumber = 0;
+            search();
+        }
+    }
+
+    private void textFieldNumberKeyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            pageNumber = 0;
+            search();
+        }
+    }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -225,6 +283,9 @@ public class InvoiceView extends JPanel {
         panel10 = new JPanel();
         label6 = new JLabel();
         formattedTextFieldPeriodMonth = new JFormattedTextField();
+        panel14 = new JPanel();
+        label7 = new JLabel();
+        textFieldNumber = new JTextField();
         panel5 = new JPanel();
         buttonClear = new JButton();
         buttonSearch = new JButton();
@@ -232,10 +293,11 @@ public class InvoiceView extends JPanel {
         panel13 = new JPanel();
         labelHelp = new JLabel();
         panel12 = new JPanel();
-        button3 = new JButton();
-        button1 = new JButton();
-        button2 = new JButton();
-        button4 = new JButton();
+        buttonFirst = new JButton();
+        buttonPrevious = new JButton();
+        labelPageNumber = new JLabel();
+        buttonNext = new JButton();
+        buttonLast = new JButton();
 
         //======== this ========
         setLayout(new BorderLayout());
@@ -391,9 +453,36 @@ public class InvoiceView extends JPanel {
                             //---- formattedTextFieldPeriodMonth ----
                             formattedTextFieldPeriodMonth.setMinimumSize(new Dimension(150, 26));
                             formattedTextFieldPeriodMonth.setPreferredSize(new Dimension(150, 26));
+                            formattedTextFieldPeriodMonth.addKeyListener(new KeyAdapter() {
+                                @Override
+                                public void keyPressed(KeyEvent e) {
+                                    formattedTextFieldPeriodMonthKeyPressed(e);
+                                }
+                            });
                             panel10.add(formattedTextFieldPeriodMonth);
                         }
                         panel4.add(panel10);
+
+                        //======== panel14 ========
+                        {
+                            panel14.setLayout(new VerticalLayout());
+
+                            //---- label7 ----
+                            label7.setText("N\u00famero:");
+                            panel14.add(label7);
+
+                            //---- textFieldNumber ----
+                            textFieldNumber.setPreferredSize(new Dimension(150, 26));
+                            textFieldNumber.setMinimumSize(new Dimension(150, 26));
+                            textFieldNumber.addKeyListener(new KeyAdapter() {
+                                @Override
+                                public void keyPressed(KeyEvent e) {
+                                    textFieldNumberKeyPressed(e);
+                                }
+                            });
+                            panel14.add(textFieldNumber);
+                        }
+                        panel4.add(panel14);
                     }
                     panel2.add(panel4, BorderLayout.NORTH);
 
@@ -425,9 +514,6 @@ public class InvoiceView extends JPanel {
                         //======== panel13 ========
                         {
                             panel13.setLayout(new FlowLayout());
-
-                            //---- labelHelp ----
-                            labelHelp.setText("Ajuda");
                             panel13.add(labelHelp);
                         }
                         panel11.add(panel13);
@@ -436,21 +522,29 @@ public class InvoiceView extends JPanel {
                         {
                             panel12.setLayout(new FlowLayout());
 
-                            //---- button3 ----
-                            button3.setText("<< Primera");
-                            panel12.add(button3);
+                            //---- buttonFirst ----
+                            buttonFirst.setText("<< Primera");
+                            buttonFirst.addActionListener(e -> firstAction(e));
+                            panel12.add(buttonFirst);
 
-                            //---- button1 ----
-                            button1.setText("< Anterior");
-                            panel12.add(button1);
+                            //---- buttonPrevious ----
+                            buttonPrevious.setText("< Anterior");
+                            buttonPrevious.addActionListener(e -> previousAction(e));
+                            panel12.add(buttonPrevious);
 
-                            //---- button2 ----
-                            button2.setText("Proxima >");
-                            panel12.add(button2);
+                            //---- labelPageNumber ----
+                            labelPageNumber.setText("0");
+                            panel12.add(labelPageNumber);
 
-                            //---- button4 ----
-                            button4.setText("Ultima >>");
-                            panel12.add(button4);
+                            //---- buttonNext ----
+                            buttonNext.setText("Proxima >");
+                            buttonNext.addActionListener(e -> nextAction(e));
+                            panel12.add(buttonNext);
+
+                            //---- buttonLast ----
+                            buttonLast.setText("Ultima >>");
+                            buttonLast.addActionListener(e -> lastAction(e));
+                            panel12.add(buttonLast);
                         }
                         panel11.add(panel12);
                     }
@@ -489,6 +583,9 @@ public class InvoiceView extends JPanel {
     private JPanel panel10;
     private JLabel label6;
     private JFormattedTextField formattedTextFieldPeriodMonth;
+    private JPanel panel14;
+    private JLabel label7;
+    private JTextField textFieldNumber;
     private JPanel panel5;
     private JButton buttonClear;
     private JButton buttonSearch;
@@ -496,9 +593,10 @@ public class InvoiceView extends JPanel {
     private JPanel panel13;
     private JLabel labelHelp;
     private JPanel panel12;
-    private JButton button3;
-    private JButton button1;
-    private JButton button2;
-    private JButton button4;
+    private JButton buttonFirst;
+    private JButton buttonPrevious;
+    private JLabel labelPageNumber;
+    private JButton buttonNext;
+    private JButton buttonLast;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

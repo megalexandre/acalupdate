@@ -4,24 +4,14 @@ import br.org.acal.commons.enumeration.StatusPaymentInvoice;
 import br.org.acal.domain.datasource.InvoiceDataSource;
 import br.org.acal.domain.entity.Invoice;
 import br.org.acal.domain.entity.Period;
-import br.org.acal.domain.model.InvoiceFilter;
 import br.org.acal.domain.model.InvoicePaginate;
 import br.org.acal.resouces.adapter.InvoiceAdapter;
-import br.org.acal.resouces.model.CategoryModel;
-import br.org.acal.resouces.model.CustomerModel;
-import br.org.acal.resouces.model.InvoiceModel;
-import br.org.acal.resouces.model.LinkModel;
 import br.org.acal.resouces.repository.interfaces.InvoiceRepositoryJpa;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Fetch;
-import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Root;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
@@ -42,51 +32,22 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
         return repositoryJpa.findByPayedAtIsNull().stream().map(InvoiceAdapter::map).toList();
     }
     @Override
-    public List<Invoice> find(InvoiceFilter invoiceFilter) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<InvoiceModel> cq = cb.createQuery(InvoiceModel.class);
-        Root<InvoiceModel> invoice = cq.from(InvoiceModel.class);
-        invoice.fetch("waterMeter", JoinType.LEFT);
-        Fetch<InvoiceModel, LinkModel> link = invoice.fetch("link", JoinType.INNER);
-        Fetch<CustomerModel, LinkModel> customer = link.fetch("customer", JoinType.INNER);
-        customer.fetch("partner", JoinType.INNER);
-        link.fetch("address", JoinType.INNER);
-        Fetch<CategoryModel, LinkModel> category = link.fetch("category", JoinType.INNER);
-        category.fetch("price", JoinType.INNER);
-        //List<Predicate> predicates = createPredicates(cb, invoiceFilter, invoice);
-        //cq.where(predicates.toArray(new Predicate[0]));
-        TypedQuery<InvoiceModel> query = entityManager.createQuery(cq);
-        List<InvoiceModel> resultList = query.getResultList();
-        return resultList.stream().map(InvoiceAdapter::map).toList();
+    public List<Invoice> find(InvoicePaginate invoicePaginate) {
+        return baseQuery(invoicePaginate);
     }
+
     @Override
-    public Page<Invoice> find(InvoicePaginate invoicePaginate) {
+    public Page<Invoice> paginate(InvoicePaginate invoicePaginate) {
+        return baseQuery(invoicePaginate, invoicePaginate.pageable().orElse(createPageable()));
+    }
 
-        var sort = Sort.by(
-                Sort.Order.desc("period"),
-                Sort.Order.desc("link.address.name"),
-                Sort.Order.asc("link.customer.name")
-        );
+    private List<Invoice> baseQuery(InvoicePaginate invoicePaginate) {
+        Boolean statusOpen = createStatus(invoicePaginate,StatusPaymentInvoice.OPEN);
+        Boolean statusPayed = createStatus(invoicePaginate,StatusPaymentInvoice.PAYED);
+        Boolean statusOverdue = createStatus(invoicePaginate,StatusPaymentInvoice.OVERDUE);
 
-        var pageable = invoicePaginate.pageable().orElse(PageRequest.of(0, 100, sort));
-
-
-        Boolean statusOpen = invoicePaginate.status()
-            .filter(status -> status.equals(StatusPaymentInvoice.OPEN))
-            .map(_ -> true)
-            .orElse(null);
-
-        Boolean statusPayed = invoicePaginate.status()
-            .filter(status -> status.equals(StatusPaymentInvoice.PAYED))
-            .map(_ -> true)
-            .orElse(null);
-
-        Boolean statusOverdue = invoicePaginate.status()
-            .filter(status -> status.equals(StatusPaymentInvoice.OVERDUE))
-            .map(_ -> true)
-            .orElse(null);
-
-        var data = repositoryJpa.findInvoices(
+        return repositoryJpa.findInvoices(
+            invoicePaginate.selectedNumber().orElse(null),
             invoicePaginate.selectedCustomer().orElse(null),
             invoicePaginate.selectedCategory().orElse(null),
             invoicePaginate.selectedAddress().orElse(null),
@@ -95,15 +56,48 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
             statusOpen,
             statusPayed,
             statusOverdue,
-            LocalDateTime.now(),
-            pageable
+            LocalDateTime.now()
+        ).stream().map(InvoiceAdapter::map).toList();
+    }
+    private Page<Invoice> baseQuery(InvoicePaginate invoicePaginate, Pageable pageable) {
+        Boolean statusOpen = createStatus(invoicePaginate,StatusPaymentInvoice.OPEN);
+        Boolean statusPayed = createStatus(invoicePaginate,StatusPaymentInvoice.PAYED);
+        Boolean statusOverdue = createStatus(invoicePaginate,StatusPaymentInvoice.OVERDUE);
+
+        var page = repositoryJpa.paginateInvoices(
+                invoicePaginate.selectedNumber().orElse(null),
+                invoicePaginate.selectedCustomer().orElse(null),
+                invoicePaginate.selectedCategory().orElse(null),
+                invoicePaginate.selectedAddress().orElse(null),
+                invoicePaginate.period().map(Period::startMonth).orElse(null),
+                invoicePaginate.period().map(Period::endMonth).orElse(null),
+                statusOpen,
+                statusPayed,
+                statusOverdue,
+                LocalDateTime.now(),
+                pageable
         );
 
-        List<Invoice> invoices = data.getContent().stream()
-            .map(InvoiceAdapter::map)
-            .toList();
+        var data = page.stream().map(InvoiceAdapter::map).toList();
 
-        return new PageImpl<>(invoices, pageable, data.getTotalElements());
+        return new PageImpl<>(data, pageable, page.getTotalElements());
     }
 
+    private Boolean createStatus(InvoicePaginate invoicePaginate, StatusPaymentInvoice status ){
+        return invoicePaginate.status()
+            .filter(item  -> item.equals(status))
+            .map(_ -> true)
+            .orElse(null);
+    }
+
+    private Pageable createPageable(){
+
+        var sort = Sort.by(
+            Sort.Order.desc("period"),
+            Sort.Order.desc("link.address.name"),
+            Sort.Order.asc("link.customer.name")
+        );
+
+        return PageRequest.of(0, 100, sort);
+    }
 }

@@ -5,6 +5,7 @@ import br.org.acal.application.telas.TelaPrincipal;
 import br.org.acal.commons.util.DateUtil;
 import br.org.acal.domain.datasource.InvoiceDataSource;
 import br.org.acal.domain.datasource.WaterQualityDataSource;
+import br.org.acal.domain.model.InvoicePaginate;
 import br.org.acal.resouces.dao.DaoCategoriaSocio;
 import br.org.acal.resouces.dao.DaoEndereco;
 import br.org.acal.resouces.dao.view.DaoSocioView;
@@ -903,10 +904,9 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         if (isValidForm()) {
             new Thread(() -> {
 
-                InvoiceFilter find = createFilter();
 
                 try {
-                    val invoices = invoiceRepositoryDataSource.find(find);
+                    val invoices = invoiceRepositoryDataSource.find(new InvoicePaginate());
                     val period = invoices.stream().map(it -> it.getPeriod().toLocalDate()).toList();
                     val waterQuality = waterQualityDataSource.find(period);
 
@@ -937,37 +937,8 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         }
     }
 
-    private InvoiceFilter createFilter() {
-        val find = new InvoiceFilter();
-
-        if (jCheckBoxId.isSelected()) {
-            find.setEndId(jTextFieldIdMaior.getText());
-            find.setStartId(jTextFieldIdMenor.getText());
-        }
-
-        if (jCheckBoxStatus.isSelected()) {
-            if (jComboBoxStatus.getSelectedIndex() == OPEN) {
-                find.setStatus(StatusPaymentInvoice.OPEN);
-            }
-            if (jComboBoxStatus.getSelectedIndex() == CLOSED) {
-                find.setStatus(StatusPaymentInvoice.PAYED);
-
-            }
-        }
-
-        if (jCheckBoxData.isSelected()) {
-            find.setCreatedAtStart(DateUtil.from(jFormattedTextFieldDataMenor.getDate()));
-            find.setCreatedAtEnd(DateUtil.from(jFormattedTextFieldDataMaior.getDate()));
-        }
-
-        if (jCheckBoxDataVecimento.isSelected()) {
-            find.setDuoDateStart(DateUtil.from(jDateVencimentoMenor.getDate()));
-            find.setDuoDateEnd(DateUtil.from(jDateVencimentoMenor.getDate()));
-        }
-
-
-
-        return find;
+    private InvoicePaginate createFilter() {
+        return new InvoicePaginate();
     }
 
     private String getPath() throws URISyntaxException {

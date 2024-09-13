@@ -7,8 +7,6 @@ import br.org.acal.domain.usecase.Usecase;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class InvoicePaginateUseCase implements Usecase<InvoicePaginate, Page<Invoice>> {
 
@@ -20,6 +18,6 @@ public class InvoicePaginateUseCase implements Usecase<InvoicePaginate, Page<Inv
 
     @Override
     public Page<Invoice> execute(InvoicePaginate filter) {
-        return dataSource.find(filter);
+        return dataSource.paginate(filter);
     }
 }

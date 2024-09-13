@@ -6,6 +6,7 @@ import org.jdesktop.swingx.VerticalLayout;
 import org.springframework.stereotype.Component;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.util.Objects;
 
 @Component
 public class LoginScreen extends JFrame {
@@ -25,6 +27,15 @@ public class LoginScreen extends JFrame {
 
     public LoginScreen(MainScreen mainScreen) {
         initComponents();
+
+        try{
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(
+                this.getClass().getResource("/images/logo.png"))
+            );
+            setIconImage(icon.getImage());
+
+        }catch (Exception ignored){}
+
         setContentPane(root);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(220, 180);

@@ -29,6 +29,15 @@ new FormModel {
 					} )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 						name: "panel2"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+							name: "panel11"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "labelHelper"
+								"text": "Ajuda"
+							} )
+						}, new FormLayoutConstraints( class java.lang.String ) {
+							"value": "North"
+						} )
 						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 							name: "panel5"
 							add( new FormComponent( "javax.swing.JButton" ) {

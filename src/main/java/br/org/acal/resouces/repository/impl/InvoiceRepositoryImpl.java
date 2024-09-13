@@ -86,7 +86,7 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
     private Boolean createStatus(InvoicePaginate invoicePaginate, StatusPaymentInvoice status ){
         return invoicePaginate.status()
             .filter(item  -> item.equals(status))
-            .map(_ -> true)
+            .map(unused -> true)
             .orElse(null);
     }
 

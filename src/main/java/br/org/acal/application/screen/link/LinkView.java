@@ -67,21 +67,20 @@ public class LinkView extends JPanel {
             }
         });
 
-
-
         textFieldPartner.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    search();;
+                    search();
                 }
             }
         });
 
-
         setContextMenu();
         comboBoxGroup.addItem(JComboBoxModel.clearData());
         comboBoxStatus.addItem("Selecione");
+
+        labelHelper.setText("");
     }
 
     private void search(ActionEvent e) {
@@ -99,6 +98,8 @@ public class LinkView extends JPanel {
         range(0, table.getColumnCount()).forEach(i ->
                 table.getColumnModel().getColumn(i).setCellRenderer(render)
         );
+
+        labelHelper.setText(links.size() + " Registros.");
     }
 
     private LinkFind createFilter(){
@@ -119,6 +120,7 @@ public class LinkView extends JPanel {
         comboBoxGroup.setSelectedIndex(0);
         comboBoxStatus.setSelectedIndex(0);
         textFieldPartner.setText("");
+        labelHelper.setText("");
     }
 
     private void comboBoxCategoryPopupMenuWillBecomeVisible(PopupMenuEvent e) {
@@ -198,6 +200,8 @@ public class LinkView extends JPanel {
         scrollPane1 = new JScrollPane();
         table = new JTable();
         panel2 = new JPanel();
+        panel11 = new JPanel();
+        labelHelper = new JLabel();
         panel5 = new JPanel();
         buttonSearch = new JButton();
         buttonClear = new JButton();
@@ -251,6 +255,16 @@ public class LinkView extends JPanel {
                 //======== panel2 ========
                 {
                     panel2.setLayout(new BorderLayout());
+
+                    //======== panel11 ========
+                    {
+                        panel11.setLayout(new FlowLayout());
+
+                        //---- labelHelper ----
+                        labelHelper.setText("Ajuda");
+                        panel11.add(labelHelper);
+                    }
+                    panel2.add(panel11, BorderLayout.NORTH);
 
                     //======== panel5 ========
                     {
@@ -431,6 +445,8 @@ public class LinkView extends JPanel {
     private JScrollPane scrollPane1;
     private JTable table;
     private JPanel panel2;
+    private JPanel panel11;
+    private JLabel labelHelper;
     private JPanel panel5;
     private JButton buttonSearch;
     private JButton buttonClear;

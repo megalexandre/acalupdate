@@ -40,4 +40,7 @@ public class LinkModel implements Serializable {
 
     @Column(name = "Numero")
     private String linkNumber;
+
+    @Column(name = "inativo")
+    private Boolean inactive;
 }

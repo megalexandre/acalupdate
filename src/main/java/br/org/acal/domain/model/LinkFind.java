@@ -14,11 +14,11 @@ public class LinkFind {
     private String categoryNumber;
     private String partner;
     private String group;
+    private String status;
 
     public Optional<String> getNumber() {
         return Optional.ofNullable(number);
     }
-
     public Optional<String> getAddressNumber() {
         return Optional.ofNullable(addressNumber);
     }
@@ -31,5 +31,6 @@ public class LinkFind {
     public Optional<String> getGroup(){
         return Optional.ofNullable(group);
     }
+    public Optional<String> getStatus() { return Optional.ofNullable(status);}
 
 }

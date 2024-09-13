@@ -79,8 +79,9 @@ public class LinkView extends JPanel {
         });
 
 
-
+        setContextMenu();
         comboBoxGroup.addItem(JComboBoxModel.clearData());
+        comboBoxStatus.addItem("Selecione");
     }
 
     private void search(ActionEvent e) {
@@ -107,14 +108,17 @@ public class LinkView extends JPanel {
         filter.setCategoryNumber(selectedCategory);
         filter.setPartner(textFieldPartner.getText());
         filter.setGroup(selectedGroup);
+        filter.setStatus((String) comboBoxStatus.getSelectedItem());
         return filter;
     }
 
     private void clearAction(ActionEvent e) {
         table.setModel(new LinkTableModel(List.of()));
-
         comboBoxAddress.setSelectedIndex(0);
         comboBoxCategory.setSelectedIndex(0);
+        comboBoxGroup.setSelectedIndex(0);
+        comboBoxStatus.setSelectedIndex(0);
+        textFieldPartner.setText("");
     }
 
     private void comboBoxCategoryPopupMenuWillBecomeVisible(PopupMenuEvent e) {
@@ -133,6 +137,36 @@ public class LinkView extends JPanel {
         }
     }
 
+    private void setContextMenu(){
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                showPopup(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                showPopup(e);
+            }
+
+            private void showPopup(MouseEvent e) {
+                if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
+                    int row = table.rowAtPoint(e.getPoint());
+                    int column = table.columnAtPoint(e.getPoint());
+
+                    if (!table.isRowSelected(row)) {
+                        table.setRowSelectionInterval(row, row);
+                    }
+                    if (!table.isColumnSelected(column)) {
+                        table.setColumnSelectionInterval(column, column);
+                    }
+
+                    contextMenu.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+    }
+
     private void addressChange(ActionEvent e) {
         // TODO add your code here
     }
@@ -144,6 +178,13 @@ public class LinkView extends JPanel {
         if(comboBoxGroup.getItemCount() <= 1){
             Arrays.stream(Group.values()).forEach(item ->
                 comboBoxGroup.addItem(JComboBoxModel.builder().number(item.getNumber()).name(item.getDescription()).build()));
+        }
+    }
+
+    private void comboBoxStatusPopupMenuWillBecomeVisible(PopupMenuEvent e) {
+        if(comboBoxStatus.getItemCount() == 1){
+            comboBoxStatus.addItem("Ativo");
+            comboBoxStatus.addItem("Inativo");
         }
     }
 
@@ -173,6 +214,12 @@ public class LinkView extends JPanel {
         panel7 = new JPanel();
         label2 = new JLabel();
         textFieldPartner = new JTextField();
+        panel10 = new JPanel();
+        label6 = new JLabel();
+        comboBoxStatus = new JComboBox<>();
+        contextMenu = new JPopupMenu();
+        menuItem1 = new JMenuItem();
+        menuItem2 = new JMenuItem();
 
         //======== this ========
         setPreferredSize(new Dimension(1024, 768));
@@ -325,6 +372,33 @@ public class LinkView extends JPanel {
                             panel7.add(textFieldPartner);
                         }
                         panel3.add(panel7);
+
+                        //======== panel10 ========
+                        {
+                            panel10.setMinimumSize(new Dimension(150, 0));
+                            panel10.setPreferredSize(new Dimension(150, 0));
+                            panel10.setLayout(new VerticalLayout());
+
+                            //---- label6 ----
+                            label6.setText("Status:");
+                            panel10.add(label6);
+
+                            //---- comboBoxStatus ----
+                            comboBoxStatus.setPreferredSize(new Dimension(150, 22));
+                            comboBoxStatus.setMinimumSize(new Dimension(150, 22));
+                            comboBoxStatus.addPopupMenuListener(new PopupMenuListener() {
+                                @Override
+                                public void popupMenuCanceled(PopupMenuEvent e) {}
+                                @Override
+                                public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {}
+                                @Override
+                                public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                                    comboBoxStatusPopupMenuWillBecomeVisible(e);
+                                }
+                            });
+                            panel10.add(comboBoxStatus);
+                        }
+                        panel3.add(panel10);
                     }
                     panel2.add(panel3, BorderLayout.CENTER);
                 }
@@ -333,6 +407,18 @@ public class LinkView extends JPanel {
             tabbedPane1.addTab("Liga\u00e7\u00f5es", panel1);
         }
         add(tabbedPane1, BorderLayout.CENTER);
+
+        //======== contextMenu ========
+        {
+
+            //---- menuItem1 ----
+            menuItem1.setText("Ativar");
+            contextMenu.add(menuItem1);
+
+            //---- menuItem2 ----
+            menuItem2.setText("Inativar");
+            contextMenu.add(menuItem2);
+        }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
@@ -362,5 +448,11 @@ public class LinkView extends JPanel {
     private JPanel panel7;
     private JLabel label2;
     private JTextField textFieldPartner;
+    private JPanel panel10;
+    private JLabel label6;
+    private JComboBox<String> comboBoxStatus;
+    private JPopupMenu contextMenu;
+    private JMenuItem menuItem1;
+    private JMenuItem menuItem2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

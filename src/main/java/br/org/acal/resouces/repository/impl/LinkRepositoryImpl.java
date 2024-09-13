@@ -101,6 +101,16 @@ public class LinkRepositoryImpl implements LinkDataSource {
             )
         );
 
+
+        find.getStatus().filter(it -> !it.isEmpty()).ifPresent(
+            status -> {
+                switch (status) {
+                    case "Ativo" -> predicates.add(cb.equal(root.get("inactive"), false));
+                    case "Inativo" -> predicates.add(cb.equal(root.get("inactive"), true));
+                }
+            }
+        );
+
         return predicates;
     }
 

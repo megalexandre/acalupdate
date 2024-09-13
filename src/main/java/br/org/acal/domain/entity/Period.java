@@ -28,7 +28,9 @@ public class Period {
 
     public LocalDateTime endMonth() {
         return LocalDate.of(year, month, month.length(Year.isLeap(year)))
-                .atTime(23, 59, 59, 999_999_999);
+                .atStartOfDay()
+                .plusDays(1)
+                .minusMinutes(1);
     }
 
 }

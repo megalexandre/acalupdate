@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.swing.*;
+import javax.swing.border.*;
 import javax.swing.event.*;
 import javax.swing.text.MaskFormatter;
 
@@ -298,6 +299,8 @@ public class InvoiceView extends JPanel {
         labelPageNumber = new JLabel();
         buttonNext = new JButton();
         buttonLast = new JButton();
+        panel16 = new JPanel();
+        panel15 = new JPanel();
 
         //======== this ========
         setLayout(new BorderLayout());
@@ -520,6 +523,7 @@ public class InvoiceView extends JPanel {
 
                         //======== panel12 ========
                         {
+                            panel12.setBorder(new EtchedBorder());
                             panel12.setLayout(new FlowLayout());
 
                             //---- buttonFirst ----
@@ -553,6 +557,18 @@ public class InvoiceView extends JPanel {
                 panel1.add(panel2, BorderLayout.SOUTH);
             }
             tabbedPane1.addTab("Lista", panel1);
+
+            //======== panel16 ========
+            {
+                panel16.setLayout(new BorderLayout());
+            }
+            tabbedPane1.addTab("Receber", panel16);
+
+            //======== panel15 ========
+            {
+                panel15.setLayout(new BorderLayout());
+            }
+            tabbedPane1.addTab("Gerar", panel15);
         }
         add(tabbedPane1, BorderLayout.CENTER);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
@@ -598,5 +614,7 @@ public class InvoiceView extends JPanel {
     private JLabel labelPageNumber;
     private JButton buttonNext;
     private JButton buttonLast;
+    private JPanel panel16;
+    private JPanel panel15;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

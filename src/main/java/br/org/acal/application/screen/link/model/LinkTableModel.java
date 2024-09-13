@@ -7,7 +7,7 @@ public class LinkTableModel extends AbstractTableModel {
 
     private final List<LinkTable> items;
     private final String[] columns = new String[]{
-         "Endereço", "Número:", "Nome:", "Categoria", "Grupo"
+         "Endereço:", "Número:", "Nome:", "Categoria:", "Grupo:", "Ativo:"
     };
 
     public LinkTableModel(List<LinkTable> items){
@@ -36,6 +36,7 @@ public class LinkTableModel extends AbstractTableModel {
             case 2 -> item.getName();
             case 3 -> item.getCategory();
             case 4 -> item.getGroup();
+            case 5 -> item.getInactive();
             default -> throw new IndexOutOfBoundsException("Campo Não Encontrado");
         };
 

@@ -161,6 +161,7 @@ new FormModel {
 							} )
 							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
 								name: "panel12"
+								"border": new javax.swing.border.EtchedBorder( 1, null, null )
 								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "buttonFirst"
 									"text": "<< Primera"
@@ -194,6 +195,16 @@ new FormModel {
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Lista"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+					name: "panel16"
+				}, new FormLayoutConstraints( null ) {
+					"title": "Receber"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+					name: "panel15"
+				}, new FormLayoutConstraints( null ) {
+					"title": "Gerar"
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "Center"

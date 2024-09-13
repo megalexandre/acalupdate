@@ -121,6 +121,24 @@ new FormModel {
 									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "partnerAddEventHandler", true ) )
 								} )
 							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+								name: "panel10"
+								"minimumSize": new java.awt.Dimension( 150, 0 )
+								"preferredSize": new java.awt.Dimension( 150, 0 )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label6"
+									"text": "Status:"
+								} )
+								add( new FormComponent( "javax.swing.JComboBox" ) {
+									name: "comboBoxStatus"
+									"preferredSize": new java.awt.Dimension( 150, 22 )
+									"minimumSize": new java.awt.Dimension( 150, 22 )
+									auxiliary() {
+										"JavaCodeGenerator.typeParameters": "String"
+									}
+									addEvent( new FormEvent( "javax.swing.event.PopupMenuListener", "popupMenuWillBecomeVisible", "comboBoxStatusPopupMenuWillBecomeVisible", true ) )
+								} )
+							} )
 						}, new FormLayoutConstraints( class java.lang.String ) {
 							"value": "Center"
 						} )
@@ -135,7 +153,20 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 780, 525 )
+			"size": new java.awt.Dimension( 1045, 655 )
+		} )
+		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+			name: "contextMenu"
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem1"
+				"text": "Ativar"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItem2"
+				"text": "Inativar"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 65, 665 )
 		} )
 	}
 }

@@ -1,4 +1,4 @@
-package br.org.acal.application.report;
+package br.org.acal.resouces.print;
 
 import br.org.acal.domain.entity.WaterQuality;
 import lombok.Builder;

@@ -34,11 +34,28 @@
             <version>3.3.3</version>
         </dependency>
 
+        <!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-docker-compose</artifactId>
+            <version>3.3.3</version>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.17.2</version>
+        </dependency>
+        -->
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version> <!-- Verifique a versão mais recente disponível -->
         </dependency>
+
 
         <!-- JasperReports -->
         <dependency>
@@ -80,7 +97,6 @@
 
     <build>
         <plugins>
-            <!-- Plugin do Spring Boot para empacotamento -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

@@ -1,17 +1,14 @@
 package br.org.acal.commons;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum Print {
-    REPORT_INVOICE_DIRECTORY("//report//invoice"),
-    NEW_INVOICE("/print/acal/invoice.jrxml"),
-    NEW_INVOICE_DETAIL("/report/invoice/invoiceDetail.jasper");
+
+    NEW_INVOICE("/print/acal/invoice.jrxml");
 
     private final String path;
 
-    Print(String path) {
-        this.path = path;
-    }
-
-    public String getPath() {
-        return path;
-    }
 }

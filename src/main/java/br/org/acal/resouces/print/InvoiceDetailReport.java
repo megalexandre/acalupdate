@@ -1,10 +1,9 @@
-package br.org.acal.application.report;
+package br.org.acal.resouces.print;
 
-import br.org.acal.commons.util.LocalDateTimeUtil;
 import br.org.acal.commons.Prices;
+import br.org.acal.commons.util.LocalDateTimeUtil;
 import br.org.acal.domain.entity.Address;
 import br.org.acal.domain.entity.Invoice;
-import br.org.acal.domain.entity.WaterQuality;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +13,6 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -24,9 +22,7 @@ import static java.text.NumberFormat.getCurrencyInstance;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class InvoiceReport {
-
-    private List<WaterQualityReport> waterQuality;
+public class InvoiceDetailReport {
 
     private String number;
     private String payedAt;
@@ -52,10 +48,9 @@ public class InvoiceReport {
     private String waterValue;
     private String freeTier;
 
-
-    public static InvoiceReport adapter(Invoice invoice, Collection<WaterQuality> waterQuality){
-        return InvoiceReport
-            .builder()
+    public static List<InvoiceDetailReport> adapter(Invoice invoice){
+        return List.of(InvoiceDetailReport
+                .builder()
                 .number(getNumber(invoice))
                 .payedAt(createPayedAt(invoice))
                 .dueDate(createDuoDate(invoice))
@@ -78,8 +73,7 @@ public class InvoiceReport {
                 .usefulConsumption("Consumo considerado: " + orEmpty((invoice.useFullConsumption())))
                 .waterValue(createWaterValue(invoice))
                 .freeTier(createFreeTier())
-                .waterQuality(waterQuality.stream().map(WaterQualityReport::adapter).toList())
-            .build();
+            .build());
     }
 
     private static String createConsuptionLabel(Invoice invoice){

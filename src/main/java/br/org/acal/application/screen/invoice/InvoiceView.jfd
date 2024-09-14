@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "8.2.3.0.386" Java: "17.0.8" encoding: "UTF-8"
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.3" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -136,6 +136,11 @@ new FormModel {
 						} ) {
 							name: "panel5"
 							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "button1"
+								"text": "Imprimir"
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonPrintAction", true ) )
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
 								name: "buttonClear"
 								"text": "Limpar"
 								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "clearAction", true ) )
@@ -143,8 +148,6 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JButton" ) {
 								name: "buttonSearch"
 								"text": "Consultar"
-								"horizontalAlignment": 2
-								"verticalAlignment": 3
 								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "search", true ) )
 								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchAction", true ) )
 							} )
@@ -212,6 +215,16 @@ new FormModel {
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
 			"size": new java.awt.Dimension( 890, 525 )
+		} )
+		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+			name: "contextMenu"
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItemPrint"
+				"text": "Imprimir"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "printAction", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 180, 640 )
 		} )
 	}
 }

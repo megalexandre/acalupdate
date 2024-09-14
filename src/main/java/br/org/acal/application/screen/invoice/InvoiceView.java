@@ -4,10 +4,8 @@ package br.org.acal.application.screen.invoice;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.ParseException;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
@@ -19,20 +17,28 @@ import br.org.acal.application.screen.link.model.JComboBoxModel;
 import br.org.acal.application.screen.link.model.JComboBoxStatus;
 import br.org.acal.application.screen.link.model.LinkTableModel;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
+import br.org.acal.commons.Print;
 import br.org.acal.commons.enumeration.StatusPaymentInvoice;
+import br.org.acal.domain.datasource.WaterQualityDataSource;
 import br.org.acal.domain.entity.Invoice;
+import br.org.acal.domain.entity.ReportData;
+import br.org.acal.domain.entity.WaterQuality;
 import br.org.acal.domain.model.InvoicePaginate;
 import br.org.acal.domain.usecase.address.AddressFindAllUsecase;
 import br.org.acal.domain.usecase.category.CategoryFindAllUseCase;
 import br.org.acal.domain.usecase.customer.CustomerFindAllUseCase;
 import br.org.acal.domain.usecase.invoice.InvoicePaginateUseCase;
+import br.org.acal.resouces.print.InvoiceReport;
+import br.org.acal.resouces.report.create.ReportRepository;
 import lombok.val;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.jdesktop.swingx.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
+import static java.util.Arrays.stream;
 import static java.util.stream.IntStream.range;
 
 @Component
@@ -41,6 +47,10 @@ public class InvoiceView extends JPanel {
     private final AddressFindAllUsecase findAllAddress;
     private final CategoryFindAllUseCase categoryFindAll;
     private final CustomerFindAllUseCase customerFindAll;
+
+    /*@TODO move to usecase**/
+    private final ReportRepository reportRepository;
+    private final WaterQualityDataSource waterQualityDataSource;
     private String selectedAddress;
     private String selectedCategory;
     private String selectedCustomer;
@@ -48,18 +58,23 @@ public class InvoiceView extends JPanel {
     private Page<Invoice> page;
 
     private final String SELECT = "Selecione";
+    private String selectedInvoiceToPrint = null;
 
     public InvoiceView(
         InvoicePaginateUseCase paginate,
         AddressFindAllUsecase findAllAddress,
         CategoryFindAllUseCase categoryFindAll,
-        CustomerFindAllUseCase customerFindAll
+        CustomerFindAllUseCase customerFindAll,
+        ReportRepository reportRepository,
+        WaterQualityDataSource waterQualityDataSource
     ) {
         initComponents();
         this.paginate = paginate;
         this.findAllAddress = findAllAddress;
         this.categoryFindAll = categoryFindAll;
         this.customerFindAll = customerFindAll;
+        this.reportRepository = reportRepository;
+        this.waterQualityDataSource = waterQualityDataSource;
         startComponents();
     }
 
@@ -91,6 +106,37 @@ public class InvoiceView extends JPanel {
         comboBoxStatus.addItem(JComboBoxStatus.clearData());
 
         createMask();
+
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                showPopup(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                showPopup(e);
+            }
+
+            private void showPopup(MouseEvent e) {
+                if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
+                    int row = table.rowAtPoint(e.getPoint());
+                    int column = table.columnAtPoint(e.getPoint());
+
+                    selectedInvoiceToPrint = (String) table.getValueAt(row, 3);
+
+                    if (!table.isRowSelected(row)) {
+                        table.setRowSelectionInterval(row, row);
+                    }
+                    if (!table.isColumnSelected(column)) {
+                        table.setColumnSelectionInterval(column, column);
+                    }
+
+                    contextMenu.show(e.getComponent(), e.getX(), e.getY());
+
+                }
+            }
+        });
     }
 
 
@@ -192,7 +238,7 @@ public class InvoiceView extends JPanel {
 
     private void comboBoxStatusPopupMenuWillBecomeVisible(PopupMenuEvent e) {
         if(comboBoxStatus.getItemCount() <= 1){
-            Arrays.stream(StatusPaymentInvoice.values()).forEach(it ->
+            stream(StatusPaymentInvoice.values()).forEach(it ->
                     comboBoxStatus.addItem(JComboBoxStatus.of (it))
             );
         }
@@ -258,6 +304,54 @@ public class InvoiceView extends JPanel {
         }
     }
 
+    // @TODO provavelmente é melhor para mover isso para o use case
+    private void printAction(ActionEvent e) {
+
+        var invoices = page.getContent().stream().filter(it -> selectedInvoiceToPrint.equals(it.getNumber()))
+               .toList();
+
+        val period = invoices.stream().map(it -> it.getPeriod().toLocalDate()).toList();
+        val waterQuality = waterQualityDataSource.find(period);
+
+        val invoiceReport = invoices.stream().map(
+            it -> InvoiceReport.adapter(it, filter(it, waterQuality))
+        ).toList();
+
+        try {
+            var report = ReportData.builder()
+                .print(Print.NEW_INVOICE)
+                .dataSource(new JRBeanCollectionDataSource(invoiceReport))
+                .build();
+            reportRepository.create(report);
+        } catch (Exception ignored){
+
+        }
+    }
+
+    private Collection<WaterQuality> filter(Invoice invoice, List<WaterQuality> waterQualities) {
+        return waterQualities.stream().filter(it -> it.period().equals(invoice.period())).toList();
+    }
+
+    private void buttonPrintAction(ActionEvent e) {
+        var invoices = page.getContent();
+        val period = invoices.stream().map(it -> it.getPeriod().toLocalDate()).toList();
+        val waterQuality = waterQualityDataSource.find(period);
+
+        val invoiceReport = invoices.stream().map(
+                it -> InvoiceReport.adapter(it, filter(it, waterQuality))
+        ).toList();
+
+        try {
+            var report = ReportData.builder()
+                    .print(Print.NEW_INVOICE)
+                    .dataSource(new JRBeanCollectionDataSource(invoiceReport))
+                    .build();
+            reportRepository.create(report);
+        } catch (Exception ignored){
+
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner non-commercial license
@@ -288,6 +382,7 @@ public class InvoiceView extends JPanel {
         label7 = new JLabel();
         textFieldNumber = new JTextField();
         panel5 = new JPanel();
+        button1 = new JButton();
         buttonClear = new JButton();
         buttonSearch = new JButton();
         panel11 = new JPanel();
@@ -301,6 +396,8 @@ public class InvoiceView extends JPanel {
         buttonLast = new JButton();
         panel16 = new JPanel();
         panel15 = new JPanel();
+        contextMenu = new JPopupMenu();
+        menuItemPrint = new JMenuItem();
 
         //======== this ========
         setLayout(new BorderLayout());
@@ -493,6 +590,11 @@ public class InvoiceView extends JPanel {
                     {
                         panel5.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
+                        //---- button1 ----
+                        button1.setText("Imprimir");
+                        button1.addActionListener(e -> buttonPrintAction(e));
+                        panel5.add(button1);
+
                         //---- buttonClear ----
                         buttonClear.setText("Limpar");
                         buttonClear.addActionListener(e -> clearAction(e));
@@ -500,8 +602,6 @@ public class InvoiceView extends JPanel {
 
                         //---- buttonSearch ----
                         buttonSearch.setText("Consultar");
-                        buttonSearch.setHorizontalAlignment(SwingConstants.LEFT);
-                        buttonSearch.setVerticalAlignment(SwingConstants.BOTTOM);
                         buttonSearch.addActionListener(e -> {
 			search(e);
 			searchAction(e);
@@ -571,6 +671,15 @@ public class InvoiceView extends JPanel {
             tabbedPane1.addTab("Gerar", panel15);
         }
         add(tabbedPane1, BorderLayout.CENTER);
+
+        //======== contextMenu ========
+        {
+
+            //---- menuItemPrint ----
+            menuItemPrint.setText("Imprimir");
+            menuItemPrint.addActionListener(e -> printAction(e));
+            contextMenu.add(menuItemPrint);
+        }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
@@ -603,6 +712,7 @@ public class InvoiceView extends JPanel {
     private JLabel label7;
     private JTextField textFieldNumber;
     private JPanel panel5;
+    private JButton button1;
     private JButton buttonClear;
     private JButton buttonSearch;
     private JPanel panel11;
@@ -616,5 +726,7 @@ public class InvoiceView extends JPanel {
     private JButton buttonLast;
     private JPanel panel16;
     private JPanel panel15;
+    private JPopupMenu contextMenu;
+    private JMenuItem menuItemPrint;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

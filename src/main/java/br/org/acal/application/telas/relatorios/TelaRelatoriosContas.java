@@ -1,18 +1,15 @@
 package br.org.acal.application.telas.relatorios;
 
-import br.org.acal.application.report.InvoiceReport;
 import br.org.acal.application.telas.TelaPrincipal;
-import br.org.acal.commons.util.DateUtil;
 import br.org.acal.domain.datasource.InvoiceDataSource;
 import br.org.acal.domain.datasource.WaterQualityDataSource;
 import br.org.acal.domain.model.InvoicePaginate;
 import br.org.acal.resouces.dao.DaoCategoriaSocio;
 import br.org.acal.resouces.dao.DaoEndereco;
 import br.org.acal.resouces.dao.view.DaoSocioView;
-import br.org.acal.domain.model.InvoiceFilter;
-import br.org.acal.commons.enumeration.StatusPaymentInvoice;
 import br.org.acal.resouces.entidades.SociosView;
-import br.org.acal.resouces.report.create.ReportService;
+import br.org.acal.resouces.print.InvoiceReport;
+import br.org.acal.resouces.report.create.ReportRepository;
 import br.org.acal.domain.entity.Invoice;
 import br.org.acal.domain.entity.ReportData;
 import br.org.acal.domain.entity.WaterQuality;
@@ -922,7 +919,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
                             .dataSource(new JRBeanCollectionDataSource(invoiceReport))
                             .build();
 
-                    new ReportService().create(report);
+                    new ReportRepository().create(report);
 
                 } catch (Exception ex) {
                     Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);

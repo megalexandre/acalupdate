@@ -1,14 +1,18 @@
 package br.org.acal.resouces.report.create;
 
+import br.org.acal.domain.datasource.ReportDataSource;
 import br.org.acal.domain.entity.ReportData;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.*;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,8 +23,11 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 @Repository
-public class ReportRepository {
+@Profile("dev")
+public class ReportRepository implements ReportDataSource {
+    private final Logger logger = LoggerFactory.getLogger(ReportRepository.class);
 
+    @Override
     public void create(ReportData data) throws JRException {
 
         var absolutePath = getClass().getResourceAsStream(data.getPrint().getPath());
@@ -34,8 +41,7 @@ public class ReportRepository {
         data.getParam().put("SUBREPORT_DIR", getAbsolutePath(pathReport));
 
         try {
-            JasperReport masterReport = JasperCompileManager.compileReport(absolutePath);
-
+            JasperReport masterReport = (JasperReport) JRLoader.loadObject(absolutePath);
             JasperViewer.viewReport(
                     JasperFillManager.fillReport(
                             masterReport,
@@ -44,7 +50,8 @@ public class ReportRepository {
                     ), false);
 
         } catch (Exception e){
-            showMessageDialog(null, e.getMessage(), "Error", INFORMATION_MESSAGE);
+            logger.error("Error ",e);
+            showMessageDialog(null, e, "Error", INFORMATION_MESSAGE);
         }
 
     }
@@ -64,7 +71,8 @@ public class ReportRepository {
             return directoryPath.toAbsolutePath() + File.separator;
 
         } catch (Exception e) {
-            throw new RuntimeException("Caminho invalido");
+            logger.error("Erro ao capturar o caminho do relatorio",e);
+            throw new RuntimeException("Caminho invalido", e);
         }
     }
 

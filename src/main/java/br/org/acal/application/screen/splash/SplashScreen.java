@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 
 public class SplashScreen extends JWindow {
     private JLabel statusLabel;
+    private JLabel headerLabel;
     private JLabel imageLabel;
     public SplashScreen() {
         JPanel content = new JPanel(new BorderLayout());
@@ -22,8 +23,10 @@ public class SplashScreen extends JWindow {
         imageLabel = new JLabel(icon);
         content.add(imageLabel, BorderLayout.CENTER);
 
-        statusLabel = new JLabel("Carregando...", SwingConstants.CENTER);
+        headerLabel = new JLabel("ACAL", SwingConstants.CENTER);
+        statusLabel = new JLabel("Versão 0.1.1", SwingConstants.CENTER);
         content.add(statusLabel, BorderLayout.SOUTH);
+        content.add(headerLabel, BorderLayout.NORTH);
 
         int width = 1024/2;
         int height = 768/2;

@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -23,33 +24,32 @@ public class StartupRunner implements CommandLineRunner {
             directory.mkdirs();
         }
 
-        if(directory.exists()){
+        if (directory.exists()) {
             clearDirectory(directory.toPath());
         }
-
 
         copyFilesToDirectory(directory);
     }
 
-    private void copyFilesToDirectory(File directory) throws IOException {
+    private void copyFilesToDirectory(File directory) {
         String resourcePath = "/print/acal";
-
-        try (Stream<Path> fileList = Files.list(Path.of(Objects.requireNonNull(getClass().getResource(resourcePath)).toURI()))) {
-
-            fileList.toList()
-                    .stream().filter(it -> it.getFileName().toString().endsWith(".jrxml"))
-                    .forEach(file -> copyFile(file, directory.toPath().resolve(file.getFileName())));
-
-        } catch (Exception ignored) {}
-    }
-
-    private void copyFile(Path source, Path destination) {
         try {
-            Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to copy file: " + source.toString(), e);
+            List<String> fileNames = List.of("invoice.jrxml","invoiceParam.jrxml", "invoiceDetail.jrxml");
+            for (String fileName : fileNames) {
+                try (InputStream inputStream = getClass().getResourceAsStream(resourcePath + "/" + fileName)) {
+                    if (inputStream == null) {
+                        throw new RuntimeException("Resource not found: " + resourcePath + "/" + fileName);
+                    }
+
+                    Path destinationPath = directory.toPath().resolve(fileName);
+                    Files.copy(inputStream, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
+        } catch (Exception exception) {
+            throw new RuntimeException("Não foi possível copiar os arquivos", exception);
         }
     }
+
     private void clearDirectory(Path path) throws IOException {
         try (Stream<Path> paths = Files.walk(path)) {
             paths.filter(Files::isRegularFile)
@@ -61,4 +61,3 @@ public class StartupRunner implements CommandLineRunner {
         }
     }
 }
-

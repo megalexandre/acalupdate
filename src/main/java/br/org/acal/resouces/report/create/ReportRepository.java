@@ -23,7 +23,6 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 @Repository
-@Profile("dev")
 public class ReportRepository implements ReportDataSource {
     private final Logger logger = LoggerFactory.getLogger(ReportRepository.class);
     private final String separator = File.separator;

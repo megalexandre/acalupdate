@@ -30,9 +30,12 @@ import br.org.acal.domain.usecase.category.CategoryFindAllUseCase;
 import br.org.acal.domain.usecase.customer.CustomerFindAllUseCase;
 import br.org.acal.domain.usecase.invoice.InvoicePaginateUseCase;
 import br.org.acal.resouces.print.InvoiceReport;
+import br.org.acal.resouces.report.create.ReportRepository;
 import lombok.val;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.jdesktop.swingx.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -40,9 +43,12 @@ import org.springframework.stereotype.Component;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.IntStream.range;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 @Component
 public class InvoiceView extends JPanel {
+    private final Logger logger = LoggerFactory.getLogger(InvoiceView.class);
     private final InvoicePaginateUseCase paginate;
     private final AddressFindAllUsecase findAllAddress;
     private final CategoryFindAllUseCase categoryFindAll;
@@ -319,7 +325,9 @@ public class InvoiceView extends JPanel {
                 .dataSource(new JRBeanCollectionDataSource(invoiceReport))
                 .build();
             reportDataSource.create(report);
-        } catch (Exception ignored){
+        } catch (Exception ex){
+            logger.error("Error when print report", ex);
+            showMessageDialog(null, "An error occurred while generating the report: " + ex.getMessage(), "Error", INFORMATION_MESSAGE);
 
         }
     }

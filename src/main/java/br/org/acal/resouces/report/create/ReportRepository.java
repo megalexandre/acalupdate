@@ -26,54 +26,40 @@ import static javax.swing.JOptionPane.showMessageDialog;
 @Profile("dev")
 public class ReportRepository implements ReportDataSource {
     private final Logger logger = LoggerFactory.getLogger(ReportRepository.class);
-
+    private final String separator = File.separator;
     @Override
     public void create(ReportData data) throws JRException {
+        var dirPath = System.getProperty("user.home") + separator + "acal" + separator + "reports";
+        var mainReportPath = dirPath + separator + data.getPrintPaths().getPath().replace("/", separator);
 
-        var absolutePath = getClass().getResourceAsStream(data.getPrint().getPath());
-        var pathReport = getClass().getResource(data.getPrint().getPath()).getPath();
+        String invoiceParamPath = dirPath + separator +"invoiceParam.jrxml";
+        JasperReport reportParam = JasperCompileManager.compileReport(invoiceParamPath);
+
+        String invoiceDetailPath = dirPath + separator +"invoiceDetail.jrxml";
+        JasperReport reportDetail = JasperCompileManager.compileReport(invoiceDetailPath);
 
         if(data.getParam() == null){
-            Map<String, Object> map = new HashMap<>();
-            data.setParam(map);
+            data.setParam(new HashMap<>());
         }
-
-        data.getParam().put("SUBREPORT_DIR", getAbsolutePath(pathReport));
+        data.getParam().put("SUBREPORT", reportParam);
+        data.getParam().put("SUBREPORT_DETAIL", reportDetail);
 
         try {
-            JasperReport masterReport = (JasperReport) JRLoader.loadObject(absolutePath);
-            JasperViewer.viewReport(
-                    JasperFillManager.fillReport(
-                            masterReport,
-                            data.getParam(),
-                            data.getDataSource()
-                    ), false);
+            JasperReport mainReport = JasperCompileManager.compileReport(mainReportPath);
 
-        } catch (Exception e){
-            logger.error("Error ",e);
-            showMessageDialog(null, e, "Error", INFORMATION_MESSAGE);
-        }
+            var jasperPrint = JasperFillManager.fillReport(
+                    mainReport,
+                    data.getParam(),
+                    data.getDataSource()
+            );
 
-    }
-
-    private String getAbsolutePath(String data){
-
-        try {
-
-            String resourcePath = data + File.separator;
-
-            if (resourcePath.startsWith("/")) {
-                resourcePath = resourcePath.substring(1);
-            }
-            Path filePath = Paths.get(resourcePath);
-            Path directoryPath = filePath.getParent();
-
-            return directoryPath.toAbsolutePath() + File.separator;
+            JasperViewer.viewReport(jasperPrint, false);
 
         } catch (Exception e) {
-            logger.error("Erro ao capturar o caminho do relatorio",e);
-            throw new RuntimeException("Caminho invalido", e);
+            logger.error("Error generating report: ", e);
+            showMessageDialog(null, "An error occurred while generating the report: " + e.getMessage(), "Error", INFORMATION_MESSAGE);
         }
     }
+
 
 }

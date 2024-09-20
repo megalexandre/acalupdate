@@ -5,9 +5,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Print {
+public enum PrintPaths {
 
-    NEW_INVOICE("/print/acal/invoice.jasper");
+    NEW_INVOICE("invoice.jrxml");
 
     private final String path;
 

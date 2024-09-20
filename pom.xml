@@ -125,7 +125,6 @@
                     <target>21</target>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 

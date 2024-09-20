@@ -13,7 +13,7 @@ import br.org.acal.resouces.report.create.ReportRepository;
 import br.org.acal.domain.entity.Invoice;
 import br.org.acal.domain.entity.ReportData;
 import br.org.acal.domain.entity.WaterQuality;
-import br.org.acal.commons.Print;
+import br.org.acal.commons.PrintPaths;
 import lombok.val;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.context.annotation.Lazy;
@@ -914,7 +914,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
                     Map<String, Object> map = new HashMap<>();
 
                     val report = ReportData.builder()
-                            .print(Print.NEW_INVOICE)
+                            .printPaths(PrintPaths.NEW_INVOICE)
                             .param(map)
                             .dataSource(new JRBeanCollectionDataSource(invoiceReport))
                             .build();

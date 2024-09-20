@@ -1,6 +1,6 @@
 package br.org.acal.domain.entity;
 
-import br.org.acal.commons.Print;
+import br.org.acal.commons.PrintPaths;
 import lombok.Builder;
 import lombok.Data;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -11,7 +11,7 @@ import java.util.Map;
 @Builder
 public class ReportData {
 
-    private Print print;
+    private PrintPaths printPaths;
     private JRBeanCollectionDataSource dataSource;
 
     private Map<String, Object> param;

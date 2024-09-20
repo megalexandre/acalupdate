@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoiceDetail" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c5cc2f2a-c276-4a89-b5c6-5d13cc4c9f07">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -35,9 +35,9 @@
 	<field name="waterValue" class="java.lang.String"/>
 	<field name="freeTier" class="java.lang.String"/>
 	<detail>
-		<band height="121">
+		<band height="138">
 			<staticText>
-				<reportElement x="335" y="0" width="80" height="20" uuid="a7e0b35a-ed34-4673-a4c4-83d3d213c691">
+				<reportElement x="335" y="20" width="80" height="20" uuid="a7e0b35a-ed34-4673-a4c4-83d3d213c691">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -46,7 +46,7 @@
 				<text><![CDATA[Emissão:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="335" y="20" width="80" height="20" uuid="241eaa08-b67c-4ff7-a7ed-02c95dd96922">
+				<reportElement x="335" y="40" width="80" height="20" uuid="241eaa08-b67c-4ff7-a7ed-02c95dd96922">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -55,7 +55,7 @@
 				<text><![CDATA[Taxa mínima:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="335" y="40" width="80" height="20" uuid="bbe38593-a246-437a-922e-be453205099f">
+				<reportElement x="335" y="60" width="80" height="20" uuid="bbe38593-a246-437a-922e-be453205099f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -64,24 +64,24 @@
 				<text><![CDATA[Valor Excesso: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="335" y="61" width="220" height="20" uuid="f9538f3e-a3c9-42a1-a280-61b2a27ae103"/>
+				<reportElement x="335" y="80" width="220" height="20" uuid="f9538f3e-a3c9-42a1-a280-61b2a27ae103"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Valor total]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="415" y="0" width="140" height="20" uuid="f54319a9-016d-4962-b896-1717bc49c30f">
+				<reportElement x="335" y="0" width="220" height="20" uuid="f54319a9-016d-4962-b896-1717bc49c30f">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{printedAt}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{partner}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="415" y="40" width="140" height="20" uuid="838829f3-3de6-4233-a32d-d2edb2947275">
+				<reportElement x="415" y="60" width="140" height="20" uuid="838829f3-3de6-4233-a32d-d2edb2947275">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -108,14 +108,14 @@
 				<textFieldExpression><![CDATA[$F{category}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="415" y="20" width="140" height="20" uuid="3c15f199-b0c7-4ee1-985a-b8421fb700dc"/>
+				<reportElement x="415" y="40" width="140" height="20" uuid="3c15f199-b0c7-4ee1-985a-b8421fb700dc"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{partnerValue}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="60" width="220" height="20" uuid="42a53f75-424d-4cc2-a249-fcb44ff8bfc9">
+				<reportElement x="0" y="40" width="220" height="20" uuid="42a53f75-424d-4cc2-a249-fcb44ff8bfc9">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -125,7 +125,7 @@
 				<textFieldExpression><![CDATA[$F{consumptionStart}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="80" width="220" height="20" uuid="b1420481-1ae7-4471-b128-e6692ce1741c">
+				<reportElement x="0" y="60" width="220" height="20" uuid="b1420481-1ae7-4471-b128-e6692ce1741c">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -135,7 +135,7 @@
 				<textFieldExpression><![CDATA[$F{consumption}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="100" width="220" height="20" uuid="f039951d-ad8c-4645-ab1a-4abd6bd29f1a">
+				<reportElement x="0" y="80" width="220" height="20" uuid="f039951d-ad8c-4645-ab1a-4abd6bd29f1a">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -145,32 +145,39 @@
 				<textFieldExpression><![CDATA[$F{freeTier}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="20" width="220" height="40" uuid="d9e25e0f-6e7f-4f42-91a0-d4d553cd624d">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<reportElement stretchType="ContainerHeight" x="0" y="20" width="220" height="20" uuid="d9e25e0f-6e7f-4f42-91a0-d4d553cd624d">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="335" y="61" width="220" height="1" uuid="b41b4f70-609c-4e72-952c-22ef4d161a56"/>
-			</line>
 			<textField>
-				<reportElement x="335" y="62" width="220" height="58" uuid="1a2e9f4c-e882-4c18-b24c-ff8aa8dea908">
+				<reportElement x="335" y="80" width="220" height="58" uuid="1a2e9f4c-e882-4c18-b24c-ff8aa8dea908">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<box bottomPadding="1"/>
+				<box bottomPadding="1">
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="26" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{totalValue}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="335" y="120" width="219" height="1" uuid="9425ad52-b142-4c65-9207-a569ab03b521"/>
-			</line>
+			<textField>
+				<reportElement x="415" y="20" width="140" height="20" uuid="6a6bb116-f3d0-47b9-a300-b8c1e3594e9e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{printedAt}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

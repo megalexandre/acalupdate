@@ -17,8 +17,9 @@ import br.org.acal.application.screen.link.model.JComboBoxModel;
 import br.org.acal.application.screen.link.model.JComboBoxStatus;
 import br.org.acal.application.screen.link.model.LinkTableModel;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
-import br.org.acal.commons.Print;
+import br.org.acal.commons.PrintPaths;
 import br.org.acal.commons.enumeration.StatusPaymentInvoice;
+import br.org.acal.domain.datasource.ReportDataSource;
 import br.org.acal.domain.datasource.WaterQualityDataSource;
 import br.org.acal.domain.entity.Invoice;
 import br.org.acal.domain.entity.ReportData;
@@ -29,7 +30,6 @@ import br.org.acal.domain.usecase.category.CategoryFindAllUseCase;
 import br.org.acal.domain.usecase.customer.CustomerFindAllUseCase;
 import br.org.acal.domain.usecase.invoice.InvoicePaginateUseCase;
 import br.org.acal.resouces.print.InvoiceReport;
-import br.org.acal.resouces.report.create.ReportRepository;
 import lombok.val;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.jdesktop.swingx.*;
@@ -47,16 +47,13 @@ public class InvoiceView extends JPanel {
     private final AddressFindAllUsecase findAllAddress;
     private final CategoryFindAllUseCase categoryFindAll;
     private final CustomerFindAllUseCase customerFindAll;
-
-    /*@TODO move to usecase**/
-    private final ReportRepository reportRepository;
     private final WaterQualityDataSource waterQualityDataSource;
+    private final ReportDataSource reportDataSource;
     private String selectedAddress;
     private String selectedCategory;
     private String selectedCustomer;
     private int pageNumber = 0;
     private Page<Invoice> page;
-
     private final String SELECT = "Selecione";
     private String selectedInvoiceToPrint = null;
 
@@ -65,16 +62,16 @@ public class InvoiceView extends JPanel {
         AddressFindAllUsecase findAllAddress,
         CategoryFindAllUseCase categoryFindAll,
         CustomerFindAllUseCase customerFindAll,
-        ReportRepository reportRepository,
-        WaterQualityDataSource waterQualityDataSource
+        WaterQualityDataSource waterQualityDataSource,
+        ReportDataSource reportDataSource
     ) {
         initComponents();
         this.paginate = paginate;
         this.findAllAddress = findAllAddress;
         this.categoryFindAll = categoryFindAll;
         this.customerFindAll = customerFindAll;
-        this.reportRepository = reportRepository;
         this.waterQualityDataSource = waterQualityDataSource;
+        this.reportDataSource = reportDataSource;
         startComponents();
     }
 
@@ -304,7 +301,6 @@ public class InvoiceView extends JPanel {
         }
     }
 
-    // @TODO provavelmente é melhor para mover isso para o use case
     private void printAction(ActionEvent e) {
 
         var invoices = page.getContent().stream().filter(it -> selectedInvoiceToPrint.equals(it.getNumber()))
@@ -319,10 +315,10 @@ public class InvoiceView extends JPanel {
 
         try {
             var report = ReportData.builder()
-                .print(Print.NEW_INVOICE)
+                .printPaths(PrintPaths.NEW_INVOICE)
                 .dataSource(new JRBeanCollectionDataSource(invoiceReport))
                 .build();
-            reportRepository.create(report);
+            reportDataSource.create(report);
         } catch (Exception ignored){
 
         }
@@ -343,15 +339,14 @@ public class InvoiceView extends JPanel {
 
         try {
             var report = ReportData.builder()
-                    .print(Print.NEW_INVOICE)
+                    .printPaths(PrintPaths.NEW_INVOICE)
                     .dataSource(new JRBeanCollectionDataSource(invoiceReport))
                     .build();
-            reportRepository.create(report);
+            reportDataSource.create(report);
         } catch (Exception ignored){
 
         }
     }
-
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner non-commercial license

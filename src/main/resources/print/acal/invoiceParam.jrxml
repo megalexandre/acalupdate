@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoiceDetail" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c5cc2f2a-c276-4a89-b5c6-5d13cc4c9f07">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -109,8 +109,9 @@
 				<reportElement x="0" y="0" width="255" height="15" uuid="00fb0bdb-7782-4f5a-8c47-fe388426654a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.spacingBefore" value="pixel"/>
 				</reportElement>
-				<box padding="0">
+				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -165,7 +166,7 @@
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="82" splitType="Stretch">
+		<band height="79" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="14" uuid="beb3447d-5c91-40d3-8a1c-e3792ace3fd5">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -176,11 +177,13 @@
 				<text><![CDATA[Parâmetros de Qualidade da Água]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="14" width="555" height="68" uuid="35435764-ea42-4b37-8ee9-8aad375f7df9">
+				<reportElement stretchType="ContainerHeight" x="0" y="14" width="555" height="65" uuid="35435764-ea42-4b37-8ee9-8aad375f7df9">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Top" markup="html">
-					<font size="9" isBold="false"/>
+					<font size="8" isBold="false"/>
+					<paragraph lineSpacingSize="0.0"/>
 				</textElement>
 				<text><![CDATA[<b>Coliformes Totais:</b> Indicador que mensura contaminação bacteriológica, do tipo: bacilos gram-negativos, aeróbios ou anaeróbios facultativos não esporogênicos, oxidase-negativos.<br />
 <b>E.coli :</b> Indicador que mensura contaminação bacteriológica de origem fecal.<br />

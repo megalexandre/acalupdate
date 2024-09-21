@@ -60,14 +60,12 @@ public class InvoiceDetailReport {
                 .partnerNumber(createNumber(invoice))
                 .printedAt(createPrintedAt())
                 .address(createAddress(invoice))
-
                 .partnerValue(orEmpty(invoice.getPartnerValue()))
                 .otherValues(orEmpty(invoice.getOtherValues()))
                 .totalValue(orEmpty(invoice.totalValue()))
                 .overLimit(orEmpty(invoice.useFullConsumption()))
-
                 .category("Categoria: " + orEmpty(invoice.category().getName()))
-                .consumptionStart(createConsuptionLabel(invoice))
+                .consumptionStart(createConsumptionLabel(invoice))
                 .consumptionEnd("")
                 .consumption("Consumo Total: " + orEmpty(invoice.consumptionTotal()))
                 .usefulConsumption("Consumo considerado: " + orEmpty((invoice.useFullConsumption())))
@@ -76,9 +74,9 @@ public class InvoiceDetailReport {
             .build());
     }
 
-    private static String createConsuptionLabel(Invoice invoice){
+    private static String createConsumptionLabel(Invoice invoice){
         return  """ 
-           <html>Anterior: %s<br/> Atual: %s<br/> </html>
+           <html>Anterior: %s Atual: %s </html>
            """.formatted(orEmpty(invoice.consumptionStart()), orEmpty(invoice.consumptionEnd()));
     }
     private static String createFreeTier(){
@@ -105,7 +103,7 @@ public class InvoiceDetailReport {
     }
 
     private static String createPartner(Invoice invoice){
-        return "Sócio: " + orEmpty(invoice.getLink().getCustomer().getName());
+        return orEmpty(invoice.getLink().getCustomer().getName());
     }
 
     private static String createNumber(Invoice invoice){

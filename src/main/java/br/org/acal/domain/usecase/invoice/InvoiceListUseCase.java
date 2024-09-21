@@ -9,16 +9,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class InvoiceFindUseCase implements Usecase<InvoiceFilter, List<Invoice>> {
+public class InvoiceListUseCase implements Usecase<InvoiceFilter, List<Invoice>> {
 
     private final InvoiceDataSource dataSource;
 
-    public InvoiceFindUseCase(InvoiceDataSource dataSource){
+    public InvoiceListUseCase(InvoiceDataSource dataSource){
         this.dataSource = dataSource;
     }
-
     @Override
     public List<Invoice> execute(InvoiceFilter filter) {
-        return dataSource.find(filter);
+        return dataSource.list(filter);
     }
 }

@@ -4,7 +4,7 @@ import br.org.acal.commons.enumeration.StatusPaymentInvoice;
 import br.org.acal.domain.datasource.InvoiceDataSource;
 import br.org.acal.domain.entity.Invoice;
 import br.org.acal.domain.entity.Period;
-import br.org.acal.domain.model.InvoicePaginate;
+import br.org.acal.domain.model.InvoiceFilter;
 import br.org.acal.resouces.adapter.InvoiceAdapter;
 import br.org.acal.resouces.repository.interfaces.InvoiceRepositoryJpa;
 import jakarta.persistence.EntityManager;
@@ -32,45 +32,50 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
         return repositoryJpa.findByPayedAtIsNull().stream().map(InvoiceAdapter::map).toList();
     }
     @Override
-    public List<Invoice> find(InvoicePaginate invoicePaginate) {
-        return baseQuery(invoicePaginate);
+    public List<Invoice> find(InvoiceFilter invoiceFilter) {
+        return baseQuery(invoiceFilter);
     }
 
     @Override
-    public Page<Invoice> paginate(InvoicePaginate invoicePaginate) {
-        return baseQuery(invoicePaginate, invoicePaginate.pageable().orElse(createPageable()));
+    public Page<Invoice> paginate(InvoiceFilter invoiceFilter) {
+        return baseQuery(invoiceFilter, invoiceFilter.pageable().orElse(createPageable()));
     }
 
-    private List<Invoice> baseQuery(InvoicePaginate invoicePaginate) {
-        Boolean statusOpen = createStatus(invoicePaginate,StatusPaymentInvoice.OPEN);
-        Boolean statusPayed = createStatus(invoicePaginate,StatusPaymentInvoice.PAYED);
-        Boolean statusOverdue = createStatus(invoicePaginate,StatusPaymentInvoice.OVERDUE);
+    @Override
+    public List<Invoice> list(InvoiceFilter invoiceFilter) {
+        return baseQuery(invoiceFilter);
+    }
+
+    private List<Invoice> baseQuery(InvoiceFilter invoiceFilter) {
+        Boolean statusOpen = createStatus(invoiceFilter,StatusPaymentInvoice.OPEN);
+        Boolean statusPayed = createStatus(invoiceFilter,StatusPaymentInvoice.PAYED);
+        Boolean statusOverdue = createStatus(invoiceFilter,StatusPaymentInvoice.OVERDUE);
 
         return repositoryJpa.findInvoices(
-            invoicePaginate.selectedNumber().orElse(null),
-            invoicePaginate.selectedCustomer().orElse(null),
-            invoicePaginate.selectedCategory().orElse(null),
-            invoicePaginate.selectedAddress().orElse(null),
-            invoicePaginate.period().map(Period::startMonth).orElse(null),
-            invoicePaginate.period().map(Period::endMonth).orElse(null),
+            invoiceFilter.selectedNumber().orElse(null),
+            invoiceFilter.selectedCustomer().orElse(null),
+            invoiceFilter.selectedCategory().orElse(null),
+            invoiceFilter.selectedAddress().orElse(null),
+            invoiceFilter.period().map(Period::startMonth).orElse(null),
+            invoiceFilter.period().map(Period::endMonth).orElse(null),
             statusOpen,
             statusPayed,
             statusOverdue,
             LocalDateTime.now()
         ).stream().map(InvoiceAdapter::map).toList();
     }
-    private Page<Invoice> baseQuery(InvoicePaginate invoicePaginate, Pageable pageable) {
-        Boolean statusOpen = createStatus(invoicePaginate,StatusPaymentInvoice.OPEN);
-        Boolean statusPayed = createStatus(invoicePaginate,StatusPaymentInvoice.PAYED);
-        Boolean statusOverdue = createStatus(invoicePaginate,StatusPaymentInvoice.OVERDUE);
+    private Page<Invoice> baseQuery(InvoiceFilter invoiceFilter, Pageable pageable) {
+        Boolean statusOpen = createStatus(invoiceFilter,StatusPaymentInvoice.OPEN);
+        Boolean statusPayed = createStatus(invoiceFilter,StatusPaymentInvoice.PAYED);
+        Boolean statusOverdue = createStatus(invoiceFilter,StatusPaymentInvoice.OVERDUE);
 
         var page = repositoryJpa.paginateInvoices(
-                invoicePaginate.selectedNumber().orElse(null),
-                invoicePaginate.selectedCustomer().orElse(null),
-                invoicePaginate.selectedCategory().orElse(null),
-                invoicePaginate.selectedAddress().orElse(null),
-                invoicePaginate.period().map(Period::startMonth).orElse(null),
-                invoicePaginate.period().map(Period::endMonth).orElse(null),
+                invoiceFilter.selectedNumber().orElse(null),
+                invoiceFilter.selectedCustomer().orElse(null),
+                invoiceFilter.selectedCategory().orElse(null),
+                invoiceFilter.selectedAddress().orElse(null),
+                invoiceFilter.period().map(Period::startMonth).orElse(null),
+                invoiceFilter.period().map(Period::endMonth).orElse(null),
                 statusOpen,
                 statusPayed,
                 statusOverdue,
@@ -83,8 +88,8 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
         return new PageImpl<>(data, pageable, page.getTotalElements());
     }
 
-    private Boolean createStatus(InvoicePaginate invoicePaginate, StatusPaymentInvoice status ){
-        return invoicePaginate.status()
+    private Boolean createStatus(InvoiceFilter invoiceFilter, StatusPaymentInvoice status ){
+        return invoiceFilter.status()
             .filter(item  -> item.equals(status))
             .map(unused -> true)
             .orElse(null);

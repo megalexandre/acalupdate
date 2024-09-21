@@ -2,7 +2,9 @@ package br.org.acal;
 
 import br.org.acal.application.screen.login.LoginScreen;
 import br.org.acal.application.screen.splash.SplashScreen;
+import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -18,6 +20,7 @@ public class Application {
 
     public static void main(String[] args) {
         FlatIntelliJLaf.setup();
+        //FlatDarculaLaf.setup();
 
         SplashScreen splash = new SplashScreen();
         splash.showSplash();

@@ -1,45 +1,58 @@
 
 package br.org.acal.application.screen.invoice;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.text.ParseException;
-import java.util.*;
-import java.util.List;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
-import javax.swing.text.MaskFormatter;
-
 import br.org.acal.application.screen.invoice.model.InvoiceTable;
 import br.org.acal.application.screen.invoice.model.InvoiceTableModel;
 import br.org.acal.application.screen.link.model.JComboBoxModel;
 import br.org.acal.application.screen.link.model.JComboBoxStatus;
 import br.org.acal.application.screen.link.model.LinkTableModel;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
-import br.org.acal.commons.PrintPaths;
 import br.org.acal.commons.enumeration.StatusPaymentInvoice;
-import br.org.acal.domain.datasource.ReportDataSource;
-import br.org.acal.domain.datasource.WaterQualityDataSource;
 import br.org.acal.domain.entity.Invoice;
-import br.org.acal.domain.entity.ReportData;
-import br.org.acal.domain.entity.WaterQuality;
-import br.org.acal.domain.model.InvoicePaginate;
+import br.org.acal.domain.model.InvoiceFilter;
 import br.org.acal.domain.usecase.address.AddressFindAllUsecase;
 import br.org.acal.domain.usecase.category.CategoryFindAllUseCase;
 import br.org.acal.domain.usecase.customer.CustomerFindAllUseCase;
+import br.org.acal.domain.usecase.invoice.InvoiceListUseCase;
 import br.org.acal.domain.usecase.invoice.InvoicePaginateUseCase;
-import br.org.acal.resouces.print.InvoiceReport;
-import br.org.acal.resouces.report.create.ReportRepository;
+import br.org.acal.domain.usecase.invoice.InvoiceSearchPrintReportUseCase;
 import lombok.val;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.jdesktop.swingx.*;
+import org.jdesktop.swingx.HorizontalLayout;
+import org.jdesktop.swingx.VerticalLayout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
+import javax.swing.text.MaskFormatter;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.IntStream.range;
@@ -50,11 +63,12 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class InvoiceView extends JPanel {
     private final Logger logger = LoggerFactory.getLogger(InvoiceView.class);
     private final InvoicePaginateUseCase paginate;
+    private final InvoiceListUseCase list;
     private final AddressFindAllUsecase findAllAddress;
     private final CategoryFindAllUseCase categoryFindAll;
     private final CustomerFindAllUseCase customerFindAll;
-    private final WaterQualityDataSource waterQualityDataSource;
-    private final ReportDataSource reportDataSource;
+    private final InvoiceSearchPrintReportUseCase invoiceSearchPrintReportUseCase;
+
     private String selectedAddress;
     private String selectedCategory;
     private String selectedCustomer;
@@ -68,16 +82,16 @@ public class InvoiceView extends JPanel {
         AddressFindAllUsecase findAllAddress,
         CategoryFindAllUseCase categoryFindAll,
         CustomerFindAllUseCase customerFindAll,
-        WaterQualityDataSource waterQualityDataSource,
-        ReportDataSource reportDataSource
+        InvoiceListUseCase invoiceList,
+        InvoiceSearchPrintReportUseCase invoiceSearchPrintReportUseCase
     ) {
         initComponents();
         this.paginate = paginate;
         this.findAllAddress = findAllAddress;
         this.categoryFindAll = categoryFindAll;
         this.customerFindAll = customerFindAll;
-        this.waterQualityDataSource = waterQualityDataSource;
-        this.reportDataSource = reportDataSource;
+        this.list = invoiceList;
+        this.invoiceSearchPrintReportUseCase = invoiceSearchPrintReportUseCase;
         startComponents();
     }
 
@@ -163,7 +177,7 @@ public class InvoiceView extends JPanel {
 
     private void search(){
         page = paginate.execute(createFilter());
-        labelPageNumber.setText(String.valueOf(page.getNumber()));
+        labelPageNumber.setText(String.valueOf(page.getNumber()) + 1);
         val invoices = page;
         val tableModel = new InvoiceTableModel(invoices.stream().map(InvoiceTable::of).toList());
         table.setModel(tableModel);
@@ -189,8 +203,8 @@ public class InvoiceView extends JPanel {
         return String.format("Registro %d até %d de um total de %d, Pagina %d de um total de %d", firstElement, lastElement, totalRecords, currentPage, totalPages);
     }
 
-    private InvoicePaginate createFilter(){
-        return InvoicePaginate.builder()
+    private InvoiceFilter createFilter(){
+        return InvoiceFilter.builder()
             .selectedAddress(selectedAddress)
             .selectedCategory(selectedCategory)
             .selectedCustomer(selectedCustomer)
@@ -262,6 +276,7 @@ public class InvoiceView extends JPanel {
         comboBoxCustomer.setSelectedIndex(0);
         comboBoxStatus.setSelectedIndex(0);
 
+        textFieldNumber.setText("");
         formattedTextFieldPeriodMonth.setValue("");
         createMask();
 
@@ -308,51 +323,22 @@ public class InvoiceView extends JPanel {
     }
 
     private void printAction(ActionEvent e) {
-
-        var invoices = page.getContent().stream().filter(it -> selectedInvoiceToPrint.equals(it.getNumber()))
-               .toList();
-
-        val period = invoices.stream().map(it -> it.getPeriod().toLocalDate()).toList();
-        val waterQuality = waterQualityDataSource.find(period);
-
-        val invoiceReport = invoices.stream().map(
-            it -> InvoiceReport.adapter(it, filter(it, waterQuality))
-        ).toList();
-
         try {
-            var report = ReportData.builder()
-                .printPaths(PrintPaths.NEW_INVOICE)
-                .dataSource(new JRBeanCollectionDataSource(invoiceReport))
-                .build();
-            reportDataSource.create(report);
+            textFieldNumber.setText(selectedInvoiceToPrint);
+            invoiceSearchPrintReportUseCase.execute(createFilter());
         } catch (Exception ex){
             logger.error("Error when print report", ex);
             showMessageDialog(null, "An error occurred while generating the report: " + ex.getMessage(), "Error", INFORMATION_MESSAGE);
-
         }
-    }
 
-    private Collection<WaterQuality> filter(Invoice invoice, List<WaterQuality> waterQualities) {
-        return waterQualities.stream().filter(it -> it.period().equals(invoice.period())).toList();
     }
 
     private void buttonPrintAction(ActionEvent e) {
-        var invoices = page.getContent();
-        val period = invoices.stream().map(it -> it.getPeriod().toLocalDate()).toList();
-        val waterQuality = waterQualityDataSource.find(period);
-
-        val invoiceReport = invoices.stream().map(
-                it -> InvoiceReport.adapter(it, filter(it, waterQuality))
-        ).toList();
-
         try {
-            var report = ReportData.builder()
-                    .printPaths(PrintPaths.NEW_INVOICE)
-                    .dataSource(new JRBeanCollectionDataSource(invoiceReport))
-                    .build();
-            reportDataSource.create(report);
-        } catch (Exception ignored){
-
+            invoiceSearchPrintReportUseCase.execute(createFilter());
+        } catch (Exception ex){
+            logger.error("Error when print report", ex);
+            showMessageDialog(null, "An error occurred while generating the report: " + ex.getMessage(), "Error", INFORMATION_MESSAGE);
         }
     }
     private void initComponents() {

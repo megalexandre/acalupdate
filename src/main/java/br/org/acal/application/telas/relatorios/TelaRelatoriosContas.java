@@ -3,7 +3,7 @@ package br.org.acal.application.telas.relatorios;
 import br.org.acal.application.telas.TelaPrincipal;
 import br.org.acal.domain.datasource.InvoiceDataSource;
 import br.org.acal.domain.datasource.WaterQualityDataSource;
-import br.org.acal.domain.model.InvoicePaginate;
+import br.org.acal.domain.model.InvoiceFilter;
 import br.org.acal.resouces.dao.DaoCategoriaSocio;
 import br.org.acal.resouces.dao.DaoEndereco;
 import br.org.acal.resouces.dao.view.DaoSocioView;
@@ -903,7 +903,7 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
 
 
                 try {
-                    val invoices = invoiceRepositoryDataSource.find(new InvoicePaginate());
+                    val invoices = invoiceRepositoryDataSource.find(new InvoiceFilter());
                     val period = invoices.stream().map(it -> it.getPeriod().toLocalDate()).toList();
                     val waterQuality = waterQualityDataSource.find(period);
 
@@ -934,8 +934,8 @@ public final class TelaRelatoriosContas extends javax.swing.JFrame {
         }
     }
 
-    private InvoicePaginate createFilter() {
-        return new InvoicePaginate();
+    private InvoiceFilter createFilter() {
+        return new InvoiceFilter();
     }
 
     private String getPath() throws URISyntaxException {

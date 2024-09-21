@@ -7,26 +7,6 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="number" class="java.lang.String"/>
-	<field name="payedAt" class="java.lang.String"/>
-	<field name="dueDate" class="java.lang.String"/>
-	<field name="createdAt" class="java.lang.String"/>
-	<field name="period" class="java.lang.String"/>
-	<field name="partnerNumber" class="java.lang.String"/>
-	<field name="partner" class="java.lang.String"/>
-	<field name="printedAt" class="java.lang.String"/>
-	<field name="address" class="java.lang.String"/>
-	<field name="partnerValue" class="java.lang.String"/>
-	<field name="otherValues" class="java.lang.String"/>
-	<field name="totalValue" class="java.lang.String"/>
-	<field name="category" class="java.lang.String"/>
-	<field name="overLimit" class="java.lang.String"/>
-	<field name="consumptionStart" class="java.lang.String"/>
-	<field name="consumptionEnd" class="java.lang.String"/>
-	<field name="usefulConsumption" class="java.lang.String"/>
-	<field name="consumption" class="java.lang.String"/>
-	<field name="waterValue" class="java.lang.String"/>
-	<field name="freeTier" class="java.lang.String"/>
 	<field name="waterQuality" class="java.util.List"/>
 	<field name="details" class="java.util.List"/>
 	<detail>
@@ -82,89 +62,6 @@ Email : acallages@hotmail.com.]]></text>
 				<text><![CDATA[ACAL - Associação Comunitária e Assistêncial de Lages]]></text>
 			</staticText>
 		</band>
-		<band height="56">
-			<line>
-				<reportElement x="0" y="0" width="555" height="1" uuid="f1a86d24-bf42-468b-9777-ccc1b83d92d2">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</line>
-			<rectangle radius="10">
-				<reportElement x="225" y="10" width="105" height="35" uuid="73cd4823-f1ba-4b89-a14e-31e670a028e4">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="10">
-				<reportElement x="335" y="10" width="220" height="35" uuid="752a6276-9a09-4830-88e1-3caced9f5dac">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
-			</rectangle>
-			<rectangle radius="10">
-				<reportElement x="0" y="10" width="220" height="35" uuid="352da511-b865-42f8-b019-df1c91ce8b1c">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</rectangle>
-			<staticText>
-				<reportElement x="0" y="10" width="220" height="17" uuid="d3a86971-c70d-49fc-9171-6264e76914f8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[   Nº de Associado]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="225" y="10" width="105" height="17" uuid="50f343e7-6ff4-4e3c-b89b-9598abb4e59f"/>
-				<box>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Boleto nº:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="335" y="10" width="220" height="17" uuid="8ee03737-06f0-4bd4-b235-83773663c600"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Conta referente:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="225" y="27" width="105" height="18" uuid="bae07809-1d75-44c7-b0d2-80d385590768"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{number}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="335" y="27" width="220" height="18" uuid="c22da74f-01c4-4753-914b-6bc178e2ed08"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{period}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="27" width="220" height="18" uuid="16125e20-13e0-43f8-b4e0-2a066a482f79">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{partnerNumber}]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement x="0" y="55" width="555" height="1" uuid="3bb84d0e-e906-470a-b3cb-703ed87acd1b">
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
-			</line>
-		</band>
 		<band height="35">
 			<subreport>
 				<reportElement x="0" y="0" width="555" height="35" isPrintWhenDetailOverflows="true" uuid="04005f33-a87b-4d10-9f93-7d5fcb9d85dc"/>
@@ -174,23 +71,44 @@ Email : acallages@hotmail.com.]]></text>
 		</band>
 		<band height="35">
 			<subreport>
-				<reportElement x="0" y="0" width="555" height="35" isPrintWhenDetailOverflows="true" uuid="04005f33-a87b-4d10-9f93-7d5fcb9d85dc"/>
+				<reportElement stretchType="ContainerHeight" x="0" y="0" width="555" height="35" isPrintWhenDetailOverflows="true" uuid="04005f33-a87b-4d10-9f93-7d5fcb9d85dc"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{waterQuality})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT}]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="35">
+		<band height="55">
 			<subreport>
-				<reportElement x="0" y="0" width="555" height="35" isPrintWhenDetailOverflows="true" uuid="04005f33-a87b-4d10-9f93-7d5fcb9d85dc"/>
+				<reportElement x="0" y="20" width="555" height="35" isPrintWhenDetailOverflows="true" uuid="04005f33-a87b-4d10-9f93-7d5fcb9d85dc">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{details})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DETAIL}]]></subreportExpression>
 			</subreport>
+			<line>
+				<reportElement x="0" y="5" width="555" height="1" uuid="82618859-1e5b-4c34-b3da-7ce231f60aaa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
 		</band>
 		<band height="1">
 			<break>
-				<reportElement x="0" y="0" width="554" height="1" uuid="b8156377-b7d6-4c22-bbd8-7dfcfb3a0078"/>
+				<reportElement x="0" y="0" width="555" height="1" uuid="b8156377-b7d6-4c22-bbd8-7dfcfb3a0078">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 			</break>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="c249ee40-9ff7-43e1-bced-644104abeffe">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+			</line>
 		</band>
-		<band/>
 	</detail>
 </jasperReport>

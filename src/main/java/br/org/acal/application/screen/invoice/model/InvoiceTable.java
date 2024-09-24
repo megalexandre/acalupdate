@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 import static br.org.acal.commons.util.MoneyUtil.currency;
 import static br.org.acal.commons.util.LocalDateTimeUtil.date;
-import static br.org.acal.commons.util.LocalDateTimeUtil.dateTime;
 
 @Data
 @Builder
@@ -29,7 +28,7 @@ public class InvoiceTable {
         return InvoiceTable.builder()
                 .number(invoice.getNumber())
                 .payedAt(orEmpty(invoice.getPayedAt()))
-                .duoDate(date.format(invoice.getDuoDate()))
+                .duoDate(date.format(invoice.getDueDate()))
                 .period(PeriodUtil.formatter(invoice.period()))
                 .customer(invoice.getLink().getCustomer().getName())
                 .document(invoice.getLink().getCustomer().getDocument().documentNumber())

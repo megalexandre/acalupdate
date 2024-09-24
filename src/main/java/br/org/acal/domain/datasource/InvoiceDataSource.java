@@ -13,5 +13,6 @@ public interface InvoiceDataSource {
     Page<Invoice> paginate(InvoiceFilter invoiceFilter);
     List<Invoice> list(InvoiceFilter invoiceFilter);
     List<Invoice> findAll();
+    Invoice save(Invoice invoice);
 
 }

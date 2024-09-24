@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "8.2.3.0.386" Java: "17.0.8" encoding: "UTF-8"
+JFDML JFormDesigner: "8.2.4.0.393" Java: "17.0.8" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -6,9 +6,9 @@ new FormModel {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
-				name: "tabbedPane1"
+				name: "tabbedPaneOptions"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
-					name: "panel2"
+					name: "panelList"
 					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 						name: "panel1"
@@ -88,7 +88,6 @@ new FormModel {
 								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "buttonSeach"
 									"text": "Consultar"
-									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "seach", true ) )
 									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "search", true ) )
 								}, new FormLayoutConstraints( class java.lang.String ) {
 									"value": "East"
@@ -103,7 +102,54 @@ new FormModel {
 						"value": "South"
 					} )
 				}, new FormLayoutConstraints( null ) {
-					"title": "Lista"
+					"title": "Lista:"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+					name: "panelPartner"
+					"maximumSize": new java.awt.Dimension( 1200, 32767 )
+					"minimumSize": new java.awt.Dimension( 800, 46 )
+					"preferredSize": new java.awt.Dimension( 1200, 84 )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+						name: "panel9"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+							name: "panel2"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label4"
+								"text": "Nome:"
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "textFieldCustomerName"
+								"preferredSize": new java.awt.Dimension( 500, 26 )
+							} )
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+							name: "panel10"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+								name: "panel11"
+								"preferredSize": new java.awt.Dimension( 400, 42 )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label5"
+									"text": "Número de Telefone:"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textFieldPhoneNumber"
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+								name: "panel12"
+								"preferredSize": new java.awt.Dimension( 400, 42 )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label6"
+									"text": "Número de Sócio:"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textFieldCustomerNumber"
+								} )
+							} )
+						} )
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Sócio:"
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {
@@ -113,8 +159,9 @@ new FormModel {
 		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
 			name: "contextMenu"
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
-				name: "menuItem1"
-				"text": "Visualizar"
+				name: "menuItemEdit"
+				"text": "Editar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "editAction", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "menuItem2"
@@ -125,7 +172,8 @@ new FormModel {
 				"text": "Faturas"
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 445, 150 )
+			"location": new java.awt.Point( 565, 150 )
+			"size": new java.awt.Dimension( 120, 74 )
 		} )
 	}
 }

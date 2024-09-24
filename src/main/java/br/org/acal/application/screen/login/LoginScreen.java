@@ -1,5 +1,6 @@
 package br.org.acal.application.screen.login;
 
+import javax.swing.*;
 import br.org.acal.application.screen.main.MainScreen;
 import br.org.acal.application.telas.TelaPrincipal;
 import org.jdesktop.swingx.VerticalLayout;
@@ -38,7 +39,7 @@ public class LoginScreen extends JFrame {
 
         setContentPane(root);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(220, 180);
+        setSize(200, 180);
         setLocationRelativeTo(null);
         this.mainScreen = mainScreen;
         this.jButtonTelaLoginLogar.setPreferredSize(new Dimension(jButtonTelaLoginLogar.getWidth(),30));
@@ -83,16 +84,15 @@ public class LoginScreen extends JFrame {
         panel8 = new JPanel();
         jLabel1 = new JLabel();
         name = new JTextField();
-        panel9 = new JPanel();
         jLabel4 = new JLabel();
         password = new JPasswordField();
-        panel6 = new JPanel();
+        separator1 = new JSeparator();
         jButtonTelaLoginLogar = new JButton();
 
         //======== root ========
         {
             root.setBorder(new EmptyBorder(5, 5, 5, 5));
-            root.setLayout(new BorderLayout());
+            root.setLayout(new VerticalLayout());
 
             //======== panel7 ========
             {
@@ -111,39 +111,28 @@ public class LoginScreen extends JFrame {
                     name.setText("root");
                     name.addActionListener(e -> jTextFieldTelaLoginNomeActionPerformed(e));
                     panel8.add(name);
-                }
-                panel7.add(panel8);
-
-                //======== panel9 ========
-                {
-                    panel9.setLayout(new VerticalLayout());
 
                     //---- jLabel4 ----
                     jLabel4.setText("Senha");
                     jLabel4.setHorizontalAlignment(SwingConstants.LEFT);
-                    panel9.add(jLabel4);
+                    panel8.add(jLabel4);
 
                     //---- password ----
                     password.setText("123");
                     password.addActionListener(e -> jPasswordFieldTelaPrincipalSenhaActionPerformed(e));
-                    panel9.add(password);
+                    panel8.add(password);
+                    panel8.add(separator1);
+
+                    //---- jButtonTelaLoginLogar ----
+                    jButtonTelaLoginLogar.setText("Logar");
+                    jButtonTelaLoginLogar.setMinimumSize(new Dimension(180, 30));
+                    jButtonTelaLoginLogar.setPreferredSize(new Dimension(180, 22));
+                    jButtonTelaLoginLogar.addActionListener(e -> jButtonTelaLoginLogarActionPerformed(e));
+                    panel8.add(jButtonTelaLoginLogar);
                 }
-                panel7.add(panel9);
+                panel7.add(panel8);
             }
-            root.add(panel7, BorderLayout.NORTH);
-
-            //======== panel6 ========
-            {
-                panel6.setLayout(new BorderLayout());
-
-                //---- jButtonTelaLoginLogar ----
-                jButtonTelaLoginLogar.setText("Logar");
-                jButtonTelaLoginLogar.setMinimumSize(new Dimension(180, 30));
-                jButtonTelaLoginLogar.setPreferredSize(new Dimension(180, 22));
-                jButtonTelaLoginLogar.addActionListener(e -> jButtonTelaLoginLogarActionPerformed(e));
-                panel6.add(jButtonTelaLoginLogar, BorderLayout.CENTER);
-            }
-            root.add(panel6, BorderLayout.SOUTH);
+            root.add(panel7);
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
@@ -155,10 +144,9 @@ public class LoginScreen extends JFrame {
     private JPanel panel8;
     private JLabel jLabel1;
     private JTextField name;
-    private JPanel panel9;
     private JLabel jLabel4;
     private JPasswordField password;
-    private JPanel panel6;
+    private JSeparator separator1;
     private JButton jButtonTelaLoginLogar;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

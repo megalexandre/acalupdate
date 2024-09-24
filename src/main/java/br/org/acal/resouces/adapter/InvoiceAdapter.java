@@ -4,12 +4,14 @@ import br.org.acal.domain.entity.Invoice;
 import br.org.acal.resouces.model.InvoiceModel;
 
 public class InvoiceAdapter {
+
+
     public static Invoice map(InvoiceModel item){
         return Invoice
             .builder()
             .number(item.getNumber())
             .payedAt(item.getPayedAt())
-            .duoDate(item.getDueDate())
+            .dueDate(item.getDueDate())
             .createdAt(item.getCreatedAt())
             .period(item.getPeriod())
             .otherValues(item.getOtherValues())
@@ -24,7 +26,7 @@ public class InvoiceAdapter {
             .builder()
                 .number(item.getNumber())
                 .payedAt(item.getPayedAt())
-                .dueDate(item.getDuoDate())
+                .dueDate(item.getDueDate())
                 .createdAt(item.getCreatedAt())
                 .period(item.getPeriod())
                 .link(LinkAdapter.map(item.getLink()) )

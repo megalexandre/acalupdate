@@ -4,6 +4,7 @@ import br.org.acal.application.screen.customer.model.FindCustomer;
 import br.org.acal.domain.entity.Customer;
 import br.org.acal.domain.datasource.CustomerDataSource;
 import br.org.acal.resouces.adapter.CustomerAdapter;
+import br.org.acal.resouces.adapter.mapper.CustomerMapper;
 import br.org.acal.resouces.model.CustomerModel;
 import br.org.acal.resouces.model.PartnerModel;
 import br.org.acal.resouces.repository.interfaces.CustomerRepositoryJpa;
@@ -22,15 +23,22 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class CustomerRepositoryImpl implements CustomerDataSource {
     private final CustomerRepositoryJpa customerRepositoryJpa;
     private final EntityManager entityManager;
+    private final CustomerMapper customerMapper;
 
-    public CustomerRepositoryImpl(CustomerRepositoryJpa customerRepositoryJpa, EntityManager entityManager){
+    public CustomerRepositoryImpl(
+            CustomerRepositoryJpa customerRepositoryJpa,
+            EntityManager entityManager,
+            CustomerMapper customerMapper
+    ){
         this.customerRepositoryJpa = customerRepositoryJpa;
         this.entityManager = entityManager;
+        this.customerMapper = customerMapper;
     }
     @Override
     public List<Customer> findAll() {
@@ -52,7 +60,7 @@ public class CustomerRepositoryImpl implements CustomerDataSource {
         TypedQuery<CustomerModel> query = entityManager.createQuery(cq);
         List<CustomerModel> resultList = query.getResultList();
 
-        return resultList.stream().map(CustomerAdapter::map).toList();
+        return resultList.stream().map(customerMapper::map).toList();
     }
 
     private List<Predicate> createPredicates(CriteriaBuilder cb, FindCustomer findCustomer, Root<CustomerModel> customerRoot) {
@@ -71,6 +79,11 @@ public class CustomerRepositoryImpl implements CustomerDataSource {
                 Expression<String> documentWithoutPunctuation = removePunctuation(cb, customerRoot.get("cpf"));
                 predicates.add(cb.like(documentWithoutPunctuation, "%" + cleanedDocument + "%"));
             });
+
+        findCustomer.getId()
+            .ifPresent(id ->
+                predicates.add(cb.equal(customerRoot.get("id"), id))
+            );
 
         return predicates;
     }

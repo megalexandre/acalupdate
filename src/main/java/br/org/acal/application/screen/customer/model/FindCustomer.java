@@ -10,7 +10,16 @@ import java.util.Optional;
 @Builder
 public class FindCustomer {
 
-    private Optional<String> document;
-    private Optional<String> name;
-
+    private String id;
+    private String document;
+    private String name;
+    public Optional<String> getId(){
+        return Optional.ofNullable(id);
+    }
+    public Optional<String> getDocument(){
+        return Optional.ofNullable(document);
+    }
+    public Optional<String> getName(){
+        return Optional.ofNullable(name);
+    }
 }

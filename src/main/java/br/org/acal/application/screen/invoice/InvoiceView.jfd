@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.3" encoding: "UTF-8"
+JFDML JFormDesigner: "8.2.4.0.393" Java: "17.0.8" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -46,7 +46,6 @@ new FormModel {
 									auxiliary() {
 										"JavaCodeGenerator.typeParameters": "JComboBoxModel"
 									}
-									addEvent( new FormEvent( "javax.swing.event.PopupMenuListener", "popupMenuWillBecomeInvisible", "comboBoxAddressPopupMenuWillBecomeInvisible", true ) )
 									addEvent( new FormEvent( "javax.swing.event.PopupMenuListener", "popupMenuWillBecomeVisible", "comboBoxAddressPopupMenuWillBecomeVisible", true ) )
 								} )
 							} )
@@ -222,6 +221,11 @@ new FormModel {
 				name: "menuItemPrint"
 				"text": "Imprimir"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "printAction", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItemReceiver"
+				"text": "Receber"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "receiverAction", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 180, 640 )

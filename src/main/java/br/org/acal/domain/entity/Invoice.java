@@ -2,22 +2,27 @@ package br.org.acal.domain.entity;
 
 import br.org.acal.commons.Prices;
 import br.org.acal.commons.enumeration.StatusPaymentInvoice;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.val;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static java.time.LocalDateTime.now;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Invoice {
 
     private String number;
     private LocalDateTime payedAt;
-    private LocalDateTime duoDate;
+    private LocalDateTime dueDate;
     private LocalDateTime createdAt;
     private LocalDateTime period;
     private Link link;
@@ -29,13 +34,23 @@ public class Invoice {
 
         if(payedAt != null ){
             return StatusPaymentInvoice.PAYED;
-        } else if (duoDate.isAfter(now())){
+        } else if (dueDate.isAfter(now())){
             return StatusPaymentInvoice.OPEN;
         }
 
         return StatusPaymentInvoice.OVERDUE;
     }
 
+    public String payedAtAsString(){
+        if(payedAt != null){
+            return payedAt.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        }
+        return null;
+    }
+
+    public String getPartnerName(){
+        return link.getCustomer().getName();
+    }
     public Period period(){
         return Period.of(period);
     }

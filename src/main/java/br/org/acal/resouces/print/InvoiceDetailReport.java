@@ -95,7 +95,7 @@ public class InvoiceDetailReport {
     }
 
     private static String createDuoDate(Invoice invoice){
-        return orEmpty(invoice.getDuoDate(), LocalDateTimeUtil.date);
+        return orEmpty(invoice.getDueDate(), LocalDateTimeUtil.date);
     }
 
     private static String createCreatedAt(Invoice invoice){
@@ -107,7 +107,7 @@ public class InvoiceDetailReport {
     }
 
     private static String createNumber(Invoice invoice){
-        return orEmpty(invoice.customer().getNumber());
+        return orEmpty(invoice.getLink().getLinkNumber());
     }
 
     private static String createPrintedAt(){

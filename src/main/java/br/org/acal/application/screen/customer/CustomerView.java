@@ -11,6 +11,7 @@ import javax.swing.border.*;
 import br.org.acal.application.screen.address.AddressTableModel;
 import br.org.acal.application.screen.customer.model.FindCustomer;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
+import br.org.acal.domain.entity.Customer;
 import br.org.acal.domain.usecase.customer.CustomerFindUseCase;
 import lombok.val;
 import org.jdesktop.swingx.*;
@@ -22,10 +23,37 @@ import static java.util.stream.IntStream.range;
 public class CustomerView extends JPanel {
 
    private final CustomerFindUseCase find;
+   private Customer customer;
+   private static final int LIST_INDEX = 0;
+   private static final int DETAIL_INDEX = 1;
+
+   private String selectedIndex;
 
     public CustomerView(CustomerFindUseCase find) {
         initComponents();
         this.find = find;
+        startItems();
+    }
+
+
+    private void startItems(){
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                showPopup(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                showPopup(e);
+            }
+
+            private void showPopup(MouseEvent e) {
+                int row = table.rowAtPoint(e.getPoint());
+                selectedIndex = (String) table.getValueAt(row, 0);
+            }
+
+        });
     }
 
     private void search(ActionEvent e) {
@@ -50,16 +78,13 @@ public class CustomerView extends JPanel {
         val filter = FindCustomer.builder();
 
         if(textFieldName.getText() != null){
-            filter.name(Optional.of(textFieldName.getText()));
+            filter.name(textFieldName.getText());
         }
         if(textFieldDocument.getText() != null){
-            filter.document(Optional.of(textFieldDocument.getText()));
+            filter.document(textFieldDocument.getText());
         }
 
         return filter.build();
-    }
-
-    private void seach(ActionEvent e) {
     }
 
     private void setContextMenu(){
@@ -110,11 +135,22 @@ public class CustomerView extends JPanel {
         }
     }
 
+    private void editAction(ActionEvent e) {
+        customer = find.execute(FindCustomer.builder().id(selectedIndex).build()).getFirst();
+        createCustomer();
+        tabbedPaneOptions.setSelectedIndex(DETAIL_INDEX);
+    }
+
+    private void createCustomer(){
+        textFieldCustomerName.setText(customer.getName());
+        textFieldCustomerNumber.setText(customer.getPhoneNumber());
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner non-commercial license
-        tabbedPane1 = new JTabbedPane();
-        panel2 = new JPanel();
+        tabbedPaneOptions = new JTabbedPane();
+        panelList = new JPanel();
         panel1 = new JPanel();
         scrollPane1 = new JScrollPane();
         table = new JTable();
@@ -132,21 +168,33 @@ public class CustomerView extends JPanel {
         panel3 = new JPanel();
         buttonClear = new JButton();
         buttonSeach = new JButton();
+        panelPartner = new JPanel();
+        panel9 = new JPanel();
+        panel2 = new JPanel();
+        label4 = new JLabel();
+        textFieldCustomerName = new JTextField();
+        panel10 = new JPanel();
+        panel11 = new JPanel();
+        label5 = new JLabel();
+        textFieldPhoneNumber = new JTextField();
+        panel12 = new JPanel();
+        label6 = new JLabel();
+        textFieldCustomerNumber = new JTextField();
         contextMenu = new JPopupMenu();
-        menuItem1 = new JMenuItem();
+        menuItemEdit = new JMenuItem();
         menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
 
         //======== this ========
         setLayout(new GridLayout());
 
-        //======== tabbedPane1 ========
+        //======== tabbedPaneOptions ========
         {
 
-            //======== panel2 ========
+            //======== panelList ========
             {
-                panel2.setBorder(null);
-                panel2.setLayout(new BorderLayout());
+                panelList.setBorder(null);
+                panelList.setLayout(new BorderLayout());
 
                 //======== panel1 ========
                 {
@@ -170,7 +218,7 @@ public class CustomerView extends JPanel {
                     }
                     panel1.add(panel8, BorderLayout.NORTH);
                 }
-                panel2.add(panel1, BorderLayout.CENTER);
+                panelList.add(panel1, BorderLayout.CENTER);
 
                 //======== panelOptions ========
                 {
@@ -242,28 +290,85 @@ public class CustomerView extends JPanel {
 
                             //---- buttonSeach ----
                             buttonSeach.setText("Consultar");
-                            buttonSeach.addActionListener(e -> {
-			seach(e);
-			search(e);
-		});
+                            buttonSeach.addActionListener(e -> search(e));
                             panel3.add(buttonSeach, BorderLayout.EAST);
                         }
                         panel4.add(panel3, BorderLayout.SOUTH);
                     }
                     panelOptions.add(panel4, BorderLayout.EAST);
                 }
-                panel2.add(panelOptions, BorderLayout.SOUTH);
+                panelList.add(panelOptions, BorderLayout.SOUTH);
             }
-            tabbedPane1.addTab("Lista", panel2);
+            tabbedPaneOptions.addTab("Lista:", panelList);
+
+            //======== panelPartner ========
+            {
+                panelPartner.setMaximumSize(new Dimension(1200, 32767));
+                panelPartner.setMinimumSize(new Dimension(800, 46));
+                panelPartner.setPreferredSize(new Dimension(1200, 84));
+                panelPartner.setLayout(new VerticalLayout());
+
+                //======== panel9 ========
+                {
+                    panel9.setLayout(new VerticalLayout());
+
+                    //======== panel2 ========
+                    {
+                        panel2.setLayout(new VerticalLayout());
+
+                        //---- label4 ----
+                        label4.setText("Nome:");
+                        panel2.add(label4);
+
+                        //---- textFieldCustomerName ----
+                        textFieldCustomerName.setPreferredSize(new Dimension(500, 26));
+                        panel2.add(textFieldCustomerName);
+                    }
+                    panel9.add(panel2);
+
+                    //======== panel10 ========
+                    {
+                        panel10.setLayout(new HorizontalLayout());
+
+                        //======== panel11 ========
+                        {
+                            panel11.setPreferredSize(new Dimension(400, 42));
+                            panel11.setLayout(new VerticalLayout());
+
+                            //---- label5 ----
+                            label5.setText("N\u00famero de Telefone:");
+                            panel11.add(label5);
+                            panel11.add(textFieldPhoneNumber);
+                        }
+                        panel10.add(panel11);
+
+                        //======== panel12 ========
+                        {
+                            panel12.setPreferredSize(new Dimension(400, 42));
+                            panel12.setLayout(new VerticalLayout());
+
+                            //---- label6 ----
+                            label6.setText("N\u00famero de S\u00f3cio:");
+                            panel12.add(label6);
+                            panel12.add(textFieldCustomerNumber);
+                        }
+                        panel10.add(panel12);
+                    }
+                    panel9.add(panel10);
+                }
+                panelPartner.add(panel9);
+            }
+            tabbedPaneOptions.addTab("S\u00f3cio:", panelPartner);
         }
-        add(tabbedPane1);
+        add(tabbedPaneOptions);
 
         //======== contextMenu ========
         {
 
-            //---- menuItem1 ----
-            menuItem1.setText("Visualizar");
-            contextMenu.add(menuItem1);
+            //---- menuItemEdit ----
+            menuItemEdit.setText("Editar");
+            menuItemEdit.addActionListener(e -> editAction(e));
+            contextMenu.add(menuItemEdit);
 
             //---- menuItem2 ----
             menuItem2.setText("Liga\u00e7\u00f5es");
@@ -278,8 +383,8 @@ public class CustomerView extends JPanel {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     // Generated using JFormDesigner non-commercial license
-    private JTabbedPane tabbedPane1;
-    private JPanel panel2;
+    private JTabbedPane tabbedPaneOptions;
+    private JPanel panelList;
     private JPanel panel1;
     private JScrollPane scrollPane1;
     private JTable table;
@@ -297,8 +402,20 @@ public class CustomerView extends JPanel {
     private JPanel panel3;
     private JButton buttonClear;
     private JButton buttonSeach;
+    private JPanel panelPartner;
+    private JPanel panel9;
+    private JPanel panel2;
+    private JLabel label4;
+    private JTextField textFieldCustomerName;
+    private JPanel panel10;
+    private JPanel panel11;
+    private JLabel label5;
+    private JTextField textFieldPhoneNumber;
+    private JPanel panel12;
+    private JLabel label6;
+    private JTextField textFieldCustomerNumber;
     private JPopupMenu contextMenu;
-    private JMenuItem menuItem1;
+    private JMenuItem menuItemEdit;
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on

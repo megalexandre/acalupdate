@@ -6,6 +6,7 @@ import br.org.acal.domain.entity.Invoice;
 import br.org.acal.domain.entity.Period;
 import br.org.acal.domain.model.InvoiceFilter;
 import br.org.acal.resouces.adapter.InvoiceAdapter;
+import br.org.acal.resouces.adapter.InvoiceMapper;
 import br.org.acal.resouces.repository.interfaces.InvoiceRepositoryJpa;
 import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Page;
@@ -21,16 +22,27 @@ import java.util.List;
 @Repository
 public class InvoiceRepositoryImpl implements InvoiceDataSource {
     private final InvoiceRepositoryJpa repositoryJpa;
-    private final EntityManager entityManager;
-    public InvoiceRepositoryImpl(InvoiceRepositoryJpa repositoryJpa, EntityManager entityManager){
-        this.entityManager = entityManager;
+    private final InvoiceMapper invoiceMapper;
+
+    public InvoiceRepositoryImpl(
+            InvoiceRepositoryJpa repositoryJpa,
+            InvoiceMapper invoiceMapper
+    ){
         this.repositoryJpa = repositoryJpa;
+        this.invoiceMapper = invoiceMapper ;
     }
 
     @Override
     public List<Invoice> findAll() {
         return repositoryJpa.findByPayedAtIsNull().stream().map(InvoiceAdapter::map).toList();
     }
+
+    @Override
+    public Invoice save(Invoice invoice) {
+        invoice.setWaterMeter(null);
+        return invoiceMapper.map(repositoryJpa.save(invoiceMapper.map(invoice)));
+    }
+
     @Override
     public List<Invoice> find(InvoiceFilter invoiceFilter) {
         return baseQuery(invoiceFilter);
@@ -100,6 +112,7 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
         var sort = Sort.by(
             Sort.Order.desc("period"),
             Sort.Order.desc("link.address.name"),
+            Sort.Order.desc("link.linkNumber"),
             Sort.Order.asc("link.customer.name")
         );
 

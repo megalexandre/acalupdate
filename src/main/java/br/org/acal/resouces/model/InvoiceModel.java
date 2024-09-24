@@ -24,6 +24,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "conta")
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,11 +36,11 @@ public class InvoiceModel {
     @GeneratedValue(strategy = IDENTITY)
     private String number;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn(name = "idEnderecoPessoa", referencedColumnName = "id")
     private LinkModel link;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "invoice", cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "invoice", cascade = CascadeType.PERSIST)
     private WaterMeterModel waterMeter;
 
     @Column(name = "dataPag")

@@ -1,0 +1,110 @@
+JFDML JFormDesigner: "8.2.4.0.393" Java: "17.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+				name: "panel1"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "buttonPayment"
+					"text": "Receber"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "paymentEvent", true ) )
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Last"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+				name: "panel2"
+				add( new FormComponent( "javax.swing.JSeparator" ) {
+					name: "separator3"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "Número da fatura:"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textFieldNumber"
+				} )
+				add( new FormComponent( "javax.swing.JSeparator" ) {
+					name: "separator1"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "First"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+				name: "panel3"
+				"preferredSize": new java.awt.Dimension( 200, 84 )
+				"border": new javax.swing.border.TitledBorder( "Detalhes" )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label2"
+					"text": "Sócio:"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textFieldPartner"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label3"
+					"text": "Endereço:"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textFieldAddress"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label4"
+					"text": "Valor:"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textFieldValue"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) ) {
+					name: "panelWater"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+						name: "panel7"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label7"
+							"text": "Medição Anterior:"
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textFieldWaterStart"
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+						name: "panel6"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label6"
+							"text": "Medição Atual:"
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textFieldWaterEnd"
+						} )
+					} )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label5"
+					"text": "Data de Pagamento:"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) ) {
+					name: "panel4"
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "checkBox1"
+						"text": "Hoje:"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "checkBoxToday", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+						name: "formattedTextFieldPaymentDate"
+					} )
+				} )
+				add( new FormComponent( "javax.swing.JSeparator" ) {
+					name: "separator2"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 400, 400 )
+		} )
+	}
+}

@@ -35,7 +35,7 @@
 	<field name="waterValue" class="java.lang.String"/>
 	<field name="freeTier" class="java.lang.String"/>
 	<detail>
-		<band height="56">
+		<band height="56" splitType="Stretch">
 			<line>
 				<reportElement x="0" y="0" width="555" height="1" uuid="fa1adf5f-903e-4f27-b11d-2a58e0c595e7">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -105,7 +105,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{period}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField textAdjust="StretchHeight">
 				<reportElement x="0" y="27" width="220" height="18" uuid="e90fff7d-98dd-4383-bca3-3046d976781f">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -174,8 +174,8 @@
 				</textElement>
 				<text><![CDATA[Valor total]]></text>
 			</staticText>
-			<textField>
-				<reportElement stretchType="ContainerHeight" x="0" y="0" width="220" height="40" uuid="7b8cb67d-3faa-461c-84ed-073188882890">
+			<textField textAdjust="StretchHeight">
+				<reportElement x="0" y="0" width="220" height="40" isPrintWhenDetailOverflows="true" uuid="7b8cb67d-3faa-461c-84ed-073188882890">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -201,10 +201,10 @@
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
-					<topPen lineWidth="1.0" lineStyle="Dashed"/>
-					<leftPen lineWidth="1.0" lineStyle="Dashed"/>
-					<bottomPen lineWidth="1.0" lineStyle="Dashed"/>
-					<rightPen lineWidth="1.0" lineStyle="Dashed"/>
+					<topPen lineWidth="1.0" lineStyle="Dashed" lineColor="#B5B5B5"/>
+					<leftPen lineWidth="1.0" lineStyle="Dashed" lineColor="#B5B5B5"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dashed" lineColor="#B5B5B5"/>
+					<rightPen lineWidth="1.0" lineStyle="Dashed" lineColor="#B5B5B5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{payedAt}]]></textFieldExpression>

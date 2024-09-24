@@ -1,0 +1,1746 @@
+JFDML JFormDesigner: "8.2.4.0.393" Java: "17.0.8" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {comp jPanel1::l:::x};par l {comp jDesktopPane1::l::995:x}"
+			"$verticalGroup": "par l {seq l {comp jPanel1:::p::p, space :0:0:x}};par l {seq l {comp jDesktopPane1::::741:x, space :::p}}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			"bounds": new java.awt.Rectangle( 0, 0, 0, 0 )
+			"resizable": false
+			auxiliary() {
+				"JavaCodeGenerator.preInitCode": "${field}.setExtendedState(JFrame.MAXIMIZED_BOTH);\n${field}.setIconImage(new ImageIcon(getClass().getResource(\"/img/ico.png\")).getImage());"
+			}
+			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowClosed", "formWindowClosed", true ) )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq {space :0:0:p, comp jTabbedPane1::::995:x}}"
+				"$verticalGroup": "par l {seq {space :0:0:p, comp jTabbedPane1::::752:x, space :p:0:p}}"
+			} ) {
+				name: "jPanel1"
+				add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+					name: "jTabbedPane1"
+					"tabLayoutPolicy": 1
+					"tabPlacement": 2
+					addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "jTabbedPane1StateChanged", true ) )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+						"$columnSpecs": "0"
+						"$rowSpecs": "0"
+					} ) {
+						name: "jPanelLog"
+						"border": new javax.swing.border.SoftBevelBorder( 0, null, null, null, null )
+						"preferredSize": new java.awt.Dimension( 800, 600 )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {comp jPanel41:::p::p, space :0:0:p}}"
+							"$verticalGroup": "par l {comp jPanel41:::p::p}"
+						} ) {
+							name: "jPanel20"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq l {par t:::p {comp jPanel40::l:::x, comp jPanel6::l:::x}, space :0:0:x}}"
+								"$verticalGroup": "par l {seq l {comp jPanel6:::p::p, space :p:10:p, comp jPanel40:::p::p}}"
+							} ) {
+								name: "jPanel41"
+								"border": new javax.swing.border.EtchedBorder( 1, null, null )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq t {space :p:114:p, comp jButtonLogradouroNovo:3::p::p, space :::p, comp jButtonLogradouroEditar:3::p::p, space :::p, comp jButtonLogradouroApagar:3::p::p, space :::p, comp jButtonLogradouroSalvar:3::p::p, space s:p::p, comp jButtonLogradouroCancelar:3::p::p, space ::271:x}}"
+									"$verticalGroup": "par l {seq t {space :::x, par l {comp jButtonLogradouroNovo:4:l:p::p, comp jButtonLogradouroEditar:4:l:p::p, comp jButtonLogradouroApagar:4:l:p::p, comp jButtonLogradouroSalvar:4:l:p::p, comp jButtonLogradouroCancelar:4:l:p::p}, space :p:10:p}}"
+								} ) {
+									name: "jPanel40"
+									"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonLogradouroNovo"
+										"text": "Novo"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonLogradouroNovoActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonLogradouroEditar"
+										"text": "Editar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonLogradouroEditarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonLogradouroApagar"
+										"text": "Apagar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonLogradouroApagarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonLogradouroSalvar"
+										"text": "Salvar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonLogradouroSalvarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonLogradouroCancelar"
+										"text": "Cancelar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonLogradouroCancelarActionPerformed", true ) )
+									} )
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq {space :::p, par l {comp jLabel3::l:p::p, comp jLabel1::l:p::p, comp jLabel2::l:p:32:p}, space u:::p, par l:::p {comp jScrollPane1::l::388:x, comp jComboBoxLogradouroTipo::l:p::p, comp jTextFieldLogradouroNome::l:::x}, space s:::p, comp jPanel44:::::x, space :::p}}"
+									"$verticalGroup": "par l {seq {par l {comp jPanel44:::p::p, seq {par b {comp jLabel1::b:p::p, comp jComboBoxLogradouroTipo::b:p::p}, space :p:10:p, par b {comp jLabel2::b:p::p, comp jTextFieldLogradouroNome::b:p::p}, space :p:10:p, par l {comp jScrollPane1:::p::p, comp jLabel3:::p::p}}}, space :p:10:p}}"
+								} ) {
+									name: "jPanel6"
+									"border": new javax.swing.border.TitledBorder( "Logradouros" )
+									add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+										name: "jScrollPane1"
+										add( new FormComponent( "javax.swing.JTextArea" ) {
+											name: "jTextAreaLogradouroDescricao"
+											"columns": 20
+											"rows": 5
+										} )
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel3"
+										"text": "Descrição"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel1"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Tipo"
+									} )
+									add( new FormComponent( "javax.swing.JComboBox" ) {
+										name: "jComboBoxLogradouroTipo"
+										auxiliary() {
+											"JavaCodeGenerator.preInitCode": "${field}.setModel(new javax.swing.DefaultComboBoxModel(\n    new String[] {\n        \"\",\n        \"Aeroporto\",\n        \"Apartamento\",\n        \"Avenida\",\n        \"Beco\",\n        \"Bloco\",\n        \"Caminhi\",\n        \"Escadinha\",\n        \"Estação\",\n        \"Estrada\",\n        \"Fazenda\",\n        \"Ladeira\",\n        \"Largo\",\n        \"Praça\",\n        \"Parque\",\n        \"Quadra\",\n        \"Quilômetro\",\n        \"Quinta\",\n        \"Rodovia\",\n        \"Rua\",\n        \"Travessa\"\n    }));"
+										}
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldLogradouroNome"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel2"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Nome"
+									} )
+									add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+										"$horizontalGroup": "par l {seq t {space :::p, comp jLabel32:::p::p, space :::x, par l:::p {comp jButtonLogradouroPesquisar::::101:x, comp jTextFieldLogradouroID:::::x}, space :p:19:p}}"
+										"$verticalGroup": "par l {seq l {space :::p, par b {comp jTextFieldLogradouroID::b:p::p, comp jLabel32::b:p::p}, space :::p, comp jButtonLogradouroPesquisar:::::x, space :p:40:p}}"
+									} ) {
+										name: "jPanel44"
+										add( new FormComponent( "javax.swing.JButton" ) {
+											name: "jButtonLogradouroPesquisar"
+											"text": "Pesquisar"
+											addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonLogradouroPesquisarActionPerformed", true ) )
+										} )
+										add( new FormComponent( "javax.swing.JTextField" ) {
+											name: "jTextFieldLogradouroID"
+											"enabled": false
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel32"
+											"text": "ID"
+										} )
+									} )
+								} )
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"hAlign": 2
+							"vAlign": 1
+							"insets": new java.awt.Insets( 3, 3, 25, 0 )
+							"ipadx": 151
+							"ipady": 807
+						} )
+					}, new FormLayoutConstraints( null ) {
+						"title": "Logradouros"
+						"toolTipText": "Cadastre um logradouro"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+						"$columnSpecs": "0"
+						"$rowSpecs": "0"
+					} ) {
+						name: "jPanelFunc"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {par t:::p {comp jPanel4::l:::x, comp jPanel2::l:::x, comp jPanel3::l:::x, comp jPanel5::l:::x}, space :0:0:p}}"
+							"$verticalGroup": "par l {seq l {space :0:0:p, comp jPanel2:::p::p, space :0:0:p, comp jPanel3:::p::p, space :0:0:p, comp jPanel5:::p::p, space :p:10:p, comp jPanel4:::p::p, space :0:0:p}}"
+						} ) {
+							name: "jPanel21"
+							"border": new javax.swing.border.TitledBorder( "" )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq t {par t {seq {comp Logradouro6:::p:125:p, space :::p, comp jFormattedTextFieldFuncionarioDataContratacao::::0:x}, seq {par l {comp Logradouro4::l:p::p, comp Logradouro5::l:p::p}, space :::p, par l {comp jTextFieldFuncionarioCargo:::::x, comp jTextFieldFuncionarioSalario:::::x}}}, space :p:101:p, comp Logradouro7:::p:83:p, space :p:10:p, comp jScrollPane2:::p:335:p, space :p:99:p}}"
+								"$verticalGroup": "par l {seq {par l {seq {space :::p, par b {comp Logradouro4::b:p::p, comp jTextFieldFuncionarioCargo::b:p::p, comp Logradouro7::b:p::p}, space :::p, par b {comp Logradouro5::b:p::p, comp jTextFieldFuncionarioSalario::b:p::p}, space :p:6:p, par b {comp Logradouro6::b:p::p, comp jFormattedTextFieldFuncionarioDataContratacao::b:p::p}}, comp jScrollPane2:::p::p}, space ::27:x}}"
+							} ) {
+								name: "jPanel5"
+								"border": new javax.swing.border.TitledBorder( "Detalhes do Funcionario" )
+								"toolTipText": ""
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "Logradouro4"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Cargo"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "Logradouro5"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Salario"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "Logradouro6"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Data de Contratação"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "Logradouro7"
+									"text": "Observações"
+								} )
+								add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+									name: "jScrollPane2"
+									add( new FormComponent( "javax.swing.JTextArea" ) {
+										name: "jTextAreaFuncionarioObservacoes"
+										"columns": 20
+										"rows": 5
+									} )
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldFuncionarioCargo"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldFuncionarioSalario"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldFuncionarioSalarioActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+									name: "jFormattedTextFieldFuncionarioDataContratacao"
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq t {space :::p, comp Logradouro1:::p::p, space :::p, comp jComboBoxFuncionarioStatus:::p:96:p, space s:::p, comp jButtonFuncionarioNovo:1::p::p, space :::p, comp jButtonFuncionarioEditar:1::p::p, space :::p, comp jButtonFuncionarioApagar:1::p::p, space :::p, comp jButtonFuncionarioSalvar:1::p::p, space :::p, comp jButtonFuncionarioCancelar:1::p::p, space ::9:x, comp Logradouro3:::p::p, space :::p, comp jTextFieldFuncionarioNumeroDaMatricula:::p:84:p, space :p:18:p}}"
+								"$verticalGroup": "par l {seq t {space :p:10:p, par l {par b:l {comp jButtonFuncionarioEditar:2:b:p::p, comp jButtonFuncionarioApagar:2:b:p::p, comp jButtonFuncionarioSalvar:2:b:p::p, comp jButtonFuncionarioNovo:2:b:p::p, comp jButtonFuncionarioCancelar:2:b:p::p}, par b {comp Logradouro1::b:p::p, comp Logradouro3::b:p::p, comp jTextFieldFuncionarioNumeroDaMatricula::b:p::p, comp jComboBoxFuncionarioStatus::b:p::p}}, space :p:10:p}}"
+							} ) {
+								name: "jPanel4"
+								"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "Logradouro1"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Status"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "Logradouro3"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Numero da Matricula"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldFuncionarioNumeroDaMatricula"
+								} )
+								add( new FormComponent( "javax.swing.JComboBox" ) {
+									name: "jComboBoxFuncionarioStatus"
+									auxiliary() {
+										"JavaCodeGenerator.preInitCode": "${field}.setModel(new javax.swing.DefaultComboBoxModel(new String[] {\"\",\"Ativo\", \"Inativo\" }));"
+									}
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonFuncionarioEditar"
+									"text": "Editar"
+									auxiliary() {
+										"JavaCodeGenerator.variableModifiers": 4
+									}
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonFuncionarioEditarActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonFuncionarioApagar"
+									"text": "Apagar"
+									auxiliary() {
+										"JavaCodeGenerator.variableModifiers": 4
+									}
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonFuncionarioApagarActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonFuncionarioSalvar"
+									"text": "Salvar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonFuncionarioSalvarActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonFuncionarioNovo"
+									"text": "Novo"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonFuncionarioNovoActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonFuncionarioCancelar"
+									"text": "Cancelar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonFuncionarioCancelarActionPerformed", true ) )
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq {par l {seq l {comp Logradouro:::p::p, space :::p, par l {par l:::p {seq l {space :1:1:p, comp jTextFieldFuncionarioNumero:::p:109:p}, comp jTextFieldFuncionarioBairro::l:::x}, seq l {comp jComboBoxFuncionarioLograduro:::p::p, space u:::p, comp jButton2:::p:24:p}}}, comp jLabel8::l:p::p, comp jLabel9::l:p::p}, space :p:159:p, par t {comp jLabel11:::p::p, comp jLabel10:::p::p, comp jLabel12:::p::p}, space u:::p, par l:::p {comp jComboBoxFuncionarioUf:::p:62:p, comp jTextFieldFuncionarioCidade::::193:x, comp jTextFieldFuncionarioCep::l:::x}, space ::214:x}}"
+								"$verticalGroup": "par l {seq l {space :::p, par b {comp jLabel8::b:p::p, comp jTextFieldFuncionarioNumero::b:p::p, comp jLabel10::b:p::p, comp jTextFieldFuncionarioCidade::b:p::p}, space :::p, par b {comp jLabel9::b:p::p, comp jTextFieldFuncionarioBairro::b:p::p, comp jLabel11::b:p::p, comp jComboBoxFuncionarioUf::b:p::p}, space :::p, par b {comp Logradouro::b:p::p, comp jComboBoxFuncionarioLograduro::b:p::p, comp jLabel12::b:p::p, comp jTextFieldFuncionarioCep::b:p::p, comp jButton2::b:p:21:p}, space ::47:x}}"
+							} ) {
+								name: "jPanel3"
+								"border": new javax.swing.border.TitledBorder( "Endereço" )
+								add( new FormComponent( "javax.swing.JComboBox" ) {
+									name: "jComboBoxFuncionarioLograduro"
+									"model": new javax.swing.DefaultComboBoxModel
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel8"
+									"text": "Número"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldFuncionarioNumero"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel9"
+									"text": "Bairro"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldFuncionarioBairro"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel10"
+									"text": "Cidade"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldFuncionarioCidade"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel11"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "UF"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel12"
+									"text": "CEP"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldFuncionarioCep"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "Logradouro"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Logradouro"
+								} )
+								add( new FormComponent( "javax.swing.JComboBox" ) {
+									name: "jComboBoxFuncionarioUf"
+									auxiliary() {
+										"JavaCodeGenerator.preInitCode": "${field}.setModel(new javax.swing.DefaultComboBoxModel(new String[] {\n\"\",\n\"AC\",\n\"AL\",\n\"AP\",\n\"AM\",\n\"BA\",\n\"CE\",\n\"DF\",\n\"ES\",\n\"GO\",\n\"MA\",\n\"MT\",\n\"MS\",\n\"MG\",\n\"PA\",\n\"PB\",\n\"PR\",\n\"PE\",\n\"PI\",\n\"RJ\",\n\"RN\",\n\"RS\",\n\"RO\",\n\"RR\",\n\"SC\",\n\"SE\",\n\"TO\"\n}));"
+									}
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButton2"
+									"icon": new com.jformdesigner.model.SwingIcon( 0, "/img/Cadastros.png" )
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton2ActionPerformed", true ) )
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq t {par l {comp jLabel6::l:p::p, comp jLabel5::l:p::p}, space :::p, par l:::p {comp jTextFieldFuncionarioNome::::231:x, comp jTextFieldFuncionarioSobrenome:::::x}, space u:::p, comp jButtonFuncionarioPesquisar:::p::p, space ::175:x, par t {comp jLabel7::t:p::p, comp jLabel18::t:p::p}, space u:::p, par l:::p {comp jTextFieldFuncionarioApelido::::155:x, comp jTextFieldFuncionarioID:::::x}, space :p:24:p}, comp jSeparator1::l:::x, seq l {comp jPanel47:::p::p, space :p:10:p, comp jPanel57:::::x}}"
+								"$verticalGroup": "par l {seq l {par l {seq {par b {comp jLabel5::b:p::p, comp jTextFieldFuncionarioNome::b:p::p, comp jButtonFuncionarioPesquisar::b:p::p}, space :p:10:p, par b {comp jLabel6::b:p::p, comp jTextFieldFuncionarioSobrenome::b:p::p}}, seq l {par b {comp jTextFieldFuncionarioID::b:p::p, comp jLabel18::b:p:14:p}, space u:::p, par b {comp jLabel7::b:p::p, comp jTextFieldFuncionarioApelido::b:p::p}}}, space :p:10:p, comp jSeparator1:::p:10:p, space :0:0:p, par l:::p {comp jPanel47:::::x, comp jPanel57:::::x}, space :0:0:p}}"
+							} ) {
+								name: "jPanel2"
+								"border": new javax.swing.border.TitledBorder( "Informações Pessoais" )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel6"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Sobrenome"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel5"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Nome"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldFuncionarioNome"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldFuncionarioNomeActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldFuncionarioSobrenome"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldFuncionarioApelido"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel7"
+									"text": "Apelido"
+								} )
+								add( new FormComponent( "javax.swing.JSeparator" ) {
+									name: "jSeparator1"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel18"
+									"text": "ID"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldFuncionarioID"
+									"editable": false
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonFuncionarioPesquisar"
+									"text": "Pesquisar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonFuncionarioPesquisarActionPerformed", true ) )
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq l {space :::p, par l {par t:::p {comp jLabel4::l:p::p, seq l {par l {comp jLabel21::l:p::p, comp jLabel20::l:p::p}, space :76:76:p, par l {comp jTextFieldFuncionarioRgnumero:::::x, seq {comp jFormattedTextFieldFuncionarioCpf:::p:101:p, space :0:0:x}}}}, seq {par l {comp jLabel16::l:p::p, comp jLabel27::l:p::p, comp jLabel14::l:p::p}, space :p:48:p, par l:::p {comp jTextFieldFuncionarioNomedopai::l::178:x, comp jTextFieldFuncionarioNomedame::l:::x, comp jTextFieldFuncionarioTelefone::l:::x, comp jFormattedTextFieldFuncionarioDataNascimento::l::101:x}}}}}"
+									"$verticalGroup": "par l {seq l {par l {seq l {space :::p, comp jLabel4:::p::p, space :p:11:p, par b {comp jLabel14::b:p::p, comp jFormattedTextFieldFuncionarioDataNascimento::b:p::p}}, comp jTextFieldFuncionarioTelefone::l:p::p}, space :p:10:p, par b {comp jLabel16::b:p::p, comp jTextFieldFuncionarioNomedame::b:p::p}, space :p:10:p, par b {comp jLabel27::b:p::p, comp jTextFieldFuncionarioNomedopai::b:p::p}, space :p:10:p, par b {comp jLabel20::b:p::p, comp jFormattedTextFieldFuncionarioCpf::b:p::p}, space :p:10:p, par b {comp jLabel21::b:p::p, comp jTextFieldFuncionarioRgnumero::b:p::p}, space :0:11:x}}"
+								} ) {
+									name: "jPanel47"
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldFuncionarioRgnumero"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldFuncionarioRgnumeroActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+										name: "jFormattedTextFieldFuncionarioCpf"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldFuncionarioNomedopai"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldFuncionarioNomedame"
+									} )
+									add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+										name: "jFormattedTextFieldFuncionarioDataNascimento"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldFuncionarioTelefone"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel4"
+										"text": "Telefone"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel14"
+										"text": "Data Nascimento"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel16"
+										"text": "Nome da Mãe"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel27"
+										"text": "Nome do Pai"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel20"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Cpf"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel21"
+										"text": "Rg Numero"
+									} )
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq l {space :p:10:p, par l {par l:l {comp jLabel13::t:p::p, comp jLabel19::t:p::p}, par l:l {seq l {comp jLabel24:::p::p, space u:::p, comp jFormattedTextFieldFuncionarioDataEmissao:::p:93:p}, seq t {comp jLabel22:::p::p, space :::p, par l {comp jComboBoxFuncionarioSexo:::p:76:p, comp jTextFieldFuncionarioOrgaoExpedidor:::p:99:p, comp jTextFieldFuncionarioEmail::l:p:258:p}}}}, space :::x}}"
+									"$verticalGroup": "par l {seq l {space :::p, par l {comp jTextFieldFuncionarioEmail::l:p:19:p, comp jLabel13:::p::p}, space :p:10:p, par b {comp jComboBoxFuncionarioSexo::b:p::p, comp jLabel19::b:p::p}, space :p:10:p, par b {comp jTextFieldFuncionarioOrgaoExpedidor::b:p::p, comp jLabel22::b:p::p}, space :p:10:p, par b {comp jLabel24::b:p::p, comp jFormattedTextFieldFuncionarioDataEmissao::b:p::p}, space :::x}}"
+								} ) {
+									name: "jPanel57"
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel19"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Sexo"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel13"
+										"text": "Email"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldFuncionarioEmail"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldFuncionarioEmailActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JComboBox" ) {
+										name: "jComboBoxFuncionarioSexo"
+										auxiliary() {
+											"JavaCodeGenerator.preInitCode": "${field}.setModel(new javax.swing.DefaultComboBoxModel(new String[] {\"\",\"Masculino\",\"Feminino\" }));"
+										}
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel22"
+										"text": "Orgão Expedidor"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel24"
+										"text": "Data de Emissao"
+									} )
+									add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+										name: "jFormattedTextFieldFuncionarioDataEmissao"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldFuncionarioOrgaoExpedidor"
+									} )
+								} )
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"hAlign": 0
+							"vAlign": 0
+						} )
+					}, new FormLayoutConstraints( null ) {
+						"title": "Funcionários"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+						"$columnSpecs": "0"
+						"$rowSpecs": "0"
+					} ) {
+						name: "jPanelCategoriaSocio"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {space :0:0:p, comp jPanel43:::p::p, space :0:0:p}}"
+							"$verticalGroup": "par l {seq l {space :0:0:p, comp jPanel43:::p::p, space :0:0:p}}"
+						} ) {
+							name: "jPanel30"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq l {space :0:0:p, par l {comp jPanel10:::::x, comp jPanel7:::::x}, space :0:0:p}}"
+								"$verticalGroup": "par l {seq l {comp jPanel7:::p::p, space :p:10:p, comp jPanel10:::p::p, space :0:0:x}}"
+							} ) {
+								name: "jPanel43"
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq l {space :p:182:p, comp jButtonCategoriaSocioNovo:5::p::p, space :p:10:p, comp jButtonCategoriaSocioEditar:5::p::p, space :p:10:p, comp jButtonCategoriaSocioApagar:5::p::p, space :p:10:p, comp jButtonCategoriaSocioSalvar:5::p::p, space :p:10:p, comp jButtonCategoriaSocioCancelar:5::p::p, space ::199:x}}"
+									"$verticalGroup": "par l {seq l {space :p:10:p, par b {comp jButtonCategoriaSocioNovo:6:b:p::p, comp jButtonCategoriaSocioEditar:6:b:p::p, comp jButtonCategoriaSocioApagar:6:b:p::p, comp jButtonCategoriaSocioCancelar:6:b:p::p, comp jButtonCategoriaSocioSalvar:6:b:p::p}, space :p:10:p}}"
+								} ) {
+									name: "jPanel10"
+									"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonCategoriaSocioNovo"
+										"text": "Novo"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonCategoriaSocioNovoActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonCategoriaSocioEditar"
+										"text": "Editar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonCategoriaSocioEditarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonCategoriaSocioSalvar"
+										"text": "Salvar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonCategoriaSocioSalvarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonCategoriaSocioApagar"
+										"text": "Apagar"
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonCategoriaSocioCancelar"
+										"text": "Cancelar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonCategoriaSocioCancelarActionPerformed", true ) )
+									} )
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq l {space :::p, par l {par l:l::p {comp jLabel35:::::x, comp jLabel34:::p:46:p}, comp jLabel36:::p::p}, space s:::p, par l {comp jTextFieldCategoriaSocioNome::l:p:131:p, comp jScrollPane5:::p:314:p, comp jComboBoxCategoriaSocioTaxa:::p::p}, space :::x, comp jPanel42:::p::p, space :::p}}"
+									"$verticalGroup": "par l {seq {par l {comp jPanel42:::p::p, seq l {space :p:10:p, par b {comp jLabel34::b:p::p, comp jTextFieldCategoriaSocioNome::b:p::p}, space :p:10:p, par b {comp jLabel36::b:p::p, comp jComboBoxCategoriaSocioTaxa::b:p::p}, space :p:10:p, par l {comp jLabel35:::p::p, comp jScrollPane5:::p:107:p}}}, space :p:10:p}}"
+								} ) {
+									name: "jPanel7"
+									"border": new javax.swing.border.TitledBorder( "Categoria Sócio" )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel34"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Nome"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldCategoriaSocioNome"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel35"
+										"text": "Descrição"
+									} )
+									add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+										name: "jScrollPane5"
+										add( new FormComponent( "javax.swing.JTextArea" ) {
+											name: "jTextAreaCategoriaSocioDescricao"
+											"columns": 20
+											"rows": 5
+										} )
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel36"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Taxa"
+									} )
+									add( new FormComponent( "javax.swing.JComboBox" ) {
+										name: "jComboBoxCategoriaSocioTaxa"
+										"model": new javax.swing.DefaultComboBoxModel
+									} )
+									add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+										"$horizontalGroup": "par l {seq t {space :::x, par t {comp jButtonCategoriaSocioPesquisar::t:p:100:p, seq t {comp jLabel33:::p:25:p, space :::p, comp jTextFieldCategoriaSocioID:::p:100:p}}, space :::p}}"
+										"$verticalGroup": "par l {seq l {space :::p, par b {comp jLabel33::b:p::p, comp jTextFieldCategoriaSocioID::b:p::p}, space :::p, comp jButtonCategoriaSocioPesquisar:::p::p, space :::x}}"
+									} ) {
+										name: "jPanel42"
+										add( new FormComponent( "javax.swing.JButton" ) {
+											name: "jButtonCategoriaSocioPesquisar"
+											"text": "Pesquisar"
+											addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonCategoriaSocioPesquisarActionPerformed", true ) )
+										} )
+										add( new FormComponent( "javax.swing.JTextField" ) {
+											name: "jTextFieldCategoriaSocioID"
+											"enabled": false
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel33"
+											"text": "ID"
+										} )
+									} )
+								} )
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"hAlign": 2
+							"vAlign": 1
+							"ipadx": 243
+							"ipady": 752
+						} )
+					}, new FormLayoutConstraints( null ) {
+						"title": "Categoria Sócio"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+						"$columnSpecs": "0"
+						"$rowSpecs": "0"
+					} ) {
+						name: "jPanelTipoDespesa"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {space :p:0:p, par l:::p {comp jPanel24:::::x, comp jPanel11:::p::p}, space :0:0:p}}"
+							"$verticalGroup": "par l {seq l {comp jPanel24:::p:268:p, space :p:10:p, comp jPanel11:::p::p, space :0:0:p}}"
+						} ) {
+							name: "jPanel31"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq {space :::p, par t {seq {par l {comp jLabel38::l:p::p, comp jLabel37::l:p::p}, space :p:13:p, par l:::p {comp jTextFieldTipoDespesaNome:::::x, comp jScrollPane6::::317:x}}, seq {comp jLabel39:::p::p, space u:::p, comp jScrollPane7:::p:317:p}}, space :::x, comp jPanel45:::p:155:p, space :::p}}"
+								"$verticalGroup": "par l {seq l {par l {seq {space :::p, par b {comp jLabel37::b:p::p, comp jTextFieldTipoDespesaNome::b:p::p}, space :p:10:p, par l {comp jLabel38:::p::p, comp jScrollPane6:::p::p}}, comp jPanel45::l:p::p}, par l {seq {space :::x, comp jLabel39:::p::p, space :p:93:p}, seq l {space :p:10:p, comp jScrollPane7:::p::p, space :p:10:p}}}}"
+							} ) {
+								name: "jPanel24"
+								"border": new javax.swing.border.TitledBorder( "Tipos de despesas" )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel37"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Nome"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel38"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Descricão"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel39"
+									"text": "Observação"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldTipoDespesaNome"
+								} )
+								add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+									name: "jScrollPane6"
+									add( new FormComponent( "javax.swing.JTextArea" ) {
+										name: "jTextAreaTipoDespesaDescricao"
+										"columns": 20
+										"rows": 5
+									} )
+								} )
+								add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+									name: "jScrollPane7"
+									add( new FormComponent( "javax.swing.JTextArea" ) {
+										name: "jTextAreaTipoDespesaObservacao"
+										"columns": 20
+										"rows": 5
+									} )
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq t {space :::x, comp jLabel40:::p:18:p, space u:::p, par t:::p {comp jButtonTipoDespesaPesquisar::::100:x, comp jTextFieldTIpoDespesaID:::::x}, space :p:45:p}}"
+									"$verticalGroup": "par l {seq l {space :::p, par b {comp jLabel40::b:p::p, comp jTextFieldTIpoDespesaID::b:p::p}, space :::p, comp jButtonTipoDespesaPesquisar:::p::p, space :::x}}"
+								} ) {
+									name: "jPanel45"
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel40"
+										"text": "ID"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldTIpoDespesaID"
+										"enabled": false
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonTipoDespesaPesquisar"
+										"text": "Pesquisar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTipoDespesaPesquisarActionPerformed", true ) )
+									} )
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq l {space :p:201:p, comp jButtonTipoDespesaNovo:11::p::p, space :p:10:p, comp jButtonTipoDespesaEditar:11::p::p, space :p:10:p, comp jButtonTipoDespesaApagar:11::p::p, space :p:10:p, comp jButtonTipoDespesaSalvar:11::p::p, space :p:10:p, comp jButtonTipoDespesaCancelar:11::p::p, space ::180:x}}"
+								"$verticalGroup": "par l {seq l {space :p:10:p, par b {comp jButtonTipoDespesaNovo:12:b:p::p, comp jButtonTipoDespesaEditar:12:b:p::p, comp jButtonTipoDespesaApagar:12:b:p::p, comp jButtonTipoDespesaCancelar:12:b:p::p, comp jButtonTipoDespesaSalvar:12:b:p::p}, space :::x}}"
+							} ) {
+								name: "jPanel11"
+								"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonTipoDespesaNovo"
+									"text": "Novo"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTipoDespesaNovoActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonTipoDespesaEditar"
+									"text": "Editar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTipoDespesaEditarActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonTipoDespesaSalvar"
+									"text": "Salvar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTipoDespesaSalvarActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonTipoDespesaApagar"
+									"text": "Apagar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTipoDespesaApagarActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonTipoDespesaCancelar"
+									"text": "Cancelar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTipoDespesaCancelarActionPerformed", true ) )
+								} )
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"hAlign": 2
+							"vAlign": 1
+							"ipadx": 110
+							"ipady": 835
+						} )
+					}, new FormLayoutConstraints( null ) {
+						"title": "Tipo/Despesa"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+						"$columnSpecs": "0"
+						"$rowSpecs": "0"
+					} ) {
+						name: "jPanelDespesa"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {comp jPanel53:::p::p, space :0:0:p}}"
+							"$verticalGroup": "par l {seq {space :0:0:p, comp jPanel53:::p::p, space :0:0:p}}"
+						} ) {
+							name: "jPanel32"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq t {space :0:0:x, par l:::p {comp jPanel12::l:::x, comp jPanel25::l:::x}}}"
+								"$verticalGroup": "par l {seq t {space :0:0:p, comp jPanel25:::p::p, space :p:10:p, comp jPanel12:::p::p, space :0:0:p}}"
+							} ) {
+								name: "jPanel53"
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq l {space :p:192:p, comp jButtonDespesaNovo:13::p::p, space :p:10:p, comp jButtonDespesaEditar:13::p::p, space :p:10:p, comp jButtonDespesaApagar:13::p::p, space :p:10:p, comp jButtonDespesaSalvar:13::p::p, space :p:10:p, comp jButtonDespesaCancelar:13::p::p, space ::189:x}}"
+									"$verticalGroup": "par l {seq l {space :::p, par b {comp jButtonDespesaNovo:14:b:p::p, comp jButtonDespesaEditar:14:b:p::p, comp jButtonDespesaApagar:14:b:p::p, comp jButtonDespesaCancelar:14:b:p::p, comp jButtonDespesaSalvar:14:b:p::p}, space ::15:x}}"
+								} ) {
+									name: "jPanel12"
+									"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonDespesaNovo"
+										"text": "Novo"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonDespesaNovoActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonDespesaEditar"
+										"text": "Editar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonDespesaEditarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonDespesaSalvar"
+										"text": "Salvar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonDespesaSalvarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonDespesaApagar"
+										"text": "Apagar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonDespesaApagarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonDespesaCancelar"
+										"text": "Cancelar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonDespesaCancelarActionPerformed", true ) )
+									} )
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq {space :::p, par l {seq l {par l {comp jLabel47:::p::p, comp jLabel42::l:p:44:p, comp jLabel48::l:p:33:p, comp jLabel49::l:p::p, comp jLabel50::l:p:60:p}, space :p:10:p, par l {seq {par l:::p {comp jComboBoxDespesaFuncionario::l::236:x, comp jFormattedTextFieldDespesaData::l:p:82:p, comp jTextFieldDespesaValor::l:::x, comp jTextFieldDespesaFavorecido::l:::x, comp jComboBoxDespesaMotivo:::::x}, space :::x, comp jPanel46:::p::p}, seq {comp jScrollPane9:::p:317:p, space :0:0:x}}}, seq l {comp jLabel44:::p::p, space :0:0:x}}, space :::p}}"
+									"$verticalGroup": "par l {seq l {space :::p, par l {seq {par b {comp jLabel47::b:p::p, comp jComboBoxDespesaFuncionario::b:p::p}, space :p:10:p, par b {comp jLabel42::b:p::p, comp jFormattedTextFieldDespesaData::b:p::p}, space :p:10:p, par b {comp jTextFieldDespesaValor::b:p::p, comp jLabel48::b:p::p}}, comp jPanel46:::p::p}, space :p:10:p, par b {comp jComboBoxDespesaMotivo::b:p::p, comp jLabel49::b:p::p}, space :p:10:p, par b {comp jLabel50::b:p::p, comp jTextFieldDespesaFavorecido::b:p::p}, space :p:10:p, par l {comp jLabel44:::p::p, comp jScrollPane9:::p::p}, space :::x}}"
+								} ) {
+									name: "jPanel25"
+									"border": new javax.swing.border.TitledBorder( "Cadastro de Despesas" )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel42"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Data"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel44"
+										"text": "Observação"
+									} )
+									add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+										name: "jScrollPane9"
+										add( new FormComponent( "javax.swing.JTextArea" ) {
+											name: "jTextAreaDespesaObservacao"
+											"columns": 20
+											"rows": 5
+										} )
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel47"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Funcionario"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel48"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Valor"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldDespesaValor"
+									} )
+									add( new FormComponent( "javax.swing.JComboBox" ) {
+										name: "jComboBoxDespesaMotivo"
+										"model": new javax.swing.DefaultComboBoxModel
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel49"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Motivo "
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel50"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "favorecido"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldDespesaFavorecido"
+									} )
+									add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+										name: "jFormattedTextFieldDespesaData"
+									} )
+									add( new FormComponent( "javax.swing.JComboBox" ) {
+										name: "jComboBoxDespesaFuncionario"
+										"model": new javax.swing.DefaultComboBoxModel
+									} )
+									add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+										"$horizontalGroup": "par l {seq t {space :::x, comp jLabel45:::p::p, space :p:10:p, par t:::p {comp jButtonDespesaPesquisar::::101:x, comp jTextFieldDespesaID:::::x}, space :p:10:p}}"
+										"$verticalGroup": "par l {seq l {space :p:10:p, par b {comp jLabel45::b:p::p, comp jTextFieldDespesaID::b:p::p}, space :::p, comp jButtonDespesaPesquisar:::p::p, space :p:10:p}}"
+									} ) {
+										name: "jPanel46"
+										add( new FormComponent( "javax.swing.JButton" ) {
+											name: "jButtonDespesaPesquisar"
+											"text": "Pesquisar"
+											addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonDespesaPesquisarActionPerformed", true ) )
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel45"
+											"text": "ID"
+										} )
+										add( new FormComponent( "javax.swing.JTextField" ) {
+											name: "jTextFieldDespesaID"
+											"enabled": false
+										} )
+									} )
+								} )
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"hAlign": 2
+							"vAlign": 1
+							"ipadx": 245
+							"ipady": 814
+						} )
+					}, new FormLayoutConstraints( null ) {
+						"title": "Despesa"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+						"$columnSpecs": "0"
+						"$rowSpecs": "0"
+					} ) {
+						name: "jPanelTipoReceita"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "jPanel33"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "jPanel49"
+								"border": new javax.swing.border.EtchedBorder( 1, null, null )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq l {space :p:175:p, comp jButtonTipoReceitaNovo:15::p::p, space :p:10:p, comp jButtonTipoReceitaEditar:15::p::p, space :p:10:p, comp jButtonTipoReceitaApagar:15::p::p, space :p:10:p, comp jButtonTipoReceitaSalvar:15::p::p, space :p:10:p, comp jButtonTipoReceitaCancelar:15::p::p, space ::206:x}}"
+									"$verticalGroup": "par l {seq l {space :p:10:p, par b {comp jButtonTipoReceitaNovo:16:b:p::p, comp jButtonTipoReceitaEditar:16:b:p::p, comp jButtonTipoReceitaApagar:16:b:p::p, comp jButtonTipoReceitaCancelar:16:b:p::p, comp jButtonTipoReceitaSalvar:16:b:p::p}, space :::x}}"
+								} ) {
+									name: "jPanel14"
+									"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonTipoReceitaNovo"
+										"text": "Novo"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTipoReceitaNovoActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonTipoReceitaEditar"
+										"text": "Editar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTipoReceitaEditarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonTipoReceitaSalvar"
+										"text": "Salvar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTipoReceitaSalvarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonTipoReceitaApagar"
+										"text": "Apagar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTipoReceitaApagarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonTipoReceitaCancelar"
+										"text": "Cancelar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTipoReceitaCancelarActionPerformed", true ) )
+									} )
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 2
+									"y": 280
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq {space :::p, par l {seq {par l {comp jLabel51:::p::p, comp jLabel53::l:p::p}, space :p:13:p}, seq t {comp jLabel54:::p::p, space u:::p}}, par l {comp jTextFieldTipoReceitaNome::l:p:225:p, comp jScrollPane10::l:p:300:p, comp jScrollPane11::l:p:300:p}, space ::254:x, comp jPanel48:::p:146:p, space :::p}}"
+									"$verticalGroup": "par l {seq l {space :::p, par l {comp jPanel48:::p::p, seq {par b {comp jTextFieldTipoReceitaNome::b:p::p, comp jLabel51::b:p::p}, space :p:12:p, par l {comp jScrollPane10::l:p::p, comp jLabel53::l:p::p}, space :p:10:p, par l {comp jLabel54:::p::p, comp jScrollPane11:::p::p}}}}}"
+								} ) {
+									name: "jPanel26"
+									"border": new javax.swing.border.TitledBorder( "Tipos de receita" )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel51"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Nome"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel53"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Descricão"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel54"
+										"text": "Observação"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldTipoReceitaNome"
+									} )
+									add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+										name: "jScrollPane10"
+										add( new FormComponent( "javax.swing.JTextArea" ) {
+											name: "jTextAreaTipoReceitaDescricao"
+											"columns": 20
+											"rows": 5
+										} )
+									} )
+									add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+										name: "jScrollPane11"
+										add( new FormComponent( "javax.swing.JTextArea" ) {
+											name: "jTextAreaTipoReceitaObservacao"
+											"columns": 20
+											"rows": 5
+										} )
+									} )
+									add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+										"$horizontalGroup": "par l {seq t {space :p:10:p, comp jLabel55:::p:19:p, space :p:10:p, par t:::p {comp jTextFieldTIpoReceitaID:::::x, comp jButtonTipoReceitaPesquisar::::99:x}, space :::x}}"
+										"$verticalGroup": "par l {seq l {space :p:10:p, par b {comp jTextFieldTIpoReceitaID::b:p::p, comp jLabel55::b:p::p}, space :::p, comp jButtonTipoReceitaPesquisar:::p::p, space :p:10:p}}"
+									} ) {
+										name: "jPanel48"
+										add( new FormComponent( "javax.swing.JButton" ) {
+											name: "jButtonTipoReceitaPesquisar"
+											"text": "Pesquisar"
+											addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTipoReceitaPesquisarActionPerformed", true ) )
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel55"
+											"text": "ID"
+										} )
+										add( new FormComponent( "javax.swing.JTextField" ) {
+											name: "jTextFieldTIpoReceitaID"
+											"enabled": false
+										} )
+									} )
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 2
+									"y": 2
+									"width": 800
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"hAlign": 2
+							"vAlign": 1
+							"ipadx": 66
+							"ipady": 770
+						} )
+					}, new FormLayoutConstraints( null ) {
+						"title": "Tipo/Receita"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+						"$columnSpecs": "0"
+						"$rowSpecs": "0"
+					} ) {
+						name: "jPanelReceitas"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {par t {comp jPanel27::t:p::p, comp jPanel51:::p::p}, space :0:0:p}}"
+							"$verticalGroup": "par l {seq l {space :0:0:p, comp jPanel27:::p:292:p, space :0:0:p, comp jPanel51:::p:58:p, space :0:0:p}}"
+						} ) {
+							name: "jPanel34"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq t {space :0:0:x, comp jPanel8:::p::p}}"
+								"$verticalGroup": "par l {seq l {space :::x, comp jPanel8:::p::p}}"
+							} ) {
+								name: "jPanel51"
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq l {space :p:188:p, comp jButtonReceitaNovo:17::p::p, space :p:10:p, comp jButtonReceitaEditar:17::p:61:p, space :p:10:p, comp jButtonReceitaApagar:17::p:67:p, space :p:10:p, comp jButtonReceitaSalvar:17::p:63:p, space :p:10:p, comp jButtonReceitaCancelar:17::p:75:p, space ::193:x}}"
+									"$verticalGroup": "par l {seq l {space :p:10:p, par b {comp jButtonReceitaNovo:18:b:p::p, comp jButtonReceitaEditar:18:b:p::p, comp jButtonReceitaApagar:18:b:p::p, comp jButtonReceitaCancelar:18:b:p::p, comp jButtonReceitaSalvar:18:b:p::p}, space :p::p}}"
+								} ) {
+									name: "jPanel8"
+									"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonReceitaNovo"
+										"text": "Novo"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonReceitaNovoActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonReceitaEditar"
+										"text": "Editar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonReceitaEditarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonReceitaSalvar"
+										"text": "Salvar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonReceitaSalvarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonReceitaApagar"
+										"text": "Apagar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonReceitaApagarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonReceitaCancelar"
+										"text": "Cancelar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonReceitaCancelarActionPerformed", true ) )
+									} )
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq l {space :::p, par l {comp jLabel58::l:p::p, comp jLabel43::l:p::p, comp jLabel59::l:p::p, comp jLabel60::l:p::p, comp jLabel61::l:p::p, comp jLabel46::l:p::p}, space :p:10:p, par l {seq {par l {seq {par l {comp jComboBoxReceitaFuncionario:::p::p, comp jDateChooser1:::p::p}, space :::x, comp jPanel50:::p::p}, seq {par l {comp jComboBoxReceitaMotivoEntrada::l:p::p, seq l {comp jComboBoxReceitaSocio:::p::p, space :p:40:p, comp jCheckBoxReceitaAvulsa:::p::p}}, space :0:0:x}}, space :::p}, seq {par l {comp jScrollPane12:::p:328:p, comp jTextFieldReceitaValor::l:p:100:p}, space :0:375:x}}}}"
+								"$verticalGroup": "par l {seq l {par l {seq {space :::p, par b {comp jLabel58::b:p::p, comp jComboBoxReceitaFuncionario::b:p::p}, space :p:12:p, par l {comp jLabel43:::p::p, comp jDateChooser1:::p::p}}, comp jPanel50:::p::p}, space :::p, par l {comp jLabel59:::p::p, comp jTextFieldReceitaValor:::p::p}, space :p:10:p, par b {comp jLabel60::b:p::p, comp jComboBoxReceitaMotivoEntrada::b:p::p}, space :p:9:p, par b {comp jLabel61::b:p::p, comp jComboBoxReceitaSocio::b:p::p, comp jCheckBoxReceitaAvulsa::b:p::p}, space :p:8:p, par l {comp jLabel46:::p::p, comp jScrollPane12:::p::p}, space :p:10:p}}"
+							} ) {
+								name: "jPanel27"
+								"border": new javax.swing.border.TitledBorder( "Cadastro de Receitas" )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel43"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Data"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel46"
+									"text": "Observação"
+								} )
+								add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+									name: "jScrollPane12"
+									add( new FormComponent( "javax.swing.JTextArea" ) {
+										name: "jTextAreaReceitaObservacao"
+										"columns": 20
+										"rows": 5
+									} )
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel58"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Funcionario"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel59"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Valor"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldReceitaValor"
+									addEvent( new FormEvent( "java.awt.event.FocusListener", "focusLost", "jTextFieldReceitaValorFocusLost", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JComboBox" ) {
+									name: "jComboBoxReceitaMotivoEntrada"
+									"model": new javax.swing.DefaultComboBoxModel
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel60"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Motivo "
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel61"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Socio"
+								} )
+								add( new FormComponent( "javax.swing.JComboBox" ) {
+									name: "jComboBoxReceitaSocio"
+									"model": new javax.swing.DefaultComboBoxModel
+								} )
+								add( new FormComponent( "javax.swing.JComboBox" ) {
+									name: "jComboBoxReceitaFuncionario"
+									"model": new javax.swing.DefaultComboBoxModel
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq t {space :::x, comp jLabel57:::p:28:p, space u:::p, par t:::p {comp jButtonReceitaPesquisar::::100:x, comp jTextFieldReceitaID:::::x}, space :p:10:p}}"
+									"$verticalGroup": "par l {seq l {space :p:10:p, par b {comp jLabel57::b:p::p, comp jTextFieldReceitaID::b:p::p}, space :p:10:p, comp jButtonReceitaPesquisar:::p::p, space :p:10:p}}"
+								} ) {
+									name: "jPanel50"
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel57"
+										"text": "ID"
+										"enabled": false
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldReceitaID"
+										"enabled": false
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldReceitaIDActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonReceitaPesquisar"
+										"text": "Pesquisar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonReceitaPesquisarActionPerformed", true ) )
+									} )
+								} )
+								add( new FormComponent( "com.toedter.calendar.JDateChooser" ) {
+									name: "jDateChooser1"
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "jCheckBoxReceitaAvulsa"
+									"text": "Entrada Avulsa"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jCheckBoxReceitaAvulsaActionPerformed", true ) )
+								} )
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"hAlign": 2
+							"vAlign": 1
+							"ipadx": 76
+							"ipady": 764
+						} )
+					}, new FormLayoutConstraints( null ) {
+						"title": "Receitas"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+						"$columnSpecs": "0"
+						"$rowSpecs": "0"
+					} ) {
+						name: "jPanelCheques"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq {par l:::p {comp jPanel15::l:::x, comp jPanel16::l:p::p}, space :0:0:p}}"
+							"$verticalGroup": "par l {seq l {space :0:0:p, comp jPanel15:::p::p, space :::p, comp jPanel16:::p::p, space :0:0:p}}"
+						} ) {
+							name: "jPanel35"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq l {space :p:196:p, comp jButtonChequeNovo:19::p::p, space :p:10:p, comp jButtonChequeEditar:19::p::p, space :p:10:p, comp jButtonChequeApagar:19::p::p, space :p:10:p, comp jButtonChequeSalvar:19::p::p, space :p:10:p, comp jButtonChequeCancelar:19::p::p, space ::185:x}}"
+								"$verticalGroup": "par l {seq l {space :p:10:p, par b {comp jButtonChequeNovo:20:b:p::p, comp jButtonChequeEditar:20:b:p::p, comp jButtonChequeApagar:20:b:p::p, comp jButtonChequeCancelar:20:b:p::p, comp jButtonChequeSalvar:20:b:p::p}, space :::x}}"
+							} ) {
+								name: "jPanel16"
+								"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonChequeNovo"
+									"text": "Novo"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonChequeNovoActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonChequeEditar"
+									"text": "Editar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonChequeEditarActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonChequeSalvar"
+									"text": "Salvar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonChequeSalvarActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonChequeApagar"
+									"text": "Apagar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonChequeApagarActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonChequeCancelar"
+									"text": "Cancelar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonChequeCancelarActionPerformed", true ) )
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq {space :::p, par l {seq l {par l {comp jLabel62:::p::p, comp jLabel63::l:p::p, comp jLabel28::l:p::p}, space :p:59:p, par l {comp jComboBoxChequeFuncionario:::p:76:p, par l:l::p {comp jTextFieldChequeValor::::111:x, comp jTextFieldChequeNumero:::::x}}, space :::x, comp jPanel52:::p::p}, seq {par l {seq l {par l {comp jLabel64:::p::p, comp jLabel65::l:p::p}, space s:::p, par l {comp jScrollPane8:::p:296:p, comp jComboBoxChequeMotivoDespesa:::p:64:p}}, seq l {par l {comp jLabel30::l:p::p, comp jLabel29::l:p::p}, space :p:10:p, par l {comp jFormattedTextFieldChequeDataPagamento:::p:72:p, comp jFormattedTextFieldChequeDataVencimento:::p:72:p}}}, space :0:0:x}}, space :::p}}"
+								"$verticalGroup": "par l {seq l {space :p:10:p, par l {seq {par b {comp jLabel62::b:p::p, comp jTextFieldChequeNumero::b:p::p}, par l {seq {space :p:10:p, comp jLabel63:::p::p}, seq l {space u:::p, comp jTextFieldChequeValor:::p::p}}, space :p:10:p, par l {comp jLabel28:::p::p, comp jComboBoxChequeFuncionario:::p::p}}, comp jPanel52:::p::p}, space :p:10:p, par b {comp jLabel30::b:p::p, comp jFormattedTextFieldChequeDataVencimento::b:p::p}, space :p:10:p, par b {comp jLabel29::b:p::p, comp jFormattedTextFieldChequeDataPagamento::b:p::p}, space :p:10:p, par b {comp jLabel64::b:p::p, comp jComboBoxChequeMotivoDespesa::b:p::p}, space :p:10:p, par l {comp jLabel65:::p::p, comp jScrollPane8:::p::p}, space :p:10:p}}"
+							} ) {
+								name: "jPanel15"
+								"border": new javax.swing.border.TitledBorder( "Cadastro de Cheques" )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel28"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Funcionario"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldChequeValor"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldChequeValorActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel29"
+									"text": "Data de pagamento"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel30"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Data de vencimento"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel62"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Numero"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel63"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Valor"
+								} )
+								add( new FormComponent( "javax.swing.JComboBox" ) {
+									name: "jComboBoxChequeMotivoDespesa"
+									"model": new javax.swing.DefaultComboBoxModel
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel64"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Motivo da despesa"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldChequeNumero"
+								} )
+								add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+									name: "jScrollPane8"
+									add( new FormComponent( "javax.swing.JTextArea" ) {
+										name: "jTextAreaChequeObservacoes"
+										"columns": 20
+										"rows": 5
+									} )
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel65"
+									"text": "observações"
+								} )
+								add( new FormComponent( "javax.swing.JComboBox" ) {
+									name: "jComboBoxChequeFuncionario"
+									"model": new javax.swing.DefaultComboBoxModel
+								} )
+								add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+									name: "jFormattedTextFieldChequeDataVencimento"
+								} )
+								add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+									name: "jFormattedTextFieldChequeDataPagamento"
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq l {space :::p, comp jLabel26:::p::p, space u:::p, par l:::p {comp jButtonChequePesquisar::::101:x, comp jTextFieldChequeID:::::x}, space :::x}}"
+									"$verticalGroup": "par l {seq l {space :::p, par b {comp jLabel26::b:p::p, comp jTextFieldChequeID::b:p::p}, space :::p, comp jButtonChequePesquisar:::p:23:p, space :p:10:p}}"
+								} ) {
+									name: "jPanel52"
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel26"
+										"text": "ID"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldChequeID"
+										"enabled": false
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonChequePesquisar"
+										"text": "Pesquisar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonChequePesquisarActionPerformed", true ) )
+									} )
+								} )
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"hAlign": 2
+							"vAlign": 1
+							"ipadx": 206
+							"ipady": 882
+						} )
+					}, new FormLayoutConstraints( null ) {
+						"title": "Cheques"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+						"$columnSpecs": "0, 0"
+						"$rowSpecs": "0"
+					} ) {
+						name: "jPanelTaxas"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {space :0:0:x}"
+							"$verticalGroup": "par l {space :0:0:x}"
+						} ) {
+							name: "jPanel22"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"hAlign": 0
+							"vAlign": 0
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {seq l {space :p:0:p, par t:::p {comp jPanel18::l:::x, comp jPanel13::l:::x}, space :0:0:x}}"
+							"$verticalGroup": "par l {seq l {comp jPanel13:::p::p, space :p:10:p, comp jPanel18:::p::p, space :0:0:p}}"
+						} ) {
+							name: "jPanel55"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq l {space :p:165:p, comp jButtonTaxaNovo:7::p::p, space :p:10:p, comp jButtonTaxaEditar:7::p::p, space :p:10:p, comp jButtonTaxaApagar:7::p::p, space :p:10:p, comp jButtonTaxaSalvar:7::p::p, space :p:10:p, comp jButtonTaxaCancelar:7::p::p, space ::216:x}}"
+								"$verticalGroup": "par l {seq l {space :p:10:p, par b {comp jButtonTaxaNovo:8:b:p::p, comp jButtonTaxaEditar:8:b:p::p, comp jButtonTaxaApagar:8:b:p::p, comp jButtonTaxaCancelar:8:b:p::p, comp jButtonTaxaSalvar:8:b:p::p}, space :::x}}"
+							} ) {
+								name: "jPanel18"
+								"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonTaxaNovo"
+									"text": "Novo"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTaxaNovoActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonTaxaEditar"
+									"text": "Editar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTaxaEditarActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonTaxaSalvar"
+									"text": "Salvar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTaxaSalvarActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonTaxaApagar"
+									"text": "Apagar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTaxaApagarActionPerformed", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "jButtonTaxaCancelar"
+									"text": "Cancelar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTaxaCancelarActionPerformed", true ) )
+								} )
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {seq {space :::p, par l {comp jLabel25:::p::p, comp jLabel23:::p:57:p, comp jLabel17::l:p:40:p}, space :p:10:p, par l {comp jScrollPane3:::p:280:p, comp jTextFieldTaxasValor:::p:163:p, comp jTextFieldTaxasNome:::p:163:p}, space :::x, comp jPanel54:::p::p, space :::p}}"
+								"$verticalGroup": "par l {seq {par l {seq {par b {comp jLabel17::b:p:28:p, comp jTextFieldTaxasNome::b:p::p}, space :p:10:p, par b {comp jLabel25::b:p::p, comp jTextFieldTaxasValor::b:p::p}, space :p:10:p, par l {comp jLabel23:::p::p, comp jScrollPane3:::p::p}}, comp jPanel54:::p::p}, space :p:10:p}}"
+							} ) {
+								name: "jPanel13"
+								"border": new javax.swing.border.TitledBorder( "Cadastro de Taxas" )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel17"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Nome"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel23"
+									"text": "Descrição"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "jLabel25"
+									"font": new java.awt.Font( "Tahoma", 1, 11 )
+									"text": "Valor"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldTaxasNome"
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "jTextFieldTaxasValor"
+								} )
+								add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+									name: "jScrollPane3"
+									add( new FormComponent( "javax.swing.JTextArea" ) {
+										name: "jTextAreaTaxasDescricao"
+										"columns": 20
+										"rows": 5
+									} )
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq t {space :p:19:p, comp jLabel15:::p::p, space :p:10:p, par l:::p {comp jButtonTaxasPesquisar::::101:x, comp jTextFieldTaxasID:::::x}, space :::x}}"
+									"$verticalGroup": "par l {seq t {space :::x, par b {comp jTextFieldTaxasID::b:p::p, comp jLabel15::b:p::p}, space u:::p, comp jButtonTaxasPesquisar:::p::p, space :p:10:p}}"
+								} ) {
+									name: "jPanel54"
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonTaxasPesquisar"
+										"text": "Pesquisar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTaxasPesquisarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldTaxasID"
+										"enabled": false
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel15"
+										"text": "ID"
+									} )
+								} )
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"gridx": 1
+							"hAlign": 0
+							"vAlign": 0
+						} )
+					}, new FormLayoutConstraints( null ) {
+						"title": "Taxas"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+						"$columnSpecs": "0"
+						"$rowSpecs": "0"
+					} ) {
+						name: "jPanelSocio"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+							"$horizontalGroup": "par l {comp jPanel56::l:::x}"
+							"$verticalGroup": "par l {seq {space :0:0:p, comp jPanel56:::p::p, space :0:0:p}}"
+						} ) {
+							name: "jPanel17"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+								"$horizontalGroup": "par l {comp jPanel9:::::x, comp jPanel29:::::x, comp jPanel28::l:::x:1, comp jPanel23::l:::x}"
+								"$verticalGroup": "par l {seq t {space :0:0:p, comp jPanel23:::p:365:p, space :0:0:p, comp jPanel28:::p:113:p, space :0:0:p, comp jPanel29:::p::p, space :p:10:p, comp jPanel9:::p:48:p, space :0:0:p}}"
+							} ) {
+								name: "jPanel56"
+								"border": new javax.swing.border.TitledBorder( "" )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq l {space :p:40:p, comp jButtonSocioNovo:9::p::p, space :p:10:p, comp jButtonSocioEditar:9::p::p, space :p:10:p, comp jButtonSocioApagar:9::p::p, space :p:10:p, comp jButtonSocioSalvar:9::p::p, space :p:10:p, comp jButtonSocioCancelar:9::p::p, space :::x, comp jButton1:::p::p, space :p:109:p}}"
+									"$verticalGroup": "par l {seq t {space :::x, par b {comp jButtonSocioNovo:10:b:p::p, comp jButtonSocioEditar:10:b:p::p, comp jButtonSocioApagar:10:b:p::p, comp jButtonSocioCancelar:10:b:p::p, comp jButtonSocioSalvar:10:b:p::p, comp jButton1::b:p::p}, space :::p}}"
+								} ) {
+									name: "jPanel9"
+									"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonSocioNovo"
+										"text": "Novo"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonSocioNovoActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonSocioEditar"
+										"text": "Editar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonSocioEditarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonSocioSalvar"
+										"text": "Salvar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonSocioSalvarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonSocioApagar"
+										"text": "Apagar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonSocioApagarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonSocioCancelar"
+										"text": "Cancelar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonSocioCancelarActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButton1"
+										"text": "Importar Funcionário"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+									} )
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq {comp jLabel86:::p::p, space s:::p, par l:::p {comp jRadioButtonSocioInativo::l::75:x:1, comp jRadioButtonSocioAtivo::l:::x:1}, space s:::p, par t {comp jLabel85:::p::p, comp jLabel87:::p::p}, space :p:10:p, par t:::p {comp jFormattedTextFieldSocioDataMatricula::t:::x:1, comp jFormattedTextFieldSocioDiaVencimento::t:p:113:p:1}, space s:::p, par l {seq {comp jLabel89:::p::p, space :::p, comp jComboBoxSocioCategoriaSocio:::::x}, seq {comp jLabel88:::p::p, space u:::p, comp jTextFieldSocioNumeroSocio:::p:97:p, space :0:0:x}}, space :::p}}"
+									"$verticalGroup": "par l {seq l {space :::p, par l {seq l {comp jRadioButtonSocioAtivo:::p::p, space :::p, comp jRadioButtonSocioInativo:::p::p}, seq l {par b {comp jLabel86::b:p::p, comp jFormattedTextFieldSocioDiaVencimento::b:p::p, comp jLabel85::b:p::p, comp jLabel88::b:p::p, comp jTextFieldSocioNumeroSocio::b:p::p}, par l {seq {space :p:6:p, par b {comp jLabel87::b:p::p, comp jFormattedTextFieldSocioDataMatricula::b:p::p, comp jLabel89::b:p::p}}, seq l {space u:::p, comp jComboBoxSocioCategoriaSocio:::p::p}}}}, space :::x}}"
+								} ) {
+									name: "jPanel29"
+									"border": new javax.swing.border.TitledBorder( "Detalhes do socio" )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel85"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Dia  de vencimento"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel86"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Aprovação:"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel87"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "data de matricula"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel88"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Numero de Socio"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel89"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Categoria de socio"
+									} )
+									add( new FormComponent( "javax.swing.JComboBox" ) {
+										name: "jComboBoxSocioCategoriaSocio"
+										"model": new javax.swing.DefaultComboBoxModel
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldSocioNumeroSocio"
+									} )
+									add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+										name: "jFormattedTextFieldSocioDiaVencimento"
+									} )
+									add( new FormComponent( "javax.swing.JRadioButton" ) {
+										name: "jRadioButtonSocioAtivo"
+										"background": new java.awt.Color( 0, 255, 255, 255 )
+										"$buttonGroup": new FormReference( "buttonGroupSocioAprovacao" )
+										"text": "Ativo"
+									} )
+									add( new FormComponent( "javax.swing.JRadioButton" ) {
+										name: "jRadioButtonSocioInativo"
+										"background": new java.awt.Color( 255, 0, 0, 255 )
+										"$buttonGroup": new FormReference( "buttonGroupSocioAprovacao" )
+										"text": "Inativo"
+									} )
+									add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+										name: "jFormattedTextFieldSocioDataMatricula"
+									} )
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {seq t {par t {seq l {comp Logradouro2:::p::p, space :::p, par l {seq {par l:::p {seq l {space :1:1:p, comp jTextFieldSocioNumero:::p:109:p}, comp jTextFieldSocioBairro:::::x}, space :0:0:x}, seq l {comp jComboBoxSocioLogradouro:::::x, space :p:10:p, comp jButtonSocioAdicionarLogradouro:::p::p, space :p:18:p}}}, comp jLabel81::l:p::p, seq l {comp jLabel80:::p::p, space :p:153:p, comp jLabel83:::p::p, space u:::p, comp jComboBoxSocioUF:::p:62:p}}, space :::x, par l {comp jLabel82::l:p::p, seq l {space :10:10:p, comp jLabel84:::p::p}}, space s:::p, par l:::p {comp jTextFieldSocioCEP:::::x, comp jTextFieldSocioCep2::::159:x}, space :::p}}"
+									"$verticalGroup": "par l {seq l {space :::p, par l {par b:l {comp jLabel82::b:p::p, comp jTextFieldSocioCep2::b:p::p}, par b {comp jLabel83::b:p::p, comp jComboBoxSocioUF::b:p::p}, par b {comp jLabel80::b:p::p, comp jTextFieldSocioNumero::b:p::p}}, space :::p, par b {comp jLabel81::b:p::p, comp jTextFieldSocioBairro::b:p::p, comp jLabel84::b:p::p, comp jTextFieldSocioCEP::b:p::p}, space :::p, par b {comp Logradouro2::b:p::p, comp jComboBoxSocioLogradouro::b:p::p, comp jButtonSocioAdicionarLogradouro::b:p::p}, space :::x}}"
+								} ) {
+									name: "jPanel28"
+									"border": new javax.swing.border.TitledBorder( "Endereço" )
+									add( new FormComponent( "javax.swing.JComboBox" ) {
+										name: "jComboBoxSocioLogradouro"
+										"model": new javax.swing.DefaultComboBoxModel
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel80"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Número"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldSocioNumero"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel81"
+										"text": "Bairro"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldSocioBairro"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel82"
+										"text": "Cidade"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel83"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "UF"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel84"
+										"text": "CEP"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldSocioCEP"
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "Logradouro2"
+										"font": new java.awt.Font( "Tahoma", 1, 11 )
+										"text": "Logradouro"
+									} )
+									add( new FormComponent( "javax.swing.JComboBox" ) {
+										name: "jComboBoxSocioUF"
+										auxiliary() {
+											"JavaCodeGenerator.preInitCode": "${field}.setModel(new javax.swing.DefaultComboBoxModel(new String[] {\n\"\",\n\"AC\",\n\"AL\",\n\"AP\",\n\"AM\",\n\"BA\",\n\"CE\",\n\"DF\",\n\"ES\",\n\"GO\",\n\"MA\",\n\"MT\",\n\"MS\",\n\"MG\",\n\"PA\",\n\"PB\",\n\"PR\",\n\"PE\",\n\"PI\",\n\"RJ\",\n\"RN\",\n\"RS\",\n\"RO\",\n\"RR\",\n\"SC\",\n\"SE\",\n\"TO\"\n}));"
+										}
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jComboBoxSocioUFActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JButton" ) {
+										name: "jButtonSocioAdicionarLogradouro"
+										"text": "Editar"
+										addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonSocioAdicionarLogradouroActionPerformed", true ) )
+									} )
+									add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+										name: "jTextFieldSocioCep2"
+									} )
+								} )
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+									"$horizontalGroup": "par l {comp jSeparator4::l:::x, comp jPanel39::l:::x, seq {par l {seq {space :p:10:p, par t {seq {comp jPanel37:::p::p, space :::p, comp jPanel36:::p::p}, comp jPanel38::t:p::p}}, seq l {comp jLabel77:::p::p, space u:::p, comp jTextFieldSocioOrgaoExpedidor:::p:135:p}}, space :0:0:x}}"
+									"$verticalGroup": "par l {seq l {space :0:0:p, comp jPanel38:::p::p, space :p:10:p, par l:::p {comp jPanel37:::::x, comp jPanel36:::::x}, space :0:0:p, comp jSeparator4:::p::p, space :p:10:p, par b {comp jLabel77::b:p::p, comp jTextFieldSocioOrgaoExpedidor::b:p::p}, space :p:10:p, comp jPanel39:::p:86:p, space :0:0:p}}"
+								} ) {
+									name: "jPanel23"
+									"border": new javax.swing.border.TitledBorder( "Informações Pessoais" )
+									add( new FormComponent( "javax.swing.JSeparator" ) {
+										name: "jSeparator4"
+									} )
+									add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+										"$horizontalGroup": "par l {seq {space :::p, par l {seq l {par l {comp jLabel72::l:p::p, comp jLabel79::l:p::p}, space u:::p, par l {comp jTextFieldSocioNomePai:::::x, comp jTextFieldSocioNomeMae:::::x}}, seq {par l {comp jLabel70::l:p::p, comp jLabel74::l:p::p}, space :p:48:p, par l {seq {comp jComboBoxSocioSexo:::p::p, space :0:256:x}, comp jTextFieldSocioEmail:::::x}}}, space :0:0:p}}"
+										"$verticalGroup": "par l {seq l {space :p:6:p, par b {comp jLabel70::b:p::p, comp jTextFieldSocioEmail::b:p::p}, space :p:10:p, par b {comp jLabel74::b:p::p, comp jComboBoxSocioSexo::b:p::p}, space :p:10:p, par b {comp jLabel79::b:p::p, comp jTextFieldSocioNomePai::b:p::p}, space :p:10:p, par b {comp jLabel72::b:p::p, comp jTextFieldSocioNomeMae::b:p::p}, space :::x}}"
+									} ) {
+										name: "jPanel36"
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel70"
+											"text": "Email"
+										} )
+										add( new FormComponent( "javax.swing.JTextField" ) {
+											name: "jTextFieldSocioEmail"
+											addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldSocioEmailActionPerformed", true ) )
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel74"
+											"font": new java.awt.Font( "Tahoma", 1, 11 )
+											"text": "Sexo"
+										} )
+										add( new FormComponent( "javax.swing.JComboBox" ) {
+											name: "jComboBoxSocioSexo"
+											auxiliary() {
+												"JavaCodeGenerator.preInitCode": "${field}.setModel(new javax.swing.DefaultComboBoxModel(new String[] {\"\",\"Masculino\",\"Feminino\" }));"
+											}
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel79"
+											"text": "Nome do Pai"
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel72"
+											"text": "Nome da Mãe"
+										} )
+										add( new FormComponent( "javax.swing.JTextField" ) {
+											name: "jTextFieldSocioNomeMae"
+										} )
+										add( new FormComponent( "javax.swing.JTextField" ) {
+											name: "jTextFieldSocioNomePai"
+										} )
+									} )
+									add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+										"$horizontalGroup": "par l {seq {space :p:10:p, par l {comp jLabel66::l:p::p, comp jLabel67::l:p::p, comp jLabel68::l:p::p, comp jLabel69::l:p::p, comp jLabel71::l:p::p}, space ::10:x, par l:::p {comp jTextFieldSocioNome::l::241:x, comp jTextFieldSocioApelido:::::x, comp jTextFieldSocioSobrenome::l:::x, comp jTextFieldSocioTelefone:::::x, comp jFormattedTextFieldSocioDataNascimento::l:p:114:p}}}"
+										"$verticalGroup": "par l {seq {space :p:5:p, par b {comp jLabel67::b:p::p, comp jTextFieldSocioNome::b:p::p}, space :p:10:p, par b {comp jLabel66::b:p::p, comp jTextFieldSocioSobrenome::b:p::p}, space :p:10:p, par b {comp jLabel68::b:p::p, comp jTextFieldSocioApelido::b:p::p}, space :p:10:p, par b {comp jLabel69::b:p::p, comp jTextFieldSocioTelefone::b:p::p}, space :p:10:p, par b {comp jLabel71::b:p::p, comp jFormattedTextFieldSocioDataNascimento::b:p::p}, space :p:10:p}}"
+									} ) {
+										name: "jPanel37"
+										add( new FormComponent( "javax.swing.JTextField" ) {
+											name: "jTextFieldSocioNome"
+										} )
+										add( new FormComponent( "javax.swing.JTextField" ) {
+											name: "jTextFieldSocioSobrenome"
+										} )
+										add( new FormComponent( "javax.swing.JTextField" ) {
+											name: "jTextFieldSocioApelido"
+											addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldSocioApelidoActionPerformed", true ) )
+										} )
+										add( new FormComponent( "javax.swing.JTextField" ) {
+											name: "jTextFieldSocioTelefone"
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel67"
+											"font": new java.awt.Font( "Tahoma", 1, 11 )
+											"text": "Nome"
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel66"
+											"font": new java.awt.Font( "Tahoma", 1, 11 )
+											"text": "Sobrenome"
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel68"
+											"text": "Apelido"
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel69"
+											"text": "Telefone"
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel71"
+											"text": "Nascimento"
+										} )
+										add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+											name: "jFormattedTextFieldSocioDataNascimento"
+											addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jFormattedTextFieldSocioDataNascimentoActionPerformed", true ) )
+										} )
+									} )
+									add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+										"$horizontalGroup": "par l {seq t {space ::95:x, comp jLabel73:::p::p, space u:::p, par t:::p {comp jButtonSocioPesquisar:::::x, comp jTextFieldSocioID:::p:118:p}, space :::p}}"
+										"$verticalGroup": "par l {seq l {par b {comp jTextFieldSocioID::b:p::p, comp jLabel73::b:p:14:p}, space :p:10:p, comp jButtonSocioPesquisar:::p::p, space :0:0:x}}"
+									} ) {
+										name: "jPanel38"
+										add( new FormComponent( "javax.swing.JButton" ) {
+											name: "jButtonSocioPesquisar"
+											"text": "Pesquisar"
+											addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonSocioPesquisarActionPerformed", true ) )
+										} )
+										add( new FormComponent( "javax.swing.JTextField" ) {
+											name: "jTextFieldSocioID"
+											"editable": false
+											addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldSocioIDActionPerformed", true ) )
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel73"
+											"text": "ID"
+										} )
+									} )
+									add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+										"$horizontalGroup": "par l {seq l {par t {seq t {comp jLabel78:::p::p, space u:::p, comp jFormattedTextFieldSocioDataEmissao:::p:137:p}, seq l {space :5:5:p, par l {comp jLabel76:::p::p, comp jLabel75::l:p::p}, space :p:31:p, par l:::p {comp jTextFieldSocioRgNumero:::::x, comp jFormattedTextFieldSocioCPF::::137:x}}}, par l {seq {space :p:10:p, comp jLabel90:::p::p, space :p:14:p, comp jFormattedCNPJ:::p:127:p, space :::p, comp jRadioCPFCNPJ:::p::p, space :::x}, seq t {space :::x, comp jCheckBoxExclusivamenteSocio:::p::p, space :::p}}}}"
+										"$verticalGroup": "par l {seq l {par b {comp jLabel75::b:p::p, comp jFormattedTextFieldSocioCPF::b:p::p, comp jLabel90::b:p::p, comp jFormattedCNPJ::b:p::p, comp jRadioCPFCNPJ::b:p::p}, space :p:8:p, par b {comp jLabel76::b:p::p, comp jTextFieldSocioRgNumero::b:p::p}, par l {seq {space :p:10:p, par b {comp jLabel78::b:p::p, comp jFormattedTextFieldSocioDataEmissao::b:p::p}, space :p:10:p}, seq t {space :::p, comp jCheckBoxExclusivamenteSocio:::p::p, space :p:16:p}}}}"
+									} ) {
+										name: "jPanel39"
+										add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+											name: "jFormattedTextFieldSocioCPF"
+										} )
+										add( new FormComponent( "javax.swing.JTextField" ) {
+											name: "jTextFieldSocioRgNumero"
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel76"
+											"text": "Rg Numero"
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel75"
+											"font": new java.awt.Font( "Tahoma", 1, 11 )
+											"text": "CPF"
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel78"
+											"text": "Data de Emissao"
+										} )
+										add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+											name: "jFormattedTextFieldSocioDataEmissao"
+										} )
+										add( new FormComponent( "javax.swing.JLabel" ) {
+											name: "jLabel90"
+											"font": new java.awt.Font( "Tahoma", 1, 11 )
+											"text": "CNPJ"
+										} )
+										add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+											name: "jFormattedCNPJ"
+										} )
+										add( new FormComponent( "javax.swing.JCheckBox" ) {
+											name: "jRadioCPFCNPJ"
+											"text": "Alternar"
+											addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jRadioCPFCNPJActionPerformed", true ) )
+										} )
+										add( new FormComponent( "javax.swing.JCheckBox" ) {
+											name: "jCheckBoxExclusivamenteSocio"
+											"text": "Exclusivamente Socio"
+										} )
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "jLabel77"
+										"text": "Orgão Expedidor"
+									} )
+									add( new FormComponent( "javax.swing.JTextField" ) {
+										name: "jTextFieldSocioOrgaoExpedidor"
+									} )
+								} )
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"hAlign": 0
+							"vAlign": 0
+						} )
+					}, new FormLayoutConstraints( null ) {
+						"title": "Sócio"
+					} )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JDesktopPane", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "jDesktopPane1"
+				"background": new java.awt.Color( 240, 240, 240, 255 )
+				"opaque": false
+				add( new FormContainer( "javax.swing.JInternalFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {comp jScrollPane4::l::774:x, comp jPanel19::l:::x}"
+					"$verticalGroup": "par l {seq l {comp jScrollPane4::::611:x, space :::p, comp jPanel19:::p::p}}"
+				} ) {
+					name: "jInternalFrame1"
+					"defaultCloseOperation": 0
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "jScrollPane4"
+						"autoscrolls": true
+						add( new FormComponent( "javax.swing.JTable" ) {
+							name: "jTable1"
+							"autoCreateRowSorter": true
+							"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector, new java.util.Vector, new java.util.Vector, new java.util.Vector, new java.util.Vector )
+							"toolTipText": ""
+							"autoResizeMode": 4
+							"selectionBackground": new java.awt.Color( 51, 255, 255, 255 )
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "jTable1MouseClicked", true ) )
+						} )
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+						"$horizontalGroup": "par l {seq l {comp jLabel31:::p::p, space :::p, comp jTextField2:::p:144:p, space s:::p, comp jButtonPesquisa:::p:54:p, space u:::p, comp jButtonInternalFrameVoltar:::p:88:p, space :0:410:x}}"
+						"$verticalGroup": "par l {seq {par l {seq l {space :::p, par b {comp jLabel31::b:p::p, comp jTextField2::b:p::p}}, par t:l::p {comp jButtonInternalFrameVoltar:::::x, comp jButtonPesquisa:::::x}}, space :::x}}"
+					} ) {
+						name: "jPanel19"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "jLabel31"
+							"text": "Pesquisar"
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "jTextField2"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextField2ActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "jButtonPesquisa"
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/img/pesquisar.gif" )
+							"border": new javax.swing.border.BevelBorder( 0, null, null, null, null )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonPesquisaActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "jButtonInternalFrameVoltar"
+							"text": "Voltar"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonInternalFrameVoltarActionPerformed", true ) )
+						} )
+					} )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 790
+					"height": 700
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "buttonGroupSocioAprovacao"
+			auxiliary() {
+				"JavaCodeGenerator.variableLocal": false
+			}
+		} )
+	}
+}

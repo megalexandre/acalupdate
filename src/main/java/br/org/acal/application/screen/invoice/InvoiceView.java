@@ -15,6 +15,7 @@ import br.org.acal.domain.usecase.category.CategoryFindAllUseCase;
 import br.org.acal.domain.usecase.customer.CustomerFindAllUseCase;
 import br.org.acal.domain.usecase.invoice.InvoiceListUseCase;
 import br.org.acal.domain.usecase.invoice.InvoicePaginateUseCase;
+import br.org.acal.domain.usecase.invoice.InvoiceSaveUseCase;
 import br.org.acal.domain.usecase.invoice.InvoiceSearchPrintReportUseCase;
 import lombok.val;
 import org.jdesktop.swingx.HorizontalLayout;
@@ -38,6 +39,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
@@ -45,6 +47,7 @@ import javax.swing.text.MaskFormatter;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -53,6 +56,7 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.IntStream.range;
@@ -61,6 +65,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 @Component
 public class InvoiceView extends JPanel {
+
     private final Logger logger = LoggerFactory.getLogger(InvoiceView.class);
     private final InvoicePaginateUseCase paginate;
     private final InvoiceListUseCase list;
@@ -69,6 +74,7 @@ public class InvoiceView extends JPanel {
     private final CustomerFindAllUseCase customerFindAll;
     private final InvoiceSearchPrintReportUseCase invoiceSearchPrintReportUseCase;
 
+    private final InvoiceSaveUseCase invoiceSave;
     private String selectedAddress;
     private String selectedCategory;
     private String selectedCustomer;
@@ -83,7 +89,8 @@ public class InvoiceView extends JPanel {
         CategoryFindAllUseCase categoryFindAll,
         CustomerFindAllUseCase customerFindAll,
         InvoiceListUseCase invoiceList,
-        InvoiceSearchPrintReportUseCase invoiceSearchPrintReportUseCase
+        InvoiceSearchPrintReportUseCase invoiceSearchPrintReport,
+        InvoiceSaveUseCase invoiceSave
     ) {
         initComponents();
         this.paginate = paginate;
@@ -91,7 +98,8 @@ public class InvoiceView extends JPanel {
         this.categoryFindAll = categoryFindAll;
         this.customerFindAll = customerFindAll;
         this.list = invoiceList;
-        this.invoiceSearchPrintReportUseCase = invoiceSearchPrintReportUseCase;
+        this.invoiceSearchPrintReportUseCase = invoiceSearchPrintReport;
+        this.invoiceSave = invoiceSave;
         startComponents();
     }
 
@@ -136,12 +144,11 @@ public class InvoiceView extends JPanel {
             }
 
             private void showPopup(MouseEvent e) {
+                int row = table.rowAtPoint(e.getPoint());
+                int column = table.columnAtPoint(e.getPoint());
+                selectedInvoiceToPrint = (String) table.getValueAt(row, 3);
+
                 if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
-                    int row = table.rowAtPoint(e.getPoint());
-                    int column = table.columnAtPoint(e.getPoint());
-
-                    selectedInvoiceToPrint = (String) table.getValueAt(row, 3);
-
                     if (!table.isRowSelected(row)) {
                         table.setRowSelectionInterval(row, row);
                     }
@@ -261,11 +268,6 @@ public class InvoiceView extends JPanel {
         }
     }
 
-
-    private void comboBoxAddressPopupMenuWillBecomeInvisible(PopupMenuEvent e) {
-
-    }
-
     private void clearAction(ActionEvent e) {
         selectedAddress = null;
         selectedCategory = null;
@@ -283,45 +285,38 @@ public class InvoiceView extends JPanel {
         table.setModel(new LinkTableModel(List.of()));
         pageNumber =0;
     }
-
     private void firstAction(ActionEvent e) {
         pageNumber = 0;
         search();
     }
-
     private void lastAction(ActionEvent e) {
         pageNumber = page.getTotalPages()-1;
         search();
     }
-
     private void nextAction(ActionEvent e) {
         if(pageNumber < page.getTotalPages()){
             pageNumber++;
             search();
         }
     }
-
     private void previousAction(ActionEvent e) {
         if(pageNumber > 0){
             pageNumber--;
             search();
         }
     }
-
     private void formattedTextFieldPeriodMonthKeyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             pageNumber = 0;
             search();
         }
     }
-
     private void textFieldNumberKeyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             pageNumber = 0;
             search();
         }
     }
-
     private void printAction(ActionEvent e) {
         try {
             textFieldNumber.setText(selectedInvoiceToPrint);
@@ -340,6 +335,21 @@ public class InvoiceView extends JPanel {
             logger.error("Error when print report", ex);
             showMessageDialog(null, "An error occurred while generating the report: " + ex.getMessage(), "Error", INFORMATION_MESSAGE);
         }
+    }
+
+    private void receiverAction(ActionEvent e) {
+        val invoice = page.getContent().stream()
+                .filter(it -> it.getNumber().equals(selectedInvoiceToPrint))
+                .findFirst().orElseThrow();
+
+        Window parentWindow = SwingUtilities.getWindowAncestor(this);
+        val dialog = new InvoicePayView(parentWindow, invoice);
+        dialog.setSize(new Dimension(400, 400));
+        dialog.setLocationRelativeTo(null);
+
+        dialog.setVisible(true);
+        invoiceSave.execute(dialog.getInvoice());
+        this.search();
     }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -387,6 +397,7 @@ public class InvoiceView extends JPanel {
         panel15 = new JPanel();
         contextMenu = new JPopupMenu();
         menuItemPrint = new JMenuItem();
+        menuItemReceiver = new JMenuItem();
 
         //======== this ========
         setLayout(new BorderLayout());
@@ -440,9 +451,7 @@ public class InvoiceView extends JPanel {
                                 @Override
                                 public void popupMenuCanceled(PopupMenuEvent e) {}
                                 @Override
-                                public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                                    comboBoxAddressPopupMenuWillBecomeInvisible(e);
-                                }
+                                public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {}
                                 @Override
                                 public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
                                     comboBoxAddressPopupMenuWillBecomeVisible(e);
@@ -668,6 +677,11 @@ public class InvoiceView extends JPanel {
             menuItemPrint.setText("Imprimir");
             menuItemPrint.addActionListener(e -> printAction(e));
             contextMenu.add(menuItemPrint);
+
+            //---- menuItemReceiver ----
+            menuItemReceiver.setText("Receber");
+            menuItemReceiver.addActionListener(e -> receiverAction(e));
+            contextMenu.add(menuItemReceiver);
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
@@ -717,5 +731,6 @@ public class InvoiceView extends JPanel {
     private JPanel panel15;
     private JPopupMenu contextMenu;
     private JMenuItem menuItemPrint;
+    private JMenuItem menuItemReceiver;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

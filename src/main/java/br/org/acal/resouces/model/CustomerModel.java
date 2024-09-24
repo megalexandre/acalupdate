@@ -44,4 +44,7 @@ public class CustomerModel implements Serializable {
 
     @Column(name = "cpf")
     private String cpf;
+
+    @Column(name = "telefone")
+    private String phoneNumber;
 }

@@ -1,6 +1,7 @@
 package br.org.acal.resouces.model;
 
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 @Entity
 @Table(name = "hidrometro")
 
@@ -25,6 +28,7 @@ public class WaterMeterModel implements Serializable {
 
     @Id
     @Column(name = "idhidrometro")
+    @GeneratedValue(strategy = IDENTITY)
     private String number;
 
     @Column(name = "consumo_inicial")

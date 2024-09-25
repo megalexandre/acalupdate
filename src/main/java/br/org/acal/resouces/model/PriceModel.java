@@ -33,4 +33,7 @@ public class PriceModel implements Serializable {
     @Column(name = "valor")
     private BigDecimal value;
 
+    @Column(name = "valor_socio")
+    private BigDecimal partnerValue;
+
 }

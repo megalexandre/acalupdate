@@ -2,7 +2,7 @@ package br.org.acal.resouces.repository.impl;
 
 import br.org.acal.domain.entity.Address;
 import br.org.acal.domain.datasource.AddressDataSource;
-import br.org.acal.resouces.adapter.AddressAdapter;
+import br.org.acal.resouces.adapter.mapper.AddressMapper;
 import br.org.acal.resouces.repository.interfaces.AddressRepositoryJpa;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
@@ -11,19 +11,26 @@ import java.util.List;
 
 @Repository
 public class AddressRepositoryImpl implements AddressDataSource {
+
     private final AddressRepositoryJpa addressRepository;
-    public AddressRepositoryImpl(AddressRepositoryJpa addressRepository){
+    private final AddressMapper addressMapper;
+
+    public AddressRepositoryImpl(
+        AddressRepositoryJpa addressRepository,
+        AddressMapper addressMapper
+    ){
         this.addressRepository = addressRepository;
+        this.addressMapper = addressMapper;
     }
 
     public List<Address> findAll() {
         Sort sort = Sort.by(Sort.Order.asc("type"), Sort.Order.asc("name"));
-        return addressRepository.findAll(sort).stream().map(AddressAdapter::map).toList();
+        return addressRepository.findAll(sort).stream().map(addressMapper::map).toList();
     }
 
     @Override
     public Address save(Address address) {
-        return AddressAdapter.map(addressRepository.save( AddressAdapter.map(address)));
+        return addressMapper.map(addressRepository.save( addressMapper.map(address)));
     }
 
     @Override

@@ -2,7 +2,7 @@ package br.org.acal.resouces.repository.impl;
 
 import br.org.acal.domain.entity.WaterQuality;
 import br.org.acal.domain.datasource.WaterQualityDataSource;
-import br.org.acal.resouces.adapter.WaterQualityAdapter;
+import br.org.acal.resouces.adapter.mapper.WaterQualityMapper;
 import br.org.acal.resouces.repository.interfaces.WaterQualityRepositoryJpa;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
@@ -14,13 +14,17 @@ import java.util.List;
 @Repository
 public class WaterQualityRepositoryImpl implements WaterQualityDataSource {
     private final WaterQualityRepositoryJpa waterQualityRepository;
+    private final WaterQualityMapper waterQualityMapper;
 
-    public WaterQualityRepositoryImpl(@Lazy WaterQualityRepositoryJpa waterQualityRepository){
+    public WaterQualityRepositoryImpl(
+            @Lazy WaterQualityRepositoryJpa waterQualityRepository,
+            WaterQualityMapper waterQualityMapper){
         this.waterQualityRepository = waterQualityRepository;
+        this.waterQualityMapper = waterQualityMapper;
     }
 
     public List<WaterQuality> find(List<LocalDate> duoDate) {
-        return waterQualityRepository.findAll().stream().map(WaterQualityAdapter::map).toList();
+        return waterQualityRepository.findAll().stream().map(waterQualityMapper::map).toList();
     }
 
 }

@@ -12,4 +12,5 @@ public class Price {
     private String number;
     private String name;
     private BigDecimal value;
+    private BigDecimal partnerValue;
 }

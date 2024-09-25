@@ -1,12 +1,10 @@
 package br.org.acal.resouces.repository.impl;
 
-import br.org.acal.application.screen.customer.model.FindCustomer;
 import br.org.acal.domain.datasource.LinkDataSource;
 import br.org.acal.domain.entity.Link;
 import br.org.acal.domain.model.FindLink;
 import br.org.acal.domain.model.LinkFind;
-import br.org.acal.resouces.adapter.CustomerAdapter;
-import br.org.acal.resouces.adapter.LinkAdapter;
+import br.org.acal.resouces.adapter.mapper.LinkMapper;
 import br.org.acal.resouces.model.CategoryModel;
 import br.org.acal.resouces.model.CustomerModel;
 import br.org.acal.resouces.model.LinkModel;
@@ -15,7 +13,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Fetch;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
@@ -24,20 +21,21 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Repository
 public class LinkRepositoryImpl implements LinkDataSource {
     private final LinkRepositoryJpa linkRepositoryJpa;
     private final EntityManager entityManager;
+    private final LinkMapper linkMapper;
 
     public LinkRepositoryImpl(
         LinkRepositoryJpa linkRepositoryJpa,
-        EntityManager entityManager
+        EntityManager entityManager,
+        LinkMapper linkMapper
     ){
         this.linkRepositoryJpa = linkRepositoryJpa;
         this.entityManager = entityManager;
+        this.linkMapper = linkMapper;
     }
 
     @Override
@@ -71,7 +69,7 @@ public class LinkRepositoryImpl implements LinkDataSource {
         TypedQuery<LinkModel> query = entityManager.createQuery(cq);
         List<LinkModel> resultList = query.getResultList();
 
-        return resultList.stream().map(LinkAdapter::map).toList();
+        return resultList.stream().map(linkMapper::map).toList();
     }
 
     private List<Predicate> createPredicates(CriteriaBuilder cb, LinkFind find, Root<LinkModel> root) {
@@ -116,6 +114,6 @@ public class LinkRepositoryImpl implements LinkDataSource {
 
     @Override
     public List<Link> findAll() {
-        return linkRepositoryJpa.findAll().stream().map(LinkAdapter::map).toList();
+        return linkRepositoryJpa.findAll().stream().map(linkMapper::map).toList();
     }
 }

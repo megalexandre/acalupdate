@@ -51,12 +51,18 @@ public class Invoice {
     public String getPartnerName(){
         return link.getCustomer().getName();
     }
+
     public Period period(){
         return Period.of(period);
     }
 
     public BigDecimal totalValue(){
-        return partnerValue.add(waterValue());
+        var waterValue =  waterValue();
+        var water  = waterValue() == null ? BigDecimal.ZERO : waterValue;
+        var partner = partnerValue == null ? BigDecimal.ZERO : partnerValue;
+        var other = otherValues == null ? BigDecimal.ZERO : otherValues;
+
+        return water.add(partner).add(other);
     }
 
     public BigDecimal waterValue(){

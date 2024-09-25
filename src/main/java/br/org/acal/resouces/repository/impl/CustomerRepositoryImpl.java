@@ -3,18 +3,14 @@ package br.org.acal.resouces.repository.impl;
 import br.org.acal.application.screen.customer.model.FindCustomer;
 import br.org.acal.domain.entity.Customer;
 import br.org.acal.domain.datasource.CustomerDataSource;
-import br.org.acal.resouces.adapter.CustomerAdapter;
 import br.org.acal.resouces.adapter.mapper.CustomerMapper;
 import br.org.acal.resouces.model.CustomerModel;
-import br.org.acal.resouces.model.PartnerModel;
 import br.org.acal.resouces.repository.interfaces.CustomerRepositoryJpa;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Expression;
-import jakarta.persistence.criteria.Fetch;
-import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
@@ -23,7 +19,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 public class CustomerRepositoryImpl implements CustomerDataSource {
@@ -42,7 +37,7 @@ public class CustomerRepositoryImpl implements CustomerDataSource {
     }
     @Override
     public List<Customer> findAll() {
-        return customerRepositoryJpa.findAllByOrderByNameAsc().stream().map(CustomerAdapter::map).toList();
+        return customerRepositoryJpa.findAllByOrderByNameAsc().stream().map(customerMapper::map).toList();
     }
 
     @Override

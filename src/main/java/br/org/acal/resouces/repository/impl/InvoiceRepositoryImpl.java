@@ -5,10 +5,8 @@ import br.org.acal.domain.datasource.InvoiceDataSource;
 import br.org.acal.domain.entity.Invoice;
 import br.org.acal.domain.entity.Period;
 import br.org.acal.domain.model.InvoiceFilter;
-import br.org.acal.resouces.adapter.InvoiceAdapter;
-import br.org.acal.resouces.adapter.InvoiceMapper;
+import br.org.acal.resouces.adapter.mapper.InvoiceMapper;
 import br.org.acal.resouces.repository.interfaces.InvoiceRepositoryJpa;
-import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -34,7 +32,7 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
 
     @Override
     public List<Invoice> findAll() {
-        return repositoryJpa.findByPayedAtIsNull().stream().map(InvoiceAdapter::map).toList();
+        return repositoryJpa.findByPayedAtIsNull().stream().map(invoiceMapper::map).toList();
     }
 
     @Override
@@ -74,7 +72,7 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
             statusPayed,
             statusOverdue,
             LocalDateTime.now()
-        ).stream().map(InvoiceAdapter::map).toList();
+        ).stream().map(invoiceMapper::map).toList();
     }
     private Page<Invoice> baseQuery(InvoiceFilter invoiceFilter, Pageable pageable) {
         Boolean statusOpen = createStatus(invoiceFilter,StatusPaymentInvoice.OPEN);
@@ -95,7 +93,7 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
                 pageable
         );
 
-        var data = page.stream().map(InvoiceAdapter::map).toList();
+        var data = page.stream().map(invoiceMapper::map).toList();
 
         return new PageImpl<>(data, pageable, page.getTotalElements());
     }

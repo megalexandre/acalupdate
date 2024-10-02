@@ -1,8 +1,8 @@
 package br.org.acal.domain.usecase.address;
 
-import br.org.acal.domain.model.FindLink;
 import br.org.acal.domain.datasource.AddressDataSource;
 import br.org.acal.domain.datasource.LinkDataSource;
+import br.org.acal.domain.model.LinkFilter;
 import br.org.acal.domain.response.UsecaseResponse;
 import br.org.acal.domain.usecase.Usecase;
 import lombok.val;
@@ -29,8 +29,7 @@ public class AddressDeleteUsecase implements Serializable, Usecase<String, Useca
 
     @Override
     public UsecaseResponse execute(String item) {
-        val find = new FindLink();
-        find.setAddressId(item);
+        val find = LinkFilter.builder().addressNumber(item).build() ;
 
         if(!linkDataSource.exists(find)){
             addressDataSource.delete(item);

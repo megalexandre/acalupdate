@@ -2,8 +2,7 @@ package br.org.acal.resouces.repository.impl;
 
 import br.org.acal.domain.datasource.LinkDataSource;
 import br.org.acal.domain.entity.Link;
-import br.org.acal.domain.model.FindLink;
-import br.org.acal.domain.model.LinkFind;
+import br.org.acal.domain.model.LinkFilter;
 import br.org.acal.resouces.adapter.mapper.LinkMapper;
 import br.org.acal.resouces.model.CategoryModel;
 import br.org.acal.resouces.model.CustomerModel;
@@ -39,12 +38,14 @@ public class LinkRepositoryImpl implements LinkDataSource {
     }
 
     @Override
-    public boolean exists(FindLink findLink) {
-        return !linkRepositoryJpa.findByAddressNumber(findLink.getAddressId()).isEmpty();
+    public boolean exists(LinkFilter findLink) {
+        return findLink.getAddressNumber().map(item ->
+                !linkRepositoryJpa.findByAddressNumber(item).isEmpty()
+        ).orElseThrow(() -> new RuntimeException("Address number is not present"));
     }
 
     @Override
-    public List<Link> find(LinkFind findLink) {
+    public List<Link> find(LinkFilter findLink) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 
         CriteriaQuery<LinkModel> cq = cb.createQuery(LinkModel.class);
@@ -72,7 +73,7 @@ public class LinkRepositoryImpl implements LinkDataSource {
         return resultList.stream().map(linkMapper::map).toList();
     }
 
-    private List<Predicate> createPredicates(CriteriaBuilder cb, LinkFind find, Root<LinkModel> root) {
+    private List<Predicate> createPredicates(CriteriaBuilder cb, LinkFilter find, Root<LinkModel> root) {
         List<Predicate> predicates = new ArrayList<>();
 
         find.getAddressNumber().filter(it -> !it.isEmpty()).ifPresent(
@@ -115,5 +116,10 @@ public class LinkRepositoryImpl implements LinkDataSource {
     @Override
     public List<Link> findAll() {
         return linkRepositoryJpa.findAll().stream().map(linkMapper::map).toList();
+    }
+
+    @Override
+    public Link save(Link link) {
+        return linkMapper.map(linkRepositoryJpa.save(linkMapper.map(link)));
     }
 }

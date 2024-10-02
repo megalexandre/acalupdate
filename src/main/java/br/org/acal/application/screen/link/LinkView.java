@@ -7,7 +7,7 @@ import br.org.acal.application.screen.link.model.LinkTable;
 import br.org.acal.application.screen.link.model.LinkTableModel;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.commons.enumeration.Group;
-import br.org.acal.domain.model.LinkFind;
+import br.org.acal.domain.model.LinkFilter;
 import br.org.acal.domain.usecase.address.AddressFindAllUsecase;
 import br.org.acal.domain.usecase.category.CategoryFindAllUseCase;
 import br.org.acal.domain.usecase.link.LinkFindUseCase;
@@ -40,6 +40,7 @@ public class LinkView extends JPanel {
             AddressFindAllUsecase findAllAddress,
             CategoryFindAllUseCase categoryFindAll) {
         initComponents();
+
         this.find = find;
         this.findAllAddress = findAllAddress;
         this.categoryFindAll = categoryFindAll;
@@ -102,8 +103,8 @@ public class LinkView extends JPanel {
         labelHelper.setText(links.size() + " Registros.");
     }
 
-    private LinkFind createFilter(){
-        var filter = LinkFind.builder().build();
+    private LinkFilter createFilter(){
+        var filter = LinkFilter.builder().build();
         filter.setNumber("");
         filter.setAddressNumber(selectedAddress);
         filter.setCategoryNumber(selectedCategory);
@@ -221,6 +222,14 @@ public class LinkView extends JPanel {
         panel10 = new JPanel();
         label6 = new JLabel();
         comboBoxStatus = new JComboBox<>();
+        panel12 = new JPanel();
+        label7 = new JLabel();
+        comboBox1 = new JComboBox();
+        label8 = new JLabel();
+        comboBox2 = new JComboBox();
+        label9 = new JLabel();
+        textField1 = new JTextField();
+        button1 = new JButton();
         contextMenu = new JPopupMenu();
         menuItem1 = new JMenuItem();
         menuItem2 = new JMenuItem();
@@ -419,6 +428,31 @@ public class LinkView extends JPanel {
                 panel1.add(panel2, BorderLayout.SOUTH);
             }
             tabbedPane1.addTab("Liga\u00e7\u00f5es", panel1);
+
+            //======== panel12 ========
+            {
+                panel12.setLayout(new VerticalLayout());
+
+                //---- label7 ----
+                label7.setText("S\u00f3cio:");
+                panel12.add(label7);
+                panel12.add(comboBox1);
+
+                //---- label8 ----
+                label8.setText("Endere\u00e7o");
+                panel12.add(label8);
+                panel12.add(comboBox2);
+
+                //---- label9 ----
+                label9.setText("Grupo de cobran\u00e7a");
+                panel12.add(label9);
+                panel12.add(textField1);
+
+                //---- button1 ----
+                button1.setText("Confirmar");
+                panel12.add(button1);
+            }
+            tabbedPane1.addTab("text", panel12);
         }
         add(tabbedPane1, BorderLayout.CENTER);
 
@@ -467,6 +501,14 @@ public class LinkView extends JPanel {
     private JPanel panel10;
     private JLabel label6;
     private JComboBox<String> comboBoxStatus;
+    private JPanel panel12;
+    private JLabel label7;
+    private JComboBox comboBox1;
+    private JLabel label8;
+    private JComboBox comboBox2;
+    private JLabel label9;
+    private JTextField textField1;
+    private JButton button1;
     private JPopupMenu contextMenu;
     private JMenuItem menuItem1;
     private JMenuItem menuItem2;

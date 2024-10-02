@@ -7,14 +7,16 @@ import java.util.Optional;
 
 @Builder
 @Setter
-public class LinkFind {
+public class LinkFilter {
 
     private String number;
     private String addressNumber;
     private String categoryNumber;
-    private String partner;
     private String group;
     private String status;
+    private String partner;
+    private Boolean isPayed;
+    private Boolean active;
 
     public Optional<String> getNumber() {
         return Optional.ofNullable(number);
@@ -32,5 +34,7 @@ public class LinkFind {
         return Optional.ofNullable(group);
     }
     public Optional<String> getStatus() { return Optional.ofNullable(status);}
+    public Optional<Boolean> getActive() { return Optional.ofNullable(active);}
+    public Optional<Boolean> getIsPayed() { return Optional.ofNullable(isPayed);}
 
 }

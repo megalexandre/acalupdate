@@ -1,6 +1,5 @@
 package br.org.acal.domain.model;
 
-import br.org.acal.domain.entity.Address;
 import lombok.Builder;
 import lombok.Setter;
 
@@ -8,11 +7,10 @@ import java.util.Optional;
 
 @Builder
 @Setter
-public class LinkFilter {
+public class AddressFilter {
 
     private String number;
     private String addressNumber;
-    private String linkNumber;
     private String categoryNumber;
     private String group;
     private String status;
@@ -38,6 +36,5 @@ public class LinkFilter {
     public Optional<String> getStatus() { return Optional.ofNullable(status);}
     public Optional<Boolean> getActive() { return Optional.ofNullable(active);}
     public Optional<Boolean> getIsPayed() { return Optional.ofNullable(isPayed);}
-    public Optional<String> getLinkNumber() {return Optional.ofNullable(linkNumber); }
 
 }

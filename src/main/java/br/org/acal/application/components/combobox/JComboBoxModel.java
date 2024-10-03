@@ -1,4 +1,4 @@
-package br.org.acal.application.screen.link.model;
+package br.org.acal.application.components.combobox;
 
 import br.org.acal.domain.entity.Address;
 import br.org.acal.domain.entity.Category;

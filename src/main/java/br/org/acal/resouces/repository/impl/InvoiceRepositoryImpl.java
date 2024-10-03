@@ -19,6 +19,7 @@ import java.util.List;
 
 @Repository
 public class InvoiceRepositoryImpl implements InvoiceDataSource {
+
     private final InvoiceRepositoryJpa repositoryJpa;
     private final InvoiceMapper invoiceMapper;
 

@@ -1,12 +1,6 @@
 package br.org.acal.resouces.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +18,7 @@ public class LinkModel implements Serializable {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String number;
 
     @JoinColumn( name = "idPessoa", referencedColumnName = "id")
@@ -41,6 +36,10 @@ public class LinkModel implements Serializable {
     @Column(name = "Numero")
     private String linkNumber;
 
+    @Column(name = "socioExclusivo")
+    private Boolean exclusiveMember;
+
     @Column(name = "inativo")
     private Boolean inactive;
+
 }

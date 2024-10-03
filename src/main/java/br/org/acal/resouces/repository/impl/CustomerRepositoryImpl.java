@@ -80,6 +80,11 @@ public class CustomerRepositoryImpl implements CustomerDataSource {
                 predicates.add(cb.equal(customerRoot.get("id"), id))
             );
 
+        findCustomer.getActive()
+            .ifPresent( active ->
+                predicates.add(cb.equal(customerRoot.get("active"), active))
+            );
+
         return predicates;
     }
 

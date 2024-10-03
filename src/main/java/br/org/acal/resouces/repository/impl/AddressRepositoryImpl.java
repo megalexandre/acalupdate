@@ -2,6 +2,7 @@ package br.org.acal.resouces.repository.impl;
 
 import br.org.acal.domain.entity.Address;
 import br.org.acal.domain.datasource.AddressDataSource;
+import br.org.acal.domain.model.AddressFilter;
 import br.org.acal.resouces.adapter.mapper.AddressMapper;
 import br.org.acal.resouces.repository.interfaces.AddressRepositoryJpa;
 import org.springframework.data.domain.Sort;
@@ -26,6 +27,11 @@ public class AddressRepositoryImpl implements AddressDataSource {
     public List<Address> findAll() {
         Sort sort = Sort.by(Sort.Order.asc("type"), Sort.Order.asc("name"));
         return addressRepository.findAll(sort).stream().map(addressMapper::map).toList();
+    }
+
+    @Override
+    public List<Address> find(AddressFilter addressFilter) {
+        return addressRepository.findAll().stream().map(addressMapper::map).toList();
     }
 
     @Override

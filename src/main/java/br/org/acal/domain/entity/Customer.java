@@ -11,4 +11,5 @@ public class Customer {
     private String name;
     private Document document;
     private String phoneNumber;
+    private Boolean active;
 }

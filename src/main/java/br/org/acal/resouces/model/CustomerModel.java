@@ -47,4 +47,8 @@ public class CustomerModel implements Serializable {
 
     @Column(name = "telefone")
     private String phoneNumber;
+
+    @Column(name = "status")
+    private Boolean active;
+
 }

@@ -82,6 +82,12 @@ public class LinkRepositoryImpl implements LinkDataSource {
             )
         );
 
+        find.getLinkNumber().ifPresent(linkNumber -> {
+            predicates.add(
+                cb.equal(root.get("linkNumber"), linkNumber)
+            );
+        });
+
         find.getACategoryNumber().filter(it -> !it.isEmpty()).ifPresent(
             number -> predicates.add(
                 cb.equal(root.get("category").get("number"), number)

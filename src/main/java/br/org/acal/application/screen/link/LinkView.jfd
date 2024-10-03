@@ -7,7 +7,8 @@ new FormModel {
 			name: "this"
 			"preferredSize": new java.awt.Dimension( 1024, 768 )
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
-				name: "tabbedPane1"
+				name: "tabbedPaneLink"
+				addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "tabbedPaneLinkStateChanged", true ) )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 					name: "panel1"
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
@@ -74,7 +75,6 @@ new FormModel {
 									auxiliary() {
 										"JavaCodeGenerator.typeParameters": "JComboBoxModel\n"
 									}
-									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addressChange", true ) )
 									addEvent( new FormEvent( "javax.swing.event.PopupMenuListener", "popupMenuWillBecomeVisible", "comboBoxAddressPopupMenuWillBecomeVisible", true ) )
 									addEvent( new FormEvent( "javax.swing.event.PopupMenuListener", "popupMenuWillBecomeVisible", "comboBoxAddressPopupMenuWillBecomeVisible", true ) )
 								} )
@@ -157,42 +157,124 @@ new FormModel {
 				}, new FormLayoutConstraints( null ) {
 					"title": "Ligações"
 				} )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
-					name: "panel12"
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "label7"
-						"text": "Sócio:"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+					"$columnSpecs": "left:0:1.0"
+					"$rowSpecs": "0, 0, 0, 0, 0, 0, 0"
+					"$alignTop": true
+					"$alignLeft": true
+				} ) {
+					name: "panel17"
+					"minimumSize": new java.awt.Dimension( 95, 40 )
+					"preferredSize": new java.awt.Dimension( 95, 40 )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+						name: "panelNumber"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "Número"
+							"text": "Número"
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textFieldNumber"
+							"preferredSize": new java.awt.Dimension( 800, 34 )
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"weightx": 1.0
+						"vAlign": 1
+						"hAlign": 0
 					} )
-					add( new FormComponent( "javax.swing.JComboBox" ) {
-						name: "comboBox1"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+						name: "panelPartner"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label7"
+							"text": "Sócio:"
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "comboBoxCustomer"
+							"preferredSize": new java.awt.Dimension( 800, 34 )
+							auxiliary() {
+								"JavaCodeGenerator.typeParameters": "JComboBoxCustomer"
+							}
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "customerCreateSelected", true ) )
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"weightx": 1.0
+						"vAlign": 1
+						"hAlign": 0
+						"gridy": 1
 					} )
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "label8"
-						"text": "Endereço"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+						name: "panelAddress"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label8"
+							"text": "Endereço:"
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "comboBoxActiveAddress"
+							"preferredSize": new java.awt.Dimension( 800, 34 )
+							auxiliary() {
+								"JavaCodeGenerator.typeParameters": "JComboBoxAddress"
+							}
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addressCreateSelected", true ) )
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridy": 2
+						"weightx": 1.0
+						"vAlign": 1
+						"hAlign": 0
 					} )
-					add( new FormComponent( "javax.swing.JComboBox" ) {
-						name: "comboBox2"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+						name: "panelCategory"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label9"
+							"text": "Categoria:"
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "comboBoxActiveCategory"
+							"preferredSize": new java.awt.Dimension( 800, 34 )
+							auxiliary() {
+								"JavaCodeGenerator.typeParameters": "JComboBoxCategory"
+							}
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "categoryCreateSelected", true ) )
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridy": 3
+						"vAlign": 1
+						"weightx": 1.0
+						"hAlign": 0
 					} )
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "label9"
-						"text": "Grupo de cobrança"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+						name: "panelMemberOnly"
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "checkBoxPartnerOnly"
+							"text": "Exclusivamente Sócio?"
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridy": 5
+						"hAlign": 0
+						"vAlign": 1
 					} )
-					add( new FormComponent( "javax.swing.JTextField" ) {
-						name: "textField1"
-					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "button1"
-						"text": "Confirmar"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+						name: "panelActions"
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button1"
+							"text": "Confirmar"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "saveButtonAction", true ) )
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridy": 5
+						"hAlign": 0
+						"vAlign": 3
+						"weightx": 1.0
+						"weighty": 1.0
 					} )
 				}, new FormLayoutConstraints( null ) {
-					"title": "text"
+					"title": "Criar Nova Ligação"
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "Center"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 1045, 655 )
+			"size": new java.awt.Dimension( 1050, 655 )
 		} )
 		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
 			name: "contextMenu"
@@ -203,9 +285,10 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "menuItem2"
 				"text": "Inativar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "InactiveLinkAction", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 65, 665 )
+			"location": new java.awt.Point( 70, 665 )
 		} )
 	}
 }

@@ -13,5 +13,4 @@ public interface LinkDataSource extends DefaultDataSource<Link> {
     boolean exists(LinkFilter LinkFilter);
     List<Link> find(LinkFilter findLink);
 
-
 }

@@ -3,8 +3,8 @@ package br.org.acal.application.screen.invoice;
 
 import br.org.acal.application.screen.invoice.model.InvoiceTable;
 import br.org.acal.application.screen.invoice.model.InvoiceTableModel;
-import br.org.acal.application.screen.link.model.JComboBoxModel;
-import br.org.acal.application.screen.link.model.JComboBoxStatus;
+import br.org.acal.application.components.combobox.JComboBoxModel;
+import br.org.acal.application.components.combobox.JComboBoxStatus;
 import br.org.acal.application.screen.link.model.LinkTableModel;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.commons.enumeration.StatusPaymentInvoice;
@@ -56,7 +56,6 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.IntStream.range;
@@ -350,6 +349,7 @@ public class InvoiceView extends JPanel {
         dialog.setVisible(true);
         invoiceSave.execute(dialog.getInvoice());
         this.search();
+
     }
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off

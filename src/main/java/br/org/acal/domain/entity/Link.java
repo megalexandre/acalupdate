@@ -12,6 +12,7 @@ public class Link {
     private Customer customer;
     private Address address;
     private Category category;
-    private Boolean inactive;
+    private Boolean exclusiveMember;
+    private Boolean active;
 
 }

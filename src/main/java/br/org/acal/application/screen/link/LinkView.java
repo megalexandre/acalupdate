@@ -1,49 +1,83 @@
 package br.org.acal.application.screen.link;
 
-import java.awt.event.*;
-
-import br.org.acal.application.screen.link.model.JComboBoxModel;
+import br.org.acal.application.components.combobox.JComboBoxAddress;
+import br.org.acal.application.components.combobox.JComboBoxCategory;
+import br.org.acal.application.components.combobox.JComboBoxCustomer;
+import br.org.acal.application.components.combobox.JComboBoxModel;
+import br.org.acal.application.screen.customer.model.FindCustomer;
+import br.org.acal.application.screen.link.model.LinkCreateRequest;
 import br.org.acal.application.screen.link.model.LinkTable;
 import br.org.acal.application.screen.link.model.LinkTableModel;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.commons.enumeration.Group;
+import br.org.acal.domain.entity.Address;
+import br.org.acal.domain.entity.Category;
+import br.org.acal.domain.entity.Customer;
+import br.org.acal.domain.model.AddressFilter;
 import br.org.acal.domain.model.LinkFilter;
 import br.org.acal.domain.usecase.address.AddressFindAllUsecase;
+import br.org.acal.domain.usecase.address.AddressFindUsecase;
 import br.org.acal.domain.usecase.category.CategoryFindAllUseCase;
+import br.org.acal.domain.usecase.customer.CustomerFindUseCase;
+import br.org.acal.domain.usecase.link.LinkCreateUseCase;
 import br.org.acal.domain.usecase.link.LinkFindUseCase;
 import lombok.val;
-import org.jdesktop.swingx.*;
+import org.jdesktop.swingx.HorizontalLayout;
+import org.jdesktop.swingx.VerticalLayout;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.List;
+import java.util.*;
 
 import static java.util.stream.IntStream.range;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 @Component
 public class LinkView extends JPanel {
 
     private final LinkFindUseCase find;
+    private final LinkCreateUseCase linkCreateUseCase;
     private final AddressFindAllUsecase findAllAddress;
+    private final AddressFindUsecase addressFindUsecase;
     private final CategoryFindAllUseCase categoryFindAll;
+    private final CustomerFindUseCase customerFindUseCase;
+
     private String selectedAddress;
     private String selectedCategory;
     private String selectedGroup;
 
+    private final int LIST_LINK_INDEX = 0;
+    private final int CREATE_LINK_INDEX = 1;
+
+    private LinkCreateRequest linkCreateRequest = new LinkCreateRequest();
+    private List<JComboBoxCustomer> customers = new ArrayList<>();
+    private List<JComboBoxAddress> addresses = new ArrayList<>();
+    private List<JComboBoxCategory> categories = new ArrayList<>();
+
+
+
     public LinkView(
             LinkFindUseCase find,
+            LinkCreateUseCase linkCreateUseCase,
             AddressFindAllUsecase findAllAddress,
-            CategoryFindAllUseCase categoryFindAll) {
+            AddressFindUsecase addressFindUsecase,
+            CategoryFindAllUseCase categoryFindAll,
+            CustomerFindUseCase customerFindUseCase
+    ) {
         initComponents();
 
         this.find = find;
         this.findAllAddress = findAllAddress;
+        this.linkCreateUseCase = linkCreateUseCase;
         this.categoryFindAll = categoryFindAll;
+        this.customerFindUseCase = customerFindUseCase;
+        this.addressFindUsecase = addressFindUsecase;
 
         comboBoxAddress.addItem(JComboBoxModel.clearData());
         comboBoxAddress.addActionListener(e -> {
@@ -191,10 +225,109 @@ public class LinkView extends JPanel {
         }
     }
 
+    private void tabbedPaneLinkStateChanged(ChangeEvent e) {
+        JTabbedPane source = (JTabbedPane) e.getSource();
+        int selectedIndex = source.getSelectedIndex();
+        if (selectedIndex == CREATE_LINK_INDEX) {
+            linkCreateRequest = new LinkCreateRequest();
+
+            if(customers.isEmpty()){
+                val filter = FindCustomer.builder().active(true).build();
+                customers = customerFindUseCase.execute(filter).stream()
+                        .sorted(Comparator.comparing(Customer::getName))
+                        .map(JComboBoxCustomer::of).toList();
+
+                comboBoxCustomer.addItem(JComboBoxCustomer.clearData());
+                customers.forEach(customer ->
+                    comboBoxCustomer.addItem(customer)
+                );
+            }
+
+            if(addresses.isEmpty()){
+                val addressFilter = AddressFilter.builder().active(true).build();
+                addresses = addressFindUsecase.execute(addressFilter).stream()
+                        .sorted(Comparator.comparing(Address::getDisplayName))
+                        .map(JComboBoxAddress::of)
+                        .toList();
+
+                comboBoxActiveAddress.addItem(JComboBoxAddress.select());
+                addresses.forEach(category ->
+                        comboBoxActiveAddress.addItem(category)
+                );
+            }
+
+            if(categories.isEmpty()){
+                categories = categoryFindAll.execute(null).stream()
+                        .sorted(Comparator.comparing(Category::getName))
+                        .map(JComboBoxCategory::of)
+                        .toList();
+                comboBoxActiveCategory.addItem(JComboBoxCategory.clearData());
+                categories.forEach(category ->
+                    comboBoxActiveCategory.addItem(category)
+                );
+            }
+
+            comboBoxCustomer.setSelectedIndex(0);
+            comboBoxActiveAddress.setSelectedIndex(0);
+            comboBoxActiveCategory.setSelectedIndex(0);
+        }
+    }
+
+    private void customerCreateSelected(ActionEvent e) {
+        val selected = (JComboBoxCustomer) comboBoxCustomer.getSelectedItem();
+
+        assert selected != null;
+        if(!selected.isSelectOption()){
+            linkCreateRequest.setCustomer(selected.getCustomer());
+        }
+    }
+
+    private void addressCreateSelected(ActionEvent e) {
+        val selected = (JComboBoxAddress) comboBoxActiveAddress.getSelectedItem();
+
+        assert selected != null;
+        if(!selected.isSelectOption()){
+            linkCreateRequest.setAddress(selected.getAddress());
+        }
+    }
+
+    private void categoryCreateSelected(ActionEvent e) {
+        val selected = (JComboBoxCategory) comboBoxActiveCategory.getSelectedItem();
+
+        assert selected != null;
+        if(!selected.isSelectOption()){
+            linkCreateRequest.setCategory(selected.getCategory());
+        }
+    }
+
+    private void saveButtonAction(ActionEvent e) {
+
+        if(!linkCreateRequest.isValid()){
+            showMessageDialog(this, "Invalido");
+        }
+
+        try {
+
+            linkCreateRequest.setLinkNumber(textFieldNumber.getText());
+            linkCreateRequest.setExclusiveMember(checkBoxPartnerOnly.isSelected());
+            linkCreateUseCase.execute(linkCreateRequest.toLink());
+
+            tabbedPaneLink.setSelectedIndex(LIST_LINK_INDEX);
+
+        } catch (RuntimeException ex) {
+            showMessageDialog(this, ex.getMessage());
+        }
+
+    }
+
+    private void InactiveLinkAction(ActionEvent e) {
+        int selectedRow = table.getSelectedRow();
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner non-commercial license
-        tabbedPane1 = new JTabbedPane();
+        tabbedPaneLink = new JTabbedPane();
         panel1 = new JPanel();
         panel8 = new JPanel();
         label4 = new JLabel();
@@ -222,13 +355,22 @@ public class LinkView extends JPanel {
         panel10 = new JPanel();
         label6 = new JLabel();
         comboBoxStatus = new JComboBox<>();
-        panel12 = new JPanel();
+        panel17 = new JPanel();
+        panelNumber = new JPanel();
+        Número = new JLabel();
+        textFieldNumber = new JTextField();
+        panelPartner = new JPanel();
         label7 = new JLabel();
-        comboBox1 = new JComboBox();
+        comboBoxCustomer = new JComboBox<>();
+        panelAddress = new JPanel();
         label8 = new JLabel();
-        comboBox2 = new JComboBox();
+        comboBoxActiveAddress = new JComboBox<>();
+        panelCategory = new JPanel();
         label9 = new JLabel();
-        textField1 = new JTextField();
+        comboBoxActiveCategory = new JComboBox<>();
+        panelMemberOnly = new JPanel();
+        checkBoxPartnerOnly = new JCheckBox();
+        panelActions = new JPanel();
         button1 = new JButton();
         contextMenu = new JPopupMenu();
         menuItem1 = new JMenuItem();
@@ -238,8 +380,9 @@ public class LinkView extends JPanel {
         setPreferredSize(new Dimension(1024, 768));
         setLayout(new BorderLayout());
 
-        //======== tabbedPane1 ========
+        //======== tabbedPaneLink ========
         {
+            tabbedPaneLink.addChangeListener(e -> tabbedPaneLinkStateChanged(e));
 
             //======== panel1 ========
             {
@@ -308,7 +451,6 @@ public class LinkView extends JPanel {
                             //---- comboBoxAddress ----
                             comboBoxAddress.setMinimumSize(new Dimension(150, 22));
                             comboBoxAddress.setPreferredSize(new Dimension(150, 22));
-                            comboBoxAddress.addActionListener(e -> addressChange(e));
                             comboBoxAddress.addPopupMenuListener(new PopupMenuListener() {
                                 @Override
                                 public void popupMenuCanceled(PopupMenuEvent e) {}
@@ -427,34 +569,113 @@ public class LinkView extends JPanel {
                 }
                 panel1.add(panel2, BorderLayout.SOUTH);
             }
-            tabbedPane1.addTab("Liga\u00e7\u00f5es", panel1);
+            tabbedPaneLink.addTab("Liga\u00e7\u00f5es", panel1);
 
-            //======== panel12 ========
+            //======== panel17 ========
             {
-                panel12.setLayout(new VerticalLayout());
+                panel17.setMinimumSize(new Dimension(95, 40));
+                panel17.setPreferredSize(new Dimension(95, 40));
+                panel17.setLayout(new GridBagLayout());
+                ((GridBagLayout)panel17.getLayout()).columnWidths = new int[] {0, 0};
+                ((GridBagLayout)panel17.getLayout()).rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
+                ((GridBagLayout)panel17.getLayout()).columnWeights = new double[] {1.0, 1.0E-4};
+                ((GridBagLayout)panel17.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
-                //---- label7 ----
-                label7.setText("S\u00f3cio:");
-                panel12.add(label7);
-                panel12.add(comboBox1);
+                //======== panelNumber ========
+                {
+                    panelNumber.setLayout(new VerticalLayout());
 
-                //---- label8 ----
-                label8.setText("Endere\u00e7o");
-                panel12.add(label8);
-                panel12.add(comboBox2);
+                    //---- Número ----
+                    Número.setText("N\u00famero");
+                    panelNumber.add(Número);
 
-                //---- label9 ----
-                label9.setText("Grupo de cobran\u00e7a");
-                panel12.add(label9);
-                panel12.add(textField1);
+                    //---- textFieldNumber ----
+                    textFieldNumber.setPreferredSize(new Dimension(800, 34));
+                    panelNumber.add(textFieldNumber);
+                }
+                panel17.add(panelNumber, new GridBagConstraints(0, 0, 1, 1, 1.0, 0.0,
+                    GridBagConstraints.NORTH, GridBagConstraints.NONE,
+                    new Insets(0, 0, 0, 0), 0, 0));
 
-                //---- button1 ----
-                button1.setText("Confirmar");
-                panel12.add(button1);
+                //======== panelPartner ========
+                {
+                    panelPartner.setLayout(new VerticalLayout());
+
+                    //---- label7 ----
+                    label7.setText("S\u00f3cio:");
+                    panelPartner.add(label7);
+
+                    //---- comboBoxCustomer ----
+                    comboBoxCustomer.setPreferredSize(new Dimension(800, 34));
+                    comboBoxCustomer.addActionListener(e -> customerCreateSelected(e));
+                    panelPartner.add(comboBoxCustomer);
+                }
+                panel17.add(panelPartner, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0,
+                    GridBagConstraints.NORTH, GridBagConstraints.NONE,
+                    new Insets(0, 0, 0, 0), 0, 0));
+
+                //======== panelAddress ========
+                {
+                    panelAddress.setLayout(new VerticalLayout());
+
+                    //---- label8 ----
+                    label8.setText("Endere\u00e7o:");
+                    panelAddress.add(label8);
+
+                    //---- comboBoxActiveAddress ----
+                    comboBoxActiveAddress.setPreferredSize(new Dimension(800, 34));
+                    comboBoxActiveAddress.addActionListener(e -> addressCreateSelected(e));
+                    panelAddress.add(comboBoxActiveAddress);
+                }
+                panel17.add(panelAddress, new GridBagConstraints(0, 2, 1, 1, 1.0, 0.0,
+                    GridBagConstraints.NORTH, GridBagConstraints.NONE,
+                    new Insets(0, 0, 0, 0), 0, 0));
+
+                //======== panelCategory ========
+                {
+                    panelCategory.setLayout(new VerticalLayout());
+
+                    //---- label9 ----
+                    label9.setText("Categoria:");
+                    panelCategory.add(label9);
+
+                    //---- comboBoxActiveCategory ----
+                    comboBoxActiveCategory.setPreferredSize(new Dimension(800, 34));
+                    comboBoxActiveCategory.addActionListener(e -> categoryCreateSelected(e));
+                    panelCategory.add(comboBoxActiveCategory);
+                }
+                panel17.add(panelCategory, new GridBagConstraints(0, 3, 1, 1, 1.0, 0.0,
+                    GridBagConstraints.NORTH, GridBagConstraints.NONE,
+                    new Insets(0, 0, 0, 0), 0, 0));
+
+                //======== panelMemberOnly ========
+                {
+                    panelMemberOnly.setLayout(new HorizontalLayout());
+
+                    //---- checkBoxPartnerOnly ----
+                    checkBoxPartnerOnly.setText("Exclusivamente S\u00f3cio?");
+                    panelMemberOnly.add(checkBoxPartnerOnly);
+                }
+                panel17.add(panelMemberOnly, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0,
+                    GridBagConstraints.NORTH, GridBagConstraints.NONE,
+                    new Insets(0, 0, 0, 0), 0, 0));
+
+                //======== panelActions ========
+                {
+                    panelActions.setLayout(new VerticalLayout());
+
+                    //---- button1 ----
+                    button1.setText("Confirmar");
+                    button1.addActionListener(e -> saveButtonAction(e));
+                    panelActions.add(button1);
+                }
+                panel17.add(panelActions, new GridBagConstraints(0, 5, 1, 1, 1.0, 1.0,
+                    GridBagConstraints.SOUTH, GridBagConstraints.NONE,
+                    new Insets(0, 0, 0, 0), 0, 0));
             }
-            tabbedPane1.addTab("text", panel12);
+            tabbedPaneLink.addTab("Criar Nova Liga\u00e7\u00e3o", panel17);
         }
-        add(tabbedPane1, BorderLayout.CENTER);
+        add(tabbedPaneLink, BorderLayout.CENTER);
 
         //======== contextMenu ========
         {
@@ -465,6 +686,7 @@ public class LinkView extends JPanel {
 
             //---- menuItem2 ----
             menuItem2.setText("Inativar");
+            menuItem2.addActionListener(e -> InactiveLinkAction(e));
             contextMenu.add(menuItem2);
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
@@ -472,7 +694,7 @@ public class LinkView extends JPanel {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     // Generated using JFormDesigner non-commercial license
-    private JTabbedPane tabbedPane1;
+    private JTabbedPane tabbedPaneLink;
     private JPanel panel1;
     private JPanel panel8;
     private JLabel label4;
@@ -501,13 +723,22 @@ public class LinkView extends JPanel {
     private JPanel panel10;
     private JLabel label6;
     private JComboBox<String> comboBoxStatus;
-    private JPanel panel12;
+    private JPanel panel17;
+    private JPanel panelNumber;
+    private JLabel Número;
+    private JTextField textFieldNumber;
+    private JPanel panelPartner;
     private JLabel label7;
-    private JComboBox comboBox1;
+    private JComboBox<JComboBoxCustomer> comboBoxCustomer;
+    private JPanel panelAddress;
     private JLabel label8;
-    private JComboBox comboBox2;
+    private JComboBox<JComboBoxAddress> comboBoxActiveAddress;
+    private JPanel panelCategory;
     private JLabel label9;
-    private JTextField textField1;
+    private JComboBox<JComboBoxCategory> comboBoxActiveCategory;
+    private JPanel panelMemberOnly;
+    private JCheckBox checkBoxPartnerOnly;
+    private JPanel panelActions;
     private JButton button1;
     private JPopupMenu contextMenu;
     private JMenuItem menuItem1;

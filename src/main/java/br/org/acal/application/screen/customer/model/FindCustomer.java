@@ -13,6 +13,8 @@ public class FindCustomer {
     private String id;
     private String document;
     private String name;
+    private Boolean active;
+
     public Optional<String> getId(){
         return Optional.ofNullable(id);
     }
@@ -22,4 +24,5 @@ public class FindCustomer {
     public Optional<String> getName(){
         return Optional.ofNullable(name);
     }
+    public Optional<Boolean> getActive(){ return Optional.ofNullable(active);}
 }

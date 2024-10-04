@@ -1,10 +1,15 @@
 package br.org.acal.application.components.combobox;
 
 import br.org.acal.commons.util.BigDecimalUtil;
+import br.org.acal.commons.util.StringUtil;
 import br.org.acal.domain.entity.Category;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.val;
+
+import static br.org.acal.commons.util.BigDecimalUtil.asString;
+import static br.org.acal.commons.util.StringUtil.lpad;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -38,14 +43,17 @@ public class JComboBoxCategory extends JComboBoxDefault{
             return name;
         }
 
-        String firstPart = category.getName() + "/" + category.getGroup().getDescription();
-        String secondPart = String.format("[%s, %s]",
-                BigDecimalUtil.asString(category.getPrice().getValue()),
-                BigDecimalUtil.asString(category.getPrice().getPartnerValue()));
+        val categoryName = category.getName();
 
-        int spacesNeeded = 150 - firstPart.length();
+        val values =
+            lpad(asString(category.totalValue() ),8, ' ');
 
-        return firstPart + String.format("%" + spacesNeeded + "s", "") + secondPart;
+        val categoryString = lpad(String.format("[%s] [%s]",
+                values,
+                lpad( category.getGroup().getDescription(), 20, ' ')
+                ),  20, ' ');
+
+        return categoryString +" " + categoryName;
     }
 
 }

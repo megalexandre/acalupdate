@@ -274,9 +274,13 @@ public class LinkView extends JPanel {
 
             if(categories.isEmpty()){
                 categories = categoryFindAll.execute(null).stream()
-                        .sorted(Comparator.comparing(Category::getName))
+                        .sorted(Comparator
+                            .comparing(Category::getGroup)
+                            .thenComparing(Category::getName)
+                        )
                         .map(JComboBoxCategory::of)
                         .toList();
+
                 comboBoxActiveCategory.addItem(JComboBoxCategory.clearData());
                 categories.forEach(category ->
                     comboBoxActiveCategory.addItem(category)

@@ -1,5 +1,6 @@
 package br.org.acal.application.components.combobox;
 
+import br.org.acal.commons.util.BigDecimalUtil;
 import br.org.acal.domain.entity.Category;
 import lombok.Builder;
 import lombok.Data;
@@ -32,7 +33,19 @@ public class JComboBoxCategory extends JComboBoxDefault{
 
     @Override
     public String toString() {
-        return name;
+
+        if(category == null){
+            return name;
+        }
+
+        String firstPart = category.getName() + "/" + category.getGroup().getDescription();
+        String secondPart = String.format("[%s, %s]",
+                BigDecimalUtil.asString(category.getPrice().getValue()),
+                BigDecimalUtil.asString(category.getPrice().getPartnerValue()));
+
+        int spacesNeeded = 150 - firstPart.length();
+
+        return firstPart + String.format("%" + spacesNeeded + "s", "") + secondPart;
     }
 
 }

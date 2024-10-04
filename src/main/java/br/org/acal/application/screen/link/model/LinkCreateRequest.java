@@ -4,11 +4,12 @@ import br.org.acal.domain.entity.Address;
 import br.org.acal.domain.entity.Category;
 import br.org.acal.domain.entity.Customer;
 import br.org.acal.domain.entity.Link;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 
 @Data
 @Builder
@@ -16,16 +17,16 @@ import org.jetbrains.annotations.NotNull;
 @AllArgsConstructor
 public class LinkCreateRequest {
 
-    @NotNull("O número da ligação é obrigatorio")
+    @NotEmpty(message =  "O número da ligação é obrigatorio")
     private String linkNumber;
 
-    @NotNull("O Usúario não pode ser nulo")
+    @NotNull(message = "O Usúario não pode ser nulo")
     private Customer customer;
 
-    @NotNull("O endereço não pode ser nulo")
+    @NotNull(message = "O endereço não pode ser nulo")
     private Address address;
 
-    @NotNull("O categoria não pode ser nulo")
+    @NotNull(message = "O categoria não pode ser nulo")
     private Category category;
 
     private Boolean exclusiveMember;
@@ -33,7 +34,6 @@ public class LinkCreateRequest {
     public boolean isValid(){
         return customer!= null;
     }
-
 
     public Link toLink(){
         return Link.builder()

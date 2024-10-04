@@ -19,8 +19,12 @@ import br.org.acal.domain.usecase.address.AddressFindAllUsecase;
 import br.org.acal.domain.usecase.address.AddressFindUsecase;
 import br.org.acal.domain.usecase.category.CategoryFindAllUseCase;
 import br.org.acal.domain.usecase.customer.CustomerFindUseCase;
+import br.org.acal.domain.usecase.link.LinkActiveUseCase;
 import br.org.acal.domain.usecase.link.LinkCreateUseCase;
+import br.org.acal.domain.usecase.link.LinkDeleteUseCase;
 import br.org.acal.domain.usecase.link.LinkFindUseCase;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import lombok.val;
 import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
@@ -34,6 +38,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.IntStream.range;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -43,10 +48,14 @@ public class LinkView extends JPanel {
 
     private final LinkFindUseCase find;
     private final LinkCreateUseCase linkCreateUseCase;
+    private final LinkDeleteUseCase linkInactiveUseCase;
+    private final LinkActiveUseCase linkActiveUseCase;
     private final AddressFindAllUsecase findAllAddress;
     private final AddressFindUsecase addressFindUsecase;
     private final CategoryFindAllUseCase categoryFindAll;
     private final CustomerFindUseCase customerFindUseCase;
+
+    private final Validator validator;
 
     private String selectedAddress;
     private String selectedCategory;
@@ -61,23 +70,28 @@ public class LinkView extends JPanel {
     private List<JComboBoxCategory> categories = new ArrayList<>();
 
 
-
     public LinkView(
             LinkFindUseCase find,
             LinkCreateUseCase linkCreateUseCase,
+            LinkDeleteUseCase linkInactiveUseCase,
+            LinkActiveUseCase linkActiveUseCase,
             AddressFindAllUsecase findAllAddress,
             AddressFindUsecase addressFindUsecase,
             CategoryFindAllUseCase categoryFindAll,
-            CustomerFindUseCase customerFindUseCase
+            CustomerFindUseCase customerFindUseCase,
+            Validator validator
     ) {
         initComponents();
 
         this.find = find;
         this.findAllAddress = findAllAddress;
         this.linkCreateUseCase = linkCreateUseCase;
+        this.linkInactiveUseCase = linkInactiveUseCase;
+        this.linkActiveUseCase = linkActiveUseCase;
         this.categoryFindAll = categoryFindAll;
         this.customerFindUseCase = customerFindUseCase;
         this.addressFindUsecase = addressFindUsecase;
+        this.validator = validator;
 
         comboBoxAddress.addItem(JComboBoxModel.clearData());
         comboBoxAddress.addActionListener(e -> {
@@ -123,6 +137,7 @@ public class LinkView extends JPanel {
     }
 
     private void search(){
+
         val links = find.execute(createFilter());
         val tableModel = new LinkTableModel(links.stream().map(LinkTable::of).toList());
         table.setModel(tableModel);
@@ -149,6 +164,10 @@ public class LinkView extends JPanel {
     }
 
     private void clearAction(ActionEvent e) {
+        clear();
+    }
+
+    private void clear(){
         table.setModel(new LinkTableModel(List.of()));
         comboBoxAddress.setSelectedIndex(0);
         comboBoxCategory.setSelectedIndex(0);
@@ -157,6 +176,7 @@ public class LinkView extends JPanel {
         textFieldPartner.setText("");
         labelHelper.setText("");
     }
+
 
     private void comboBoxCategoryPopupMenuWillBecomeVisible(PopupMenuEvent e) {
         if(comboBoxCategory.getItemCount() <= 1){
@@ -202,10 +222,6 @@ public class LinkView extends JPanel {
                 }
             }
         });
-    }
-
-    private void addressChange(ActionEvent e) {
-        // TODO add your code here
     }
 
     private void partnerAddEventHandler(ActionEvent e) {
@@ -277,7 +293,9 @@ public class LinkView extends JPanel {
         val selected = (JComboBoxCustomer) comboBoxCustomer.getSelectedItem();
 
         assert selected != null;
-        if(!selected.isSelectOption()){
+        if(selected.isSelectOption()){
+            linkCreateRequest.setCustomer(null);
+        } else {
             linkCreateRequest.setCustomer(selected.getCustomer());
         }
     }
@@ -302,26 +320,47 @@ public class LinkView extends JPanel {
 
     private void saveButtonAction(ActionEvent e) {
 
-        if(!linkCreateRequest.isValid()){
-            showMessageDialog(this, "Invalido");
+        linkCreateRequest.setLinkNumber(textFieldNumber.getText());
+        linkCreateRequest.setExclusiveMember(checkBoxPartnerOnly.isSelected());
+
+
+        val violations = validator.validate(linkCreateRequest);
+        if (!violations.isEmpty()) {
+            showMessageDialog(this,
+                violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.joining("\n"))
+            );
+
+            return;
         }
 
+
         try {
-
-            linkCreateRequest.setLinkNumber(textFieldNumber.getText());
-            linkCreateRequest.setExclusiveMember(checkBoxPartnerOnly.isSelected());
             linkCreateUseCase.execute(linkCreateRequest.toLink());
-
             tabbedPaneLink.setSelectedIndex(LIST_LINK_INDEX);
-
         } catch (RuntimeException ex) {
             showMessageDialog(this, ex.getMessage());
         }
 
     }
 
-    private void InactiveLinkAction(ActionEvent e) {
+    private void inactiveLinkAction(ActionEvent e) {
         int selectedRow = table.getSelectedRow();
+
+        val model = (LinkTableModel) table.getModel();
+        val link = model.getItem(selectedRow);
+
+        linkInactiveUseCase.execute(link);
+        search();
+    }
+
+    private void activeLinkAction(ActionEvent e) {
+        int selectedRow = table.getSelectedRow();
+
+        val model = (LinkTableModel) table.getModel();
+        val link = model.getItem(selectedRow);
+
+        linkActiveUseCase.execute(link);
+        search();
     }
 
     private void initComponents() {
@@ -610,7 +649,7 @@ public class LinkView extends JPanel {
                     comboBoxCustomer.addActionListener(e -> customerCreateSelected(e));
                     panelPartner.add(comboBoxCustomer);
                 }
-                panel17.add(panelPartner, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0,
+                panel17.add(panelPartner, new GridBagConstraints(0, 2, 1, 1, 1.0, 0.0,
                     GridBagConstraints.NORTH, GridBagConstraints.NONE,
                     new Insets(0, 0, 0, 0), 0, 0));
 
@@ -627,7 +666,7 @@ public class LinkView extends JPanel {
                     comboBoxActiveAddress.addActionListener(e -> addressCreateSelected(e));
                     panelAddress.add(comboBoxActiveAddress);
                 }
-                panel17.add(panelAddress, new GridBagConstraints(0, 2, 1, 1, 1.0, 0.0,
+                panel17.add(panelAddress, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0,
                     GridBagConstraints.NORTH, GridBagConstraints.NONE,
                     new Insets(0, 0, 0, 0), 0, 0));
 
@@ -682,11 +721,12 @@ public class LinkView extends JPanel {
 
             //---- menuItem1 ----
             menuItem1.setText("Ativar");
+            menuItem1.addActionListener(e -> activeLinkAction(e));
             contextMenu.add(menuItem1);
 
             //---- menuItem2 ----
             menuItem2.setText("Inativar");
-            menuItem2.addActionListener(e -> InactiveLinkAction(e));
+            menuItem2.addActionListener(e -> inactiveLinkAction(e));
             contextMenu.add(menuItem2);
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on

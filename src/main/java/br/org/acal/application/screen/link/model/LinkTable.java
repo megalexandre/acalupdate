@@ -14,6 +14,7 @@ public class LinkTable {
     private String category;
     private String group;
     private String active;
+    private Link link;
 
     public static LinkTable of(Link link){
         return LinkTable.builder()
@@ -23,6 +24,7 @@ public class LinkTable {
                 .category(link.getCategory().getName())
                 .group(link.getCategory().getGroup().getDescription())
                 .active(link.getActive() ? "Ativo": "Inativo" )
+                .link(link)
                 .build();
     }
 }

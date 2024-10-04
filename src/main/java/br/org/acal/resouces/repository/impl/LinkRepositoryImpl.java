@@ -23,6 +23,7 @@ import java.util.List;
 
 @Repository
 public class LinkRepositoryImpl implements LinkDataSource {
+
     private final LinkRepositoryJpa linkRepositoryJpa;
     private final EntityManager entityManager;
     private final LinkMapper linkMapper;
@@ -71,6 +72,16 @@ public class LinkRepositoryImpl implements LinkDataSource {
         List<LinkModel> resultList = query.getResultList();
 
         return resultList.stream().map(linkMapper::map).toList();
+    }
+
+    @Override
+    public void active(Link link) {
+        linkRepositoryJpa.active(link.getNumber());
+    }
+
+    @Override
+    public void inactive(Link link) {
+        linkRepositoryJpa.inactive(link.getNumber());
     }
 
     private List<Predicate> createPredicates(CriteriaBuilder cb, LinkFilter find, Root<LinkModel> root) {

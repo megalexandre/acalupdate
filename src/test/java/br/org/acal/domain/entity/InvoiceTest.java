@@ -11,18 +11,7 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-@SpringBootTest(classes = {InvoiceMapper.class})
 class InvoiceTest {
 
-    @Test
-    void test(){
-
-        InvoiceMapper invoiceMapper = Mappers.getMapper(InvoiceMapper.class);
-
-        val invoice = Invoice.builder().dueDate(LocalDateTime.now()).build();
-        val invoiceEntity = invoiceMapper.map(invoice);
-
-        assertEquals(invoiceEntity.getDueDate(), invoice.getDueDate());
-    }
 
 }

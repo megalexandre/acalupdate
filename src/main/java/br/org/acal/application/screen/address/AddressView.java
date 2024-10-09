@@ -1,5 +1,7 @@
 package br.org.acal.application.screen.address;
 
+import br.org.acal.application.screen.address.model.AddressTable;
+import br.org.acal.application.screen.address.model.AddressTableModel;
 import br.org.acal.application.screen.address.model.CreateAddress;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.commons.enumeration.AddressType;

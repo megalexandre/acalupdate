@@ -4,11 +4,10 @@ package br.org.acal.application.screen.customer;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
-import java.util.Optional;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import br.org.acal.application.screen.address.AddressTableModel;
+import br.org.acal.application.screen.address.model.AddressTableModel;
 import br.org.acal.application.screen.customer.model.FindCustomer;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.domain.entity.Customer;

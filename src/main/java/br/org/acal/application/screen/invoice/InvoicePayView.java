@@ -21,10 +21,12 @@ import org.jdesktop.swingx.*;
 
 import static java.awt.Dialog.ModalityType.APPLICATION_MODAL;
 
+
 public class InvoicePayView extends JDialog {
 
     @Getter
     private Invoice invoice;
+
     public InvoicePayView(Window owner, Invoice invoice) {
         super(owner, APPLICATION_MODAL);
         initComponents();

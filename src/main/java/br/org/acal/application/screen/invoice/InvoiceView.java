@@ -1,10 +1,10 @@
 
 package br.org.acal.application.screen.invoice;
 
-import br.org.acal.application.screen.invoice.model.InvoiceTable;
-import br.org.acal.application.screen.invoice.model.InvoiceTableModel;
 import br.org.acal.application.components.combobox.JComboBoxModel;
 import br.org.acal.application.components.combobox.JComboBoxStatus;
+import br.org.acal.application.screen.invoice.model.table.InvoiceTable;
+import br.org.acal.application.screen.invoice.model.table.InvoiceTableModel;
 import br.org.acal.application.screen.link.model.LinkTableModel;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.commons.enumeration.StatusPaymentInvoice;
@@ -27,34 +27,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.text.MaskFormatter;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.Arrays.stream;
@@ -65,6 +48,9 @@ import static javax.swing.JOptionPane.showMessageDialog;
 @Component
 public class InvoiceView extends JPanel {
 
+    private final int CREATE_INDEX = 1;
+
+
     private final Logger logger = LoggerFactory.getLogger(InvoiceView.class);
     private final InvoicePaginateUseCase paginate;
     private final InvoiceListUseCase list;
@@ -72,6 +58,7 @@ public class InvoiceView extends JPanel {
     private final CategoryFindAllUseCase categoryFindAll;
     private final CustomerFindAllUseCase customerFindAll;
     private final InvoiceSearchPrintReportUseCase invoiceSearchPrintReportUseCase;
+    private final InvoiceCreateView invoiceCreateView;
 
     private final InvoiceSaveUseCase invoiceSave;
     private String selectedAddress;
@@ -89,7 +76,8 @@ public class InvoiceView extends JPanel {
         CustomerFindAllUseCase customerFindAll,
         InvoiceListUseCase invoiceList,
         InvoiceSearchPrintReportUseCase invoiceSearchPrintReport,
-        InvoiceSaveUseCase invoiceSave
+        InvoiceSaveUseCase invoiceSave,
+        InvoiceCreateView invoiceCreateView
     ) {
         initComponents();
         this.paginate = paginate;
@@ -99,6 +87,7 @@ public class InvoiceView extends JPanel {
         this.list = invoiceList;
         this.invoiceSearchPrintReportUseCase = invoiceSearchPrintReport;
         this.invoiceSave = invoiceSave;
+        this.invoiceCreateView = invoiceCreateView;
         startComponents();
     }
 
@@ -216,7 +205,7 @@ public class InvoiceView extends JPanel {
             .selectedCustomer(selectedCustomer)
             .number("".equals(textFieldNumber.getText()) ? null: textFieldNumber.getText())
             .period(formattedTextFieldPeriodMonth.getText())
-            .status(((JComboBoxStatus) comboBoxStatus.getSelectedItem()).getStatus())
+            .status(((JComboBoxStatus) Objects.requireNonNull(comboBoxStatus.getSelectedItem())).getStatus())
             .pageable(createPageable())
             .build();
     }
@@ -351,10 +340,19 @@ public class InvoiceView extends JPanel {
         this.search();
 
     }
+
+    private void tabbedPaneInvoiceStateChanged(ChangeEvent e) {
+
+        if(CREATE_INDEX == tabbedPaneInvoice.getSelectedIndex()){
+            panelCreate.add(invoiceCreateView);
+        }
+
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner non-commercial license
-        tabbedPane1 = new JTabbedPane();
+        tabbedPaneInvoice = new JTabbedPane();
         panel1 = new JPanel();
         panel3 = new JPanel();
         label1 = new JLabel();
@@ -393,8 +391,7 @@ public class InvoiceView extends JPanel {
         labelPageNumber = new JLabel();
         buttonNext = new JButton();
         buttonLast = new JButton();
-        panel16 = new JPanel();
-        panel15 = new JPanel();
+        panelCreate = new JPanel();
         contextMenu = new JPopupMenu();
         menuItemPrint = new JMenuItem();
         menuItemReceiver = new JMenuItem();
@@ -402,8 +399,9 @@ public class InvoiceView extends JPanel {
         //======== this ========
         setLayout(new BorderLayout());
 
-        //======== tabbedPane1 ========
+        //======== tabbedPaneInvoice ========
         {
+            tabbedPaneInvoice.addChangeListener(e -> tabbedPaneInvoiceStateChanged(e));
 
             //======== panel1 ========
             {
@@ -654,21 +652,15 @@ public class InvoiceView extends JPanel {
                 }
                 panel1.add(panel2, BorderLayout.SOUTH);
             }
-            tabbedPane1.addTab("Lista", panel1);
+            tabbedPaneInvoice.addTab("Lista", panel1);
 
-            //======== panel16 ========
+            //======== panelCreate ========
             {
-                panel16.setLayout(new BorderLayout());
+                panelCreate.setLayout(new BorderLayout());
             }
-            tabbedPane1.addTab("Receber", panel16);
-
-            //======== panel15 ========
-            {
-                panel15.setLayout(new BorderLayout());
-            }
-            tabbedPane1.addTab("Gerar", panel15);
+            tabbedPaneInvoice.addTab("Gerar", panelCreate);
         }
-        add(tabbedPane1, BorderLayout.CENTER);
+        add(tabbedPaneInvoice, BorderLayout.CENTER);
 
         //======== contextMenu ========
         {
@@ -688,7 +680,7 @@ public class InvoiceView extends JPanel {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     // Generated using JFormDesigner non-commercial license
-    private JTabbedPane tabbedPane1;
+    private JTabbedPane tabbedPaneInvoice;
     private JPanel panel1;
     private JPanel panel3;
     private JLabel label1;
@@ -727,8 +719,7 @@ public class InvoiceView extends JPanel {
     private JLabel labelPageNumber;
     private JButton buttonNext;
     private JButton buttonLast;
-    private JPanel panel16;
-    private JPanel panel15;
+    private JPanel panelCreate;
     private JPopupMenu contextMenu;
     private JMenuItem menuItemPrint;
     private JMenuItem menuItemReceiver;

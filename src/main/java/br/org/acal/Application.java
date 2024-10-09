@@ -20,7 +20,6 @@ public class Application {
 
     public static void main(String[] args) {
         FlatIntelliJLaf.setup();
-        //FlatDarculaLaf.setup();
 
         SplashScreen splash = new SplashScreen();
         splash.showSplash();

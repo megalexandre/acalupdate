@@ -1,6 +1,6 @@
 package br.org.acal.application.screen.render;
 
-import br.org.acal.application.screen.invoice.model.InvoiceTableModel;
+import br.org.acal.application.screen.invoice.model.table.InvoiceTableModel;
 import lombok.val;
 
 import javax.swing.JTable;

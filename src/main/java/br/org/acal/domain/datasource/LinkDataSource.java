@@ -1,6 +1,7 @@
 package br.org.acal.domain.datasource;
 
 import br.org.acal.domain.entity.Link;
+import br.org.acal.domain.entity.Period;
 import br.org.acal.domain.model.LinkFilter;
 import org.springframework.stereotype.Component;
 
@@ -16,4 +17,5 @@ public interface LinkDataSource extends DefaultDataSource<Link> {
     void active(Link link);
     void inactive(Link link);
 
+    List<Link> findAllWithoutInvoiceForDate(Period period);
 }

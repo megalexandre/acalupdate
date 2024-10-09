@@ -2,6 +2,7 @@ package br.org.acal.resouces.repository.impl;
 
 import br.org.acal.domain.datasource.LinkDataSource;
 import br.org.acal.domain.entity.Link;
+import br.org.acal.domain.entity.Period;
 import br.org.acal.domain.model.LinkFilter;
 import br.org.acal.resouces.adapter.mapper.LinkMapper;
 import br.org.acal.resouces.model.CategoryModel;
@@ -139,4 +140,10 @@ public class LinkRepositoryImpl implements LinkDataSource {
     public Link save(Link link) {
         return linkMapper.map(linkRepositoryJpa.save(linkMapper.map(link)));
     }
+
+    @Override
+    public List<Link> findAllWithoutInvoiceForDate(Period period){
+        return linkRepositoryJpa.findAllWithoutInvoiceForDate(period.startMonth()).stream().map(linkMapper::map).toList();
+    }
+
 }

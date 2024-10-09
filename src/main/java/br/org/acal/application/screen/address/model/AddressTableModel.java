@@ -1,6 +1,4 @@
-package br.org.acal.application.screen.address;
-
-import br.org.acal.resouces.entidades.CaixaView;
+package br.org.acal.application.screen.address.model;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;

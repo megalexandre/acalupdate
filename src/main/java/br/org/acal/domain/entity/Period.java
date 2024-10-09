@@ -11,6 +11,7 @@ import java.time.Year;
 @Data
 @Builder
 public class Period {
+
     private int year;
     private Month month;
 

@@ -6,6 +6,7 @@ import br.org.acal.domain.entity.Invoice;
 import br.org.acal.domain.entity.Period;
 import br.org.acal.domain.model.InvoiceFilter;
 import br.org.acal.resouces.adapter.mapper.InvoiceMapper;
+import br.org.acal.resouces.model.InvoiceModel;
 import br.org.acal.resouces.repository.interfaces.InvoiceRepositoryJpa;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Repository
 public class InvoiceRepositoryImpl implements InvoiceDataSource {
@@ -40,6 +42,13 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
     public Invoice save(Invoice invoice) {
         invoice.setWaterMeter(null);
         return invoiceMapper.map(repositoryJpa.save(invoiceMapper.map(invoice)));
+    }
+
+    @Override
+    public List<Invoice> save(List<Invoice> invoices) {
+        List<InvoiceModel> items = invoices.stream().map(invoiceMapper::map).toList();
+        List<InvoiceModel> savedItems = repositoryJpa.saveAll(items);
+        return savedItems.stream().map(invoiceMapper::map).toList();
     }
 
     @Override

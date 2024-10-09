@@ -1,9 +1,10 @@
-package br.org.acal.application.screen.invoice.model;
+package br.org.acal.application.screen.invoice.model.table;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class InvoiceTableModel extends AbstractTableModel {
+
     private final int CUSTOMER = 0;
     private final int DOCUMENT = 1;
     private final int ADDRESS = 2;
@@ -21,10 +22,12 @@ public class InvoiceTableModel extends AbstractTableModel {
     public InvoiceTableModel(List<InvoiceTable> itens){
         this.itens = itens;
     }
+
     @Override
     public String getColumnName(int columnIndex) {
         return columns[columnIndex];
     }
+
     @Override
     public int getRowCount() {
         return itens.size();
@@ -34,6 +37,7 @@ public class InvoiceTableModel extends AbstractTableModel {
     public int getColumnCount() {
         return columns.length;
     }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         InvoiceTable item = itens.get(rowIndex);

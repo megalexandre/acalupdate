@@ -1,4 +1,4 @@
-package br.org.acal.application.screen.address;
+package br.org.acal.application.screen.address.model;
 
 import br.org.acal.domain.entity.Address;
 import lombok.Builder;

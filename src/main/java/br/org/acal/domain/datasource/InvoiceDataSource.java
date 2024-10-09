@@ -14,5 +14,6 @@ public interface InvoiceDataSource {
     List<Invoice> list(InvoiceFilter invoiceFilter);
     List<Invoice> findAll();
     Invoice save(Invoice invoice);
+    List<Invoice> save (List<Invoice> invoices);
 
 }

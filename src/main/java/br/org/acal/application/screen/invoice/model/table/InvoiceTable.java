@@ -1,4 +1,4 @@
-package br.org.acal.application.screen.invoice.model;
+package br.org.acal.application.screen.invoice.model.table;
 
 import br.org.acal.commons.util.PeriodUtil;
 import br.org.acal.domain.entity.Invoice;

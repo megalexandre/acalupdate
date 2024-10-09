@@ -45,8 +45,7 @@ public class JComboBoxCategory extends JComboBoxDefault{
 
         val categoryName = category.getName();
 
-        val values =
-            lpad(asString(category.totalValue() ),8, ' ');
+        val values = lpad(asString(category.totalValue() ),8, ' ');
 
         val categoryString = lpad(String.format("[%s] [%s]",
                 values,

@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "8.2.3.0.386" Java: "17.0.8" encoding: "UTF-8"
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.3" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -38,10 +38,6 @@ new FormModel {
 						name: "categoryMenu"
 						"text": "Categorias"
 					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "menuItem4"
-						"text": "Taxas"
-					} )
 				} )
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
 					name: "menu2"
@@ -50,10 +46,6 @@ new FormModel {
 						name: "invoiceMenu"
 						"text": "Consultas"
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "invoiceMenu", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "menuItem6"
-						"text": "Consultas Avançadas"
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {

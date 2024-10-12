@@ -9,8 +9,9 @@ import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
+
+import static java.util.Comparator.comparing;
 
 @Service
 public class CreateInvoiceUseCase {
@@ -23,7 +24,8 @@ public class CreateInvoiceUseCase {
 
     public List<CreateInvoice> execute(Period period){
         val links = dataSource.findAllWithoutInvoiceForDate(period).stream().sorted(
-            Comparator.comparing(it -> it.getAddress().getDisplayName())
+            comparing((Link it) -> it.getAddress().getDisplayName())
+                    .thenComparing(Link::getLinkNumber)
         ).toList();
 
         return links.stream().map(link -> CreateInvoice.builder()

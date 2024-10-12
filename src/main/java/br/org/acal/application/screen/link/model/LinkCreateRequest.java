@@ -31,10 +31,6 @@ public class LinkCreateRequest {
 
     private Boolean exclusiveMember;
 
-    public boolean isValid(){
-        return customer!= null;
-    }
-
     public Link toLink(){
         return Link.builder()
                 .exclusiveMember(exclusiveMember)

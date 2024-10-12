@@ -1,4 +1,4 @@
-package br.org.acal.domain.entity;
+ package br.org.acal.domain.entity;
 
 import br.org.acal.commons.Prices;
 import br.org.acal.commons.enumeration.StatusPaymentInvoice;

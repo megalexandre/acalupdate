@@ -46,7 +46,7 @@ public class CustomerRepositoryImpl implements CustomerDataSource {
 
         CriteriaQuery<CustomerModel> cq = cb.createQuery(CustomerModel.class);
         Root<CustomerModel> customerRoot = cq.from(CustomerModel.class);
-        customerRoot.fetch("partner", JoinType.INNER);
+        customerRoot.fetch("partner", JoinType.LEFT);
 
         List<Predicate> predicates = createPredicates(cb, findCustomer, customerRoot);
         cq.where(predicates.toArray(new Predicate[0]));
@@ -56,6 +56,11 @@ public class CustomerRepositoryImpl implements CustomerDataSource {
         List<CustomerModel> resultList = query.getResultList();
 
         return resultList.stream().map(customerMapper::map).toList();
+    }
+
+    @Override
+    public Customer save(Customer customer) {
+        return customerMapper.map(customerRepositoryJpa.save(customerMapper.map(customer)));
     }
 
     private List<Predicate> createPredicates(CriteriaBuilder cb, FindCustomer findCustomer, Root<CustomerModel> customerRoot) {

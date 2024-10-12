@@ -9,5 +9,6 @@ public interface CustomerDataSource {
 
     List<Customer> findAll();
     List<Customer> find(FindCustomer findCustomer);
+    Customer save(Customer customer);
 
 }

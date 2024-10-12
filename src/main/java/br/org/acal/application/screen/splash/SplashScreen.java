@@ -25,7 +25,8 @@ public class SplashScreen extends JWindow {
         content.add(imageLabel, BorderLayout.CENTER);
 
         headerLabel = new JLabel("ACAL", SwingConstants.CENTER);
-        statusLabel = new JLabel("Versão 0.1.5 Ligações", SwingConstants.CENTER);
+        statusLabel = new JLabel("Versão 0.1.6", SwingConstants.CENTER);
+
         content.add(statusLabel, BorderLayout.SOUTH);
         content.add(headerLabel, BorderLayout.NORTH);
 

@@ -67,10 +67,8 @@ public class MainScreen extends JFrame {
         customerMenu = new JMenuItem();
         linkMenu = new JMenuItem();
         categoryMenu = new JMenuItem();
-        menuItem4 = new JMenuItem();
         menu2 = new JMenu();
         invoiceMenu = new JMenuItem();
-        menuItem6 = new JMenuItem();
         menu3 = new JMenu();
         menuItem7 = new JMenuItem();
         body = new JPanel();
@@ -109,10 +107,6 @@ public class MainScreen extends JFrame {
                 //---- categoryMenu ----
                 categoryMenu.setText("Categorias");
                 menu1.add(categoryMenu);
-
-                //---- menuItem4 ----
-                menuItem4.setText("Taxas");
-                menu1.add(menuItem4);
             }
             menuBar1.add(menu1);
 
@@ -124,10 +118,6 @@ public class MainScreen extends JFrame {
                 invoiceMenu.setText("Consultas");
                 invoiceMenu.addActionListener(e -> invoiceMenu(e));
                 menu2.add(invoiceMenu);
-
-                //---- menuItem6 ----
-                menuItem6.setText("Consultas Avan\u00e7adas");
-                menu2.add(menuItem6);
             }
             menuBar1.add(menu2);
 
@@ -162,10 +152,8 @@ public class MainScreen extends JFrame {
     private JMenuItem customerMenu;
     private JMenuItem linkMenu;
     private JMenuItem categoryMenu;
-    private JMenuItem menuItem4;
     private JMenu menu2;
     private JMenuItem invoiceMenu;
-    private JMenuItem menuItem6;
     private JMenu menu3;
     private JMenuItem menuItem7;
     private JPanel body;

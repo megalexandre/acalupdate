@@ -24,6 +24,7 @@ new FormModel {
 						"verticalScrollBarPolicy": 22
 						add( new FormComponent( "javax.swing.JTable" ) {
 							name: "table"
+							"selectionMode": 0
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "Center"

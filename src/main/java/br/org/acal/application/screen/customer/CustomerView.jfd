@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "8.2.4.0.393" Java: "17.0.8" encoding: "UTF-8"
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.3" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -104,15 +104,23 @@ new FormModel {
 				}, new FormLayoutConstraints( null ) {
 					"title": "Lista:"
 				} )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
-					name: "panelPartner"
-					"maximumSize": new java.awt.Dimension( 1200, 32767 )
-					"minimumSize": new java.awt.Dimension( 800, 46 )
-					"preferredSize": new java.awt.Dimension( 1200, 84 )
-					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
-						name: "panel9"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+					name: "panel14"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+						"$columnSpecs": "0, 0, 0"
+						"$rowSpecs": "0, 0, 0, 0"
+						"$hGap": 5
+						"$vGap": 5
+						"$alignLeft": true
+						"$alignTop": true
+					} ) {
+						name: "panel10"
+						"preferredSize": new java.awt.Dimension( 1200, 0 )
+						"alignmentX": 1.0f
+						"alignmentY": 1.0f
+						"minimumSize": new java.awt.Dimension( 800, 124 )
 						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
-							name: "panel2"
+							name: "panelName"
 							add( new FormComponent( "javax.swing.JLabel" ) {
 								name: "label4"
 								"text": "Nome:"
@@ -120,36 +128,86 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JTextField" ) {
 								name: "textFieldCustomerName"
 								"preferredSize": new java.awt.Dimension( 500, 26 )
+								"alignmentX": 1.0f
+								"alignmentY": 1.0f
 							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"gridwidth": 2
+							"weightx": 0.7
 						} )
-						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
-							name: "panel10"
-							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
-								name: "panel11"
-								"preferredSize": new java.awt.Dimension( 400, 42 )
-								add( new FormComponent( "javax.swing.JLabel" ) {
-									name: "label5"
-									"text": "Número de Telefone:"
-								} )
-								add( new FormComponent( "javax.swing.JTextField" ) {
-									name: "textFieldPhoneNumber"
-								} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+							name: "panel13"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label8"
+								"text": "Documento"
 							} )
-							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
-								name: "panel12"
-								"preferredSize": new java.awt.Dimension( 400, 42 )
-								add( new FormComponent( "javax.swing.JLabel" ) {
-									name: "label6"
-									"text": "Número de Sócio:"
-								} )
-								add( new FormComponent( "javax.swing.JTextField" ) {
-									name: "textFieldCustomerNumber"
-								} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "textFieldDocumentNumber"
 							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"gridx": 2
+							"weightx": 0.3
 						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+							name: "panelNumber"
+							"preferredSize": new java.awt.Dimension( 400, 42 )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label6"
+								"text": "Número de Sócio:"
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "textFieldCustomerNumber"
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"gridy": 1
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+							name: "panelPhone"
+							"preferredSize": new java.awt.Dimension( 400, 42 )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label5"
+								"text": "Número de Telefone:"
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "textFieldPhoneNumber"
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"gridx": 1
+							"gridy": 1
+							"hAlign": 5
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+							name: "panel11"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label7"
+								"text": "Data de Matrícula:"
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "textFieldCreation"
+								"enabled": false
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"gridy": 1
+							"gridx": 2
+							"hAlign": 5
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "Center"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+						name: "panel15"
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button1"
+							"text": "Salvar"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "saveAction", true ) )
+						}, new FormLayoutConstraints( class java.lang.String ) {
+							"value": "East"
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "South"
 					} )
 				}, new FormLayoutConstraints( null ) {
-					"title": "Sócio:"
+					"title": "Cadastro:"
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {

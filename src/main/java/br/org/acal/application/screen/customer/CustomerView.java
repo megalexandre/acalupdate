@@ -1,36 +1,51 @@
 
 package br.org.acal.application.screen.customer;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.List;
-import javax.swing.*;
-import javax.swing.border.*;
-
 import br.org.acal.application.screen.address.model.AddressTableModel;
+import br.org.acal.application.screen.customer.model.CustomerCreateRequest;
 import br.org.acal.application.screen.customer.model.FindCustomer;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.domain.entity.Customer;
 import br.org.acal.domain.usecase.customer.CustomerFindUseCase;
+import br.org.acal.domain.usecase.customer.CustomerSaveUseCase;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import lombok.val;
-import org.jdesktop.swingx.*;
+import org.jdesktop.swingx.VerticalLayout;
 import org.springframework.stereotype.Component;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.util.stream.IntStream.range;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 @Component
 public class CustomerView extends JPanel {
 
    private final CustomerFindUseCase find;
+   private final CustomerSaveUseCase save;
+   private final Validator validator;
+
    private Customer customer;
    private static final int LIST_INDEX = 0;
    private static final int DETAIL_INDEX = 1;
 
+
    private String selectedIndex;
 
-    public CustomerView(CustomerFindUseCase find) {
+    public CustomerView(
+            CustomerFindUseCase find,
+            CustomerSaveUseCase save,
+            Validator validator) {
         initComponents();
         this.find = find;
+        this.save = save;
+        this.validator = validator;
         startItems();
     }
 
@@ -136,13 +151,65 @@ public class CustomerView extends JPanel {
 
     private void editAction(ActionEvent e) {
         customer = find.execute(FindCustomer.builder().id(selectedIndex).build()).getFirst();
-        createCustomer();
+        loadCustomerData();
         tabbedPaneOptions.setSelectedIndex(DETAIL_INDEX);
     }
 
-    private void createCustomer(){
+    private void loadCustomerData(){
+        textFieldDocumentNumber.setText(customer.getDocument().documentNumber());
         textFieldCustomerName.setText(customer.getName());
         textFieldCustomerNumber.setText(customer.getPhoneNumber());
+    }
+
+    private void saveAction(ActionEvent e) {
+        val request = CustomerCreateRequest.builder()
+                .name(getCustomerName())
+                .document(getDocumentNumber())
+                .partnerNumber(getPartnerName())
+                .phoneNumber(getPhoneNumber())
+                .build();
+
+        val violations = validator.validate(request);
+
+        if (!violations.isEmpty()) {
+            showMessageDialog(this,
+                violations.stream().map(ConstraintViolation::getMessage)
+                        .collect(Collectors.joining("\n"))
+            );
+
+            return;
+        }
+
+        save.execute(request.toCustomer());
+        this.clearForm();
+        tabbedPaneOptions.setSelectedIndex(0);
+    }
+
+    private void clearForm(){
+        textFieldCustomerName.setText("");
+        textFieldDocumentNumber.setText("");
+        textFieldCustomerNumber.setText("");
+        textFieldPhoneNumber.setText("");
+    }
+
+    private String getCustomerName(){
+        return textFieldCustomerName.getText();
+    }
+
+    private String getDocumentNumber(){
+        return textFieldDocumentNumber.getText();
+    }
+
+    private String getPartnerName(){
+        return textFieldCustomerNumber.getText();
+    }
+
+    private String getPhoneNumber(){
+        return textFieldPhoneNumber.getText();
+    }
+
+    private String getCreation(){
+        return textFieldCreation.getText();
     }
 
     private void initComponents() {
@@ -167,18 +234,25 @@ public class CustomerView extends JPanel {
         panel3 = new JPanel();
         buttonClear = new JButton();
         buttonSeach = new JButton();
-        panelPartner = new JPanel();
-        panel9 = new JPanel();
-        panel2 = new JPanel();
+        panel14 = new JPanel();
+        panel10 = new JPanel();
+        panelName = new JPanel();
         label4 = new JLabel();
         textFieldCustomerName = new JTextField();
-        panel10 = new JPanel();
-        panel11 = new JPanel();
-        label5 = new JLabel();
-        textFieldPhoneNumber = new JTextField();
-        panel12 = new JPanel();
+        panel13 = new JPanel();
+        label8 = new JLabel();
+        textFieldDocumentNumber = new JTextField();
+        panelNumber = new JPanel();
         label6 = new JLabel();
         textFieldCustomerNumber = new JTextField();
+        panelPhone = new JPanel();
+        label5 = new JLabel();
+        textFieldPhoneNumber = new JTextField();
+        panel11 = new JPanel();
+        label7 = new JLabel();
+        textFieldCreation = new JTextField();
+        panel15 = new JPanel();
+        button1 = new JButton();
         contextMenu = new JPopupMenu();
         menuItemEdit = new JMenuItem();
         menuItem2 = new JMenuItem();
@@ -300,64 +374,111 @@ public class CustomerView extends JPanel {
             }
             tabbedPaneOptions.addTab("Lista:", panelList);
 
-            //======== panelPartner ========
+            //======== panel14 ========
             {
-                panelPartner.setMaximumSize(new Dimension(1200, 32767));
-                panelPartner.setMinimumSize(new Dimension(800, 46));
-                panelPartner.setPreferredSize(new Dimension(1200, 84));
-                panelPartner.setLayout(new VerticalLayout());
+                panel14.setLayout(new BorderLayout());
 
-                //======== panel9 ========
+                //======== panel10 ========
                 {
-                    panel9.setLayout(new VerticalLayout());
+                    panel10.setPreferredSize(new Dimension(1200, 0));
+                    panel10.setAlignmentX(1.0F);
+                    panel10.setAlignmentY(1.0F);
+                    panel10.setMinimumSize(new Dimension(800, 124));
+                    panel10.setLayout(new GridBagLayout());
+                    ((GridBagLayout)panel10.getLayout()).columnWidths = new int[] {0, 0, 0, 0};
+                    ((GridBagLayout)panel10.getLayout()).rowHeights = new int[] {0, 0, 0, 0, 0};
+                    ((GridBagLayout)panel10.getLayout()).columnWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
+                    ((GridBagLayout)panel10.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
-                    //======== panel2 ========
+                    //======== panelName ========
                     {
-                        panel2.setLayout(new VerticalLayout());
+                        panelName.setLayout(new VerticalLayout());
 
                         //---- label4 ----
                         label4.setText("Nome:");
-                        panel2.add(label4);
+                        panelName.add(label4);
 
                         //---- textFieldCustomerName ----
                         textFieldCustomerName.setPreferredSize(new Dimension(500, 26));
-                        panel2.add(textFieldCustomerName);
+                        textFieldCustomerName.setAlignmentX(1.0F);
+                        textFieldCustomerName.setAlignmentY(1.0F);
+                        panelName.add(textFieldCustomerName);
                     }
-                    panel9.add(panel2);
+                    panel10.add(panelName, new GridBagConstraints(0, 0, 2, 1, 0.7, 0.0,
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                        new Insets(0, 0, 5, 5), 0, 0));
 
-                    //======== panel10 ========
+                    //======== panel13 ========
                     {
-                        panel10.setLayout(new HorizontalLayout());
+                        panel13.setLayout(new VerticalLayout());
 
-                        //======== panel11 ========
-                        {
-                            panel11.setPreferredSize(new Dimension(400, 42));
-                            panel11.setLayout(new VerticalLayout());
-
-                            //---- label5 ----
-                            label5.setText("N\u00famero de Telefone:");
-                            panel11.add(label5);
-                            panel11.add(textFieldPhoneNumber);
-                        }
-                        panel10.add(panel11);
-
-                        //======== panel12 ========
-                        {
-                            panel12.setPreferredSize(new Dimension(400, 42));
-                            panel12.setLayout(new VerticalLayout());
-
-                            //---- label6 ----
-                            label6.setText("N\u00famero de S\u00f3cio:");
-                            panel12.add(label6);
-                            panel12.add(textFieldCustomerNumber);
-                        }
-                        panel10.add(panel12);
+                        //---- label8 ----
+                        label8.setText("Documento");
+                        panel13.add(label8);
+                        panel13.add(textFieldDocumentNumber);
                     }
-                    panel9.add(panel10);
+                    panel10.add(panel13, new GridBagConstraints(2, 0, 1, 1, 0.3, 0.0,
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                        new Insets(0, 0, 5, 0), 0, 0));
+
+                    //======== panelNumber ========
+                    {
+                        panelNumber.setPreferredSize(new Dimension(400, 42));
+                        panelNumber.setLayout(new VerticalLayout());
+
+                        //---- label6 ----
+                        label6.setText("N\u00famero de S\u00f3cio:");
+                        panelNumber.add(label6);
+                        panelNumber.add(textFieldCustomerNumber);
+                    }
+                    panel10.add(panelNumber, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                        new Insets(0, 0, 5, 5), 0, 0));
+
+                    //======== panelPhone ========
+                    {
+                        panelPhone.setPreferredSize(new Dimension(400, 42));
+                        panelPhone.setLayout(new VerticalLayout());
+
+                        //---- label5 ----
+                        label5.setText("N\u00famero de Telefone:");
+                        panelPhone.add(label5);
+                        panelPhone.add(textFieldPhoneNumber);
+                    }
+                    panel10.add(panelPhone, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                        new Insets(0, 0, 5, 5), 0, 0));
+
+                    //======== panel11 ========
+                    {
+                        panel11.setLayout(new VerticalLayout());
+
+                        //---- label7 ----
+                        label7.setText("Data de Matr\u00edcula:");
+                        panel11.add(label7);
+
+                        //---- textFieldCreation ----
+                        textFieldCreation.setEnabled(false);
+                        panel11.add(textFieldCreation);
+                    }
+                    panel10.add(panel11, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0,
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                        new Insets(0, 0, 5, 0), 0, 0));
                 }
-                panelPartner.add(panel9);
+                panel14.add(panel10, BorderLayout.CENTER);
+
+                //======== panel15 ========
+                {
+                    panel15.setLayout(new BorderLayout());
+
+                    //---- button1 ----
+                    button1.setText("Salvar");
+                    button1.addActionListener(e -> saveAction(e));
+                    panel15.add(button1, BorderLayout.EAST);
+                }
+                panel14.add(panel15, BorderLayout.SOUTH);
             }
-            tabbedPaneOptions.addTab("S\u00f3cio:", panelPartner);
+            tabbedPaneOptions.addTab("Cadastro:", panel14);
         }
         add(tabbedPaneOptions);
 
@@ -401,18 +522,25 @@ public class CustomerView extends JPanel {
     private JPanel panel3;
     private JButton buttonClear;
     private JButton buttonSeach;
-    private JPanel panelPartner;
-    private JPanel panel9;
-    private JPanel panel2;
+    private JPanel panel14;
+    private JPanel panel10;
+    private JPanel panelName;
     private JLabel label4;
     private JTextField textFieldCustomerName;
-    private JPanel panel10;
-    private JPanel panel11;
-    private JLabel label5;
-    private JTextField textFieldPhoneNumber;
-    private JPanel panel12;
+    private JPanel panel13;
+    private JLabel label8;
+    private JTextField textFieldDocumentNumber;
+    private JPanel panelNumber;
     private JLabel label6;
     private JTextField textFieldCustomerNumber;
+    private JPanel panelPhone;
+    private JLabel label5;
+    private JTextField textFieldPhoneNumber;
+    private JPanel panel11;
+    private JLabel label7;
+    private JTextField textFieldCreation;
+    private JPanel panel15;
+    private JButton button1;
     private JPopupMenu contextMenu;
     private JMenuItem menuItemEdit;
     private JMenuItem menuItem2;

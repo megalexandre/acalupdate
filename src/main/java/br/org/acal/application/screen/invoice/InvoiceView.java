@@ -420,6 +420,9 @@ public class InvoiceView extends JPanel {
                 //======== scrollPane1 ========
                 {
                     scrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+                    //---- table ----
+                    table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                     scrollPane1.setViewportView(table);
                 }
                 panel1.add(scrollPane1, BorderLayout.CENTER);

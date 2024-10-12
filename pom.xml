@@ -6,7 +6,7 @@
 
     <groupId>acal</groupId>
     <artifactId>acal</artifactId>
-    <version>0.1.5</version>
+    <version>0.1.6</version>
 
     <properties>
         <java.version>21</java.version>

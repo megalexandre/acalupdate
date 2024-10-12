@@ -14,6 +14,7 @@ public interface CustomerMapper {
     @Mapping(source = "customerModel", target = "document", qualifiedByName = "mapDocument")
     Customer map(CustomerModel customerModel);
 
+    @Mapping(source = "customer", target = "cpf", qualifiedByName = "documentToCpf")
     CustomerModel map(Customer customer);
 
     @Named("mapDocument")
@@ -23,4 +24,10 @@ public interface CustomerMapper {
                 .number(StringUtil.clean(customerModel.getCpf() == null ? customerModel.getCnpj() : customerModel.getCpf()))
                 .build();
     }
+
+    @Named("documentToCpf")
+    default String documentToCpf(Customer customer) {
+        return customer.getDocument().getNumber();
+    }
+
 }

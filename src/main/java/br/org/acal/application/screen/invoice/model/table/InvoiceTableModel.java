@@ -13,6 +13,7 @@ public class InvoiceTableModel extends AbstractTableModel {
     private final int DUO_DATE = 5;
     private final int PAYED_AT = 6;
     private final int TOTAL = 7;
+
     private final List<InvoiceTable> itens;
 
     private final String[] columns = new String[]{

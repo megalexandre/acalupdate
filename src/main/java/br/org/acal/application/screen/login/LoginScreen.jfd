@@ -1,48 +1,56 @@
-JFDML JFormDesigner: "8.2.3.0.386" Java: "17.0.8" encoding: "UTF-8"
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.3" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
-		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 			name: "root"
 			"border": new javax.swing.border.EmptyBorder( 5, 5, 5, 5 )
-			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) {
-				"axis": 1
-			} ) {
-				name: "panel7"
-				"toolTipText": "Login:"
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
-					name: "panel8"
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "jLabel1"
-						"text": "Nome"
-					} )
-					add( new FormComponent( "javax.swing.JTextField" ) {
-						name: "name"
-						"text": "root"
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldTelaLoginNomeActionPerformed", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "jLabel4"
-						"text": "Senha"
-						"horizontalAlignment": 2
-					} )
-					add( new FormComponent( "javax.swing.JPasswordField" ) {
-						name: "password"
-						"text": "123"
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jPasswordFieldTelaPrincipalSenhaActionPerformed", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JSeparator" ) {
-						name: "separator1"
-					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "jButtonTelaLoginLogar"
-						"text": "Logar"
-						"minimumSize": new java.awt.Dimension( 180, 30 )
-						"preferredSize": new java.awt.Dimension( 180, 22 )
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTelaLoginLogarActionPerformed", true ) )
-					} )
+			"preferredSize": new java.awt.Dimension( 190, 0 )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+				name: "panel1"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel1"
+					"text": "Nome"
+					"horizontalAlignment": 0
 				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "name"
+					"text": "root"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldTelaLoginNomeActionPerformed", true ) )
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+				name: "panel2"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel4"
+					"text": "Senha"
+					"horizontalAlignment": 0
+				} )
+				add( new FormComponent( "javax.swing.JPasswordField" ) {
+					name: "password"
+					"text": "123"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jPasswordFieldTelaPrincipalSenhaActionPerformed", true ) )
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "North"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+				name: "panel3"
+				add( new FormComponent( "javax.swing.JSeparator" ) {
+					name: "separator1"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButtonTelaLoginLogar"
+					"text": "Logar"
+					"minimumSize": new java.awt.Dimension( 180, 30 )
+					"preferredSize": new java.awt.Dimension( 180, 22 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButtonTelaLoginLogarActionPerformed", true ) )
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "South"
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 532 )

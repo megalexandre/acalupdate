@@ -1,7 +1,5 @@
 package br.org.acal.application.screen.register.model;
 
-import br.org.acal.domain.entity.Address;
-
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 

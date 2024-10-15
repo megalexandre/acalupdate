@@ -35,10 +35,12 @@ public interface InvoiceRepositoryJpa extends JpaRepository<InvoiceModel, String
         " LEFT JOIN FETCH link.category category " +
         " LEFT JOIN FETCH category.price price " +
         " WHERE " +
+
             "(:selectedCustomer IS NULL OR customer.number = :selectedCustomer ) AND " +
             "(:selectedCategory IS NULL OR category.number = :selectedCategory ) AND " +
             "(:selectedAddress IS NULL OR address.number = :selectedAddress ) AND" +
             "(:periodStart IS NULL OR invoice.period BETWEEN :periodStart AND :periodEnd) AND " +
+            "(:payedAt IS NULL OR payedAt BETWEEN :payedAtAtStart AND :payedAtAtEnd) AND " +
             "(:open IS NULL OR invoice.payedAt is null) AND " +
             "(:closed IS NULL OR invoice.payedAt is not null) AND " +
             "(:overdue IS NULL OR (invoice.payedAt is null and dueDate < :now))  AND " +
@@ -54,6 +56,9 @@ public interface InvoiceRepositoryJpa extends JpaRepository<InvoiceModel, String
         @Param("open") Boolean open,
         @Param("closed") Boolean closed,
         @Param("overdue") Boolean overdue,
+        @Param("payedAt") LocalDateTime payedAt,
+        @Param("payedAtAtStart") LocalDateTime payedAtAtStart,
+        @Param("payedAtAtEnd") LocalDateTime payedAtAtEnd,
         @Param("now") LocalDateTime now,
         Pageable pageable
     );
@@ -73,6 +78,7 @@ public interface InvoiceRepositoryJpa extends JpaRepository<InvoiceModel, String
                     "(:selectedCategory IS NULL OR category.number = :selectedCategory ) AND " +
                     "(:selectedAddress IS NULL OR address.number = :selectedAddress ) AND" +
                     "(:periodStart IS NULL OR invoice.period BETWEEN :periodStart AND :periodEnd) AND " +
+                    "(:payedAt IS NULL OR payedAt BETWEEN :payedAtAtStart AND :payedAtAtEnd) AND " +
                     "(:open IS NULL OR invoice.payedAt is null) AND " +
                     "(:closed IS NULL OR invoice.payedAt is not null) AND " +
                     "(:overdue IS NULL OR (invoice.payedAt is null and dueDate < :now))  AND " +
@@ -88,7 +94,11 @@ public interface InvoiceRepositoryJpa extends JpaRepository<InvoiceModel, String
             @Param("open") Boolean open,
             @Param("closed") Boolean closed,
             @Param("overdue") Boolean overdue,
-            @Param("now") LocalDateTime now
+            @Param("now") LocalDateTime now,
+            @Param("payedAt") LocalDateTime payedAt,
+            @Param("payedAtAtStart") LocalDateTime payedAtAtStart,
+            @Param("payedAtAtEnd") LocalDateTime payedAtAtEnd
+
     );
 }
 

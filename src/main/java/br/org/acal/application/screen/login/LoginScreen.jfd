@@ -20,7 +20,7 @@ new FormModel {
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jTextFieldTelaLoginNomeActionPerformed", true ) )
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
-				"value": "Center"
+				"value": "North"
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
 				name: "panel2"
@@ -35,7 +35,7 @@ new FormModel {
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jPasswordFieldTelaPrincipalSenhaActionPerformed", true ) )
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
-				"value": "North"
+				"value": "Center"
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
 				name: "panel3"

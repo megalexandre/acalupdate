@@ -1,19 +1,11 @@
 package br.org.acal.application.screen.splash;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JWindow;
-import javax.swing.SwingConstants;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 
 public class SplashScreen extends JWindow {
-    private JLabel statusLabel;
-    private JLabel headerLabel;
-    private JLabel imageLabel;
+
+    private JProgressBar progressBar;
 
     public SplashScreen() {
         JPanel content = new JPanel(new BorderLayout());
@@ -21,14 +13,18 @@ public class SplashScreen extends JWindow {
 
         ImageIcon icon = new SplashImages().random();
 
-        imageLabel = new JLabel(icon);
+        JLabel imageLabel = new JLabel(icon);
         content.add(imageLabel, BorderLayout.CENTER);
 
-        headerLabel = new JLabel("ACAL", SwingConstants.CENTER);
-        statusLabel = new JLabel("Versão 0.1.6", SwingConstants.CENTER);
+        JLabel headerLabel = new JLabel("ACAL Versão 0.1.7", SwingConstants.CENTER);
 
-        content.add(statusLabel, BorderLayout.SOUTH);
+        progressBar = new JProgressBar();
+        progressBar.setIndeterminate(true);
+        progressBar.setStringPainted(true);
+        progressBar.setString("Loading...");
+
         content.add(headerLabel, BorderLayout.NORTH);
+        content.add(progressBar, BorderLayout.SOUTH);
 
         int width = 1024/2;
         int height = 768/2;
@@ -46,9 +42,5 @@ public class SplashScreen extends JWindow {
     public void hideSplash() {
         setVisible(false);
         dispose();
-    }
-
-    public void setStatus(String message) {
-        statusLabel.setText(message);
     }
 }

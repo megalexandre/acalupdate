@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
 
@@ -24,6 +25,11 @@ public class InvoiceFilter {
     private String selectedCustomer;
     private String period;
     private Pageable pageable;
+    private LocalDateTime createdAt;
+    private LocalDateTime payedAt;
+    private LocalDateTime payedAtStart;
+    private LocalDateTime payedAtEnd;
+
     public Optional<StatusPaymentInvoice> status(){
         return Optional.ofNullable(status);
     }
@@ -42,6 +48,11 @@ public class InvoiceFilter {
     public Optional<Pageable> pageable(){
         return Optional.ofNullable(pageable);
     }
+    public Optional<LocalDateTime> createdAt(){ return Optional.ofNullable(createdAt);}
+    public Optional<LocalDateTime> payedAtStart(){ return Optional.ofNullable(payedAtStart);}
+    public Optional<LocalDateTime> payedAtEnd(){ return Optional.ofNullable(payedAtEnd);}
+
+
     public Optional<Period> period(){
 
         try {

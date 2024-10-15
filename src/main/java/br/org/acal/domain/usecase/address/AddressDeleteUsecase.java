@@ -3,7 +3,7 @@ package br.org.acal.domain.usecase.address;
 import br.org.acal.domain.datasource.AddressDataSource;
 import br.org.acal.domain.datasource.LinkDataSource;
 import br.org.acal.domain.model.LinkFilter;
-import br.org.acal.domain.response.UsecaseResponse;
+import br.org.acal.domain.model.UseCaseResponse;
 import br.org.acal.domain.usecase.Usecase;
 import lombok.val;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 import static java.util.List.of;
 
 @Service
-public class AddressDeleteUsecase implements Serializable, Usecase<String, UsecaseResponse> {
+public class AddressDeleteUsecase implements Serializable, Usecase<String, UseCaseResponse> {
     @Serial
     private static final long serialVersionUID = 1L;
     private final AddressDataSource addressDataSource;
@@ -28,16 +28,16 @@ public class AddressDeleteUsecase implements Serializable, Usecase<String, Useca
     }
 
     @Override
-    public UsecaseResponse execute(String item) {
+    public UseCaseResponse execute(String item) {
         val find = LinkFilter.builder().addressNumber(item).build() ;
 
         if(!linkDataSource.exists(find)){
             addressDataSource.delete(item);
-            return UsecaseResponse.builder().success(true).build();
+            return UseCaseResponse.builder().success(true).build();
         }
 
         String ERROR_MESSAGE = "Não pode ser deletado, está associado uma ligação";
-        return UsecaseResponse.builder().success(false).errors(of(ERROR_MESSAGE)).build();
+        return UseCaseResponse.builder().success(false).errors(of(ERROR_MESSAGE)).build();
     }
 
 }

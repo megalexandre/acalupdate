@@ -110,7 +110,7 @@ public class LoginScreen extends JFrame {
                 name.addActionListener(e -> jTextFieldTelaLoginNomeActionPerformed(e));
                 panel1.add(name);
             }
-            root.add(panel1, BorderLayout.CENTER);
+            root.add(panel1, BorderLayout.NORTH);
 
             //======== panel2 ========
             {
@@ -126,7 +126,7 @@ public class LoginScreen extends JFrame {
                 password.addActionListener(e -> jPasswordFieldTelaPrincipalSenhaActionPerformed(e));
                 panel2.add(password);
             }
-            root.add(panel2, BorderLayout.NORTH);
+            root.add(panel2, BorderLayout.CENTER);
 
             //======== panel3 ========
             {

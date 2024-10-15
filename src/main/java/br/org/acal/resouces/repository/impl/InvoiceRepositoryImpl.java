@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -71,6 +72,17 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
         Boolean statusPayed = createStatus(invoiceFilter,StatusPaymentInvoice.PAYED);
         Boolean statusOverdue = createStatus(invoiceFilter,StatusPaymentInvoice.OVERDUE);
 
+        LocalDateTime payedAt = invoiceFilter.payedAtStart().orElse(null);
+
+        LocalDateTime payedAtAtStart = invoiceFilter.payedAtStart()
+                .map(it -> it.toLocalDate().atStartOfDay())
+                .orElse(null);
+
+        LocalDateTime payedAtAtEnd = invoiceFilter.payedAtEnd()
+                .map(it -> it.with(LocalTime.MAX))
+                .orElse(null);
+
+
         return repositoryJpa.findInvoices(
             invoiceFilter.selectedNumber().orElse(null),
             invoiceFilter.selectedCustomer().orElse(null),
@@ -81,13 +93,26 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
             statusOpen,
             statusPayed,
             statusOverdue,
-            LocalDateTime.now()
+            LocalDateTime.now(),
+            payedAt,
+            payedAtAtStart,
+            payedAtAtEnd
         ).stream().map(invoiceMapper::map).toList();
     }
     private Page<Invoice> baseQuery(InvoiceFilter invoiceFilter, Pageable pageable) {
         Boolean statusOpen = createStatus(invoiceFilter,StatusPaymentInvoice.OPEN);
         Boolean statusPayed = createStatus(invoiceFilter,StatusPaymentInvoice.PAYED);
         Boolean statusOverdue = createStatus(invoiceFilter,StatusPaymentInvoice.OVERDUE);
+
+        LocalDateTime payedAt = invoiceFilter.payedAtStart().orElse(null);
+
+        LocalDateTime payedAtAtStart = invoiceFilter.payedAtStart()
+                .map(it -> it.toLocalDate().atStartOfDay())
+                .orElse(null);
+
+        LocalDateTime payedAtAtEnd = invoiceFilter.payedAtEnd()
+                .map(it -> it.with(LocalTime.MAX))
+                .orElse(null);
 
         var page = repositoryJpa.paginateInvoices(
                 invoiceFilter.selectedNumber().orElse(null),
@@ -99,6 +124,9 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
                 statusOpen,
                 statusPayed,
                 statusOverdue,
+                payedAt,
+                payedAtAtStart,
+                payedAtAtEnd,
                 LocalDateTime.now(),
                 pageable
         );

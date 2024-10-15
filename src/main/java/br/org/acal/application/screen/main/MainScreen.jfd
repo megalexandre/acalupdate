@@ -26,7 +26,6 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "customerMenu"
 						"text": "Sócios"
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "CustomerMenu", true ) )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "customerMenu", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
@@ -54,6 +53,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "menuItem7"
 						"text": "Visualizar"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuRegister", true ) )
 					} )
 				} )
 			}

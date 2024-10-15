@@ -1,0 +1,86 @@
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.3" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+				name: "registerMainView"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+					name: "panel2"
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane"
+						add( new FormComponent( "javax.swing.JTable" ) {
+							name: "table"
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "Center"
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+						name: "panel1"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+							name: "panel4"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+								name: "panel3"
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "labelQuantity"
+									"text": "text"
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "labelTotal"
+									"text": "text"
+								} )
+							}, new FormLayoutConstraints( class java.lang.String ) {
+								"value": "Center"
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+								name: "panel5"
+								add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+									name: "panel6"
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "label1"
+										"text": "Início:"
+									} )
+									add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+										name: "formattedTextFieldDateStart"
+										"preferredSize": new java.awt.Dimension( 100, 34 )
+									} )
+									add( new FormComponent( "javax.swing.JLabel" ) {
+										name: "label2"
+										"text": "Final"
+									} )
+									add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+										name: "formattedTextFieldDateEnd"
+										"preferredSize": new java.awt.Dimension( 100, 34 )
+									} )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "buttonToday"
+									"text": "Hoje"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "todayAction", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "buttonSearch"
+									"text": "Consultar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonSearchAction", true ) )
+								} )
+							}, new FormLayoutConstraints( class java.lang.String ) {
+								"value": "East"
+							} )
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "South"
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Hoje:"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 420, 300 )
+		} )
+	}
+}

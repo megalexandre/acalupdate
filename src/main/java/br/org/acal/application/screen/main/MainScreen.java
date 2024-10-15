@@ -1,34 +1,47 @@
 package br.org.acal.application.screen.main;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
-
 import br.org.acal.application.screen.address.AddressView;
 import br.org.acal.application.screen.customer.CustomerView;
 import br.org.acal.application.screen.invoice.InvoiceView;
 import br.org.acal.application.screen.link.LinkView;
-import br.org.acal.domain.entity.Invoice;
+import br.org.acal.application.screen.register.RegisterMainView;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
+import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 @Component
 public class MainScreen extends JFrame {
+
     private final AddressView addressView;
     private final CustomerView customerView;
     private final InvoiceView invoiceView;
     private final LinkView linkView;
+    private final RegisterMainView registerMainView;
 
-    public MainScreen(AddressView addressView, CustomerView customerView, InvoiceView invoiceView, LinkView linkView) {
+    public MainScreen(
+            AddressView addressView,
+            CustomerView customerView,
+            InvoiceView invoiceView,
+            LinkView linkView,
+            RegisterMainView registerMainView
+    ) {
+
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(800,600));
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
+
+
         this.addressView = addressView;
         this.customerView = customerView;
         this.invoiceView = invoiceView;
         this.linkView = linkView;
+        this.registerMainView = registerMainView;
     }
 
     private void addressMenu(ActionEvent e) {
@@ -42,7 +55,12 @@ public class MainScreen extends JFrame {
     private void invoiceMenu(ActionEvent e) {
         showPanel(invoiceView);
     }
+
     private void linkMenu(ActionEvent e) { showPanel(linkView);}
+
+    private void menuRegister(ActionEvent e) {
+        showPanel(registerMainView);
+    }
 
     private void showPanel(JPanel pane){
         body.removeAll();
@@ -50,13 +68,6 @@ public class MainScreen extends JFrame {
         body.revalidate();
         body.repaint();
     }
-
-    private void CustomerMenu(ActionEvent e) {
-        // TODO add your code here
-    }
-
-
-
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -93,10 +104,7 @@ public class MainScreen extends JFrame {
 
                 //---- customerMenu ----
                 customerMenu.setText("S\u00f3cios");
-                customerMenu.addActionListener(e -> {
-			CustomerMenu(e);
-			customerMenu(e);
-		});
+                customerMenu.addActionListener(e -> customerMenu(e));
                 menu1.add(customerMenu);
 
                 //---- linkMenu ----
@@ -127,6 +135,7 @@ public class MainScreen extends JFrame {
 
                 //---- menuItem7 ----
                 menuItem7.setText("Visualizar");
+                menuItem7.addActionListener(e -> menuRegister(e));
                 menu3.add(menuItem7);
             }
             menuBar1.add(menu3);

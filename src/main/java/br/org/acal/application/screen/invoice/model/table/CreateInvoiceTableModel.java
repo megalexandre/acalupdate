@@ -10,9 +10,10 @@ public class CreateInvoiceTableModel extends AbstractTableModel {
     private final int ADDRESS = 2;
     private final int GROUP = 3;
     private final int CATEGORY = 4;
-    private final int WATER = 5;
-    private final int TOTAL = 6;
-    private final int CHECKED = 7;
+    private final int WATER_START = 5;
+    private final int WATER_END = 6;
+    private final int TOTAL = 7;
+    private final int CHECKED = 8;
 
     public final List<CreateInvoiceTable> items;
 
@@ -22,7 +23,8 @@ public class CreateInvoiceTableModel extends AbstractTableModel {
             "ENDEREÇO",
             "CATEGORIA",
             "GRUPO",
-            "CONSUMO",
+            "CONSUMO INICIAL",
+            "CONSUMO FINAL",
             "TOTAL:",
             "SELECIONADO"};
 
@@ -54,35 +56,46 @@ public class CreateInvoiceTableModel extends AbstractTableModel {
             case ADDRESS -> table.getAddress();
             case GROUP -> table.getGroup();
             case CATEGORY -> table.getCategory();
-            case WATER -> table.getWater();
+            case WATER_START -> table.getWaterStart();
+            case WATER_END -> table.getWaterEnd();
             case TOTAL -> table.getTotal();
-            case CHECKED -> table.getChecked();
+            case CHECKED -> table.isChecked();
             default -> throw new IndexOutOfBoundsException("Campo Não Encontrado");
         };
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        if (columnIndex == CHECKED) {
-            return Boolean.class;
-        } else {
-            return String.class;
-        }
+        return switch (columnIndex) {
+            case CHECKED -> Boolean.class;
+            default -> String.class;
+        };
     }
 
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex == CHECKED;
+        return columnIndex == CHECKED || columnIndex == WATER_START || columnIndex == WATER_END;
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        if (columnIndex == CHECKED) {
-            CreateInvoiceTable table = items.get(rowIndex);
-            table.setChecked((Boolean) aValue);
-            fireTableCellUpdated(rowIndex, columnIndex);
+        CreateInvoiceTable table = items.get(rowIndex);
+        switch (columnIndex) {
+            case CHECKED -> {
+                table.setChecked((Boolean) aValue);
+                fireTableCellUpdated(rowIndex, columnIndex);
+            }
+            case WATER_START -> {
+                table.setWaterStart((String) aValue);
+                fireTableCellUpdated(rowIndex, columnIndex);
+            }
+            case WATER_END -> {
+                table.setWaterEnd((String) aValue);
+                fireTableCellUpdated(rowIndex, columnIndex);
+            }
         }
     }
+
 
 }

@@ -22,9 +22,10 @@ public class CreateInvoiceTable {
     private String customer;
     private String category;
     private String group;
-    private String water;
+    private String waterStart;
+    private String waterEnd;
     private String total;
-    private Boolean checked;
+    private boolean checked;
 
     public static CreateInvoiceTable of(CreateInvoice it){
         return CreateInvoiceTable.builder()
@@ -34,11 +35,14 @@ public class CreateInvoiceTable {
                 .customer(it.getLink().getCustomer().getName())
                 .group(it.getLink().getCategory().getGroup().getDescription())
                 .category(it.getLink().getCategory().getName())
-                .water(formatAsNumber(it.getInvoice().useFullConsumption()))
+                .waterStart(formatAsNumber(it.getInvoice().useFullConsumption()))
+                .waterEnd(formatAsNumber(it.getInvoice().useFullConsumption()))
                 .total(BigDecimalUtil.asString(it.getInvoice().totalValue()))
                 .checked(false)
                 .build();
     }
+
+
 
     private static String formatAsNumber(Double value) {
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.of("pt", "BR"));
@@ -47,4 +51,11 @@ public class CreateInvoiceTable {
         return numberFormat.format(value);
     }
 
+    public Double getWaterStartAsDouble(){
+        return Double.valueOf(waterStart.replace(".", ""));
+    }
+
+    public Double getWaterEndAsDouble(){
+        return Double.valueOf(waterEnd.replace(".", ""));
+    }
 }

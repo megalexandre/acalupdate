@@ -9,11 +9,13 @@ import java.util.List;
 
 @Component
 public interface InvoiceDataSource {
+
     List<Invoice> find(InvoiceFilter invoiceFilter);
     Page<Invoice> paginate(InvoiceFilter invoiceFilter);
     List<Invoice> list(InvoiceFilter invoiceFilter);
     List<Invoice> findAll();
     Invoice save(Invoice invoice);
     List<Invoice> save (List<Invoice> invoices);
+    void delete(String number);
 
 }

@@ -165,7 +165,6 @@ new FormModel {
 							} )
 							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
 								name: "panel12"
-								"border": new javax.swing.border.EtchedBorder( 1, null, null )
 								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "buttonFirst"
 									"text": "<< Primera"
@@ -223,6 +222,11 @@ new FormModel {
 				name: "menuItemReceiver"
 				"text": "Receber"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "receiverAction", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItemDelete"
+				"text": "Deletar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "deleteAction", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 180, 640 )

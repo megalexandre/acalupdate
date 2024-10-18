@@ -48,6 +48,15 @@ new FormModel {
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menuWater"
+					"text": "Água"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItemSearch"
+						"text": "Consultas"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchEvent", true ) )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
 					name: "menu3"
 					"text": "Caixa"
 					add( new FormComponent( "javax.swing.JMenuItem" ) {

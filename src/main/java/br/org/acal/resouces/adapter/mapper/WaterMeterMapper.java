@@ -1,6 +1,7 @@
 package br.org.acal.resouces.adapter.mapper;
 
 import br.org.acal.domain.entity.WaterMeter;
+import br.org.acal.resouces.model.InvoiceModel;
 import br.org.acal.resouces.model.WaterMeterModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,6 +18,7 @@ public interface WaterMeterMapper {
     @Mapping(source = "number", target = "number", qualifiedByName = "defaultString")
     @Mapping(source = "consumptionStart", target = "consumptionStart", qualifiedByName = "defaultDouble")
     @Mapping(source = "consumptionEnd", target = "consumptionEnd", qualifiedByName = "defaultDouble")
+    @Mapping(source = "invoiceNumber", target = "invoice.number")
     WaterMeterModel map(WaterMeter entity);
 
     @Named("defaultString")
@@ -28,4 +30,5 @@ public interface WaterMeterMapper {
     default Double defaultDouble(Double value) {
         return value != null ? value : 0d;
     }
+
 }

@@ -8,6 +8,7 @@ import br.org.acal.domain.model.InvoiceFilter;
 import br.org.acal.resouces.adapter.mapper.InvoiceMapper;
 import br.org.acal.resouces.model.InvoiceModel;
 import br.org.acal.resouces.repository.interfaces.InvoiceRepositoryJpa;
+import br.org.acal.resouces.repository.interfaces.WaterMeterRepositoryJpa;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -25,12 +26,15 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
 
     private final InvoiceRepositoryJpa repositoryJpa;
     private final InvoiceMapper invoiceMapper;
+    private final WaterMeterRepositoryJpa waterMeterRepositoryJpa;
 
     public InvoiceRepositoryImpl(
             InvoiceRepositoryJpa repositoryJpa,
+            WaterMeterRepositoryJpa waterMeterRepositoryJpa,
             InvoiceMapper invoiceMapper
     ){
         this.repositoryJpa = repositoryJpa;
+        this.waterMeterRepositoryJpa = waterMeterRepositoryJpa;
         this.invoiceMapper = invoiceMapper ;
     }
 
@@ -47,9 +51,26 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
 
     @Override
     public List<Invoice> save(List<Invoice> invoices) {
-        List<InvoiceModel> items = invoices.stream().map(invoiceMapper::map).toList();
+        List<InvoiceModel> items = invoices.stream()
+            .map(it -> {
+                 var item = invoiceMapper.map(it);
+                 item.getWaterMeter().setInvoice(item);
+                 return item;
+            }).toList();
         List<InvoiceModel> savedItems = repositoryJpa.saveAll(items);
+
+        savedItems.forEach(it ->{
+            it.getWaterMeter().setInvoice(it);
+                waterMeterRepositoryJpa.save(it.getWaterMeter());
+            }
+        );
+
         return savedItems.stream().map(invoiceMapper::map).toList();
+    }
+
+    @Override
+    public void delete(String number) {
+        repositoryJpa.deleteById(number);
     }
 
     @Override

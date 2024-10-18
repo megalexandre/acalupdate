@@ -1,7 +1,6 @@
 
 package br.org.acal.application.screen.register;
 
-import java.awt.event.*;
 import br.org.acal.application.screen.register.model.PaymentTable;
 import br.org.acal.application.screen.register.model.PaymentTableModel;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
@@ -10,19 +9,20 @@ import br.org.acal.domain.entity.Payment;
 import br.org.acal.domain.model.PaymentFilter;
 import br.org.acal.domain.usecase.register.PaymentPaginateUseCase;
 import lombok.val;
-import org.jdesktop.swingx.*;
+import org.jdesktop.swingx.HorizontalLayout;
+import org.jdesktop.swingx.VerticalLayout;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;

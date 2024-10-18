@@ -5,7 +5,7 @@ import br.org.acal.application.screen.customer.CustomerView;
 import br.org.acal.application.screen.invoice.InvoiceView;
 import br.org.acal.application.screen.link.LinkView;
 import br.org.acal.application.screen.register.RegisterMainView;
-import org.springframework.context.annotation.Lazy;
+import br.org.acal.application.screen.water.WaterMainView;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -21,13 +21,15 @@ public class MainScreen extends JFrame {
     private final InvoiceView invoiceView;
     private final LinkView linkView;
     private final RegisterMainView registerMainView;
+    private final WaterMainView waterMainView;
 
     public MainScreen(
             AddressView addressView,
             CustomerView customerView,
             InvoiceView invoiceView,
             LinkView linkView,
-            RegisterMainView registerMainView
+            RegisterMainView registerMainView,
+            WaterMainView waterMainView
     ) {
 
         initComponents();
@@ -36,12 +38,12 @@ public class MainScreen extends JFrame {
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
 
-
         this.addressView = addressView;
         this.customerView = customerView;
         this.invoiceView = invoiceView;
         this.linkView = linkView;
         this.registerMainView = registerMainView;
+        this.waterMainView = waterMainView;
     }
 
     private void addressMenu(ActionEvent e) {
@@ -58,8 +60,10 @@ public class MainScreen extends JFrame {
 
     private void linkMenu(ActionEvent e) { showPanel(linkView);}
 
-    private void menuRegister(ActionEvent e) {
-        showPanel(registerMainView);
+    private void menuRegister(ActionEvent e) { showPanel(registerMainView); }
+
+    private void searchEvent(ActionEvent e) {
+        showPanel(waterMainView);
     }
 
     private void showPanel(JPanel pane){
@@ -68,6 +72,8 @@ public class MainScreen extends JFrame {
         body.revalidate();
         body.repaint();
     }
+
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -80,6 +86,8 @@ public class MainScreen extends JFrame {
         categoryMenu = new JMenuItem();
         menu2 = new JMenu();
         invoiceMenu = new JMenuItem();
+        menuWater = new JMenu();
+        menuItemSearch = new JMenuItem();
         menu3 = new JMenu();
         menuItem7 = new JMenuItem();
         body = new JPanel();
@@ -129,6 +137,17 @@ public class MainScreen extends JFrame {
             }
             menuBar1.add(menu2);
 
+            //======== menuWater ========
+            {
+                menuWater.setText("\u00c1gua");
+
+                //---- menuItemSearch ----
+                menuItemSearch.setText("Consultas");
+                menuItemSearch.addActionListener(e -> searchEvent(e));
+                menuWater.add(menuItemSearch);
+            }
+            menuBar1.add(menuWater);
+
             //======== menu3 ========
             {
                 menu3.setText("Caixa");
@@ -163,6 +182,8 @@ public class MainScreen extends JFrame {
     private JMenuItem categoryMenu;
     private JMenu menu2;
     private JMenuItem invoiceMenu;
+    private JMenu menuWater;
+    private JMenuItem menuItemSearch;
     private JMenu menu3;
     private JMenuItem menuItem7;
     private JPanel body;

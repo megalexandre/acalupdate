@@ -13,10 +13,7 @@ import br.org.acal.domain.model.InvoiceFilter;
 import br.org.acal.domain.usecase.address.AddressFindAllUsecase;
 import br.org.acal.domain.usecase.category.CategoryFindAllUseCase;
 import br.org.acal.domain.usecase.customer.CustomerFindAllUseCase;
-import br.org.acal.domain.usecase.invoice.InvoiceListUseCase;
-import br.org.acal.domain.usecase.invoice.InvoicePaginateUseCase;
-import br.org.acal.domain.usecase.invoice.InvoiceSaveUseCase;
-import br.org.acal.domain.usecase.invoice.InvoiceSearchPrintReportUseCase;
+import br.org.acal.domain.usecase.invoice.*;
 import lombok.val;
 import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
@@ -42,12 +39,12 @@ import java.util.Optional;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.IntStream.range;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
-import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.*;
 
 @Component
 public class InvoiceView extends JPanel {
 
+    private final int LIST_INDEX = 0;
     private final int CREATE_INDEX = 1;
 
 
@@ -60,6 +57,7 @@ public class InvoiceView extends JPanel {
     private final InvoiceSearchPrintReportUseCase invoiceSearchPrintReportUseCase;
     private final InvoiceCreateView invoiceCreateView;
 
+    private final DeleteInvoiceUseCase deleteInvoice;
     private final InvoiceSaveUseCase invoiceSave;
     private String selectedAddress;
     private String selectedCategory;
@@ -68,6 +66,7 @@ public class InvoiceView extends JPanel {
     private Page<Invoice> page;
     private final String SELECT = "Selecione";
     private String selectedInvoiceToPrint = null;
+    private boolean initilized = false;
 
     public InvoiceView(
         InvoicePaginateUseCase paginate,
@@ -77,7 +76,8 @@ public class InvoiceView extends JPanel {
         InvoiceListUseCase invoiceList,
         InvoiceSearchPrintReportUseCase invoiceSearchPrintReport,
         InvoiceSaveUseCase invoiceSave,
-        InvoiceCreateView invoiceCreateView
+        InvoiceCreateView invoiceCreateView,
+        DeleteInvoiceUseCase deleteInvoice
     ) {
         initComponents();
         this.paginate = paginate;
@@ -88,7 +88,10 @@ public class InvoiceView extends JPanel {
         this.invoiceSearchPrintReportUseCase = invoiceSearchPrintReport;
         this.invoiceSave = invoiceSave;
         this.invoiceCreateView = invoiceCreateView;
+        this.deleteInvoice = deleteInvoice;
+
         startComponents();
+        this.initilized = true;
     }
 
     private void startComponents(){
@@ -257,6 +260,10 @@ public class InvoiceView extends JPanel {
     }
 
     private void clearAction(ActionEvent e) {
+        clear();
+    }
+
+    private void clear(){
         selectedAddress = null;
         selectedCategory = null;
         selectedCustomer = null;
@@ -273,6 +280,8 @@ public class InvoiceView extends JPanel {
         table.setModel(new LinkTableModel(List.of()));
         pageNumber =0;
     }
+
+
     private void firstAction(ActionEvent e) {
         pageNumber = 0;
         search();
@@ -343,10 +352,26 @@ public class InvoiceView extends JPanel {
 
     private void tabbedPaneInvoiceStateChanged(ChangeEvent e) {
 
+        if(initilized && (LIST_INDEX == tabbedPaneInvoice.getSelectedIndex())){
+            clear();
+        }
+
         if(CREATE_INDEX == tabbedPaneInvoice.getSelectedIndex()){
             panelCreate.add(invoiceCreateView);
         }
 
+    }
+
+    private void deleteAction(ActionEvent e) {
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Você deseja Apagar a Conta? " + selectedInvoiceToPrint, "Sim", YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            deleteInvoice.execute(selectedInvoiceToPrint);
+            search();
+            JOptionPane.showMessageDialog(null, "Conta deletada");
+        }
     }
 
     private void initComponents() {
@@ -395,6 +420,7 @@ public class InvoiceView extends JPanel {
         contextMenu = new JPopupMenu();
         menuItemPrint = new JMenuItem();
         menuItemReceiver = new JMenuItem();
+        menuItemDelete = new JMenuItem();
 
         //======== this ========
         setLayout(new BorderLayout());
@@ -622,7 +648,6 @@ public class InvoiceView extends JPanel {
 
                         //======== panel12 ========
                         {
-                            panel12.setBorder(new EtchedBorder());
                             panel12.setLayout(new FlowLayout());
 
                             //---- buttonFirst ----
@@ -677,6 +702,11 @@ public class InvoiceView extends JPanel {
             menuItemReceiver.setText("Receber");
             menuItemReceiver.addActionListener(e -> receiverAction(e));
             contextMenu.add(menuItemReceiver);
+
+            //---- menuItemDelete ----
+            menuItemDelete.setText("Deletar");
+            menuItemDelete.addActionListener(e -> deleteAction(e));
+            contextMenu.add(menuItemDelete);
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
@@ -726,5 +756,6 @@ public class InvoiceView extends JPanel {
     private JPopupMenu contextMenu;
     private JMenuItem menuItemPrint;
     private JMenuItem menuItemReceiver;
+    private JMenuItem menuItemDelete;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

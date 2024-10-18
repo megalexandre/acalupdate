@@ -1,26 +1,27 @@
 package br.org.acal.application.screen.invoice;
 
-import java.awt.event.*;
-import javax.swing.border.*;
-
 import br.org.acal.application.screen.invoice.model.table.CreateInvoiceTable;
 import br.org.acal.application.screen.invoice.model.table.CreateInvoiceTableModel;
-import br.org.acal.application.screen.invoice.model.table.InvoiceTable;
-import br.org.acal.application.screen.invoice.model.table.InvoiceTableModel;
-import br.org.acal.application.screen.link.model.LinkTableModel;
 import br.org.acal.commons.util.LocalDateTimeUtil;
 import br.org.acal.domain.entity.Period;
+import br.org.acal.domain.entity.WaterMeter;
 import br.org.acal.domain.usecase.invoice.CreateInvoiceUseCase;
 import br.org.acal.domain.usecase.invoice.InvoiceSaveAllUseCase;
 import lombok.val;
-import org.jdesktop.swingx.*;
+import org.jdesktop.swingx.HorizontalLayout;
 import org.springframework.stereotype.Component;
 
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.TableColumn;
+import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import javax.swing.*;
-import javax.swing.text.MaskFormatter;
 
 @Component
 public class InvoiceCreateView extends JPanel {
@@ -28,7 +29,6 @@ public class InvoiceCreateView extends JPanel {
     private boolean select = true;
     private final CreateInvoiceUseCase createInvoiceUseCase;
     private final InvoiceSaveAllUseCase invoiceSaveAllUseCase;
-
 
     public InvoiceCreateView(
             CreateInvoiceUseCase createInvoiceUseCase,
@@ -48,10 +48,31 @@ public class InvoiceCreateView extends JPanel {
                 .build();
 
         var invoices = createInvoiceUseCase.execute(period);
-
         val tableModel = new CreateInvoiceTableModel(invoices.stream().map(CreateInvoiceTable::of).toList());
         table.setModel(tableModel);
+
+        configureDecimalColumns();
     }
+
+    private void configureDecimalColumns() {
+        NumberFormat decimalFormat = DecimalFormat.getNumberInstance();
+        decimalFormat.setMinimumFractionDigits(0);
+        decimalFormat.setMaximumFractionDigits(0);
+
+        NumberFormatter decimalFormatter = new NumberFormatter(decimalFormat);
+        decimalFormatter.setValueClass(Double.class);
+        decimalFormatter.setAllowsInvalid(false);
+        decimalFormatter.setMinimum(0.0);
+
+        JFormattedTextField decimalField = new JFormattedTextField(decimalFormatter);
+        decimalField.setFocusLostBehavior(JFormattedTextField.COMMIT);
+
+        TableColumn waterStartColumn = table.getColumnModel().getColumn(5);
+        TableColumn waterEndColumn = table.getColumnModel().getColumn(6);
+        waterStartColumn.setCellEditor(new DefaultCellEditor(decimalField));
+        waterEndColumn.setCellEditor(new DefaultCellEditor(decimalField));
+    }
+
 
     private void findAction(ActionEvent e) {
         createTable();
@@ -59,7 +80,7 @@ public class InvoiceCreateView extends JPanel {
 
     private void selectionEvent(ActionEvent e) {
         val model = (CreateInvoiceTableModel) table.getModel();
-        model.items.forEach(it ->it.setChecked(select));
+        model.items.forEach(it -> it.setChecked(select));
         model.fireTableDataChanged();
 
         select = !select;
@@ -71,29 +92,37 @@ public class InvoiceCreateView extends JPanel {
 
         val model = (CreateInvoiceTableModel) table.getModel();
         val invoices = model.items.stream()
-                .filter(CreateInvoiceTable::getChecked)
-                .map(it -> {
-                   val invoice = it.getInvoice();
-                   invoice.setDueDate(duoDate);
-                   invoice.setPeriod(period);
-                   return invoice;
-                })
-                .toList();
+            .filter(CreateInvoiceTable::isChecked)
+            .map(it -> {
 
+                val water = WaterMeter.builder()
+                    .consumptionStart(it.getWaterStartAsDouble())
+                    .consumptionEnd(it.getWaterEndAsDouble())
+                    .build();
+
+                val invoice = it.getInvoice();
+                invoice.setDueDate(duoDate);
+                invoice.setPeriod(period);
+                invoice.setWaterMeter(water);
+
+                return invoice;
+            })
+            .toList();
 
         invoiceSaveAllUseCase.execute(invoices);
         createTable();
         model.fireTableDataChanged();
     }
 
-    private LocalDateTime getDuoDate(String date){
-        if(date.length() == 7){
+    private LocalDateTime getDuoDate(String date) {
+        if (date.length() == 7) {
             date = "01/" + date;
         }
         return LocalDateTimeUtil.stringToLocalDateTime(date);
     }
-    private LocalDateTime getPeriod(String date){
-        if(date.length() == 7){
+
+    private LocalDateTime getPeriod(String date) {
+        if (date.length() == 7) {
             date = "01/" + date;
         }
         return LocalDateTimeUtil.stringToLocalDateTime(date);
@@ -109,8 +138,7 @@ public class InvoiceCreateView extends JPanel {
             periodMask.setPlaceholderCharacter(' ');
             periodMask.install(formattedTextFieldPeriod);
 
-        } catch (ParseException e) {
-
+        } catch (ParseException ignored) {
         }
     }
 

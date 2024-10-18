@@ -22,6 +22,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 public class InvoiceCreateView extends JPanel {
@@ -39,6 +40,13 @@ public class InvoiceCreateView extends JPanel {
         this.invoiceSaveAllUseCase = invoiceSaveAllUseCase;
         createFormattedDateField();
     }
+
+    public void clear(){
+        table.setModel(new CreateInvoiceTableModel(List.of()));
+        formattedDueDate.setText("");
+        formattedTextFieldPeriod.setText("");
+    }
+
 
     private void createTable(){
         val localDateTime = getDuoDate(formattedTextFieldPeriod.getText());

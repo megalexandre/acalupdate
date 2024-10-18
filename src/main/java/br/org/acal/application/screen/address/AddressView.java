@@ -1,5 +1,6 @@
 package br.org.acal.application.screen.address;
 
+import java.awt.*;
 import br.org.acal.application.screen.address.model.AddressTable;
 import br.org.acal.application.screen.address.model.AddressTableModel;
 import br.org.acal.application.screen.address.model.CreateAddress;
@@ -14,17 +15,9 @@ import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
 import org.springframework.stereotype.Component;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableColumnModel;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -63,6 +56,7 @@ public class AddressView extends JPanel implements Serializable {
     }
 
     private void start(){
+
         Arrays.stream(AddressType.values()).forEach(item ->
             this.addressType.addItem(item.getDescription())
         );
@@ -97,6 +91,7 @@ public class AddressView extends JPanel implements Serializable {
             }
         });
 
+
     }
 
     private void find(ActionEvent e) {
@@ -114,6 +109,19 @@ public class AddressView extends JPanel implements Serializable {
             table.getColumnModel().getColumn(i).setCellRenderer(customRenderer)
         );
         tabbedPane1.setSelectedIndex(LIST_INDEX);
+        SwingUtilities.invokeLater(() -> {
+            TableColumnModel columnModel = table.getColumnModel();
+
+            int tableWidth = table.getWidth();
+            int larguraColunaNome = (int) (tableWidth * 0.01);
+            int larguraRestante = tableWidth - larguraColunaNome;
+            columnModel.getColumn(0).setPreferredWidth(larguraColunaNome);
+            columnModel.getColumn(1).setPreferredWidth(larguraRestante / 2);
+
+        });
+
+        table.revalidate();
+        table.repaint();
     }
 
     private void clear(ActionEvent e) {
@@ -188,6 +196,7 @@ public class AddressView extends JPanel implements Serializable {
         scrollPane1 = new JScrollPane();
         table = new JTable();
         panel2 = new JPanel();
+        panel1 = new JPanel();
         label1 = new JLabel();
         textField1 = new JTextField();
         panel3 = new JPanel();
@@ -237,10 +246,19 @@ public class AddressView extends JPanel implements Serializable {
                     panel2.setBorder(new EmptyBorder(5, 5, 5, 5));
                     panel2.setLayout(new BorderLayout());
 
-                    //---- label1 ----
-                    label1.setText("Nome");
-                    panel2.add(label1, BorderLayout.WEST);
-                    panel2.add(textField1, BorderLayout.CENTER);
+                    //======== panel1 ========
+                    {
+                        panel1.setLayout(new HorizontalLayout());
+
+                        //---- label1 ----
+                        label1.setText("Nome");
+                        panel1.add(label1);
+
+                        //---- textField1 ----
+                        textField1.setPreferredSize(new Dimension(150, 34));
+                        panel1.add(textField1);
+                    }
+                    panel2.add(panel1, BorderLayout.WEST);
 
                     //======== panel3 ========
                     {
@@ -337,6 +355,7 @@ public class AddressView extends JPanel implements Serializable {
     private JScrollPane scrollPane1;
     private JTable table;
     private JPanel panel2;
+    private JPanel panel1;
     private JLabel label1;
     private JTextField textField1;
     private JPanel panel3;

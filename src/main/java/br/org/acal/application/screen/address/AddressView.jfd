@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "8.2.3.0.386" Java: "17.0.8" encoding: "UTF-8"
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.3" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -21,16 +21,18 @@ new FormModel {
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 						name: "panel2"
 						"border": new javax.swing.border.EmptyBorder( 5, 5, 5, 5 )
-						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "label1"
-							"text": "Nome"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+							name: "panel1"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label1"
+								"text": "Nome"
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "textField1"
+								"preferredSize": new java.awt.Dimension( 150, 34 )
+							} )
 						}, new FormLayoutConstraints( class java.lang.String ) {
 							"value": "West"
-						} )
-						add( new FormComponent( "javax.swing.JTextField" ) {
-							name: "textField1"
-						}, new FormLayoutConstraints( class java.lang.String ) {
-							"value": "Center"
 						} )
 						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
 							name: "panel3"

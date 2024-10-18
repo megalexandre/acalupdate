@@ -25,7 +25,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
@@ -47,10 +46,8 @@ public class InvoiceView extends JPanel {
     private final int LIST_INDEX = 0;
     private final int CREATE_INDEX = 1;
 
-
     private final Logger logger = LoggerFactory.getLogger(InvoiceView.class);
     private final InvoicePaginateUseCase paginate;
-    private final InvoiceListUseCase list;
     private final AddressFindAllUsecase findAllAddress;
     private final CategoryFindAllUseCase categoryFindAll;
     private final CustomerFindAllUseCase customerFindAll;
@@ -73,7 +70,6 @@ public class InvoiceView extends JPanel {
         AddressFindAllUsecase findAllAddress,
         CategoryFindAllUseCase categoryFindAll,
         CustomerFindAllUseCase customerFindAll,
-        InvoiceListUseCase invoiceList,
         InvoiceSearchPrintReportUseCase invoiceSearchPrintReport,
         InvoiceSaveUseCase invoiceSave,
         InvoiceCreateView invoiceCreateView,
@@ -84,7 +80,6 @@ public class InvoiceView extends JPanel {
         this.findAllAddress = findAllAddress;
         this.categoryFindAll = categoryFindAll;
         this.customerFindAll = customerFindAll;
-        this.list = invoiceList;
         this.invoiceSearchPrintReportUseCase = invoiceSearchPrintReport;
         this.invoiceSave = invoiceSave;
         this.invoiceCreateView = invoiceCreateView;
@@ -347,7 +342,6 @@ public class InvoiceView extends JPanel {
         dialog.setVisible(true);
         invoiceSave.execute(dialog.getInvoice());
         this.search();
-
     }
 
     private void tabbedPaneInvoiceStateChanged(ChangeEvent e) {
@@ -357,6 +351,7 @@ public class InvoiceView extends JPanel {
         }
 
         if(CREATE_INDEX == tabbedPaneInvoice.getSelectedIndex()){
+            invoiceCreateView.clear();
             panelCreate.add(invoiceCreateView);
         }
 

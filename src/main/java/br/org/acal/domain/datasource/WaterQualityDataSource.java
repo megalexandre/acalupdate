@@ -8,5 +8,8 @@ import java.util.List;
 
 @Component
 public interface WaterQualityDataSource {
+
     List<WaterQuality> find(List<LocalDate> duoDate);
+    List<WaterQuality> findAll();
+    List<WaterQuality> save(List<WaterQuality> items);
 }

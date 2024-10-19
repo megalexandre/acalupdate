@@ -1,4 +1,4 @@
-package br.org.acal.application.screen.customer;
+package br.org.acal.application.screen.customer.model;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
@@ -7,6 +7,7 @@ public class CustomerTableModel extends AbstractTableModel {
     private final int NUMBER = 0;
     private final int NAME = 1;
     private final int DOCUMENT = 2;
+
     private final List<CustomerTable> itens;
     private final String[] columns = new String[]{"#","nome:", "Documento:"};
 

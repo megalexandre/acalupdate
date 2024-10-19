@@ -20,13 +20,15 @@ new FormModel {
 					name: "panel4"
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
 						name: "panel5"
-						add( new FormComponent( "javax.swing.JFormattedTextField" ) {
-							name: "formattedTextFieldPeriod"
-							"preferredSize": new java.awt.Dimension( 100, 34 )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "buttonAdd"
+							"text": "Adicionar"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addAction", true ) )
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "buttonCreate"
+							name: "buttonSearch"
 							"text": "Consultar"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchEvent", true ) )
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "East"
@@ -42,7 +44,7 @@ new FormModel {
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "scrollPane1"
 					add( new FormComponent( "javax.swing.JTable" ) {
-						name: "table1"
+						name: "table"
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "Center"

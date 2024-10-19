@@ -7,16 +7,10 @@ new FormModel {
 			name: "this"
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
 				name: "tabbedPaneWater"
-				addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "tabbedPaneWaterStateChanged", true ) )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
 					name: "panel1"
 				}, new FormLayoutConstraints( null ) {
 					"title": "Qualidade da água"
-				} )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
-					name: "panel2"
-				}, new FormLayoutConstraints( null ) {
-					"title": "Hidrometros"
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "Center"

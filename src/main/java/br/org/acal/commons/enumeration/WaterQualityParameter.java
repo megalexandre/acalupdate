@@ -23,4 +23,14 @@ public enum WaterQualityParameter {
         var item = Arrays.stream(WaterQualityParameter.values()).filter(it -> it.getNumber().equals(number)).findFirst().orElseThrow();
         return  WaterParam.builder().name(item.getDescription()).number(item.getNumber()).build();
     }
+
+    public static WaterParam fromDescription(String description) {
+        var item = Arrays.stream(WaterQualityParameter.values()).filter(it -> it.getDescription().equals(description)).findFirst().orElseThrow();
+        return WaterParam.builder().name(item.getDescription()).number(item.getNumber()).build();
+    }
+
+    public static WaterParam fromEnum(WaterQualityParameter waterQualityParameter) {
+        return WaterParam.builder().name(waterQualityParameter.getDescription()).number(waterQualityParameter.getNumber()).build();
+    }
+
 }

@@ -1,4 +1,4 @@
-package br.org.acal.application.screen.customer;
+package br.org.acal.application.screen.customer.model;
 
 import br.org.acal.domain.entity.Customer;
 import lombok.Builder;

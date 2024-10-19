@@ -1,19 +1,15 @@
 package br.org.acal.resouces.model;
 
-import jakarta.persistence.Basic;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "parametro_coleta")
@@ -25,6 +21,7 @@ public class WaterQualityModel implements Serializable {
 
     @Id
     @Column(name = "ide_parametro_coleta")
+    @GeneratedValue(strategy = IDENTITY)
     private String number;
 
     @Basic(optional = false)

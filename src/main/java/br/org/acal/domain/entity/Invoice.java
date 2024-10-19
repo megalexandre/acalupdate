@@ -48,10 +48,6 @@ public class Invoice {
         return null;
     }
 
-    public String getPartnerName(){
-        return link.getCustomer().getName();
-    }
-
     public Period period(){
         return Period.of(period);
     }

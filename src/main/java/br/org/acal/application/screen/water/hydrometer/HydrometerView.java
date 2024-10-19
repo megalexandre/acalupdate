@@ -1,15 +1,54 @@
 package br.org.acal.application.screen.water.hydrometer;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
+
+import br.org.acal.application.screen.render.WaterQualityTableCellRenderer;
+import br.org.acal.application.screen.water.hydrometer.create.WaterQualityCreate;
+import br.org.acal.application.screen.water.hydrometer.create.WaterQualityCreateView;
+import br.org.acal.application.screen.water.hydrometer.model.WaterQualityTable;
+import br.org.acal.application.screen.water.hydrometer.model.WaterQualityTableModel;
+import br.org.acal.domain.usecase.waterQuality.WaterQualityFindAllUseCase;
+import br.org.acal.domain.usecase.waterQuality.WaterQualitySaveAllUseCase;
+import lombok.val;
 import org.jdesktop.swingx.*;
 import org.springframework.stereotype.Component;
+
+import static javax.swing.SwingUtilities.getWindowAncestor;
 
 @Component
 public class HydrometerView extends JPanel {
 
-    public HydrometerView() {
+    private final WaterQualityFindAllUseCase find;
+    private final WaterQualitySaveAllUseCase save;
+
+    public HydrometerView(WaterQualityFindAllUseCase find, WaterQualitySaveAllUseCase save) {
         initComponents();
+        this.find = find;
+        this.save = save;
+    }
+
+    private void searchEvent(ActionEvent e) {
+        search();
+    }
+
+    private void search(){
+        val waterQualities = find.execute();
+        val tableModel = new WaterQualityTableModel(waterQualities.stream().map(WaterQualityTable::of).toList());
+        table.setModel(tableModel);
+
+        val render = new WaterQualityTableCellRenderer();
+        table.setDefaultRenderer(Object.class, render);
+    }
+
+    private void addAction(ActionEvent e) {
+        var dialog = new WaterQualityCreateView(getWindowAncestor(this), items -> {
+            save.execute(items);
+            search();
+        });
+        dialog.setVisible(true);
+
     }
 
     private void initComponents() {
@@ -20,11 +59,11 @@ public class HydrometerView extends JPanel {
         panel1 = new JPanel();
         panel4 = new JPanel();
         panel5 = new JPanel();
-        formattedTextFieldPeriod = new JFormattedTextField();
-        buttonCreate = new JButton();
+        buttonAdd = new JButton();
+        buttonSearch = new JButton();
         panel2 = new JPanel();
         scrollPane1 = new JScrollPane();
-        table1 = new JTable();
+        table = new JTable();
 
         //======== this ========
         setLayout(new BorderLayout());
@@ -51,13 +90,15 @@ public class HydrometerView extends JPanel {
                 {
                     panel5.setLayout(new HorizontalLayout());
 
-                    //---- formattedTextFieldPeriod ----
-                    formattedTextFieldPeriod.setPreferredSize(new Dimension(100, 34));
-                    panel5.add(formattedTextFieldPeriod);
+                    //---- buttonAdd ----
+                    buttonAdd.setText("Adicionar");
+                    buttonAdd.addActionListener(e -> addAction(e));
+                    panel5.add(buttonAdd);
 
-                    //---- buttonCreate ----
-                    buttonCreate.setText("Consultar");
-                    panel5.add(buttonCreate);
+                    //---- buttonSearch ----
+                    buttonSearch.setText("Consultar");
+                    buttonSearch.addActionListener(e -> searchEvent(e));
+                    panel5.add(buttonSearch);
                 }
                 panel4.add(panel5, BorderLayout.EAST);
             }
@@ -71,7 +112,7 @@ public class HydrometerView extends JPanel {
 
             //======== scrollPane1 ========
             {
-                scrollPane1.setViewportView(table1);
+                scrollPane1.setViewportView(table);
             }
             panel2.add(scrollPane1, BorderLayout.CENTER);
         }
@@ -86,10 +127,10 @@ public class HydrometerView extends JPanel {
     private JPanel panel1;
     private JPanel panel4;
     private JPanel panel5;
-    private JFormattedTextField formattedTextFieldPeriod;
-    private JButton buttonCreate;
+    private JButton buttonAdd;
+    private JButton buttonSearch;
     private JPanel panel2;
     private JScrollPane scrollPane1;
-    private JTable table1;
+    private JTable table;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

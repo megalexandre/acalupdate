@@ -3,6 +3,8 @@ package br.org.acal.application.screen.customer;
 
 import br.org.acal.application.screen.address.model.AddressTableModel;
 import br.org.acal.application.screen.customer.model.CustomerCreateRequest;
+import br.org.acal.application.screen.customer.model.CustomerTable;
+import br.org.acal.application.screen.customer.model.CustomerTableModel;
 import br.org.acal.application.screen.customer.model.FindCustomer;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.domain.entity.Customer;

@@ -3,6 +3,7 @@ package br.org.acal.application.screen.water.hydrometer;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.*;
 
 import br.org.acal.application.screen.render.WaterQualityTableCellRenderer;
 import br.org.acal.application.screen.water.hydrometer.create.WaterQualityCreate;
@@ -112,6 +113,11 @@ public class HydrometerView extends JPanel {
 
             //======== scrollPane1 ========
             {
+
+                //---- table ----
+                table.setBorder(new EmptyBorder(5, 5, 5, 5));
+                table.setCellSelectionEnabled(true);
+                table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                 scrollPane1.setViewportView(table);
             }
             panel2.add(scrollPane1, BorderLayout.CENTER);

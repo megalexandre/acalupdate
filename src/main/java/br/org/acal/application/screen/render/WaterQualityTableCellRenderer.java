@@ -17,15 +17,28 @@ public class WaterQualityTableCellRenderer extends DefaultTableCellRenderer {
 
         Color tableForeground = UIManager.getColor("Table.foreground");
         Color tableBackground = UIManager.getColor("Table.background");
+        Color tableSelectionForeground = UIManager.getColor("Table.selectionForeground");
+        Color tableSelectionBackground = UIManager.getColor("Table.selectionBackground");
+        Color tableSelectionInactiveForeground = UIManager.getColor("Table.selectionInactiveForeground");
         Color tableSelectionInactiveBackground = UIManager.getColor("Table.selectionInactiveBackground");
 
-        if (month % 2 ==0) {
-            cellComponent.setBackground(tableBackground);
-            cellComponent.setForeground(tableForeground);
+        if (isSelected) {
+
+            cellComponent.setBackground(tableSelectionBackground);
+            cellComponent.setForeground(tableSelectionForeground);
+
         } else {
-            cellComponent.setBackground(tableSelectionInactiveBackground);
-            cellComponent.setForeground(tableForeground);
+
+            if (month % 2 ==0) {
+                cellComponent.setBackground(tableBackground);
+                cellComponent.setForeground(tableForeground);
+            } else {
+                cellComponent.setBackground(tableSelectionInactiveBackground);
+                cellComponent.setForeground(tableForeground);
+            }
+
         }
+
 
         return cellComponent;
     }

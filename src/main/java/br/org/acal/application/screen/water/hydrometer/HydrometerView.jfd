@@ -45,6 +45,9 @@ new FormModel {
 					name: "scrollPane1"
 					add( new FormComponent( "javax.swing.JTable" ) {
 						name: "table"
+						"border": new javax.swing.border.EmptyBorder( 5, 5, 5, 5 )
+						"cellSelectionEnabled": true
+						"selectionMode": 0
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "Center"

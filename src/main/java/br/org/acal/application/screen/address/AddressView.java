@@ -1,35 +1,31 @@
 package br.org.acal.application.screen.address;
 
-import java.awt.*;
+import br.org.acal.application.screen.address.crud.create.AddressCreateView;
 import br.org.acal.application.screen.address.model.AddressTable;
 import br.org.acal.application.screen.address.model.AddressTableModel;
-import br.org.acal.application.screen.address.model.CreateAddress;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
-import br.org.acal.commons.enumeration.AddressType;
 import br.org.acal.domain.entity.Address;
 import br.org.acal.domain.usecase.address.AddressDeleteUsecase;
 import br.org.acal.domain.usecase.address.AddressFindAllUsecase;
 import br.org.acal.domain.usecase.address.AddressSaveUsecase;
 import lombok.val;
 import org.jdesktop.swingx.HorizontalLayout;
-import org.jdesktop.swingx.VerticalLayout;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumnModel;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 import static java.util.stream.IntStream.range;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.SwingUtilities.getWindowAncestor;
 
 
 @Component
@@ -39,9 +35,6 @@ public class AddressView extends JPanel implements Serializable {
     private final AddressSaveUsecase save;
     private List<Address> addresses;
     private Address address;
-    public AddressTable addresTable;
-    private final int LIST_INDEX = 0;
-    private final int DETAIL_INDEX = 1;
 
     public AddressView(
         AddressDeleteUsecase delete,
@@ -56,12 +49,6 @@ public class AddressView extends JPanel implements Serializable {
     }
 
     private void start(){
-
-        Arrays.stream(AddressType.values()).forEach(item ->
-            this.addressType.addItem(item.getDescription())
-        );
-        addressType.setSelectedItem(null);
-
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -91,11 +78,13 @@ public class AddressView extends JPanel implements Serializable {
             }
         });
 
-
+        tabbedPaneAddress.addChangeListener(e -> {
+            clear();
+        });
     }
 
-    private void find(ActionEvent e) {
-       find();
+    private void findAction() {
+        find();
     }
 
     private void find(){
@@ -108,23 +97,16 @@ public class AddressView extends JPanel implements Serializable {
         range(0, table.getColumnCount()).forEach(i ->
             table.getColumnModel().getColumn(i).setCellRenderer(customRenderer)
         );
-        tabbedPane1.setSelectedIndex(LIST_INDEX);
-        SwingUtilities.invokeLater(() -> {
-            TableColumnModel columnModel = table.getColumnModel();
-
-            int tableWidth = table.getWidth();
-            int larguraColunaNome = (int) (tableWidth * 0.01);
-            int larguraRestante = tableWidth - larguraColunaNome;
-            columnModel.getColumn(0).setPreferredWidth(larguraColunaNome);
-            columnModel.getColumn(1).setPreferredWidth(larguraRestante / 2);
-
-        });
 
         table.revalidate();
         table.repaint();
     }
 
     private void clear(ActionEvent e) {
+       clear();
+    }
+
+    private void clear(){
         table.setModel(new AddressTableModel(List.of()));
     }
 
@@ -133,42 +115,6 @@ public class AddressView extends JPanel implements Serializable {
             val target = (JTable) e.getSource();
             val row = target.getSelectedRow();
             this.address = addresses.get(row);
-            startDetail(address);
-            setSelectedTab(DETAIL_INDEX);
-        }
-    }
-
-    private void setSelectedTab(int index){
-        tabbedPane1.setSelectedIndex(index);
-    }
-
-    private void startDetail(Address address){
-        addressName.setText(address.getName());
-        addressType.setSelectedItem(address.getType());
-    }
-
-    private void back(ActionEvent e) {
-        address = null;
-        addressName.setText(null);
-        addressType.setSelectedItem(null);
-        find();
-    }
-
-    private void save(ActionEvent e) {
-
-        val type = addressType.getSelectedItem() != null ? addressType.getSelectedItem().toString() : null;
-
-        val item = CreateAddress.builder()
-            .name(addressName.getText())
-            .type(type)
-        .build();
-
-        if(item.isValid()){
-            save.execute(item.toAddress());
-            find();
-            setSelectedTab(LIST_INDEX);
-        }else {
-            showMessage("Preencha todos os campos");
         }
     }
 
@@ -188,31 +134,36 @@ public class AddressView extends JPanel implements Serializable {
 
     }
 
+    private void editEvent(ActionEvent e) {
+        createDialog();
+    }
+
+    private void createEvent() {
+        address = null;
+        createDialog();
+    }
+
+    private void createDialog(){
+        val dialog = new AddressCreateView(getWindowAncestor(this), address, items -> {
+            save.execute(items);
+            find();
+        });
+        dialog.setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner non-commercial license
-        tabbedPane1 = new JTabbedPane();
+        tabbedPaneAddress = new JTabbedPane();
         listaTab = new JPanel();
         scrollPane1 = new JScrollPane();
         table = new JTable();
         panel2 = new JPanel();
-        panel1 = new JPanel();
-        label1 = new JLabel();
-        textField1 = new JTextField();
-        panel3 = new JPanel();
-        findButton = new JButton();
         clearButton = new JButton();
-        DetailTab = new JPanel();
-        detailPanel = new JPanel();
-        panel4 = new JPanel();
-        label2 = new JLabel();
-        addressType = new JComboBox();
-        panel5 = new JPanel();
-        label3 = new JLabel();
-        addressName = new JTextField();
-        panel7 = new JPanel();
-        buttonConfirm = new JButton();
-        buttonBack = new JButton();
+        panel1 = new JPanel();
+        panel3 = new JPanel();
+        buttonCreate = new JButton();
+        buttonSearch = new JButton();
         contextMenu = new JPopupMenu();
         menuItemEdit = new JMenuItem();
         menuItemDelete = new JMenuItem();
@@ -220,7 +171,7 @@ public class AddressView extends JPanel implements Serializable {
         //======== this ========
         setLayout(new GridLayout());
 
-        //======== tabbedPane1 ========
+        //======== tabbedPaneAddress ========
         {
 
             //======== listaTab ========
@@ -246,98 +197,45 @@ public class AddressView extends JPanel implements Serializable {
                     panel2.setBorder(new EmptyBorder(5, 5, 5, 5));
                     panel2.setLayout(new BorderLayout());
 
+                    //---- clearButton ----
+                    clearButton.setText("Limpar");
+                    clearButton.addActionListener(e -> clear(e));
+                    panel2.add(clearButton, BorderLayout.WEST);
+
                     //======== panel1 ========
                     {
                         panel1.setLayout(new HorizontalLayout());
-
-                        //---- label1 ----
-                        label1.setText("Nome");
-                        panel1.add(label1);
-
-                        //---- textField1 ----
-                        textField1.setPreferredSize(new Dimension(150, 34));
-                        panel1.add(textField1);
                     }
-                    panel2.add(panel1, BorderLayout.WEST);
+                    panel2.add(panel1, BorderLayout.CENTER);
 
                     //======== panel3 ========
                     {
                         panel3.setLayout(new HorizontalLayout());
 
-                        //---- findButton ----
-                        findButton.setText("Pesquisar");
-                        findButton.addActionListener(e -> find(e));
-                        panel3.add(findButton);
+                        //---- buttonCreate ----
+                        buttonCreate.setText("Criar");
+                        buttonCreate.addActionListener(e -> createEvent());
+                        panel3.add(buttonCreate);
 
-                        //---- clearButton ----
-                        clearButton.setText("Limpar");
-                        clearButton.addActionListener(e -> clear(e));
-                        panel3.add(clearButton);
+                        //---- buttonSearch ----
+                        buttonSearch.setText("Pesquisar");
+                        buttonSearch.addActionListener(e -> findAction());
+                        panel3.add(buttonSearch);
                     }
                     panel2.add(panel3, BorderLayout.EAST);
                 }
                 listaTab.add(panel2, BorderLayout.SOUTH);
             }
-            tabbedPane1.addTab("Lista", listaTab);
-
-            //======== DetailTab ========
-            {
-                DetailTab.setBorder(new EmptyBorder(5, 5, 5, 5));
-                DetailTab.setLayout(new BorderLayout());
-
-                //======== detailPanel ========
-                {
-                    detailPanel.setLayout(new VerticalLayout());
-
-                    //======== panel4 ========
-                    {
-                        panel4.setLayout(new VerticalLayout());
-
-                        //---- label2 ----
-                        label2.setText("Tipo:");
-                        panel4.add(label2);
-                        panel4.add(addressType);
-                    }
-                    detailPanel.add(panel4);
-
-                    //======== panel5 ========
-                    {
-                        panel5.setLayout(new VerticalLayout());
-
-                        //---- label3 ----
-                        label3.setText("Nome:");
-                        panel5.add(label3);
-                        panel5.add(addressName);
-                    }
-                    detailPanel.add(panel5);
-                }
-                DetailTab.add(detailPanel, BorderLayout.CENTER);
-
-                //======== panel7 ========
-                {
-                    panel7.setLayout(new BorderLayout());
-
-                    //---- buttonConfirm ----
-                    buttonConfirm.setText("Confirmar");
-                    buttonConfirm.addActionListener(e -> save(e));
-                    panel7.add(buttonConfirm, BorderLayout.EAST);
-
-                    //---- buttonBack ----
-                    buttonBack.setText("cancelar");
-                    buttonBack.addActionListener(e -> back(e));
-                    panel7.add(buttonBack, BorderLayout.WEST);
-                }
-                DetailTab.add(panel7, BorderLayout.SOUTH);
-            }
-            tabbedPane1.addTab("Detalhe", DetailTab);
+            tabbedPaneAddress.addTab("Endere\u00e7os", listaTab);
         }
-        add(tabbedPane1);
+        add(tabbedPaneAddress);
 
         //======== contextMenu ========
         {
 
             //---- menuItemEdit ----
             menuItemEdit.setText("Editar");
+            menuItemEdit.addActionListener(e -> editEvent(e));
             contextMenu.add(menuItemEdit);
 
             //---- menuItemDelete ----
@@ -350,28 +248,16 @@ public class AddressView extends JPanel implements Serializable {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     // Generated using JFormDesigner non-commercial license
-    private JTabbedPane tabbedPane1;
+    private JTabbedPane tabbedPaneAddress;
     private JPanel listaTab;
     private JScrollPane scrollPane1;
     private JTable table;
     private JPanel panel2;
-    private JPanel panel1;
-    private JLabel label1;
-    private JTextField textField1;
-    private JPanel panel3;
-    private JButton findButton;
     private JButton clearButton;
-    private JPanel DetailTab;
-    private JPanel detailPanel;
-    private JPanel panel4;
-    private JLabel label2;
-    private JComboBox addressType;
-    private JPanel panel5;
-    private JLabel label3;
-    private JTextField addressName;
-    private JPanel panel7;
-    private JButton buttonConfirm;
-    private JButton buttonBack;
+    private JPanel panel1;
+    private JPanel panel3;
+    private JButton buttonCreate;
+    private JButton buttonSearch;
     private JPopupMenu contextMenu;
     private JMenuItem menuItemEdit;
     private JMenuItem menuItemDelete;

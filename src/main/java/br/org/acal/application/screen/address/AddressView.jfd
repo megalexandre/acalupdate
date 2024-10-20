@@ -6,7 +6,7 @@ new FormModel {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
-				name: "tabbedPane1"
+				name: "tabbedPaneAddress"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 					name: "listaTab"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -21,30 +21,29 @@ new FormModel {
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 						name: "panel2"
 						"border": new javax.swing.border.EmptyBorder( 5, 5, 5, 5 )
-						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
-							name: "panel1"
-							add( new FormComponent( "javax.swing.JLabel" ) {
-								name: "label1"
-								"text": "Nome"
-							} )
-							add( new FormComponent( "javax.swing.JTextField" ) {
-								name: "textField1"
-								"preferredSize": new java.awt.Dimension( 150, 34 )
-							} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "clearButton"
+							"text": "Limpar"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "clear", true ) )
 						}, new FormLayoutConstraints( class java.lang.String ) {
 							"value": "West"
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+							name: "panel1"
+						}, new FormLayoutConstraints( class java.lang.String ) {
+							"value": "Center"
 						} )
 						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
 							name: "panel3"
 							add( new FormComponent( "javax.swing.JButton" ) {
-								name: "findButton"
-								"text": "Pesquisar"
-								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "find", true ) )
+								name: "buttonCreate"
+								"text": "Criar"
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "createEvent", false ) )
 							} )
 							add( new FormComponent( "javax.swing.JButton" ) {
-								name: "clearButton"
-								"text": "Limpar"
-								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "clear", true ) )
+								name: "buttonSearch"
+								"text": "Pesquisar"
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "findAction", false ) )
 							} )
 						}, new FormLayoutConstraints( class java.lang.String ) {
 							"value": "East"
@@ -53,57 +52,7 @@ new FormModel {
 						"value": "South"
 					} )
 				}, new FormLayoutConstraints( null ) {
-					"title": "Lista"
-				} )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
-					name: "DetailTab"
-					"border": new javax.swing.border.EmptyBorder( 5, 5, 5, 5 )
-					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
-						name: "detailPanel"
-						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
-							name: "panel4"
-							add( new FormComponent( "javax.swing.JLabel" ) {
-								name: "label2"
-								"text": "Tipo:"
-							} )
-							add( new FormComponent( "javax.swing.JComboBox" ) {
-								name: "addressType"
-							} )
-						} )
-						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
-							name: "panel5"
-							add( new FormComponent( "javax.swing.JLabel" ) {
-								name: "label3"
-								"text": "Nome:"
-							} )
-							add( new FormComponent( "javax.swing.JTextField" ) {
-								name: "addressName"
-							} )
-						} )
-					}, new FormLayoutConstraints( class java.lang.String ) {
-						"value": "Center"
-					} )
-					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
-						name: "panel7"
-						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "buttonConfirm"
-							"text": "Confirmar"
-							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "save", true ) )
-						}, new FormLayoutConstraints( class java.lang.String ) {
-							"value": "East"
-						} )
-						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "buttonBack"
-							"text": "cancelar"
-							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "back", true ) )
-						}, new FormLayoutConstraints( class java.lang.String ) {
-							"value": "West"
-						} )
-					}, new FormLayoutConstraints( class java.lang.String ) {
-						"value": "South"
-					} )
-				}, new FormLayoutConstraints( null ) {
-					"title": "Detalhe"
+					"title": "Endereços"
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {
@@ -115,6 +64,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "menuItemEdit"
 				"text": "Editar"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "editEvent", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "menuItemDelete"

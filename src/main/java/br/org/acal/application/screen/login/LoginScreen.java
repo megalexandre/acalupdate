@@ -1,24 +1,12 @@
 package br.org.acal.application.screen.login;
 
-import javax.swing.*;
 import br.org.acal.application.screen.main.MainScreen;
-import br.org.acal.application.telas.TelaPrincipal;
 import org.jdesktop.swingx.VerticalLayout;
 import org.springframework.stereotype.Component;
 
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Objects;
 

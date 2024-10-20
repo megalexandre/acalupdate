@@ -11,7 +11,6 @@ import java.util.Objects;
 public class CreateAddress {
 
     private String type;
-
     private String name;
 
     public Address toAddress(){

@@ -18,8 +18,13 @@ public enum AddressType {
 
     private final String description;
 
+    public int getIndex() {
+        return this.ordinal();
+    }
+
     public static AddressType fromDescription(String description) {
         return Arrays.stream(AddressType.values()).filter(it -> it.description.equals(description)).findFirst().orElseThrow();
     }
+
 
 }

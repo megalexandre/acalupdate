@@ -6,15 +6,14 @@ import br.org.acal.application.screen.address.model.AddressTableModel;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.domain.entity.Address;
 import br.org.acal.domain.usecase.address.AddressDeleteUsecase;
-import br.org.acal.domain.usecase.address.AddressFindAllUsecase;
-import br.org.acal.domain.usecase.address.AddressSaveUsecase;
+import br.org.acal.domain.usecase.address.AddressFindUseCase;
+import br.org.acal.domain.usecase.address.AddressSaveUseCase;
 import lombok.val;
 import org.jdesktop.swingx.HorizontalLayout;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -31,15 +30,15 @@ import static javax.swing.SwingUtilities.getWindowAncestor;
 @Component
 public class AddressView extends JPanel implements Serializable {
     private final AddressDeleteUsecase delete;
-    private final AddressFindAllUsecase findAll;
-    private final AddressSaveUsecase save;
+    private final AddressFindUseCase findAll;
+    private final AddressSaveUseCase save;
     private List<Address> addresses;
     private Address address;
 
     public AddressView(
         AddressDeleteUsecase delete,
-        AddressFindAllUsecase findAll,
-        AddressSaveUsecase save
+        AddressFindUseCase findAll,
+        AddressSaveUseCase save
     ) {
         initComponents();
         start();
@@ -145,8 +144,14 @@ public class AddressView extends JPanel implements Serializable {
 
     private void createDialog(){
         val dialog = new AddressCreateView(getWindowAncestor(this), address, items -> {
-            save.execute(items);
-            find();
+
+            try{
+                save.execute(items);
+                find();
+            } catch (Exception exception){
+                showMessage("Valores duplicados não são aceitos");
+            }
+
         });
         dialog.setVisible(true);
     }
@@ -182,6 +187,7 @@ public class AddressView extends JPanel implements Serializable {
                 {
 
                     //---- table ----
+                    table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                     table.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {

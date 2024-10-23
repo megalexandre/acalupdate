@@ -1,9 +1,7 @@
 package br.org.acal.domain.datasource;
 
 import br.org.acal.domain.entity.Address;
-import br.org.acal.domain.entity.Link;
 import br.org.acal.domain.model.AddressFilter;
-import br.org.acal.domain.model.LinkFilter;
 
 import java.util.List;
 

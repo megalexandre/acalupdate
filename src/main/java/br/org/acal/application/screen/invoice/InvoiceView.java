@@ -12,10 +12,15 @@ import br.org.acal.commons.enumeration.StatusPaymentInvoice;
 import br.org.acal.domain.entity.Invoice;
 import br.org.acal.domain.entity.InvoicePayment;
 import br.org.acal.domain.model.InvoiceFilter;
-import br.org.acal.domain.usecase.address.AddressFindAllUsecase;
+import br.org.acal.domain.usecase.address.AddressFindUseCase;
 import br.org.acal.domain.usecase.category.CategoryFindAllUseCase;
 import br.org.acal.domain.usecase.customer.CustomerFindAllUseCase;
-import br.org.acal.domain.usecase.invoice.*;
+import br.org.acal.domain.usecase.invoice.InvoiceDeleteUseCase;
+import br.org.acal.domain.usecase.invoice.InvoiceMakePaymentUseCase;
+import br.org.acal.domain.usecase.invoice.InvoicePaginateUseCase;
+import br.org.acal.domain.usecase.invoice.InvoiceSaveUseCase;
+import br.org.acal.domain.usecase.invoice.InvoiceSearchPrintReportUseCase;
+import br.org.acal.domain.usecase.invoice.PaymentDeleteInvoiceUseCase;
 import lombok.val;
 import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
@@ -32,15 +37,20 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 import static java.util.Arrays.stream;
-import static java.util.stream.IntStream.range;
-import static javax.swing.JOptionPane.*;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 @Component
 public class InvoiceView extends JPanel {
@@ -50,7 +60,7 @@ public class InvoiceView extends JPanel {
 
     private final Logger logger = LoggerFactory.getLogger(InvoiceView.class);
     private final InvoicePaginateUseCase paginate;
-    private final AddressFindAllUsecase findAllAddress;
+    private final AddressFindUseCase findAllAddress;
     private final CategoryFindAllUseCase categoryFindAll;
     private final CustomerFindAllUseCase customerFindAll;
     private final InvoiceSearchPrintReportUseCase invoiceSearchPrintReportUseCase;
@@ -71,7 +81,7 @@ public class InvoiceView extends JPanel {
 
     public InvoiceView(
         InvoicePaginateUseCase paginate,
-        AddressFindAllUsecase findAllAddress,
+        AddressFindUseCase findAllAddress,
         CategoryFindAllUseCase categoryFindAll,
         CustomerFindAllUseCase customerFindAll,
         InvoiceSearchPrintReportUseCase invoiceSearchPrintReport,

@@ -11,6 +11,8 @@ public class AddressFilter {
 
     private String number;
     private String addressNumber;
+    private String type;
+    private String name;
     private String categoryNumber;
     private String group;
     private String status;
@@ -21,6 +23,14 @@ public class AddressFilter {
     public Optional<String> getNumber() {
         return Optional.ofNullable(number);
     }
+
+    public Optional<String> getType() {
+        return Optional.ofNullable(type);
+    }
+    public Optional<String> getName() {
+        return Optional.ofNullable(name);
+    }
+
     public Optional<String> getAddressNumber() {
         return Optional.ofNullable(addressNumber);
     }

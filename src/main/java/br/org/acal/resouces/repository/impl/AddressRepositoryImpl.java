@@ -31,7 +31,13 @@ public class AddressRepositoryImpl implements AddressDataSource {
 
     @Override
     public List<Address> find(AddressFilter addressFilter) {
-        return addressRepository.findAll().stream().map(addressMapper::map).toList();
+        Sort sort = Sort.by(Sort.Order.asc("type"), Sort.Order.asc("name"));
+        return addressRepository.find(
+                null,
+                addressFilter.getName().orElse(null),
+                addressFilter.getType().orElse(null),
+                sort
+        ).stream().map(addressMapper::map).toList();
     }
 
     @Override

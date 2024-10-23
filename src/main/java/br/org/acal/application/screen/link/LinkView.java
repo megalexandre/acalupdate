@@ -8,17 +8,14 @@ import br.org.acal.application.screen.customer.model.FindCustomer;
 import br.org.acal.application.screen.link.model.LinkCreateRequest;
 import br.org.acal.application.screen.link.model.LinkTable;
 import br.org.acal.application.screen.link.model.LinkTableModel;
-import br.org.acal.application.screen.render.InvoiceTableCellRenderer;
 import br.org.acal.application.screen.render.LinkTableCellRenderer;
-import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.commons.enumeration.Group;
 import br.org.acal.domain.entity.Address;
 import br.org.acal.domain.entity.Category;
 import br.org.acal.domain.entity.Customer;
 import br.org.acal.domain.model.AddressFilter;
 import br.org.acal.domain.model.LinkFilter;
-import br.org.acal.domain.usecase.address.AddressFindAllUsecase;
-import br.org.acal.domain.usecase.address.AddressFindUsecase;
+import br.org.acal.domain.usecase.address.AddressFindUseCase;
 import br.org.acal.domain.usecase.category.CategoryFindAllUseCase;
 import br.org.acal.domain.usecase.customer.CustomerFindUseCase;
 import br.org.acal.domain.usecase.link.LinkActiveUseCase;
@@ -42,7 +39,6 @@ import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.util.stream.IntStream.range;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 @Component
@@ -52,8 +48,7 @@ public class LinkView extends JPanel {
     private final LinkCreateUseCase linkCreateUseCase;
     private final LinkDeleteUseCase linkInactiveUseCase;
     private final LinkActiveUseCase linkActiveUseCase;
-    private final AddressFindAllUsecase findAllAddress;
-    private final AddressFindUsecase addressFindUsecase;
+    private final AddressFindUseCase addressFindUsecase;
     private final CategoryFindAllUseCase categoryFindAll;
     private final CustomerFindUseCase customerFindUseCase;
 
@@ -77,8 +72,7 @@ public class LinkView extends JPanel {
             LinkCreateUseCase linkCreateUseCase,
             LinkDeleteUseCase linkInactiveUseCase,
             LinkActiveUseCase linkActiveUseCase,
-            AddressFindAllUsecase findAllAddress,
-            AddressFindUsecase addressFindUsecase,
+            AddressFindUseCase addressFindUsecase,
             CategoryFindAllUseCase categoryFindAll,
             CustomerFindUseCase customerFindUseCase,
             Validator validator
@@ -86,7 +80,6 @@ public class LinkView extends JPanel {
         initComponents();
 
         this.find = find;
-        this.findAllAddress = findAllAddress;
         this.linkCreateUseCase = linkCreateUseCase;
         this.linkInactiveUseCase = linkInactiveUseCase;
         this.linkActiveUseCase = linkActiveUseCase;
@@ -184,7 +177,7 @@ public class LinkView extends JPanel {
 
     private void comboBoxAddressPopupMenuWillBecomeVisible(PopupMenuEvent e) {
         if(comboBoxAddress.getItemCount() <= 1){
-            Optional.ofNullable(findAllAddress.execute(null)).ifPresent(data ->
+            Optional.ofNullable(addressFindUsecase.execute(null)).ifPresent(data ->
                 data.forEach(item -> comboBoxAddress.addItem(JComboBoxModel.of(item)))
             );
         }

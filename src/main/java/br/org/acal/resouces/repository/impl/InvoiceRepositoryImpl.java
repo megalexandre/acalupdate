@@ -3,6 +3,7 @@ package br.org.acal.resouces.repository.impl;
 import br.org.acal.commons.enumeration.StatusPaymentInvoice;
 import br.org.acal.domain.datasource.InvoiceDataSource;
 import br.org.acal.domain.entity.Invoice;
+import br.org.acal.domain.entity.InvoicePayment;
 import br.org.acal.domain.entity.Period;
 import br.org.acal.domain.model.InvoiceFilter;
 import br.org.acal.resouces.adapter.mapper.InvoiceMapper;
@@ -71,6 +72,16 @@ public class InvoiceRepositoryImpl implements InvoiceDataSource {
     @Override
     public void delete(String number) {
         repositoryJpa.deleteById(number);
+    }
+
+    @Override
+    public void deletePayment(String number) {
+        repositoryJpa.setPayedAtToNull(number);
+    }
+
+    @Override
+    public void makePayment(InvoicePayment payment) {
+        repositoryJpa.makePayment(payment.getNumber(), payment.getPayedAt());
     }
 
     @Override

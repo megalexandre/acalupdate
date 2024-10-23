@@ -8,6 +8,8 @@ import br.org.acal.application.screen.customer.model.FindCustomer;
 import br.org.acal.application.screen.link.model.LinkCreateRequest;
 import br.org.acal.application.screen.link.model.LinkTable;
 import br.org.acal.application.screen.link.model.LinkTableModel;
+import br.org.acal.application.screen.render.InvoiceTableCellRenderer;
+import br.org.acal.application.screen.render.LinkTableCellRenderer;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.commons.enumeration.Group;
 import br.org.acal.domain.entity.Address;
@@ -141,14 +143,8 @@ public class LinkView extends JPanel {
         val links = find.execute(createFilter());
         val tableModel = new LinkTableModel(links.stream().map(LinkTable::of).toList());
         table.setModel(tableModel);
-        table.setDefaultRenderer(String.class, new StrippedTableCellRenderer());
 
-        val render = new StrippedTableCellRenderer();
-        table.setDefaultRenderer(String.class, render);
-        range(0, table.getColumnCount()).forEach(i ->
-                table.getColumnModel().getColumn(i).setCellRenderer(render)
-        );
-
+        table.setDefaultRenderer(Object.class, new LinkTableCellRenderer());
         labelHelper.setText(links.size() + " Registros.");
     }
 

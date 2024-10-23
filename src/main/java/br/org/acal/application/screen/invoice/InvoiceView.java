@@ -6,9 +6,11 @@ import br.org.acal.application.components.combobox.JComboBoxStatus;
 import br.org.acal.application.screen.invoice.model.table.InvoiceTable;
 import br.org.acal.application.screen.invoice.model.table.InvoiceTableModel;
 import br.org.acal.application.screen.link.model.LinkTableModel;
+import br.org.acal.application.screen.render.InvoiceTableCellRenderer;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.commons.enumeration.StatusPaymentInvoice;
 import br.org.acal.domain.entity.Invoice;
+import br.org.acal.domain.entity.InvoicePayment;
 import br.org.acal.domain.model.InvoiceFilter;
 import br.org.acal.domain.usecase.address.AddressFindAllUsecase;
 import br.org.acal.domain.usecase.category.CategoryFindAllUseCase;
@@ -54,7 +56,9 @@ public class InvoiceView extends JPanel {
     private final InvoiceSearchPrintReportUseCase invoiceSearchPrintReportUseCase;
     private final InvoiceCreateView invoiceCreateView;
 
-    private final DeleteInvoiceUseCase deleteInvoice;
+    private final InvoiceMakePaymentUseCase makePayment;
+    private final InvoiceDeleteUseCase deleteInvoice;
+    private final PaymentDeleteInvoiceUseCase deletePayment;
     private final InvoiceSaveUseCase invoiceSave;
     private String selectedAddress;
     private String selectedCategory;
@@ -73,7 +77,9 @@ public class InvoiceView extends JPanel {
         InvoiceSearchPrintReportUseCase invoiceSearchPrintReport,
         InvoiceSaveUseCase invoiceSave,
         InvoiceCreateView invoiceCreateView,
-        DeleteInvoiceUseCase deleteInvoice
+        InvoiceDeleteUseCase deleteInvoice,
+        PaymentDeleteInvoiceUseCase deletePayment,
+        InvoiceMakePaymentUseCase makePayment
     ) {
         initComponents();
         this.paginate = paginate;
@@ -84,6 +90,8 @@ public class InvoiceView extends JPanel {
         this.invoiceSave = invoiceSave;
         this.invoiceCreateView = invoiceCreateView;
         this.deleteInvoice = deleteInvoice;
+        this.deletePayment = deletePayment;
+        this.makePayment = makePayment;
 
         startComponents();
         this.initilized = true;
@@ -178,11 +186,7 @@ public class InvoiceView extends JPanel {
 
         labelHelp.setText(generatePageMessage(invoices));
 
-        val render = new StrippedTableCellRenderer();
-        table.setDefaultRenderer(String.class, render);
-        range(0, table.getColumnCount()).forEach(i ->
-            table.getColumnModel().getColumn(i).setCellRenderer(render)
-        );
+        table.setDefaultRenderer(Object.class, new InvoiceTableCellRenderer());
     }
 
     public String generatePageMessage(Page<?> page) {
@@ -334,13 +338,15 @@ public class InvoiceView extends JPanel {
                 .filter(it -> it.getNumber().equals(selectedInvoiceToPrint))
                 .findFirst().orElseThrow();
 
-        Window parentWindow = SwingUtilities.getWindowAncestor(this);
-        val dialog = new InvoicePayView(parentWindow, invoice);
+        val dialog = new InvoicePayView(SwingUtilities.getWindowAncestor(this), invoice);
         dialog.setSize(new Dimension(400, 400));
         dialog.setLocationRelativeTo(null);
-
         dialog.setVisible(true);
-        invoiceSave.execute(dialog.getInvoice());
+        val toSaveInvoice = dialog.getInvoice();
+        val payment = InvoicePayment.builder().number(toSaveInvoice.getNumber()).payedAt(toSaveInvoice.getPayedAt()).build();
+
+        makePayment.execute(payment);
+
         this.search();
     }
 
@@ -365,8 +371,18 @@ public class InvoiceView extends JPanel {
         if (confirm == JOptionPane.YES_OPTION) {
             deleteInvoice.execute(selectedInvoiceToPrint);
             search();
-            JOptionPane.showMessageDialog(null, "Conta deletada");
         }
+    }
+
+    private void paymentDeleteAction() {
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Você remover o pagamento  da Conta? " + selectedInvoiceToPrint, "Sim", YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            deletePayment.execute(selectedInvoiceToPrint);
+            search();
+        }
+
     }
 
     private void initComponents() {
@@ -415,6 +431,7 @@ public class InvoiceView extends JPanel {
         contextMenu = new JPopupMenu();
         menuItemPrint = new JMenuItem();
         menuItemReceiver = new JMenuItem();
+        menuItemPaymentDelete = new JMenuItem();
         menuItemDelete = new JMenuItem();
 
         //======== this ========
@@ -698,8 +715,13 @@ public class InvoiceView extends JPanel {
             menuItemReceiver.addActionListener(e -> receiverAction(e));
             contextMenu.add(menuItemReceiver);
 
+            //---- menuItemPaymentDelete ----
+            menuItemPaymentDelete.setText("Deletar Pagamento");
+            menuItemPaymentDelete.addActionListener(e -> paymentDeleteAction());
+            contextMenu.add(menuItemPaymentDelete);
+
             //---- menuItemDelete ----
-            menuItemDelete.setText("Deletar");
+            menuItemDelete.setText("Deletar Conta");
             menuItemDelete.addActionListener(e -> deleteAction(e));
             contextMenu.add(menuItemDelete);
         }
@@ -751,6 +773,7 @@ public class InvoiceView extends JPanel {
     private JPopupMenu contextMenu;
     private JMenuItem menuItemPrint;
     private JMenuItem menuItemReceiver;
+    private JMenuItem menuItemPaymentDelete;
     private JMenuItem menuItemDelete;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

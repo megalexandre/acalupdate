@@ -9,11 +9,21 @@ public class LocalDateUtil {
     private static final DateTimeFormatter date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static String localDateToString(LocalDate localDate){
+        if(localDate == null){
+            return null;
+        }
+
         return localDate.format(date);
     }
 
     public static LocalDate stringToLocalDate(String value){
-        return LocalDate.parse(value, date);
+
+        try {
+            return LocalDate.parse(value, date);
+        } catch (Exception ignored){
+            return null;
+        }
+
     }
 
 }

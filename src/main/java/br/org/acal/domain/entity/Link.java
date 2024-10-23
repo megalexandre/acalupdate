@@ -15,4 +15,7 @@ public class Link {
     private Boolean exclusiveMember;
     private Boolean active;
 
+    public boolean isInactive(){
+        return !active;
+    }
 }

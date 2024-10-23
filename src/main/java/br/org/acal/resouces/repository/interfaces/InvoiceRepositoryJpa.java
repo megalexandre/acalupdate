@@ -1,12 +1,15 @@
 package br.org.acal.resouces.repository.interfaces;
 
+import br.org.acal.domain.entity.InvoicePayment;
 import br.org.acal.resouces.model.InvoiceModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -98,7 +101,18 @@ public interface InvoiceRepositoryJpa extends JpaRepository<InvoiceModel, String
             @Param("payedAt") LocalDateTime payedAt,
             @Param("payedAtAtStart") LocalDateTime payedAtAtStart,
             @Param("payedAtAtEnd") LocalDateTime payedAtAtEnd
-
     );
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE InvoiceModel i SET i.payedAt = NULL WHERE i.number = :number")
+    void setPayedAtToNull(@Param("number") String number);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE InvoiceModel i SET i.payedAt = :payedAt WHERE i.number = :number")
+    void makePayment(@Param("number") String number, @Param("payedAt") LocalDateTime payedAt);
+
+
 }
 

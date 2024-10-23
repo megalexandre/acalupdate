@@ -5,5 +5,5 @@ import net.sf.jasperreports.engine.JRException;
 
 public interface ReportDataSource {
     void create(ReportData data) throws JRException;
-
+    void createRegister(ReportData data) throws JRException;
 }

@@ -1,12 +1,13 @@
 package br.org.acal.application.screen.customer.model;
 
 
-import br.org.acal.commons.util.StringUtil;
 import br.org.acal.domain.entity.Customer;
 import br.org.acal.domain.entity.Document;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -19,13 +20,18 @@ public class CustomerCreateRequest {
     private String document;
 
     private String partnerNumber;
+
     private String phoneNumber;
+
+    private LocalDate createdAt;
 
     public Customer toCustomer(){
         return Customer.builder()
                 .name(name)
                 .document(Document.of(document))
                 .phoneNumber(phoneNumber)
+                .partnerNumber(partnerNumber)
+                .createdAt(createdAt)
                 .active(true)
                 .build();
     }

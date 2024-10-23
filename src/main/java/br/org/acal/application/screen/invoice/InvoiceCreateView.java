@@ -5,7 +5,7 @@ import br.org.acal.application.screen.invoice.model.table.CreateInvoiceTableMode
 import br.org.acal.commons.util.LocalDateTimeUtil;
 import br.org.acal.domain.entity.Period;
 import br.org.acal.domain.entity.WaterMeter;
-import br.org.acal.domain.usecase.invoice.CreateInvoiceUseCase;
+import br.org.acal.domain.usecase.invoice.InvoiceCreateUseCase;
 import br.org.acal.domain.usecase.invoice.InvoiceSaveAllUseCase;
 import lombok.val;
 import org.jdesktop.swingx.HorizontalLayout;
@@ -28,15 +28,15 @@ import java.util.List;
 public class InvoiceCreateView extends JPanel {
 
     private boolean select = true;
-    private final CreateInvoiceUseCase createInvoiceUseCase;
+    private final InvoiceCreateUseCase invoiceCreateUseCase;
     private final InvoiceSaveAllUseCase invoiceSaveAllUseCase;
 
     public InvoiceCreateView(
-            CreateInvoiceUseCase createInvoiceUseCase,
+            InvoiceCreateUseCase invoiceCreateUseCase,
             InvoiceSaveAllUseCase invoiceSaveAllUseCase
     ) {
         initComponents();
-        this.createInvoiceUseCase = createInvoiceUseCase;
+        this.invoiceCreateUseCase = invoiceCreateUseCase;
         this.invoiceSaveAllUseCase = invoiceSaveAllUseCase;
         createFormattedDateField();
     }
@@ -55,7 +55,7 @@ public class InvoiceCreateView extends JPanel {
                 .year(localDateTime.getYear())
                 .build();
 
-        var invoices = createInvoiceUseCase.execute(period);
+        var invoices = invoiceCreateUseCase.execute(period);
         val tableModel = new CreateInvoiceTableModel(invoices.stream().map(CreateInvoiceTable::of).toList());
         table.setModel(tableModel);
 

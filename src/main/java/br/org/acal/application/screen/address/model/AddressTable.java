@@ -10,6 +10,7 @@ public class AddressTable {
 
     private String number;
     private String name;
+
     public static AddressTable of(Address address){
         return AddressTable.builder().number(address.getNumber()).name(address.getType().trim() +" "+ address.getName().trim()).build();
     }

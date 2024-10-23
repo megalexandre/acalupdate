@@ -34,7 +34,7 @@ public class StartupRunner implements CommandLineRunner {
     private void copyFilesToDirectory(File directory) {
         String resourcePath = "/print/acal";
         try {
-            List<String> fileNames = List.of("invoice.jrxml","invoiceParam.jrxml", "invoiceDetail.jrxml");
+            List<String> fileNames = List.of("invoice.jrxml","invoiceParam.jrxml", "invoiceDetail.jrxml", "register.jrxml");
             for (String fileName : fileNames) {
                 try (InputStream inputStream = getClass().getResourceAsStream(resourcePath + "/" + fileName)) {
                     if (inputStream == null) {

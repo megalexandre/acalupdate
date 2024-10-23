@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -27,6 +28,12 @@ public class CustomerModel implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String name;
+
+    @Column(name = "created_at")
+    private LocalDate createdAt;
+
+    @Column(name = "partner_number")
+    private String partnerNumber;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
     private PartnerModel partner;

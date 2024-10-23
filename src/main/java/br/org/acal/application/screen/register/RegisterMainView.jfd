@@ -56,9 +56,19 @@ new FormModel {
 									} )
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "buttonPrint"
+									"text": "Imprimir"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "printEvent", false ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "buttonToday"
 									"text": "Hoje"
 									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "todayAction", true ) )
+								} )
+								add( new FormComponent( "javax.swing.JButton" ) {
+									name: "buttonClear"
+									"text": "Limpar"
+									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "clearAction", false ) )
 								} )
 								add( new FormComponent( "javax.swing.JButton" ) {
 									name: "buttonSearch"

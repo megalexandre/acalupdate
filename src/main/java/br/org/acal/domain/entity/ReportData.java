@@ -13,7 +13,6 @@ public class ReportData {
 
     private PrintPaths printPaths;
     private JRBeanCollectionDataSource dataSource;
-
     private Map<String, Object> param;
 
 }

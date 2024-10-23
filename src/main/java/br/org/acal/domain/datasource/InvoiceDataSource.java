@@ -1,6 +1,7 @@
 package br.org.acal.domain.datasource;
 
 import br.org.acal.domain.entity.Invoice;
+import br.org.acal.domain.entity.InvoicePayment;
 import br.org.acal.domain.model.InvoiceFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -17,5 +18,7 @@ public interface InvoiceDataSource {
     Invoice save(Invoice invoice);
     List<Invoice> save (List<Invoice> invoices);
     void delete(String number);
+    void deletePayment(String number);
+    void makePayment(InvoicePayment payment);
 
 }

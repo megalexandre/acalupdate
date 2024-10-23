@@ -5,10 +5,13 @@ import br.org.acal.application.screen.register.model.PaymentTable;
 import br.org.acal.application.screen.register.model.PaymentTableModel;
 import br.org.acal.application.screen.render.StrippedTableCellRenderer;
 import br.org.acal.commons.util.BigDecimalUtil;
+import br.org.acal.domain.datasource.ReportDataSource;
 import br.org.acal.domain.entity.Payment;
 import br.org.acal.domain.model.PaymentFilter;
 import br.org.acal.domain.usecase.register.PaymentPaginateUseCase;
+import br.org.acal.domain.usecase.register.RegisterSearchPrintReportUseCase;
 import lombok.val;
+import net.sf.jasperreports.engine.JRException;
 import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
 import org.springframework.stereotype.Component;
@@ -23,6 +26,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -31,21 +35,26 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class RegisterMainView extends JPanel {
 
     private final PaymentPaginateUseCase paymentPaginateUseCase;
+    private final RegisterSearchPrintReportUseCase printReport;
 
-    public RegisterMainView(PaymentPaginateUseCase paymentPaginateUseCase) {
+    public RegisterMainView(
+        PaymentPaginateUseCase paymentPaginateUseCase,
+        RegisterSearchPrintReportUseCase printReport
+    ) {
         initComponents();
         this.paymentPaginateUseCase = paymentPaginateUseCase;
+        this.printReport = printReport;
 
         textPatter(formattedTextFieldDateStart);
         textPatter(formattedTextFieldDateEnd);
     }
 
     private void start(){
+        search();
+    }
 
-        val start = cast(formattedTextFieldDateStart.getText());
-        val end = cast(formattedTextFieldDateEnd.getText());
-
-        val paymentFilter = PaymentFilter.builder().createdAtStart(start).createAtEnd(end).build();
+    private void search(){
+        val paymentFilter = PaymentFilter.builder().createdAtStart(getDateStart()).createAtEnd(getDateEnd()).build();
         val paymentsData = paymentPaginateUseCase.execute(paymentFilter);
         val payments = paymentsData.stream().map(PaymentTable::of).toList() ;
         val tableModel = new PaymentTableModel(payments);
@@ -95,7 +104,36 @@ public class RegisterMainView extends JPanel {
 
         formattedTextFieldDateStart.setText(text);
         formattedTextFieldDateEnd.setText(text);
+        search();
     }
+
+    private void clearAction() {
+        clear();
+    }
+
+    private void clear(){
+        formattedTextFieldDateStart.setText("");
+        formattedTextFieldDateEnd.setText("");
+        table.setModel(new PaymentTableModel(List.of()));
+    }
+
+    private void printEvent() {
+
+        try {
+            val build = PaymentFilter.builder().createdAtStart(getDateStart()).createAtEnd(getDateEnd()).build();
+            printReport.execute(build);
+        } catch (Exception ignored){}
+
+    }
+
+    private LocalDateTime getDateStart(){
+        return cast(formattedTextFieldDateStart.getText());
+    }
+
+    private LocalDateTime getDateEnd(){
+        return cast(formattedTextFieldDateEnd.getText());
+    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -115,7 +153,9 @@ public class RegisterMainView extends JPanel {
         formattedTextFieldDateStart = new JFormattedTextField();
         label2 = new JLabel();
         formattedTextFieldDateEnd = new JFormattedTextField();
+        buttonPrint = new JButton();
         buttonToday = new JButton();
+        buttonClear = new JButton();
         buttonSearch = new JButton();
 
         //======== this ========
@@ -182,10 +222,20 @@ public class RegisterMainView extends JPanel {
                             }
                             panel5.add(panel6);
 
+                            //---- buttonPrint ----
+                            buttonPrint.setText("Imprimir");
+                            buttonPrint.addActionListener(e -> printEvent());
+                            panel5.add(buttonPrint);
+
                             //---- buttonToday ----
                             buttonToday.setText("Hoje");
                             buttonToday.addActionListener(e -> todayAction(e));
                             panel5.add(buttonToday);
+
+                            //---- buttonClear ----
+                            buttonClear.setText("Limpar");
+                            buttonClear.addActionListener(e -> clearAction());
+                            panel5.add(buttonClear);
 
                             //---- buttonSearch ----
                             buttonSearch.setText("Consultar");
@@ -228,7 +278,9 @@ public class RegisterMainView extends JPanel {
     private JFormattedTextField formattedTextFieldDateStart;
     private JLabel label2;
     private JFormattedTextField formattedTextFieldDateEnd;
+    private JButton buttonPrint;
     private JButton buttonToday;
+    private JButton buttonClear;
     private JButton buttonSearch;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

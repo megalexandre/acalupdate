@@ -1,21 +1,21 @@
 package br.org.acal.application.screen.render;
 
 import br.org.acal.application.screen.invoice.model.table.InvoiceTableModel;
+import br.org.acal.application.screen.link.model.LinkTableModel;
 import lombok.val;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.Color;
-import java.awt.Component;
+import java.awt.*;
 
-import static br.org.acal.commons.Colors.COLOR_INFO_400;
-import static br.org.acal.commons.Colors.COLOR_INFO_500;
-
-public class InvoiceTableCellRenderer extends DefaultTableCellRenderer {
+public class LinkTableCellRenderer extends DefaultTableCellRenderer {
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+        val model = (LinkTableModel) table.getModel();
+        val item = model.getItem(row);
 
         Color tableForeground = UIManager.getColor("Table.foreground");
         Color tableBackground = UIManager.getColor("Table.background");
@@ -24,41 +24,35 @@ public class InvoiceTableCellRenderer extends DefaultTableCellRenderer {
         Color tableSelectionInactiveForeground = UIManager.getColor("Table.selectionInactiveForeground");
         Color tableSelectionInactiveBackground = UIManager.getColor("Table.selectionInactiveBackground");
 
-        val model = (InvoiceTableModel) table.getModel();
-        val invoice = model.getInvoiceAt(row).getInvoice();
+        boolean isEvenRow = row % 2 == 0;
+        if (isSelected) {
 
-
-        if(isSelected){
-
-            cellComponent.setBackground(UIManager.getColor("Actions.Blue"));
-            cellComponent.setForeground(UIManager.getColor("Actions.Blue").darker());
+            if(isEvenRow){
+                cellComponent.setBackground(tableSelectionBackground);
+                cellComponent.setForeground(tableSelectionForeground);
+            } else {
+                cellComponent.setBackground(tableSelectionBackground.darker());
+                cellComponent.setForeground(tableSelectionForeground.darker());
+            }
 
         } else {
-            val isPair = row % 2 == 0;
 
-            if(invoice.isPayed()) {
-
-                if(isPair) {
-                    cellComponent.setBackground(UIManager.getColor("Actions.Green"));
-                } else {
-                    cellComponent.setBackground(UIManager.getColor("Actions.Green").brighter());
-                }
-
+            if(item.isInactive()){
+               cellComponent.setForeground(tableSelectionInactiveForeground.brighter());
+               cellComponent.setBackground(tableSelectionInactiveBackground);
             } else {
-                if(isPair){
 
+                if (isEvenRow) {
                     cellComponent.setBackground(tableBackground);
                     cellComponent.setForeground(tableForeground);
                 } else {
-
-                    cellComponent.setBackground(tableSelectionInactiveBackground);
-                    cellComponent.setForeground(tableForeground);
+                    cellComponent.setBackground(tableBackground.darker());
+                    cellComponent.setForeground(tableForeground.darker());
                 }
+
             }
+
         }
-
-
-
 
         return cellComponent;
     }

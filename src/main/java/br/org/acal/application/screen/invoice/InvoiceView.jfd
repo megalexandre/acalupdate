@@ -224,8 +224,13 @@ new FormModel {
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "receiverAction", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "menuItemPaymentDelete"
+				"text": "Deletar Pagamento"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "paymentDeleteAction", false ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "menuItemDelete"
-				"text": "Deletar"
+				"text": "Deletar Conta"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "deleteAction", true ) )
 			} )
 		}, new FormLayoutConstraints( null ) {

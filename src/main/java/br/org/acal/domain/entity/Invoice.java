@@ -30,6 +30,10 @@ public class Invoice {
     private BigDecimal otherValues;
     private WaterMeter waterMeter;
 
+    public boolean isPayed(){
+        return payedAt != null;
+    }
+
     public StatusPaymentInvoice status(){
 
         if(payedAt != null ){

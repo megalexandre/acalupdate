@@ -10,14 +10,10 @@ import java.awt.*;
 @Service
 public class WaterMainView extends JPanel {
 
-    private final HydrometerView hydrometerView;
-
     public WaterMainView(HydrometerView hydrometerView) {
         initComponents();
-
-        this.hydrometerView = hydrometerView;
-
-        tabbedPaneWater.add(hydrometerView, 0);
+        tabbedPaneWater.remove(0);
+        tabbedPaneWater.add("Qualidade da Água", hydrometerView);
         tabbedPaneWater.setSelectedIndex(0);
     }
 

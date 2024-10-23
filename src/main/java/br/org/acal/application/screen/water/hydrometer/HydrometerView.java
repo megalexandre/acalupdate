@@ -55,8 +55,6 @@ public class HydrometerView extends JPanel {
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner non-commercial license
-        panel3 = new JPanel();
-        label1 = new JLabel();
         panel1 = new JPanel();
         panel4 = new JPanel();
         panel5 = new JPanel();
@@ -68,16 +66,6 @@ public class HydrometerView extends JPanel {
 
         //======== this ========
         setLayout(new BorderLayout());
-
-        //======== panel3 ========
-        {
-            panel3.setLayout(new VerticalLayout());
-
-            //---- label1 ----
-            label1.setText("Hidrometros");
-            panel3.add(label1);
-        }
-        add(panel3, BorderLayout.NORTH);
 
         //======== panel1 ========
         {
@@ -128,8 +116,6 @@ public class HydrometerView extends JPanel {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     // Generated using JFormDesigner non-commercial license
-    private JPanel panel3;
-    private JLabel label1;
     private JPanel panel1;
     private JPanel panel4;
     private JPanel panel5;

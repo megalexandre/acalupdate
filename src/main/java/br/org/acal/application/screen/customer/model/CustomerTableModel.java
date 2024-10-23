@@ -4,34 +4,40 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class CustomerTableModel extends AbstractTableModel {
-    private final int NUMBER = 0;
-    private final int NAME = 1;
-    private final int DOCUMENT = 2;
 
-    private final List<CustomerTable> itens;
-    private final String[] columns = new String[]{"#","nome:", "Documento:"};
+    private final int COUNT = 0;
+    private final int NUMBER = 1;
+    private final int NAME = 2;
+    private final int DOCUMENT = 3;
 
-    public CustomerTableModel(List<CustomerTable> itens){
-        this.itens = itens;
+    private final List<CustomerTable> items;
+    private final String[] columns = new String[]{"#","Número","nome:", "Documento:"};
+
+    public CustomerTableModel(List<CustomerTable> items){
+        this.items = items;
     }
+
     @Override
     public String getColumnName(int columnIndex) {
         return columns[columnIndex];
     }
+
     @Override
     public int getRowCount() {
-        return itens.size();
+        return items.size();
     }
 
     @Override
     public int getColumnCount() {
         return columns.length;
     }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        CustomerTable item = itens.get(rowIndex);
+        CustomerTable item = items.get(rowIndex);
 
         return switch (columnIndex) {
+            case COUNT -> item.getCount();
             case NUMBER -> item.getNumber();
             case NAME -> item.getName();
             case DOCUMENT -> item.getDocument();

@@ -7,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum PrintPaths {
 
-    NEW_INVOICE("invoice.jrxml");
+    NEW_INVOICE("invoice.jrxml"),
+    REGISTER("register.jrxml");
 
     private final String path;
 

@@ -61,10 +61,23 @@ DROP INDEX idx_enderecopessoa_idEndereco ON enderecopessoa;
 CREATE INDEX idx_enderecopessoa_idEndereco ON enderecopessoa(idEndereco);
 OPTIMIZE TABLE enderecopessoa;
 
-
 DROP INDEX idx_data_referente ON conta;
 CREATE INDEX idx_data_referente ON conta(dataReferente);
 
 DROP INDEX idx_categoria_nome on categoriasocio;
 CREATE INDEX idx_categoria_nome ON categoriasocio(nome);
 OPTIMIZE TABLE categoriasocio;
+
+alter table pessoa drop column sobrenome;
+alter table pessoa drop column sexo;
+alter table pessoa drop column cidade;
+alter table pessoa drop column uf;
+ALTER TABLE pessoa DROP FOREIGN KEY FKC4E40FA7F1E3C984;
+alter table pessoa drop column idEndereco;
+
+ALTER TABLE `acal`.`pessoa`
+ADD COLUMN `partner_number` VARCHAR(45) NULL AFTER `cnpj`;
+
+ALTER TABLE `acal`.`pessoa`
+ADD COLUMN `created_at` DATE NULL AFTER `partner_number`;
+

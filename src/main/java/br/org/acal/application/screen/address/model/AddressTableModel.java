@@ -7,7 +7,7 @@ public class AddressTableModel extends AbstractTableModel {
 
     private final List<AddressTable> addresses;
 
-    private final String[] columns = new String[]{"name:"};
+    private final String[] columns = new String[]{"Nome:"};
 
     public AddressTableModel(List<AddressTable> addresses){
         this.addresses = addresses;
@@ -35,5 +35,6 @@ public class AddressTableModel extends AbstractTableModel {
             case 0 -> address.getName();
             default -> throw new IndexOutOfBoundsException("Campo Não Encontrado");
         };
+
     }
 }

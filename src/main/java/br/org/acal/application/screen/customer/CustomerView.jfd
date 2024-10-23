@@ -38,9 +38,11 @@ new FormModel {
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 						name: "panelOptions"
 						"border": #EmptyBorder0
-						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) {
+							"vgap": 5
+						} ) {
 							name: "panel7"
-							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
 								name: "panel5"
 								"minimumSize": new java.awt.Dimension( 150, 38 )
 								add( new FormComponent( "javax.swing.JLabel" ) {
@@ -56,7 +58,7 @@ new FormModel {
 							}, new FormLayoutConstraints( class java.lang.String ) {
 								"value": "West"
 							} )
-							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
 								name: "panel6"
 								"minimumSize": new java.awt.Dimension( 150, 38 )
 								add( new FormComponent( "javax.swing.JLabel" ) {

@@ -12,6 +12,7 @@ import br.org.acal.domain.usecase.customer.CustomerFindUseCase;
 import br.org.acal.domain.usecase.customer.CustomerSaveUseCase;
 import jakarta.validation.Validator;
 import lombok.val;
+import org.jdesktop.swingx.*;
 import org.jdesktop.swingx.VerticalLayout;
 import org.springframework.stereotype.Component;
 
@@ -235,12 +236,12 @@ public class CustomerView extends JPanel {
 
                     //======== panel7 ========
                     {
-                        panel7.setLayout(new BorderLayout());
+                        panel7.setLayout(new BorderLayout(0, 5));
 
                         //======== panel5 ========
                         {
                             panel5.setMinimumSize(new Dimension(150, 38));
-                            panel5.setLayout(new VerticalLayout());
+                            panel5.setLayout(new HorizontalLayout());
 
                             //---- label1 ----
                             label1.setText("Nome:");
@@ -262,7 +263,7 @@ public class CustomerView extends JPanel {
                         //======== panel6 ========
                         {
                             panel6.setMinimumSize(new Dimension(150, 38));
-                            panel6.setLayout(new VerticalLayout());
+                            panel6.setLayout(new HorizontalLayout());
 
                             //---- label2 ----
                             label2.setText("Documento:");

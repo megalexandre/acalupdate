@@ -56,7 +56,6 @@ public class CustomerCreateDialog extends JDialog {
 
         }
 
-
         if(customer != null){
             textFieldName.setText(customer.getName());
             textFieldDocument.setText(customer.getDocument().documentNumber());
@@ -64,8 +63,6 @@ public class CustomerCreateDialog extends JDialog {
             textFieldCreatedAt.setText(LocalDateUtil.localDateToString(customer.getCreatedAt()));
             textFieldPhoneNumber.setText(customer.getPhoneNumber());
         }
-
-
 
     }
 
@@ -95,10 +92,15 @@ public class CustomerCreateDialog extends JDialog {
         if(customer != null ){
             customerRequest.setNumber(customer.getNumber());
         }
+        try {
+            save.execute(customerRequest);
+            customerListener.onClosed();
+            dispose();
+        } catch (Exception ex){
+            showMessageDialog(this, ex.getMessage());
+        }
 
-        save.execute(customerRequest);
-        customerListener.onClosed();
-        dispose();
+
     }
 
     private String getCustomerName(){

@@ -17,4 +17,5 @@ public class Customer {
     private LocalDate createdAt;
     private String partnerNumber;
 
+
 }

@@ -80,6 +80,12 @@ public class CustomerRepositoryImpl implements CustomerDataSource {
                 predicates.add(cb.like(documentWithoutPunctuation, "%" + cleanedDocument + "%"));
             });
 
+        findCustomer.getPartnerNumber()
+            .filter(this::isValid)
+            .ifPresent(partnerNumber -> {
+            predicates.add(cb.equal(customerRoot.get("partnerNumber"), partnerNumber));
+        });
+
         findCustomer.getId()
             .ifPresent(id ->
                 predicates.add(cb.equal(customerRoot.get("id"), id))

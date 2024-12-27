@@ -1,5 +1,6 @@
 package br.org.acal.domain.usecase.link;
 
+import br.org.acal.commons.util.DefaultLocale;
 import br.org.acal.domain.datasource.LinkDataSource;
 import br.org.acal.domain.entity.Link;
 import br.org.acal.domain.model.LinkFilter;
@@ -60,7 +61,7 @@ public class LinkCreateUseCase {
                 active.getCustomer().getName()
             };
             throw new RuntimeException(
-                messageSource.getMessage("link.duplicate.address", params,  new Locale("pt", "BR"))
+                messageSource.getMessage("link.duplicate.address", params, DefaultLocale.ptBR())
             );
         }
     }

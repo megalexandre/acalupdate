@@ -1,16 +1,18 @@
 package br.org.acal.resouces.report.create;
 
+import br.org.acal.commons.util.DefaultLocale;
 import br.org.acal.domain.datasource.ReportDataSource;
 import br.org.acal.domain.entity.ReportData;
-import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Locale;
-
-import static javax.swing.JOptionPane.showMessageDialog;
 
 @Repository
 public class ReportRepository implements ReportDataSource {
@@ -54,7 +56,7 @@ public class ReportRepository implements ReportDataSource {
             data.setParam(new HashMap<>());
         }
 
-        data.getParam().put(JRParameter.REPORT_LOCALE, new Locale("pt", "BR"));
+        data.getParam().put(JRParameter.REPORT_LOCALE, DefaultLocale.ptBR());
         JasperReport mainReport = JasperCompileManager.compileReport(mainReportPath);
 
         var jasperPrint = JasperFillManager.fillReport(

@@ -34,6 +34,19 @@ public class Invoice {
         return payedAt != null;
     }
 
+    public boolean isNotPayed(){
+        return !isPayed();
+    }
+
+    public boolean isOverDue(){
+        return !isPayed() && dueDate.isBefore(now());
+    }
+
+    public boolean riskOfCancellation (){
+        return isOverDue() && dueDate.isBefore(now().plusDays(60));
+    }
+
+
     public StatusPaymentInvoice status(){
 
         if(payedAt != null ){

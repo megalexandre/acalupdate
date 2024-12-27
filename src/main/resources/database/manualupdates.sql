@@ -81,5 +81,7 @@ ADD COLUMN `partner_number` VARCHAR(45) NULL AFTER `cnpj`;
 ALTER TABLE `acal`.`pessoa`
 ADD COLUMN `created_at` DATE NULL AFTER `partner_number`;
 
+ALTER TABLE `acal`.`pessoa`
+ADD COLUMN `active` BIT(1) NOT NULL DEFAULT 1 AFTER `created_at`;
 
 UPDATE `acal`.`endereco` SET `nome` = trim(`nome`) WHERE (`id` > 0);

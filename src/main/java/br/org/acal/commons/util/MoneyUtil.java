@@ -5,6 +5,6 @@ import java.util.Locale;
 
 public class MoneyUtil {
 
-    public static NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.of("pt", "BR"));
+    public static NumberFormat currency = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
 }

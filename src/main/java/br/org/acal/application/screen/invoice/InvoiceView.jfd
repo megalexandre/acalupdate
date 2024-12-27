@@ -132,29 +132,6 @@ new FormModel {
 						}, new FormLayoutConstraints( class java.lang.String ) {
 							"value": "North"
 						} )
-						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
-							"alignment": 2
-						} ) {
-							name: "panel5"
-							add( new FormComponent( "javax.swing.JButton" ) {
-								name: "button1"
-								"text": "Imprimir"
-								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonPrintAction", true ) )
-							} )
-							add( new FormComponent( "javax.swing.JButton" ) {
-								name: "buttonClear"
-								"text": "Limpar"
-								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "clearAction", true ) )
-							} )
-							add( new FormComponent( "javax.swing.JButton" ) {
-								name: "buttonSearch"
-								"text": "Consultar"
-								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "search", true ) )
-								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchAction", true ) )
-							} )
-						}, new FormLayoutConstraints( class java.lang.String ) {
-							"value": "South"
-						} )
 						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
 							name: "panel11"
 							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
@@ -192,6 +169,29 @@ new FormModel {
 							} )
 						}, new FormLayoutConstraints( class java.lang.String ) {
 							"value": "Center"
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
+							"alignment": 2
+						} ) {
+							name: "panel5"
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "button1"
+								"text": "Imprimir"
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonPrintAction", true ) )
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "buttonClear"
+								"text": "Limpar"
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "clearAction", true ) )
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "buttonSearch"
+								"text": "Consultar"
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "search", true ) )
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchAction", true ) )
+							} )
+						}, new FormLayoutConstraints( class java.lang.String ) {
+							"value": "South"
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "South"

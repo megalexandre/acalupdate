@@ -192,10 +192,7 @@ public class InvoiceView extends JPanel {
         val invoices = page;
         val tableModel = new InvoiceTableModel(invoices.stream().map(InvoiceTable::of).toList());
         table.setModel(tableModel);
-        table.setDefaultRenderer(String.class, new StrippedTableCellRenderer());
-
         labelHelp.setText(generatePageMessage(invoices));
-
         table.setDefaultRenderer(Object.class, new InvoiceTableCellRenderer());
     }
 
@@ -217,7 +214,7 @@ public class InvoiceView extends JPanel {
             .selectedCustomer(selectedCustomer)
             .number("".equals(textFieldNumber.getText()) ? null: textFieldNumber.getText())
             .period(formattedTextFieldPeriodMonth.getText())
-            .status(((JComboBoxStatus) Objects.requireNonNull(comboBoxStatus.getSelectedItem())).getStatus())
+            .status(getStatus())
             .pageable(createPageable())
             .build();
     }
@@ -395,6 +392,10 @@ public class InvoiceView extends JPanel {
 
     }
 
+    private StatusPaymentInvoice getStatus(){
+       return (((JComboBoxStatus) Objects.requireNonNull(comboBoxStatus.getSelectedItem())).getStatus());
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner non-commercial license
@@ -424,10 +425,6 @@ public class InvoiceView extends JPanel {
         panel14 = new JPanel();
         label7 = new JLabel();
         textFieldNumber = new JTextField();
-        panel5 = new JPanel();
-        button1 = new JButton();
-        buttonClear = new JButton();
-        buttonSearch = new JButton();
         panel11 = new JPanel();
         panel13 = new JPanel();
         labelHelp = new JLabel();
@@ -437,6 +434,10 @@ public class InvoiceView extends JPanel {
         labelPageNumber = new JLabel();
         buttonNext = new JButton();
         buttonLast = new JButton();
+        panel5 = new JPanel();
+        button1 = new JButton();
+        buttonClear = new JButton();
+        buttonSearch = new JButton();
         panelCreate = new JPanel();
         contextMenu = new JPopupMenu();
         menuItemPrint = new JMenuItem();
@@ -633,30 +634,6 @@ public class InvoiceView extends JPanel {
                     }
                     panel2.add(panel4, BorderLayout.NORTH);
 
-                    //======== panel5 ========
-                    {
-                        panel5.setLayout(new FlowLayout(FlowLayout.RIGHT));
-
-                        //---- button1 ----
-                        button1.setText("Imprimir");
-                        button1.addActionListener(e -> buttonPrintAction(e));
-                        panel5.add(button1);
-
-                        //---- buttonClear ----
-                        buttonClear.setText("Limpar");
-                        buttonClear.addActionListener(e -> clearAction(e));
-                        panel5.add(buttonClear);
-
-                        //---- buttonSearch ----
-                        buttonSearch.setText("Consultar");
-                        buttonSearch.addActionListener(e -> {
-			search(e);
-			searchAction(e);
-		});
-                        panel5.add(buttonSearch);
-                    }
-                    panel2.add(panel5, BorderLayout.SOUTH);
-
                     //======== panel11 ========
                     {
                         panel11.setLayout(new VerticalLayout());
@@ -699,6 +676,30 @@ public class InvoiceView extends JPanel {
                         panel11.add(panel12);
                     }
                     panel2.add(panel11, BorderLayout.CENTER);
+
+                    //======== panel5 ========
+                    {
+                        panel5.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+                        //---- button1 ----
+                        button1.setText("Imprimir");
+                        button1.addActionListener(e -> buttonPrintAction(e));
+                        panel5.add(button1);
+
+                        //---- buttonClear ----
+                        buttonClear.setText("Limpar");
+                        buttonClear.addActionListener(e -> clearAction(e));
+                        panel5.add(buttonClear);
+
+                        //---- buttonSearch ----
+                        buttonSearch.setText("Consultar");
+                        buttonSearch.addActionListener(e -> {
+			search(e);
+			searchAction(e);
+		});
+                        panel5.add(buttonSearch);
+                    }
+                    panel2.add(panel5, BorderLayout.SOUTH);
                 }
                 panel1.add(panel2, BorderLayout.SOUTH);
             }
@@ -766,10 +767,6 @@ public class InvoiceView extends JPanel {
     private JPanel panel14;
     private JLabel label7;
     private JTextField textFieldNumber;
-    private JPanel panel5;
-    private JButton button1;
-    private JButton buttonClear;
-    private JButton buttonSearch;
     private JPanel panel11;
     private JPanel panel13;
     private JLabel labelHelp;
@@ -779,6 +776,10 @@ public class InvoiceView extends JPanel {
     private JLabel labelPageNumber;
     private JButton buttonNext;
     private JButton buttonLast;
+    private JPanel panel5;
+    private JButton button1;
+    private JButton buttonClear;
+    private JButton buttonSearch;
     private JPanel panelCreate;
     private JPopupMenu contextMenu;
     private JMenuItem menuItemPrint;

@@ -45,7 +45,7 @@ public class CreateInvoiceTable {
 
 
     private static String formatAsNumber(Double value) {
-        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.of("pt", "BR"));
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(new Locale("pt", "BR"));
         numberFormat.setMinimumFractionDigits(0);
         numberFormat.setMaximumFractionDigits(0);
         return numberFormat.format(value);

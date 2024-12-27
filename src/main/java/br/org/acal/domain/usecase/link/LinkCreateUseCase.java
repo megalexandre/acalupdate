@@ -60,7 +60,7 @@ public class LinkCreateUseCase {
                 active.getCustomer().getName()
             };
             throw new RuntimeException(
-                messageSource.getMessage("link.duplicate.address", params,  Locale.of("pt", "BR"))
+                messageSource.getMessage("link.duplicate.address", params,  new Locale("pt", "BR"))
             );
         }
     }

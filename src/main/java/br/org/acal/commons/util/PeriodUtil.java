@@ -8,7 +8,7 @@ import java.util.Locale;
 public class PeriodUtil {
 
     public static String formatter(Period period){
-        String month = period.getMonth().getDisplayName(TextStyle.FULL, Locale.of("pt", "BR"));
+        String month = period.getMonth().getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
         return String.format("%02d", period.getMonth().ordinal() + 1) + "/" +  period.getYear() + " ("+ month +")";
     }
 }

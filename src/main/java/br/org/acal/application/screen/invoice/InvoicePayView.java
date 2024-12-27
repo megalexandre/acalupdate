@@ -68,9 +68,14 @@ public class InvoicePayView extends JDialog {
 
         formattedTextFieldPaymentDate.setFormatterFactory(new DefaultFormatterFactory(maskFormatter));
 
-        if(invoice.getPayedAt() != null){
+        if(invoice.isPayed()){
             formattedTextFieldPaymentDate.setText(invoice.payedAtAsString());
+            formattedTextFieldPaymentDate.setEnabled(false);
+            checkBox1.setEnabled(false);
+            buttonPayment.setEnabled(false);
         }
+
+
     }
 
     private void paymentEvent(ActionEvent e) {

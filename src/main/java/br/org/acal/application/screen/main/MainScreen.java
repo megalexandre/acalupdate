@@ -6,12 +6,16 @@ import br.org.acal.application.screen.invoice.InvoiceView;
 import br.org.acal.application.screen.link.LinkView;
 import br.org.acal.application.screen.register.RegisterMainView;
 import br.org.acal.application.screen.water.WaterMainView;
+import br.org.acal.domain.usecase.database.BackupUseCase;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 @Component
 public class MainScreen extends JFrame {
@@ -22,6 +26,7 @@ public class MainScreen extends JFrame {
     private final LinkView linkView;
     private final RegisterMainView registerMainView;
     private final WaterMainView waterMainView;
+    private final BackupUseCase backupUseCase;
 
     public MainScreen(
             AddressView addressView,
@@ -29,7 +34,8 @@ public class MainScreen extends JFrame {
             InvoiceView invoiceView,
             LinkView linkView,
             RegisterMainView registerMainView,
-            WaterMainView waterMainView
+            WaterMainView waterMainView,
+            BackupUseCase backupUseCase
     ) {
 
         initComponents();
@@ -44,6 +50,7 @@ public class MainScreen extends JFrame {
         this.linkView = linkView;
         this.registerMainView = registerMainView;
         this.waterMainView = waterMainView;
+        this.backupUseCase = backupUseCase;
     }
 
     private void addressMenu(ActionEvent e) {
@@ -73,6 +80,14 @@ public class MainScreen extends JFrame {
         body.repaint();
     }
 
+    private void menuBackupAction() {
+        try {
+            backupUseCase.execute();
+        } catch (Exception e){
+            showMessageDialog(this, e.getMessage(), "Error", INFORMATION_MESSAGE);
+        }
+    }
+
 
 
     private void initComponents() {
@@ -90,6 +105,8 @@ public class MainScreen extends JFrame {
         menuItemSearch = new JMenuItem();
         menu3 = new JMenu();
         menuItem7 = new JMenuItem();
+        menu4 = new JMenu();
+        menuBackup = new JMenuItem();
         body = new JPanel();
 
         //======== this ========
@@ -158,6 +175,17 @@ public class MainScreen extends JFrame {
                 menu3.add(menuItem7);
             }
             menuBar1.add(menu3);
+
+            //======== menu4 ========
+            {
+                menu4.setText("Seguran\u00e7a");
+
+                //---- menuBackup ----
+                menuBackup.setText("Backup");
+                menuBackup.addActionListener(e -> menuBackupAction());
+                menu4.add(menuBackup);
+            }
+            menuBar1.add(menu4);
         }
         setJMenuBar(menuBar1);
 
@@ -186,6 +214,8 @@ public class MainScreen extends JFrame {
     private JMenuItem menuItemSearch;
     private JMenu menu3;
     private JMenuItem menuItem7;
+    private JMenu menu4;
+    private JMenuItem menuBackup;
     private JPanel body;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

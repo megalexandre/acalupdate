@@ -54,7 +54,7 @@ public class ReportRepository implements ReportDataSource {
             data.setParam(new HashMap<>());
         }
 
-        data.getParam().put(JRParameter.REPORT_LOCALE, Locale.of("pt", "BR"));
+        data.getParam().put(JRParameter.REPORT_LOCALE, new Locale("pt", "BR"));
         JasperReport mainReport = JasperCompileManager.compileReport(mainReportPath);
 
         var jasperPrint = JasperFillManager.fillReport(

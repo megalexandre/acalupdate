@@ -10,7 +10,7 @@ public class BigDecimalUtil {
 
     public static String asString(BigDecimal value){
         return Optional.ofNullable(value)
-                .map(it -> getCurrencyInstance(Locale.of("pt", "BR")).format(value))
+                .map(it -> getCurrencyInstance(new Locale("pt", "BR")).format(value))
                 .orElse("R$ 0,00");
     }
 

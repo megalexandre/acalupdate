@@ -432,6 +432,10 @@ public class LinkView extends JPanel {
 
                 //======== scrollPane1 ========
                 {
+
+                    //---- table ----
+                    table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                    table.setRowSorter(null);
                     scrollPane1.setViewportView(table);
                 }
                 panel1.add(scrollPane1, BorderLayout.CENTER);

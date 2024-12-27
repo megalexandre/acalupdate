@@ -65,6 +65,15 @@ new FormModel {
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuRegister", true ) )
 					} )
 				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu4"
+					"text": "Segurança"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuBackup"
+						"text": "Backup"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuBackupAction", false ) )
+					} )
+				} )
 			}
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )

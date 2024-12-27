@@ -1,6 +1,5 @@
 package br.org.acal.application.screen.render;
 
-import br.org.acal.application.screen.invoice.model.table.InvoiceTableModel;
 import br.org.acal.application.screen.link.model.LinkTableModel;
 import lombok.val;
 
@@ -17,41 +16,26 @@ public class LinkTableCellRenderer extends DefaultTableCellRenderer {
         val model = (LinkTableModel) table.getModel();
         val item = model.getItem(row);
 
-        Color tableForeground = UIManager.getColor("Table.foreground");
-        Color tableBackground = UIManager.getColor("Table.background");
-        Color tableSelectionForeground = UIManager.getColor("Table.selectionForeground");
-        Color tableSelectionBackground = UIManager.getColor("Table.selectionBackground");
-        Color tableSelectionInactiveForeground = UIManager.getColor("Table.selectionInactiveForeground");
-        Color tableSelectionInactiveBackground = UIManager.getColor("Table.selectionInactiveBackground");
+        val dark = Color.DARK_GRAY;
+        val blue = UIManager.getColor("Actions.Blue");
+        val green = UIManager.getColor("Actions.Green");
+        val red = UIManager.getColor("Actions.Red");
+        val yellow = UIManager.getColor("Actions.Yellow");
+        val grey  = UIManager.getColor("Table.selectionInactiveBackground");;
 
-        boolean isEvenRow = row % 2 == 0;
+
         if (isSelected) {
 
-            if(isEvenRow){
-                cellComponent.setBackground(tableSelectionBackground);
-                cellComponent.setForeground(tableSelectionForeground);
-            } else {
-                cellComponent.setBackground(tableSelectionBackground.darker());
-                cellComponent.setForeground(tableSelectionForeground.darker());
-            }
-
+            cellComponent.setBackground(blue);
         } else {
 
             if(item.isInactive()){
-               cellComponent.setForeground(tableSelectionInactiveForeground.brighter());
-               cellComponent.setBackground(tableSelectionInactiveBackground);
+                cellComponent.setForeground(dark);
+                cellComponent.setBackground(grey);
             } else {
-
-                if (isEvenRow) {
-                    cellComponent.setBackground(tableBackground);
-                    cellComponent.setForeground(tableForeground);
-                } else {
-                    cellComponent.setBackground(tableBackground.darker());
-                    cellComponent.setForeground(tableForeground.darker());
-                }
-
+                cellComponent.setForeground(dark.darker());
+                cellComponent.setBackground(grey.brighter());
             }
-
         }
 
         return cellComponent;

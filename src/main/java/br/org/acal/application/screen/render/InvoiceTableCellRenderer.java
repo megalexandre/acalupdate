@@ -17,48 +17,59 @@ public class InvoiceTableCellRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-        Color tableForeground = UIManager.getColor("Table.foreground");
-        Color tableBackground = UIManager.getColor("Table.background");
-        Color tableSelectionForeground = UIManager.getColor("Table.selectionForeground");
-        Color tableSelectionBackground = UIManager.getColor("Table.selectionBackground");
-        Color tableSelectionInactiveForeground = UIManager.getColor("Table.selectionInactiveForeground");
-        Color tableSelectionInactiveBackground = UIManager.getColor("Table.selectionInactiveBackground");
-
         val model = (InvoiceTableModel) table.getModel();
         val invoice = model.getInvoiceAt(row).getInvoice();
 
+        val dark = UIManager.getColor("Actions.Dark");
+        val blue = UIManager.getColor("Actions.Blue");
+        val green = UIManager.getColor("Actions.Green");
+        val red = UIManager.getColor("Actions.Red");
+        val yellow = UIManager.getColor("Actions.Yellow");
+        val grey  = UIManager.getColor("Table.selectionInactiveBackground");;
+
+        val isPair = row % 2 == 0;
+
+        cellComponent.setForeground(dark);
 
         if(isSelected){
 
-            cellComponent.setBackground(UIManager.getColor("Actions.Blue"));
-            cellComponent.setForeground(UIManager.getColor("Actions.Blue").darker());
+            if(isPair){
+                cellComponent.setBackground(blue);
+            } else{
+                cellComponent.setBackground(blue.brighter());
+            }
 
         } else {
-            val isPair = row % 2 == 0;
+
 
             if(invoice.isPayed()) {
 
                 if(isPair) {
-                    cellComponent.setBackground(UIManager.getColor("Actions.Green"));
+                    cellComponent.setBackground(green);
                 } else {
-                    cellComponent.setBackground(UIManager.getColor("Actions.Green").brighter());
+                    cellComponent.setBackground(green.brighter());
                 }
 
             } else {
-                if(isPair){
 
-                    cellComponent.setBackground(tableBackground);
-                    cellComponent.setForeground(tableForeground);
+                if(invoice.isOverDue()){
+
+                    if(isPair){
+                        cellComponent.setBackground(red);
+                    }else {
+                        cellComponent.setBackground(red.brighter());
+                    }
+
                 } else {
 
-                    cellComponent.setBackground(tableSelectionInactiveBackground);
-                    cellComponent.setForeground(tableForeground);
+                    if(isPair){
+                        cellComponent.setBackground(grey);
+                    } else {
+                        cellComponent.setBackground(grey.brighter());
+                    }
                 }
             }
         }
-
-
-
 
         return cellComponent;
     }

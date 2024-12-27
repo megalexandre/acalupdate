@@ -84,7 +84,7 @@ public class CustomerView extends JPanel {
 
         table.setModel(tableModel);
         val render = new StrippedTableCellRenderer();
-        table.setDefaultRenderer(String.class, render);
+        table.setDefaultRenderer(Object.class, new StrippedTableCellRenderer());
 
         range(0, table.getColumnCount()).forEach(i ->
                 table.getColumnModel().getColumn(i).setCellRenderer(render)

@@ -17,6 +17,18 @@ import java.util.stream.Stream;
 public class StartupRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
+
+        String dirBackup = System.getProperty("user.home") + "/acal/backup";
+        File directoryBackup = new File(dirBackup);
+
+        if (!directoryBackup.exists()) {
+            directoryBackup.mkdirs();
+        }
+
+        if (directoryBackup.exists()) {
+            clearDirectory(directoryBackup.toPath());
+        }
+
         String dirPath = System.getProperty("user.home") + "/acal/reports";
         File directory = new File(dirPath);
 

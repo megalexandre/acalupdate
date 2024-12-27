@@ -135,7 +135,7 @@ public class InvoiceDetailReport {
     }
 
     private static String orEmpty(BigDecimal value){
-        return (value == null ? "R$ 0,00" : getCurrencyInstance(Locale.of("pt", "BR")).format(value));
+        return (value == null ? "R$ 0,00" : getCurrencyInstance(new Locale("pt", "BR")).format(value));
     }
 
     private static String orEmpty(String value){

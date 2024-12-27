@@ -53,7 +53,7 @@ new FormModel {
 				"value": "South"
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 532 )
+			"location": new java.awt.Point( 0, 0 )
 			"size": new java.awt.Dimension( 200, 200 )
 		} )
 	}

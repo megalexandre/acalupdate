@@ -24,6 +24,8 @@ new FormModel {
 						name: "scrollPane1"
 						add( new FormComponent( "javax.swing.JTable" ) {
 							name: "table"
+							"selectionMode": 0
+							"rowSorter": sfield com.jformdesigner.model.FormObject NULL_VALUE
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "Center"

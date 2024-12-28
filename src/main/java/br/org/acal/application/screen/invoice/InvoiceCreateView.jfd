@@ -5,7 +5,7 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
 			"$columnSpecs": "left:0:1.0"
-			"$rowSpecs": "0, 0"
+			"$rowSpecs": "0, 0, 0"
 			"$alignTop": true
 			"$alignLeft": true
 		} ) {
@@ -35,6 +35,18 @@ new FormModel {
 				"vAlign": 5
 				"hAlign": 5
 			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+				name: "panel6"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label3"
+					"text": "Detalhes"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "labelDetail"
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 2
+			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 				name: "panel2"
 				"border": new javax.swing.border.TitledBorder( "Opções" )
@@ -42,20 +54,56 @@ new FormModel {
 				"alignmentY": 1.0f
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
 					name: "panel4"
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "label1"
-						"text": "Vencimento:"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+						name: "period"
+						"preferredSize": new java.awt.Dimension( 200, 51 )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label2"
+							"text": "Periodo:"
+						} )
+						add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+							name: "formattedTextFieldPeriod"
+						} )
 					} )
-					add( new FormComponent( "javax.swing.JFormattedTextField" ) {
-						name: "formattedDueDate"
-						"toolTipText": "Vencimento"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+						name: "duodate"
+						"preferredSize": new java.awt.Dimension( 200, 51 )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label1"
+							"text": "Vencimento:"
+						} )
+						add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+							name: "formattedDueDate"
+							"toolTipText": "Vencimento"
+						} )
 					} )
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "label2"
-						"text": "Periodo"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+						name: "street"
+						"preferredSize": new java.awt.Dimension( 200, 51 )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "Rua"
+							"text": "Rua:"
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "comboBoxAddress"
+							auxiliary() {
+								"JavaCodeGenerator.typeParameters": "JComboBoxModel"
+							}
+							addEvent( new FormEvent( "javax.swing.event.PopupMenuListener", "popupMenuWillBecomeVisible", "comboBoxAddressPopupMenuWillBecomeVisible", false ) )
+						} )
 					} )
-					add( new FormComponent( "javax.swing.JFormattedTextField" ) {
-						name: "formattedTextFieldPeriod"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+						name: "hasHydromter"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "Rua2"
+							"text": "Hidrômetro"
+						} )
+						add( new FormComponent( "javax.swing.JComboBox" ) {
+							name: "comboBoxHydrometer"
+							auxiliary() {
+								"JavaCodeGenerator.typeParameters": "String"
+							}
+						} )
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "West"

@@ -142,6 +142,9 @@ public class CustomerCreateDialog extends JDialog {
         panel6 = new JPanel();
         label5 = new JLabel();
         textFieldPhoneNumber = new JTextField();
+        panel8 = new JPanel();
+        label6 = new JLabel();
+        checkBox1 = new JCheckBox();
         panel7 = new JPanel();
         buttonSave = new JButton();
 
@@ -155,9 +158,9 @@ public class CustomerCreateDialog extends JDialog {
             panel1.setBorder(new TitledBorder("S\u00f3cio:"));
             panel1.setLayout(new GridBagLayout());
             ((GridBagLayout)panel1.getLayout()).columnWidths = new int[] {0, 0, 0, 0};
-            ((GridBagLayout)panel1.getLayout()).rowHeights = new int[] {0, 0, 0};
+            ((GridBagLayout)panel1.getLayout()).rowHeights = new int[] {0, 0, 0, 0, 0};
             ((GridBagLayout)panel1.getLayout()).columnWeights = new double[] {1.0, 1.0, 1.0, 1.0E-4};
-            ((GridBagLayout)panel1.getLayout()).rowWeights = new double[] {0.0, 0.0, 1.0E-4};
+            ((GridBagLayout)panel1.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
             //======== panel2 ========
             {
@@ -196,7 +199,7 @@ public class CustomerCreateDialog extends JDialog {
             }
             panel1.add(panel4, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                new Insets(0, 0, 0, 5), 0, 0));
+                new Insets(0, 0, 5, 5), 0, 0));
 
             //======== panel5 ========
             {
@@ -209,7 +212,7 @@ public class CustomerCreateDialog extends JDialog {
             }
             panel1.add(panel5, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                new Insets(0, 0, 0, 5), 0, 0));
+                new Insets(0, 0, 5, 5), 0, 0));
 
             //======== panel6 ========
             {
@@ -222,7 +225,23 @@ public class CustomerCreateDialog extends JDialog {
             }
             panel1.add(panel6, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                new Insets(0, 0, 0, 0), 0, 0));
+                new Insets(0, 0, 5, 0), 0, 0));
+
+            //======== panel8 ========
+            {
+                panel8.setLayout(new VerticalLayout());
+
+                //---- label6 ----
+                label6.setText("N\u00e3o possui voto?");
+                panel8.add(label6);
+
+                //---- checkBox1 ----
+                checkBox1.setText("Selecione-me se o cliente n\u00e3o tiver direito de voto");
+                panel8.add(checkBox1);
+            }
+            panel1.add(panel8, new GridBagConstraints(0, 2, 2, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 5), 0, 0));
         }
         contentPane.add(panel1, BorderLayout.CENTER);
 
@@ -265,6 +284,9 @@ public class CustomerCreateDialog extends JDialog {
     private JPanel panel6;
     private JLabel label5;
     private JTextField textFieldPhoneNumber;
+    private JPanel panel8;
+    private JLabel label6;
+    private JCheckBox checkBox1;
     private JPanel panel7;
     private JButton buttonSave;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on

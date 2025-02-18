@@ -1,7 +1,15 @@
 package br.org.acal.application.screen.splash;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JWindow;
+import javax.swing.SwingConstants;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class SplashScreen extends JWindow {
 
@@ -16,7 +24,7 @@ public class SplashScreen extends JWindow {
         JLabel imageLabel = new JLabel(icon);
         content.add(imageLabel, BorderLayout.CENTER);
 
-        JLabel headerLabel = new JLabel("ACAL Versão 1.0.0.BETA", SwingConstants.CENTER);
+        JLabel headerLabel = new JLabel("ACAL Versão 1.2.0.BETA", SwingConstants.CENTER);
 
         progressBar = new JProgressBar();
         progressBar.setIndeterminate(true);

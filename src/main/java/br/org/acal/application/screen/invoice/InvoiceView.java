@@ -69,7 +69,7 @@ public class InvoiceView extends JPanel {
     private final InvoiceMakePaymentUseCase makePayment;
     private final InvoiceDeleteUseCase deleteInvoice;
     private final PaymentDeleteInvoiceUseCase deletePayment;
-    private final InvoiceSaveUseCase invoiceSave;
+
     private String selectedAddress;
     private String selectedCategory;
     private String selectedCustomer;
@@ -85,7 +85,6 @@ public class InvoiceView extends JPanel {
         CategoryFindAllUseCase categoryFindAll,
         CustomerFindAllUseCase customerFindAll,
         InvoiceSearchPrintReportUseCase invoiceSearchPrintReport,
-        InvoiceSaveUseCase invoiceSave,
         InvoiceCreateView invoiceCreateView,
         InvoiceDeleteUseCase deleteInvoice,
         PaymentDeleteInvoiceUseCase deletePayment,
@@ -97,7 +96,6 @@ public class InvoiceView extends JPanel {
         this.categoryFindAll = categoryFindAll;
         this.customerFindAll = customerFindAll;
         this.invoiceSearchPrintReportUseCase = invoiceSearchPrintReport;
-        this.invoiceSave = invoiceSave;
         this.invoiceCreateView = invoiceCreateView;
         this.deleteInvoice = deleteInvoice;
         this.deletePayment = deletePayment;
@@ -321,17 +319,15 @@ public class InvoiceView extends JPanel {
         }
     }
     private void printAction(ActionEvent e) {
-        try {
-            textFieldNumber.setText(selectedInvoiceToPrint);
-            invoiceSearchPrintReportUseCase.execute(createFilter());
-        } catch (Exception ex){
-            logger.error("Error when print report", ex);
-            showMessageDialog(null, "An error occurred while generating the report: " + ex.getMessage(), "Error", INFORMATION_MESSAGE);
-        }
-
+        textFieldNumber.setText(selectedInvoiceToPrint);
+        print();
     }
 
     private void buttonPrintAction(ActionEvent e) {
+        print();
+    }
+
+    private void print(){
         try {
             invoiceSearchPrintReportUseCase.execute(createFilter());
         } catch (Exception ex){

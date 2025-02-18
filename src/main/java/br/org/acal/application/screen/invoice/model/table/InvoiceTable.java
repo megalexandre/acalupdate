@@ -1,18 +1,14 @@
 package br.org.acal.application.screen.invoice.model.table;
 
-import br.org.acal.commons.util.BigDecimalUtil;
 import br.org.acal.commons.util.PeriodUtil;
 import br.org.acal.domain.entity.Invoice;
 import lombok.Builder;
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Locale;
 
-import static br.org.acal.commons.util.MoneyUtil.currency;
 import static br.org.acal.commons.util.LocalDateTimeUtil.date;
-import static java.text.NumberFormat.getCurrencyInstance;
+import static br.org.acal.commons.util.MoneyUtil.currency;
 
 @Data
 @Builder

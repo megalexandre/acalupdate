@@ -30,7 +30,9 @@ public class CustomerSaveUseCase {
 
     private void assertSave(Customer customer){
 
-        val customerPartnerNumber = dataSource.find(FindCustomer.builder().partnerNumber(customer.getPartnerNumber()).build());
+        val customerPartnerNumber = dataSource.find(FindCustomer.builder()
+                .partnerNumber(customer.getPartnerNumber()).build());
+
         if(!customerPartnerNumber.isEmpty()){
             throw new RuntimeException("O número de sócio deve ser unico");
         }

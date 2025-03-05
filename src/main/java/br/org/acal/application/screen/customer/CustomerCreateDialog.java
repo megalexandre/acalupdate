@@ -1,26 +1,33 @@
 
 package br.org.acal.application.screen.customer;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
-
 import br.org.acal.application.screen.customer.model.CustomerCreateRequest;
 import br.org.acal.commons.util.LocalDateUtil;
-import br.org.acal.domain.entity.Address;
 import br.org.acal.domain.entity.Customer;
 import br.org.acal.domain.usecase.customer.CustomerSaveUseCase;
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import lombok.val;
-import org.jdesktop.swingx.*;
+import org.jdesktop.swingx.VerticalLayout;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Window;
+import java.text.ParseException;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -57,7 +64,8 @@ public class CustomerCreateDialog extends JDialog {
         }
 
         if(customer != null){
-            textFieldName.setText(customer.getName());
+            checkBoxIsAVoter.setSelected(customer.getIsAVoter());
+            textFieldName.setText(customer.getName().replaceAll("\\s+", " ").trim());
             textFieldDocument.setText(customer.getDocument().documentNumber());
             textFieldPartner.setText(customer.getPartnerNumber());
             textFieldCreatedAt.setText(LocalDateUtil.localDateToString(customer.getCreatedAt()));
@@ -68,6 +76,7 @@ public class CustomerCreateDialog extends JDialog {
 
     private void saveAction() {
         val request = CustomerCreateRequest.builder()
+            .isAVoter(isAVoter())
             .name(getCustomerName())
             .document(getDocumentNumber())
             .partnerNumber(getPartnerNumber())
@@ -99,12 +108,14 @@ public class CustomerCreateDialog extends JDialog {
         } catch (Exception ex){
             showMessageDialog(this, ex.getMessage());
         }
-
-
     }
 
     private String getCustomerName(){
         return textFieldName.getText();
+    }
+
+    public Boolean isAVoter(){
+        return checkBoxIsAVoter.isSelected();
     }
 
     private String getDocumentNumber(){
@@ -144,7 +155,7 @@ public class CustomerCreateDialog extends JDialog {
         textFieldPhoneNumber = new JTextField();
         panel8 = new JPanel();
         label6 = new JLabel();
-        checkBox1 = new JCheckBox();
+        checkBoxIsAVoter = new JCheckBox();
         panel7 = new JPanel();
         buttonSave = new JButton();
 
@@ -235,9 +246,9 @@ public class CustomerCreateDialog extends JDialog {
                 label6.setText("N\u00e3o possui voto?");
                 panel8.add(label6);
 
-                //---- checkBox1 ----
-                checkBox1.setText("Selecione-me se o cliente n\u00e3o tiver direito de voto");
-                panel8.add(checkBox1);
+                //---- checkBoxIsAVoter ----
+                checkBoxIsAVoter.setText("Selecione-me se o cliente n\u00e3o tiver direito de voto");
+                panel8.add(checkBoxIsAVoter);
             }
             panel1.add(panel8, new GridBagConstraints(0, 2, 2, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -286,7 +297,7 @@ public class CustomerCreateDialog extends JDialog {
     private JTextField textFieldPhoneNumber;
     private JPanel panel8;
     private JLabel label6;
-    private JCheckBox checkBox1;
+    private JCheckBox checkBoxIsAVoter;
     private JPanel panel7;
     private JButton buttonSave;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on

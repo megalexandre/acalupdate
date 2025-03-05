@@ -1,6 +1,5 @@
-
-update pessoa set nome = concat(trim(nome) ,' ', trim(sobrenome)) where id > 0;
-
+SET SQL_SAFE_UPDATES = 0;
+update pessoa set nome = concat(trim(nome),' ',trim(sobrenome)) where id > 0;
 
 -- Índices na tabela `pessoa`
 -- Verificar e remover índices existentes antes de criar novos índices
@@ -85,3 +84,26 @@ ALTER TABLE `acal`.`pessoa`
 ADD COLUMN `active` BIT(1) NOT NULL DEFAULT 1 AFTER `created_at`;
 
 UPDATE `acal`.`endereco` SET `nome` = trim(`nome`) WHERE (`id` > 0);
+
+ALTER TABLE `acal`.`pessoa`
+ADD COLUMN `isAVoter` BIT(1) NOT NULL DEFAULT 0 AFTER `created_at`;
+
+UPDATE pessoa
+SET cnpj = REGEXP_REPLACE(cnpj, '[^0-9]', '')
+WHERE cnpj REGEXP '[^0-9]';
+
+UPDATE pessoa
+SET cnpj = NULL
+WHERE cnpj = '';
+
+UPDATE pessoa
+SET cpf = REGEXP_REPLACE(cpf, '[^0-9]', '')
+WHERE cpf REGEXP '[^0-9]';
+
+UPDATE pessoa
+SET cpf = NULL
+WHERE cpf = '';
+
+UPDATE pessoa
+SET cpf = cnpj
+WHERE cpf IS NULL;

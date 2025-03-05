@@ -25,6 +25,8 @@ public class CustomerCreateRequest {
 
     private LocalDate createdAt;
 
+    private Boolean isAVoter;
+
     public Customer toCustomer(){
         return Customer.builder()
                 .name(name)
@@ -32,6 +34,7 @@ public class CustomerCreateRequest {
                 .phoneNumber(phoneNumber)
                 .partnerNumber(partnerNumber)
                 .createdAt(createdAt)
+                .isAVoter(isAVoter)
                 .active(true)
                 .build();
     }

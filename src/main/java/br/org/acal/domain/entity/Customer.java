@@ -16,6 +16,6 @@ public class Customer {
     private Boolean active;
     private LocalDate createdAt;
     private String partnerNumber;
-
+    private Boolean isAVoter;
 
 }

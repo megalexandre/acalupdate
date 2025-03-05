@@ -29,14 +29,37 @@ import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
 import org.springframework.stereotype.Component;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
-import java.util.*;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -57,9 +80,6 @@ public class LinkView extends JPanel {
     private String selectedAddress;
     private String selectedCategory;
     private String selectedGroup;
-
-    private final int LIST_LINK_INDEX = 0;
-    private final int CREATE_LINK_INDEX = 1;
 
     private LinkCreateRequest linkCreateRequest = new LinkCreateRequest();
     private List<JComboBoxCustomer> customers = new ArrayList<>();
@@ -233,6 +253,8 @@ public class LinkView extends JPanel {
     private void tabbedPaneLinkStateChanged(ChangeEvent e) {
         JTabbedPane source = (JTabbedPane) e.getSource();
         int selectedIndex = source.getSelectedIndex();
+        int CREATE_LINK_INDEX = 1;
+
         if (selectedIndex == CREATE_LINK_INDEX) {
             linkCreateRequest = new LinkCreateRequest();
 
@@ -279,7 +301,10 @@ public class LinkView extends JPanel {
             comboBoxCustomer.setSelectedIndex(0);
             comboBoxActiveAddress.setSelectedIndex(0);
             comboBoxActiveCategory.setSelectedIndex(0);
+            textFieldNumber.setText("");
+            checkBoxPartnerOnly.setSelected(false);
         }
+
     }
 
     private void customerCreateSelected(ActionEvent e) {
@@ -329,6 +354,7 @@ public class LinkView extends JPanel {
 
         try {
             linkCreateUseCase.execute(linkCreateRequest.toLink());
+            int LIST_LINK_INDEX = 0;
             tabbedPaneLink.setSelectedIndex(LIST_LINK_INDEX);
         } catch (RuntimeException ex) {
             showMessageDialog(this, ex.getMessage());

@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.3" encoding: "UTF-8"
+JFDML JFormDesigner: "8.2.4.0.393" Java: "21.0.5" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -85,7 +85,7 @@ new FormModel {
 						"text": "Não possui voto?"
 					} )
 					add( new FormComponent( "javax.swing.JCheckBox" ) {
-						name: "checkBox1"
+						name: "checkBoxIsAVoter"
 						"text": "Selecione-me se o cliente não tiver direito de voto"
 					} )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {

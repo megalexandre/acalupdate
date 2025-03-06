@@ -1,11 +1,9 @@
 package br.org.acal.resouces.repository.impl;
 
-import br.org.acal.domain.entity.WaterQuality;
 import br.org.acal.domain.datasource.WaterQualityDataSource;
+import br.org.acal.domain.entity.WaterQuality;
 import br.org.acal.resouces.adapter.mapper.WaterQualityMapper;
-import br.org.acal.resouces.model.WaterQualityModel;
 import br.org.acal.resouces.repository.interfaces.WaterQualityRepositoryJpa;
-import lombok.val;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
@@ -42,6 +40,11 @@ public class WaterQualityRepositoryImpl implements WaterQualityDataSource {
         return waterQualityRepository
                 .saveAll(items.stream().map( waterQualityMapper::map).toList())
                 .stream().map(waterQualityMapper::map).toList();
+    }
+
+    @Override
+    public void delete(LocalDate date) {
+        waterQualityRepository.deleteAllByDate(date);
     }
 
 }

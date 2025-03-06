@@ -94,6 +94,12 @@ public class LinkRepositoryImpl implements LinkDataSource {
             )
         );
 
+        find.getCustomerId().ifPresent(customerNumber -> {
+            predicates.add(
+                cb.equal(root.get("customer").get("number"), customerNumber)
+            );
+        });
+
         find.getLinkNumber().ifPresent(linkNumber -> {
             predicates.add(
                 cb.equal(root.get("linkNumber"), linkNumber)

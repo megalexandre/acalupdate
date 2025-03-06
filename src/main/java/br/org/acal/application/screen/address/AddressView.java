@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -41,10 +42,21 @@ public class AddressView extends JPanel implements Serializable {
         AddressSaveUseCase save
     ) {
         initComponents();
+        scroll();
         start();
         this.delete = delete;
         this.findAll = findAll;
         this.save = save;
+    }
+
+    private void scroll(){
+        scrollPane1.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = Color.DARK_GRAY;
+                this.trackColor = Color.LIGHT_GRAY;
+            }
+        });
     }
 
     private void start(){

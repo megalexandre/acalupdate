@@ -11,7 +11,7 @@ public class CustomerTableModel extends AbstractTableModel {
     private final int DOCUMENT = 3;
 
     private final List<CustomerTable> items;
-    private final String[] columns = new String[]{"#","Número","nome:", "Documento:"};
+    private final String[] columns = new String[]{"#:","Número:","Nome:", "Documento:"};
 
     public CustomerTableModel(List<CustomerTable> items){
         this.items = items;

@@ -12,4 +12,6 @@ public interface WaterQualityDataSource {
     List<WaterQuality> find(List<LocalDate> duoDate);
     List<WaterQuality> findAll();
     List<WaterQuality> save(List<WaterQuality> items);
+    void delete(LocalDate number);
+
 }

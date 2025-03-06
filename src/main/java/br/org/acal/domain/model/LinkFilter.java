@@ -1,6 +1,5 @@
 package br.org.acal.domain.model;
 
-import br.org.acal.domain.entity.Address;
 import lombok.Builder;
 import lombok.Setter;
 
@@ -17,8 +16,13 @@ public class LinkFilter {
     private String group;
     private String status;
     private String partner;
+    private String customerId;
     private Boolean isPayed;
     private Boolean active;
+
+    public Optional<String> getCustomerId() {
+        return Optional.ofNullable(customerId);
+    }
 
     public Optional<String> getNumber() {
         return Optional.ofNullable(number);

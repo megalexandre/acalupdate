@@ -45,6 +45,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -86,7 +87,6 @@ public class LinkView extends JPanel {
     private List<JComboBoxAddress> addresses = new ArrayList<>();
     private List<JComboBoxCategory> categories = new ArrayList<>();
 
-
     public LinkView(
             LinkFindUseCase find,
             LinkCreateUseCase linkCreateUseCase,
@@ -98,6 +98,7 @@ public class LinkView extends JPanel {
             Validator validator
     ) {
         initComponents();
+        scroll();
 
         this.find = find;
         this.linkCreateUseCase = linkCreateUseCase;
@@ -143,8 +144,20 @@ public class LinkView extends JPanel {
         setContextMenu();
         comboBoxGroup.addItem(JComboBoxModel.clearData());
         comboBoxStatus.addItem("Selecione");
-
+        comboBoxStatus.addItem("Ativo");
+        comboBoxStatus.addItem("Inativo");
+        comboBoxStatus.setSelectedIndex(1);
         labelHelper.setText("");
+    }
+
+    private void scroll(){
+        scrollPane1.getVerticalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = Color.DARK_GRAY;
+                this.trackColor = Color.LIGHT_GRAY;
+            }
+        });
     }
 
     private void search(ActionEvent e) {
@@ -181,7 +194,7 @@ public class LinkView extends JPanel {
         comboBoxAddress.setSelectedIndex(0);
         comboBoxCategory.setSelectedIndex(0);
         comboBoxGroup.setSelectedIndex(0);
-        comboBoxStatus.setSelectedIndex(0);
+        comboBoxStatus.setSelectedIndex(1);
         textFieldPartner.setText("");
         labelHelper.setText("");
     }

@@ -1,5 +1,7 @@
 package br.org.acal.application.screen.water.hydrometer.model;
 
+import br.org.acal.domain.entity.WaterQuality;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class WaterQualityTableModel extends AbstractTableModel {
 
     private final List<WaterQualityTable> items;
 
-    private final String[] columns = new String[]{"#","nome:", "Data:", "exigido:", "analizado:", "conforme:"};
+    private final String[] columns = new String[]{"#","Nome:", "Data:", "Exigido:", "Analizado:", "Conforme:"};
 
     public WaterQualityTableModel(List<WaterQualityTable> items){
         this.items = items;
@@ -33,6 +35,10 @@ public class WaterQualityTableModel extends AbstractTableModel {
     @Override
     public int getColumnCount() {
         return columns.length;
+    }
+
+    public WaterQuality getItem(int index){
+        return items.get(index).getWaterQuality();
     }
 
     @Override

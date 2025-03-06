@@ -6,9 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-import static br.org.acal.commons.util.LocalDateTimeUtil.date;
 
 @Data
 @Builder
@@ -21,6 +18,8 @@ public class WaterQualityTable {
     private String analyzed;
     private String accordance;
 
+    private WaterQuality waterQuality;
+
     public static WaterQualityTable of(WaterQuality waterQuality){
         return WaterQualityTable.builder()
                 .number(waterQuality.getNumber())
@@ -29,6 +28,7 @@ public class WaterQualityTable {
                 .required(waterQuality.getRequired())
                 .analyzed(waterQuality.getAnalyzed())
                 .accordance(waterQuality.getAccordance())
+                .waterQuality(waterQuality)
         .build();
     }
 

@@ -131,7 +131,7 @@ public class WaterQualityCreateView extends JDialog {
                 ((GridBagLayout)panel2.getLayout()).rowWeights = new double[] {1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0E-4};
 
                 //---- label5 ----
-                label5.setText("Par\u00e2metro");
+                label5.setText("Par\u00e2metro:");
                 panel2.add(label5, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 10, 10), 0, 0));
@@ -143,13 +143,13 @@ public class WaterQualityCreateView extends JDialog {
                     new Insets(0, 0, 10, 10), 0, 0));
 
                 //---- label7 ----
-                label7.setText("Analisado");
+                label7.setText("Analisado:");
                 panel2.add(label7, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 10, 10), 0, 0));
 
                 //---- label8 ----
-                label8.setText("Conforme");
+                label8.setText("Conforme:");
                 panel2.add(label8, new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 10, 0), 0, 0));

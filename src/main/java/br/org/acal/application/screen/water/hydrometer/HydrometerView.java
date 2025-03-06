@@ -1,20 +1,28 @@
 package br.org.acal.application.screen.water.hydrometer;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
-
 import br.org.acal.application.screen.render.WaterQualityTableCellRenderer;
-import br.org.acal.application.screen.water.hydrometer.create.WaterQualityCreate;
 import br.org.acal.application.screen.water.hydrometer.create.WaterQualityCreateView;
 import br.org.acal.application.screen.water.hydrometer.model.WaterQualityTable;
 import br.org.acal.application.screen.water.hydrometer.model.WaterQualityTableModel;
+import br.org.acal.domain.usecase.waterQuality.WaterQualityDeleteAllUseCase;
 import br.org.acal.domain.usecase.waterQuality.WaterQualityFindAllUseCase;
 import br.org.acal.domain.usecase.waterQuality.WaterQualitySaveAllUseCase;
 import lombok.val;
-import org.jdesktop.swingx.*;
+import org.jdesktop.swingx.HorizontalLayout;
 import org.springframework.stereotype.Component;
+
+import javax.swing.JButton;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import static javax.swing.SwingUtilities.getWindowAncestor;
 
@@ -22,12 +30,57 @@ import static javax.swing.SwingUtilities.getWindowAncestor;
 public class HydrometerView extends JPanel {
 
     private final WaterQualityFindAllUseCase find;
+    private final WaterQualityDeleteAllUseCase delete;
     private final WaterQualitySaveAllUseCase save;
 
-    public HydrometerView(WaterQualityFindAllUseCase find, WaterQualitySaveAllUseCase save) {
+    public HydrometerView(
+            WaterQualityFindAllUseCase find,
+            WaterQualitySaveAllUseCase save,
+            WaterQualityDeleteAllUseCase delete
+        ) {
         initComponents();
         this.find = find;
         this.save = save;
+        this.delete = delete;
+        setContextMenu();
+    }
+
+    private void setContextMenu(){
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                showPopup(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                showPopup(e);
+            }
+
+            private void showPopup(MouseEvent e) {
+                if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
+                    int row = table.rowAtPoint(e.getPoint());
+                    int column = table.columnAtPoint(e.getPoint());
+
+                    if (!table.isRowSelected(row)) {
+                        table.setRowSelectionInterval(row, row);
+                    }
+                    if (!table.isColumnSelected(column)) {
+                        table.setColumnSelectionInterval(column, column);
+                    }
+
+                    contextMenu.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+    }
+
+    private void deleteAction() {
+        int selectedRow = table.getSelectedRow();
+        val model = (WaterQualityTableModel) table.getModel();
+        val item = model.getItem(selectedRow);
+        delete.execute(item.getDate());
+        search();
     }
 
     private void searchEvent(ActionEvent e) {
@@ -52,6 +105,7 @@ public class HydrometerView extends JPanel {
 
     }
 
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner non-commercial license
@@ -63,6 +117,8 @@ public class HydrometerView extends JPanel {
         panel2 = new JPanel();
         scrollPane1 = new JScrollPane();
         table = new JTable();
+        contextMenu = new JPopupMenu();
+        menuItemDelete = new JMenuItem();
 
         //======== this ========
         setLayout(new BorderLayout());
@@ -111,6 +167,15 @@ public class HydrometerView extends JPanel {
             panel2.add(scrollPane1, BorderLayout.CENTER);
         }
         add(panel2, BorderLayout.CENTER);
+
+        //======== contextMenu ========
+        {
+
+            //---- menuItemDelete ----
+            menuItemDelete.setText("Deletar");
+            menuItemDelete.addActionListener(e -> deleteAction());
+            contextMenu.add(menuItemDelete);
+        }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
@@ -124,5 +189,7 @@ public class HydrometerView extends JPanel {
     private JPanel panel2;
     private JScrollPane scrollPane1;
     private JTable table;
+    private JPopupMenu contextMenu;
+    private JMenuItem menuItemDelete;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

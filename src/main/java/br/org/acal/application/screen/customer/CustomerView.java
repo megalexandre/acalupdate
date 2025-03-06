@@ -1,7 +1,6 @@
 
 package br.org.acal.application.screen.customer;
 
-import br.org.acal.application.screen.address.crud.create.AddressCreateView;
 import br.org.acal.application.screen.address.model.AddressTableModel;
 import br.org.acal.application.screen.customer.model.CustomerTable;
 import br.org.acal.application.screen.customer.model.CustomerTableModel;
@@ -12,14 +11,31 @@ import br.org.acal.domain.usecase.customer.CustomerFindUseCase;
 import br.org.acal.domain.usecase.customer.CustomerSaveUseCase;
 import jakarta.validation.Validator;
 import lombok.val;
-import org.jdesktop.swingx.*;
-import org.jdesktop.swingx.VerticalLayout;
+import org.jdesktop.swingx.HorizontalLayout;
 import org.springframework.stereotype.Component;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -43,12 +59,23 @@ public class CustomerView extends JPanel {
             CustomerSaveUseCase save,
             Validator validator) {
         initComponents();
+        scroll();
+
         this.find = find;
         this.save = save;
         this.validator = validator;
         startItems();
     }
 
+    private void scroll(){
+        scrollPane1.getVerticalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = Color.DARK_GRAY;
+                this.trackColor = Color.LIGHT_GRAY;
+            }
+        });
+    }
 
     private void startItems(){
         table.addMouseListener(new MouseAdapter() {
